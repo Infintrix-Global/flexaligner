@@ -803,6 +803,7 @@ function AddPatient() {
                           </Button>
                         </Col>
                       </Row>
+
                     </Row>
                   </Tab.Container>
                 </Col>
