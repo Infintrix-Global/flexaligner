@@ -137,7 +137,7 @@ function DoctorsList(){
                                             </tr>
                                           </thead>
 
-                                          
+
                                           <tbody>
                                             <tr>
                                               <td>1</td>
@@ -149,6 +149,11 @@ function DoctorsList(){
                                               <td>7827864761</td>
                                               <td>Active</td>
                                               <td>
+
+
+
+
+                                                
                                           
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                    
