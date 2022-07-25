@@ -144,9 +144,9 @@ function AddPatient() {
                             <Nav.Link eventKey="first" href="#">
                               <Button
                                 variant="light"
-                                style={{ borderRadius: "50%" }}
-                              >
+                                style={{ borderRadius: "50%" }}>
                                 1
+                            
                               </Button>
                               &nbsp;Patient Data
                             </Nav.Link>
@@ -155,10 +155,11 @@ function AddPatient() {
                             <Nav.Link eventKey="second" href="#">
                               <Button
                                 variant="light"
-                                style={{ borderRadius: "50%" }}
-                              >
+                                style={{ borderRadius: "50%" }}>
                                 2
+                              
                               </Button>
+                            
                               &nbsp;ClinicalMalocclusion
                             </Nav.Link>
                           </Nav.Item>
@@ -405,7 +406,16 @@ function AddPatient() {
                                 </Col>
                               </Row>
                             </Tab.Pane>
-                            <Tab.Pane eventKey="second">a</Tab.Pane>
+                            <Tab.Pane eventKey="second">
+                              <Row>
+                                <Col md={6}>
+                                <p>csd</p>
+                                </Col>
+                                <Col md={6}>
+                                <p>sdsd</p>
+                                </Col>
+                              </Row>
+                            </Tab.Pane>
                           </Tab.Content>
                         </Col>
                       </Row>
