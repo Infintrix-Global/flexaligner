@@ -100,7 +100,7 @@ function DoctorsList(){
                                 <Col className="" md={9}>
                                 <ReactHTMLTableToExcel
                     id="test-table-xls-button"
-                    className="download-table-xls-button"
+                    className="download-table-xls-button exc"
                     table="table-to-xls"
                     filename="Doctors"
                     sheet="tablexls"
@@ -153,7 +153,7 @@ function DoctorsList(){
 
 
 
-                                                
+
                                           
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                    

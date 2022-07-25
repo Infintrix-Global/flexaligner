@@ -3,7 +3,7 @@
     color: white;
 }
 
-button:not(:disabled) {
+.exc {
     background-color: #077396;
     color: white;
     border: none;
