@@ -1,0 +1,85 @@
+body{
+    overflow-x: hidden;
+    background-color: rgb(210 238 247 / 25%);
+}
+
+.navb{
+    background-color: #077396;
+}
+.menuTab {
+ 
+    box-shadow: 0px 3px 16px rgb(0 0 0 / 0.1);
+    
+    width: 100vw;
+    background: #ffffff;
+    height: 8vh;        
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transition: 0.3s all ease;
+   
+}
+.menuTab.collapsed {
+    height: 0;
+}
+
+.btn{
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem transparent, .5;
+}
+
+.user{
+    color: white;
+}
+
+.p-crd{
+    box-shadow: 0 0 20px rgba(165, 174, 177, 0.25);
+}
+
+.doc-tab{
+    float: right;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.doc-tab:focus{
+   border-bottom: 2px solid #077396;
+   border-bottom-left-radius: 0px;
+   border-bottom-right-radius: 0px;
+   transition: 0.1s border-bottom ease-in;
+   color: black;
+}
+
+.prof-tab{
+    float: left;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+
+
+}
+
+.prof-tab:focus{
+    border-bottom: 2px solid #077396;
+   border-bottom-left-radius: 0px;
+   border-bottom-right-radius: 0px;
+   transition: 0.2s border-bottom ease;
+   
+}
+
+.doc-signup{
+    background-color: #077396;
+    color: white;
+    border-radius: 10em;
+    padding: 0.5em 1.5em;
+}
+
+.form-label{
+    font-weight: 500;
+}
+
+.add-t{
+    font-size: 22px;
+    font-weight: 500;
+}

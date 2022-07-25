@@ -1,0 +1,18 @@
+.add-doc-btn{
+    background-color: #077396;
+    color: white;
+}
+
+button:not(:disabled) {
+    background-color: #077396;
+    color: white;
+    border: none;
+    padding: 0.5em 2em;
+}
+
+
+.action-i{
+    background-color: transparent !important;
+    color: black !important;
+
+}
