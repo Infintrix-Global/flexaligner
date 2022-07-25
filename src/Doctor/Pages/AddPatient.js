@@ -9,7 +9,7 @@ import {
   InputGroup,
   Navbar,
   Dropdown,
-  Card
+  Card,
 } from "react-bootstrap";
 import React, { useState } from "react";
 import { TbUser } from "react-icons/tb";
@@ -96,10 +96,10 @@ function AddPatient() {
         </Container>
       </Navbar>
       <Container fluid>
-            <Row className="menuTab">
-              <Col>
-              <Card body className="border-0">
-                {/* <Row>
+        <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              {/* <Row>
                   <Col>
                   <Button variant="link" className="doc-tab">Doctor</Button>
                   </Col>
@@ -108,15 +108,18 @@ function AddPatient() {
                   
                   </Col>
                 </Row> */}
-                 <Nav className="justify-content-center">
-                 <Nav.Link href="#deets" className="doc-tab active">Doctor</Nav.Link>
-                 <Nav.Link href="#deets" className="prof-tab">Profile</Nav.Link>
-            
-          </Nav>
-              </Card>
-              </Col>
-            </Row>
-        </Container>
+              <Nav className="justify-content-center">
+                <Nav.Link href="#deets" className="doc-tab active">
+                  Doctor
+                </Nav.Link>
+                <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link>
+              </Nav>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
 
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Container
@@ -405,7 +408,388 @@ function AddPatient() {
                                 </Col>
                               </Row>
                             </Tab.Pane>
-                            <Tab.Pane eventKey="second">a</Tab.Pane>
+                          <Tab.Pane eventKey="second">a</Tab.Pane>
+                          <Tab.Pane eventKey="third"><Row className="pt-4 justify-content-center px-5">
+                        <Col
+                          sm={{ span: 12 }}
+                          style={{ border: "solid 0.1em lightgray" }}
+                        >
+                          <Tab.Content>
+                            <Tab.Pane eventKey="first">
+                              <Row className="pt-4 pb-3">
+                                <Col md={{ span: 6 }}>
+                                  <Form.Group controlId="validationFirstname">
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="First Name"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                      <Form.Control.Feedback type="invalid">
+                                        Please Enter a First Name.
+                                      </Form.Control.Feedback>
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationLastname"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Last Name"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                      <Form.Control.Feedback type="invalid">
+                                        Please Enter a Last Name.
+                                      </Form.Control.Feedback>
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationMI"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="MI"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group>
+                                    Gender
+                                    <br></br>
+                                    <Form.Check
+                                      type="radio"
+                                      aria-label="radio 1"
+                                      label="Male"
+                                      className="pt-2"
+                                      name="gender"
+                                      inline
+                                      feedbackType="invalid"
+                                      required
+                                    />
+                                    <Form.Check
+                                      type="radio"
+                                      aria-label="radio 1"
+                                      label="Female"
+                                      name="gender"
+                                      inline
+                                      feedbackType="invalid"
+                                      required
+                                    />
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationDate"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <FaCalendarAlt
+                                          fontSize={28}
+                                        ></FaCalendarAlt>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Date"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                    </InputGroup>
+                                    <Form.Control.Feedback type="invalid">
+                                      Please Enter a Date.
+                                    </Form.Control.Feedback>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationDoctorsname"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Doctor's Name"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationClinicAddress"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text
+                                        id="basic-addon1"
+                                        style={{ height: "4em" }}
+                                      >
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        as="textarea"
+                                        rows={2}
+                                        placeholder="ClinicAddress"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationCaseNo"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Case No."
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                </Col>
+                                <Col md={{ span: 6 }}>
+                                  <Form.Group>
+                                    Ship to Office
+                                    <Form.Check
+                                      type="radio"
+                                      label="2004,
+                                          B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST,
+                                          MUMBAI 400066"
+                                      className="pt-2"
+                                    />
+                                    <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  </Form.Group>
+                                  <br></br>
+                                  Bill to Office
+                                  <Form.Check
+                                    type="radio"
+                                    aria-label="radio 1"
+                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
+                                    className="pt-2"
+                                    defaultChecked
+                                  />
+                                  <br></br>
+                                  Payer?
+                                  <Form.Check
+                                    type="radio"
+                                    aria-label="radio 1"
+                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
+                                    className="pt-2"
+                                    disabled
+                                  />
+                                </Col>
+                              </Row>
+                            </Tab.Pane>
+                          <Tab.Pane eventKey="second">a</Tab.Pane>
+                          <Tab.Pane eventKey="third"><Row className="pt-4 justify-content-center px-5">
+                        <Col
+                          sm={{ span: 12 }}
+                          style={{ border: "solid 0.1em lightgray" }}
+                        >
+                          <Tab.Content>
+                            <Tab.Pane eventKey="first">
+                              <Row className="pt-4 pb-3">
+                                <Col md={{ span: 6 }}>
+                                  <Form.Group controlId="validationFirstname">
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="First Name"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                      <Form.Control.Feedback type="invalid">
+                                        Please Enter a First Name.
+                                      </Form.Control.Feedback>
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationLastname"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Last Name"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                      <Form.Control.Feedback type="invalid">
+                                        Please Enter a Last Name.
+                                      </Form.Control.Feedback>
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationMI"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="MI"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group>
+                                    Gender
+                                    <br></br>
+                                    <Form.Check
+                                      type="radio"
+                                      aria-label="radio 1"
+                                      label="Male"
+                                      className="pt-2"
+                                      name="gender"
+                                      inline
+                                      feedbackType="invalid"
+                                      required
+                                    />
+                                    <Form.Check
+                                      type="radio"
+                                      aria-label="radio 1"
+                                      label="Female"
+                                      name="gender"
+                                      inline
+                                      feedbackType="invalid"
+                                      required
+                                    />
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationDate"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <FaCalendarAlt
+                                          fontSize={28}
+                                        ></FaCalendarAlt>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Date"
+                                        aria-describedby="inputGroupPrepend"
+                                        required
+                                      />
+                                    </InputGroup>
+                                    <Form.Control.Feedback type="invalid">
+                                      Please Enter a Date.
+                                    </Form.Control.Feedback>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationDoctorsname"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Doctor's Name"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationClinicAddress"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text
+                                        id="basic-addon1"
+                                        style={{ height: "4em" }}
+                                      >
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        as="textarea"
+                                        rows={2}
+                                        placeholder="ClinicAddress"
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                  <Form.Group
+                                    controlId="validationCaseNo"
+                                    className="mt-3"
+                                  >
+                                    <InputGroup hasValidation>
+                                      <InputGroup.Text id="inputGroupPrepend">
+                                        <TbUser fontSize={28}></TbUser>
+                                      </InputGroup.Text>
+                                      <Form.Control
+                                        type="text"
+                                        placeholder="Case No."
+                                        aria-describedby="inputGroupPrepend"
+                                      />
+                                    </InputGroup>
+                                  </Form.Group>
+                                </Col>
+                                <Col md={{ span: 6 }}>
+                                  <Form.Group>
+                                    Ship to Office
+                                    <Form.Check
+                                      type="radio"
+                                      label="2004,
+                                          B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST,
+                                          MUMBAI 400066"
+                                      className="pt-2"
+                                    />
+                                    <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  </Form.Group>
+                                  <br></br>
+                                  Bill to Office
+                                  <Form.Check
+                                    type="radio"
+                                    aria-label="radio 1"
+                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
+                                    className="pt-2"
+                                    defaultChecked
+                                  />
+                                  <br></br>
+                                  Payer?
+                                  <Form.Check
+                                    type="radio"
+                                    aria-label="radio 1"
+                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
+                                    className="pt-2"
+                                    disabled
+                                  />
+                                </Col>
+                              </Row>
+                            </Tab.Pane>
+                          <Tab.Pane eventKey="second">a</Tab.Pane>
+                          <Tab.Pane eventKey="third">c</Tab.Pane>
+                          </Tab.Content>
+                        </Col>
+                      </Row></Tab.Pane>
+                          </Tab.Content>
+                        </Col>
+                      </Row></Tab.Pane>
                           </Tab.Content>
                         </Col>
                       </Row>
