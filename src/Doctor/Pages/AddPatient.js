@@ -11,7 +11,7 @@ import {
   Dropdown,
   Card
 } from "react-bootstrap";
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { TbUser } from "react-icons/tb";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../../Doctor/Styles/AddPatient.css";
@@ -34,6 +34,7 @@ function AddPatient() {
 
   const [validated, setValidated] = useState(false);
 
+  
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -43,6 +44,43 @@ function AddPatient() {
 
     setValidated(true);
   };
+
+
+
+  const handleOndragOver = event => {
+    event.preventDefault();
+}
+const handleOndrop = event => {
+    //prevent the browser from opening the image
+    event.preventDefault(); 
+    event.stopPropagation(); 
+    //let's grab the image file
+    let imageFile = event.dataTransfer.files[0];
+    handleFile(imageFile);
+}
+
+
+  const fileInput = useRef(null);
+  const[image, setImage] = useState(null);
+  const[previewUrl, setPreviewUrl] = useState(""); 
+  const handleFile = file => {
+    //you can carry out any file validations here...
+    setImage(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  }
+  //other codes follows...
+  
+  const [selected, setSelected] = useState(true);
+
+// docu.getElementById("de1").sty
+var rbutton1=document.getElementById("r1");
+var rbutton2=document.getElementById("r2");
+var rbutton3=document.getElementById("r3");
+var rbutton4=document.getElementById("r4");
+var pg=document.getElementById("de1");
+var form=document.getElementsByClassName("fg");
+
+
 
   return (
     <>
@@ -409,12 +447,128 @@ function AddPatient() {
                             <Tab.Pane eventKey="second">
                               <Row>
                                 <Col md={6}>
-                                <p>csd</p>
+                                <p>Clinical Conditions*</p>
+                                <Row>
+                                  <Col md={6}>
+                                  <Form.Check type="checkbox" label="Crowding" />
+                                  <Form.Check type="checkbox" label="Spacing" />
+                                  <Form.Check type="checkbox" label="Class II div 1" />
+                                  <Form.Check type="checkbox" label="Class II div 2" />
+                                  <Form.Check type="checkbox" label="CClass III" />
+                                  <Form.Check type="checkbox" label="Open bite" />
+                                  <Form.Check type="checkbox" label="Anterior crossbite" />
+                                  <Form.Check type="checkbox" label="Posterior crossbite" />
+                                  </Col>
+                                  <Col md={6}>
+                                  <Form.Check type="checkbox" label="Deep Bite" />
+                                  <Form.Check type="checkbox" label="Narrow Arch" />
+                                  <Form.Check type="checkbox" label="Flared Teeth" />
+                                  <Form.Check type="checkbox" label="Overjet" />
+                                  <Form.Check type="checkbox" label="Uneven smile" />
+                                  <Form.Check type="checkbox" label="Misshapen teeth" />
+                                  <Form.Check type="checkbox" label="Other" />
+
+                                  </Col>
+                                </Row>
                                 </Col>
                                 <Col md={6}>
-                                <p>sdsd</p>
+                                <p>General Notes</p>
+                                <Row>
+                                  <Col>
+                                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        {/* <Form.Label>Example textarea</Form.Label> */}
+        <Form.Control as="textarea" rows={7} />
+        <Form.Text className="text-muted">
+        *Clinical Conditions and General Notes are for your reference and statistical purposes only and will NOT be considered as treatment planning instructions
+        </Form.Text>
+      </Form.Group>
+
+      
+                                  </Col>
+                                </Row>
                                 </Col>
                               </Row>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="fourth" className="p-3">
+                              <Row>
+                                <Col md={8}>
+                                <Card className="img-crd">
+                                  <Row className="p-3">
+                                    <Col>
+                                    <Form.Check type="radio" aria-label="radio 1" id="r1" name="radio" label="Upload patient portrait now"/>
+                                    </Col>
+                                    <Col>
+                                    <Form.Check type="radio" aria-label="radio 2" id="r2" name="radio" label="Upload patient portrait later"/>
+                                    </Col>
+                                  </Row>
+                                  <hr className="m-2"/>
+                                    <Card className="img-crd-in m-2" onDragOver = {handleOndragOver} onDrop = {handleOndrop} onClick = { () => fileInput.current.click()}>
+                                    {previewUrl?"":<p className="text-center">Drag or click to browse</p>}
+                                    { previewUrl && <div className="image-prev">
+                                  <img src={previewUrl} alt='image' className="mt-5"/> <br />
+                                  
+                                  <Button variant="" onClick={()=>{
+                                    setPreviewUrl("");
+                                  
+                                  // e.stopPropagation(); 
+                                  }}>Delete</Button>
+                                  <p> {image.name} </p>
+                                </div> }
+                                    <input 
+                                      type="file" 
+                                      accept='image/*' 
+                                      ref={fileInput} hidden 
+                                      onChange={e => handleFile(e.target.files[0])}
+                                      />
+                                    </Card>
+                                    
+                                </Card>
+                                </Col>
+                                <Col md={4}>
+                                  <Card className="p-3">
+                                    <p className="up-rec">UPLOADED RECORDS</p>
+                                  </Card>
+                                </Col>
+
+                              </Row>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="fifth">
+                                    <Row className="p-3">
+                                      <Col md={8}>
+                                      <Card className="p-3 check-crd">
+                                        <Row>
+                                          <Col>
+                                    <Form.Check type="radio" aria-label="radio 1" id="r1" name="radio" label="Decide Later"/>
+                                          </Col>
+                                          <Col>
+                                    <Form.Check type="radio" aria-label="radio 2" id="r2" name="radioo" label="PVS Impressions"/>
+                                          </Col>
+                                           <Col>
+                                    <Form.Check type="radio" aria-label="radio 3" id="r3" name="radioo" label="Intraoral Scans"/>
+                                          </Col>
+                                           <Col>
+                                    <Form.Check type="radio" aria-label="radio 4" id="r4" name="radioo" label="Models"/>
+                                          </Col>
+                                        </Row>
+
+                                        <Row>
+                                          <Col>
+                                          <p className="decide" id="de1">Decide Later.</p>
+                                          <Form.Group controlId="formFileMultiple" className="mb-3 fg" id="formFileMultiple">
+        <Form.Label>Multiple files input example</Form.Label>
+        <Form.Control type="file" multiple />
+      </Form.Group>
+                                          </Col>
+                                        </Row>
+                                      </Card>
+                                      </Col>
+                                      <Col md={4}>
+                                      <Card className="p-3">
+                                      <p className="up-rec">UPLOADED RECORDS</p>
+                                      </Card>
+                                      </Col>
+                                    </Row>
+
                             </Tab.Pane>
                           </Tab.Content>
                         </Col>

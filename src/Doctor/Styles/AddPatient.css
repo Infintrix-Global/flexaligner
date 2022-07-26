@@ -27,3 +27,37 @@
 {
     border-radius: 0%;
 }
+
+.image-prev{
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    
+}
+
+.img-crd{
+    height: 28em;
+}
+
+.img-crd-in{
+height: 27em;
+}
+
+
+.up-rec{
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    
+}
+
+
+.check-crd{
+    min-height: 12em;
+}
+
+.decide{
+    font-size: 14px;
+    line-height: 25px;
+    color: #077396;
+}
