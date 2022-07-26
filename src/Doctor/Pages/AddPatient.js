@@ -449,6 +449,45 @@ var form=document.getElementsByClassName("fg");
                             <Tab.Pane eventKey="second">
                               <Row>
                                 <Col md={6}>
+                                <p>Clinical Conditions*</p>
+                                <Row>
+                                  <Col md={6}>
+                                  <Form.Check type="checkbox" label="Crowding" />
+                                  <Form.Check type="checkbox" label="Spacing" />
+                                  <Form.Check type="checkbox" label="Class II div 1" />
+                                  <Form.Check type="checkbox" label="Class II div 2" />
+                                  <Form.Check type="checkbox" label="CClass III" />
+                                  <Form.Check type="checkbox" label="Open bite" />
+                                  <Form.Check type="checkbox" label="Anterior crossbite" />
+                                  <Form.Check type="checkbox" label="Posterior crossbite" />
+                                  </Col>
+                                  <Col md={6}>
+                                  <Form.Check type="checkbox" label="Deep Bite" />
+                                  <Form.Check type="checkbox" label="Narrow Arch" />
+                                  <Form.Check type="checkbox" label="Flared Teeth" />
+                                  <Form.Check type="checkbox" label="Overjet" />
+                                  <Form.Check type="checkbox" label="Uneven smile" />
+                                  <Form.Check type="checkbox" label="Misshapen teeth" />
+                                  <Form.Check type="checkbox" label="Other" />
+
+                                  </Col>
+                                </Row>
+                                </Col>
+                                <Col md={6}>
+                                <p>General Notes</p>
+                                <Row>
+                                  <Col>
+                                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        {/* <Form.Label>Example textarea</Form.Label> */}
+        <Form.Control as="textarea" rows={7} />
+        <Form.Text className="text-muted">
+        *Clinical Conditions and General Notes are for your reference and statistical purposes only and will NOT be considered as treatment planning instructions
+        </Form.Text>
+      </Form.Group>
+
+      
+                                  </Col>
+                                </Row>
                                   <p>csd</p>
                                 </Col>
                                 <Col md={6}>
@@ -2109,10 +2148,6 @@ var form=document.getElementsByClassName("fg");
                                     <Form.Check type="radio" aria-label="radio 4" id="r4" name="radioo" label="Models"/>
                                           </Col>
                                         </Row>
-
-
-
-                                        
 
                                         <Row>
                                           <Col>
