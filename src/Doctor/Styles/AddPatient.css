@@ -111,3 +111,22 @@ tbody, td, tfoot, th, thead, tr {
   }
 
  
+.nav-link:focus, .nav-link:hover {
+    color: #077396;
+
+    
+}
+
+
+
+.crd-up2{
+ height: 25em;   
+}
+
+
+.img-s2{
+    max-height: 8em;
+    background-size: contain;
+}
+
+
