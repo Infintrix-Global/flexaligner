@@ -11,7 +11,7 @@ import {
   Dropdown,
   Card,
 } from "react-bootstrap";
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import { TbUser } from "react-icons/tb";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../../Doctor/Styles/AddPatient.css";
@@ -34,7 +34,6 @@ function AddPatient() {
 
   const [validated, setValidated] = useState(false);
 
-  
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -45,42 +44,156 @@ function AddPatient() {
     setValidated(true);
   };
 
-
-
-  const handleOndragOver = event => {
+  const handleOndragOver = (event) => {
     event.preventDefault();
-}
-const handleOndrop = event => {
+  };
+  const handleOndrop = (event) => {
     //prevent the browser from opening the image
-    event.preventDefault(); 
-    event.stopPropagation(); 
+    event.preventDefault();
+    event.stopPropagation();
     //let's grab the image file
     let imageFile = event.dataTransfer.files[0];
     handleFile(imageFile);
-}
+    handleFile1(imageFile);
+    handleFile2(imageFile);
+    handleFile3(imageFile);
+    handleFile4(imageFile);
+    handleFile5(imageFile);
+    handleFile6(imageFile);
+    handleFile7(imageFile);
 
+
+  };
 
   const fileInput = useRef(null);
-  const[image, setImage] = useState(null);
-  const[previewUrl, setPreviewUrl] = useState(""); 
-  const handleFile = file => {
+  const fileInput1 = useRef(null);
+  const fileInput2 = useRef(null);
+  const fileInput3 = useRef(null);
+  const fileInput4 = useRef(null);
+  const fileInput5 = useRef(null);
+  const fileInput6 = useRef(null);
+  const fileInput7 = useRef(null);
+
+
+
+  const [image, setImage] = useState(null);
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
+  const [image4, setImage4] = useState(null);
+  const [image5, setImage5] = useState(null);
+  const [image6, setImage6] = useState(null);
+  const [image7, setImage7] = useState(null);
+
+
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewUrl1, setPreviewUrl1] = useState("");
+  const [previewUrl2, setPreviewUrl2] = useState("");
+  const [previewUrl3, setPreviewUrl3] = useState("");
+  const [previewUrl4, setPreviewUrl4] = useState("");
+  const [previewUrl5, setPreviewUrl5] = useState("");
+  const [previewUrl6, setPreviewUrl6] = useState("");
+  const [previewUrl7, setPreviewUrl7] = useState("");
+
+
+
+  const handleFile = (file) => {
     //you can carry out any file validations here...
     setImage(file);
+
+
     setPreviewUrl(URL.createObjectURL(file));
+   
+
+  };
+
+
+
+  const handleFile1=(file)=>{
+    setImage1(file);
+    setPreviewUrl1(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile2=(file)=>{
+    setImage2(file);
+    setPreviewUrl2(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile3=(file)=>{
+    setImage3(file);
+    setPreviewUrl3(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile4=(file)=>{
+    setImage4(file);
+    setPreviewUrl4(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile5=(file)=>{
+    setImage5(file);
+    setPreviewUrl5(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile6=(file)=>{
+    setImage6(file);
+    setPreviewUrl6(URL.createObjectURL(file));
+
+    
+  }
+
+  const handleFile7=(file)=>{
+    setImage7(file);
+    setPreviewUrl7(URL.createObjectURL(file));
+
+    
   }
   //other codes follows...
-  
-  const [selected, setSelected] = useState(true);
 
-// docu.getElementById("de1").sty
-var rbutton1=document.getElementById("r1");
-var rbutton2=document.getElementById("r2");
-var rbutton3=document.getElementById("r3");
-var rbutton4=document.getElementById("r4");
-var pg=document.getElementById("de1");
-var form=document.getElementsByClassName("fg");
+  // const [selected, setSelected] = useState(true);
+
+  // docu.getElementById("de1").sty
+  var rbutton1 = document.getElementById("r1");
+  var rbutton2 = document.getElementById("r2");
+  var rbutton3 = document.getElementById("r3");
+  var rbutton4 = document.getElementById("r4");
+  var pg = document.getElementById("de1");
+  var form = document.getElementsByClassName("fg");
 
 
+
+
+
+
+  // const [selectedImages, setSelectedImages] = useState([]);
+
+  // const onSelectFile = (event) => {
+  //   const selectedFiles = event.target.files;
+  //   const selectedFilesArray = Array.from(selectedFiles);
+
+  //   const imagesArray = selectedFilesArray.map((file) => {
+  //     return URL.createObjectURL(file);
+  //   });
+
+  //   setSelectedImages((previousImages) => previousImages.concat(imagesArray));
+
+  //   // FOR BUG IN CHROME
+  //   event.target.value = "";
+  // };
+
+  // function deleteHandler(image) {
+  //   setSelectedImages(selectedImages.filter((e) => e !== image));
+  //   URL.revokeObjectURL(image);
+  // }
 
   return (
     <>
@@ -2086,102 +2199,476 @@ var form=document.getElementsByClassName("fg");
                                   </table>
                                 </Col>
                               </Row>
+                              <h6 className="mt-3">Additional Instruction:</h6>
+                              <Form.Group
+                                controlId="validationInstruction"
+                                className="mt-3 mb-5"
+                              >
+                                <InputGroup hasValidation>
+                                  <Form.Control
+                                    as="textarea"
+                                    rows={7}
+                                    aria-describedby="inputGroupPrepend"
+                                  />
+                                </InputGroup>
+                              </Form.Group>
                             </Tab.Pane>
                             <Tab.Pane eventKey="fourth" className="p-3">
                               <Row>
                                 <Col md={8}>
-                                <Card className="img-crd">
-                                  <Row className="p-3">
-                                    <Col>
-                                    <Form.Check type="radio" aria-label="radio 1" id="r1" name="radio" label="Upload patient portrait now"/>
-                                    </Col>
-                                    <Col>
-                                    <Form.Check type="radio" aria-label="radio 2" id="r2" name="radio" label="Upload patient portrait later"/>
-                                    </Col>
-                                  </Row>
-                                  <hr className="m-2"/>
-                                    <Card className="img-crd-in m-2" onDragOver = {handleOndragOver} onDrop = {handleOndrop} onClick = { () => fileInput.current.click()}>
-                                    {previewUrl?"":<p className="text-center">Drag or click to browse</p>}
-                                    { previewUrl && <div className="image-prev">
-                                  <img src={previewUrl} alt='image' className="mt-5"/> <br />
-                                  
-                                  <Button variant="" onClick={()=>{
-                                    setPreviewUrl("");
-                                  
-                                  // e.stopPropagation(); 
-                                  }}>Delete</Button>
-                                  <p> {image.name} </p>
-                                </div> }
-                                    <input 
-                                      type="file" 
-                                      accept='image/*' 
-                                      ref={fileInput} hidden 
-                                      onChange={e => handleFile(e.target.files[0])}
+                                  <Card className="img-crd">
+                                    <Row className="p-3">
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          id="r1"
+                                          name="radio"
+                                          label="Upload patient portrait now"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 2"
+                                          id="r2"
+                                          name="radio"
+                                          label="Upload patient portrait later"
+                                        />
+                                      </Col>
+                                    </Row>
+                                    <hr className="m-2" />
+                                    <Card
+                                      className="img-crd-in m-2"
+                                      onDragOver={handleOndragOver}
+                                      onDrop={handleOndrop}
+                                      onClick={() => fileInput.current.click()}
+                                    >
+                                      {previewUrl ? (
+                                        ""
+                                      ) : (
+                                        <p className="text-center">
+                                          Drag or click to browse
+                                        </p>
+                                      )}
+                                      {previewUrl && (
+                                        <div className="image-prev">
+                                          <img
+                                            src={previewUrl}
+                                            alt="image"
+                                            className="mt-5"
+                                          />{" "}
+                                          <br />
+                                          <Button
+                                            variant=""
+                                            onClick={() => {
+                                              setPreviewUrl("");
+
+                                              // e.stopPropagation();
+                                            }}
+                                          >
+                                            Delete
+                                          </Button>
+                                          <p> {image.name} </p>
+                                        </div>
+                                      )}
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile(e.target.files[0])
+                                        }
                                       />
                                     </Card>
-                                    
-                                </Card>
+                                  </Card>
                                 </Col>
                                 <Col md={4}>
                                   <Card className="p-3">
                                     <p className="up-rec">UPLOADED RECORDS</p>
                                   </Card>
                                 </Col>
-
                               </Row>
                             </Tab.Pane>
                             <Tab.Pane eventKey="fifth">
-                                    <Row className="p-3">
-                                      <Col md={8}>
-                                      <Card className="p-3 check-crd">
-                                        <Row>
-                                          <Col>
-                                    <Form.Check type="radio" aria-label="radio 1" id="r1" name="radio" label="Decide Later"/>
-                                          </Col>
-                                          <Col>
-                                    <Form.Check type="radio" aria-label="radio 2" id="r2" name="radioo" label="PVS Impressions"/>
-                                          </Col>
-                                           <Col>
-                                    <Form.Check type="radio" aria-label="radio 3" id="r3" name="radioo" label="Intraoral Scans"/>
-                                          </Col>
-                                           <Col>
-                                    <Form.Check type="radio" aria-label="radio 4" id="r4" name="radioo" label="Models"/>
-                                          </Col>
-                                        </Row>
-
-                                        <Row>
-                                          <Col>
-                                          <p className="decide" id="de1">Decide Later.</p>
-                                          <Form.Group controlId="formFileMultiple" className="mb-3 fg" id="formFileMultiple">
-        <Form.Label>Multiple files input example</Form.Label>
-        <Form.Control type="file" multiple />
-      </Form.Group>
-                                          </Col>
-                                        </Row>
-                                      </Card>
+                              <Row className="p-3">
+                                <Col md={8}>
+                                  <Card className="p-3 check-crd">
+                                    <Row>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          id="r1"
+                                          name="radio"
+                                          label="Decide Later"
+                                        />
                                       </Col>
-                                      <Col md={4}>
-                                      <Card className="p-3">
-                                      <p className="up-rec">UPLOADED RECORDS</p>
-                                      </Card>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 2"
+                                          id="r2"
+                                          name="radioo"
+                                          label="PVS Impressions"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 3"
+                                          id="r3"
+                                          name="radioo"
+                                          label="Intraoral Scans"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 4"
+                                          id="r4"
+                                          name="radioo"
+                                          label="Models"
+                                        />
                                       </Col>
                                     </Row>
 
+                                    <Row>
+                                      <Col>
+                                        <p className="decide" id="de1">
+                                          Decide Later.
+                                        </p>
+                                        <Form.Group
+                                          controlId="formFileMultiple"
+                                          className="mb-3 fg"
+                                          id="formFileMultiple"
+                                        >
+                                          <Form.Label>
+                                            Multiple files input example
+                                          </Form.Label>
+                                          <Form.Control type="file" multiple />
+                                        </Form.Group>
+                                      </Col>
+                                    </Row>
+                                  </Card>
+                                </Col>
+                                <Col md={4}>
+                                  <Card className="p-3">
+                                    <p className="up-rec">UPLOADED RECORDS</p>
+                                  </Card>
+                                </Col>
+                              </Row>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="sixth">
+                            {/* <section>
+      <label>
+        + Add Images
+        <br />  
+        <span>up to 10 images</span>
+        <input
+          type="file"
+          name="images"
+          onChange={onSelectFile}
+          multiple
+          accept="image/png , image/jpeg, image/webp"
+        />
+      </label>
+      <br />
+
+      <input type="file" multiple />
+
+      {selectedImages.length > 0 &&
+        (selectedImages.length > 10 ? (
+          <p className="error">
+            You can't upload more than 10 images! <br />
+            <span>
+              please delete <b> {selectedImages.length - 10} </b> of them{" "}
+            </span>
+          </p>
+        ) : (
+          <button
+            className="upload-btn"
+            onClick={() => {
+              console.log(selectedImages);
+            }}
+          >
+            UPLOAD {selectedImages.length} IMAGE
+            {selectedImages.length === 1 ? "" : "S"}
+          </button>
+        ))}
+
+      <div className="images">
+        {selectedImages &&
+          selectedImages.map((image, index) => {
+            return (
+              <div key={image} className="image">
+                <img src={image} height="200" alt="upload" />
+                <button onClick={() => deleteHandler(image)}>
+                  delete image
+                </button>
+                <p>{index + 1}</p>
+              </div>
+            );
+          })}
+      </div>
+    </section> */}
+
+
+
+<Row className="m-2">
+                                <Col md={8}>
+                                  <Card className="img-crd">
+                                    <Row className="p-3">
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          id="r1"
+                                          name="radio"
+                                          label="Upload photos now"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 2"
+                                          id="r2"
+                                          name="radio"
+                                          label="Upload photos later"
+                                        />
+                                      </Col>
+                                    </Row>
+                                    <hr className="m-2" />
+                                    <Card
+                                      className="img-crd-in m-2 p-3"
+                                      // onDragOver={handleOndragOver}
+                                      // onDrop={handleOndrop}
+                                      // onClick={() => fileInput.current.click()}
+                                    >
+                                       <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput1}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile1(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput2}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile2(e.target.files[0])}/>
+                                          
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput3}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile3(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput4}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile4(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput5}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile5(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput6}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile6(e.target.files[0])}/>
+
+                                          <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput7}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile7(e.target.files[0])}/>
+
+
+                                      <Row>
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput.current.click()}>
+                                        {previewUrl && (
+                                       
+                                          <img
+                                            src={previewUrl}
+                                            alt="image"
+                                            className="img-s"
+                                          />
+                                         
+                                        )}
+                                        </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                         <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput1.current.click()}>
+                                         {previewUrl1 && (
+                                       
+                                       <img
+                                         src={previewUrl1}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                        </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput2.current.click()}>
+                                        {previewUrl2 && (
+                                       
+                                       <img
+                                         src={previewUrl2}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                      </Row>
+                                      <Row className="mt-3">
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput3.current.click()}>
+                                        {previewUrl3 && (
+                                       
+                                       <img
+                                         src={previewUrl3}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                        <Card className="border-0 p-2">
+                                            <p>Drag and drop individual photos from desktop folder to respective tile</p>
+                                        </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput4.current.click()}>
+                                        {previewUrl4 && (
+                                       
+                                       <img
+                                         src={previewUrl4}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                      </Row>
+                                      <Row className="mt-3">
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput5.current.click()}>
+                                        {previewUrl5 && (
+                                       
+                                       <img
+                                         src={previewUrl5}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput6.current.click()}>
+                                        {previewUrl6 && (
+                                       
+                                       <img
+                                         src={previewUrl6}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                        <Col md={4}>
+                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput7.current.click()}>
+                                        {previewUrl7 && (
+                                       
+                                       <img
+                                         src={previewUrl7}
+                                         alt="image"
+                                         className="img-s"
+                                       />
+                                      
+                                     )}
+                                          </Card>
+                                        </Col>
+                                      </Row>
+                                      
+                                      {/* {previewUrl ? (
+                                        ""
+                                      ) : (
+                                        <p className="text-center">
+                                          Drag or click to browse
+                                        </p>
+                                      )} */}
+                                      {/* {" "}
+                                          <br />
+                                          <Button
+                                            variant=""
+                                            onClick={() => {
+                                              setPreviewUrl("");
+
+                                              // e.stopPropagation();
+                                            }}
+                                          >
+                                            Delete
+                                          </Button>
+                                          <p> {image.name} </p>
+                                        </div>
+                                      )}
+                                     
+                                        } */}
+                                    </Card>
+                                     <Row className="m-2 mt-1">
+                                      <Col>
+                                      <p className="m-0 pb-1">Add More Photos</p>
+                                      <Form.Control type="file" multiple  className=""/>
+                                      </Col>
+                                     </Row>
+                                  </Card>
+                                </Col>
+                                <Col md={4}>
+                                  <Card className="p-3">
+                                    <p className="up-rec">UPLOADED RECORDS</p>
+                                  </Card>
+                                </Col>
+                              </Row>
+
                             </Tab.Pane>
                           </Tab.Content>
-                          <h6 className="mt-3">Additional Instruction:</h6>
-                          <Form.Group
-                            controlId="validationInstruction"
-                            className="mt-3 mb-5"
-                          >
-                            <InputGroup hasValidation>
-                              <Form.Control
-                                as="textarea"
-                                rows={7}
-                                aria-describedby="inputGroupPrepend"
-                              />
-                            </InputGroup>
-                          </Form.Group>
                         </Col>
                       </Row>
                       <Row className="text-end pt-3">
@@ -2189,7 +2676,8 @@ var form=document.getElementsByClassName("fg");
                           <Button variant="outline-dark" className="mx-3">
                             Back
                           </Button>
-                          <Button type="submit"  className="nextbtn">
+                          <Button type="submit" className="nextbtn">
+
                             Next
                           </Button>
                         </Col>

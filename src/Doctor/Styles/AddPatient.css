@@ -35,15 +35,26 @@
     
 }
 
-.img-crd{
-    height: 28em;
+/* .img-crd{
+    height: 29em;
+} */
+
+/* .img-crd-in{
+max-height: 27em;
+overflow-y: scroll;
+overflow-x: hidden;
+} */
+
+.crd-up{
+    height: 6em;
+
 }
 
-.img-crd-in{
-height: 27em;
+.img-s{
+    /* width: 12em; */
+    max-height: 5.5em;
+    background-size: contain;
 }
-
-
 .up-rec{
     font-size: 14px;
     line-height: 24px;
@@ -92,3 +103,11 @@ tbody, td, tfoot, th, thead, tr {
     color: white;
     border-color: white;
 }
+
+.image {
+    margin: 1rem 0.5rem;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  }
+
+ 
