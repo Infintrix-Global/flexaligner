@@ -92,3 +92,6 @@ tbody, td, tfoot, th, thead, tr {
     color: white;
     border-color: white;
 }
+.nav-link:focus, .nav-link:hover {
+    color: #077396;
+}

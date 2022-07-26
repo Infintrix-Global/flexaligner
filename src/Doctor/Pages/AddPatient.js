@@ -142,10 +142,13 @@ function AddPatient() {
                 </Row> */}
               <Nav className="justify-content-center">
                 <Nav.Link href="#deets" className="doc-tab active">
-                  Doctor
+                  Patient
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
                   Profile
+                </Nav.Link>
+                <Nav.Link href="#deets" className="prof-tab">
+                  Support
                 </Nav.Link>
               </Nav>
             </Card>
