@@ -2202,6 +2202,93 @@ function AddPatient() {
                                 </Col>
                               </Row>
                             </Tab.Pane>
+                            <Tab.Pane eventKey="seventh" className="p-3">
+                              <Row>
+                                <Col md={8}>
+                                  <Card className="img-crd">
+                                    <Row className="p-3">
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          id="r1"
+                                          name="radio"
+                                          label="Upload Radiographs Now"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 2"
+                                          id="r2"
+                                          name="radio"
+                                          label="Upload Radiographs later"
+                                        />
+                                      </Col>
+                                      <Col>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 2"
+                                          id="r3"
+                                          name="radio"
+                                          label="No Radiographs"
+                                        />
+                                      </Col>
+                                    </Row>
+                                    <hr className="m-2" />
+                                    <Card
+                                      className="img-crd-in m-2"
+                                      onDragOver={handleOndragOver}
+                                      onDrop={handleOndrop}
+                                      onClick={() => fileInput.current.click()}
+                                    >
+                                      {previewUrl ? (
+                                        ""
+                                      ) : (
+                                        <p className="text-center">
+                                          Drag or click to browse
+                                        </p>
+                                      )}
+                                      {previewUrl && (
+                                        <div className="image-prev">
+                                          <img
+                                            src={previewUrl}
+                                            alt="image"
+                                            className="mt-5"
+                                          />{" "}
+                                          <br />
+                                          <Button
+                                            variant=""
+                                            onClick={() => {
+                                              setPreviewUrl("");
+
+                                              // e.stopPropagation();
+                                            }}
+                                          >
+                                            Delete
+                                          </Button>
+                                          <p> {image.name} </p>
+                                        </div>
+                                      )}
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInput}
+                                        hidden
+                                        onChange={(e) =>
+                                          handleFile(e.target.files[0])
+                                        }
+                                      />
+                                    </Card>
+                                  </Card>
+                                </Col>
+                                <Col md={4}>
+                                  <Card className="p-3">
+                                    <p className="up-rec">UPLOADED RECORDS</p>
+                                  </Card>
+                                </Col>
+                              </Row>
+                            </Tab.Pane>
                           </Tab.Content>
                         </Col>
                       </Row>
