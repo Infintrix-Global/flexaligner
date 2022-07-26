@@ -27,37 +27,34 @@
 {
     border-radius: 0%;
 }
-
-.image-prev{
-    justify-content: center;
-    text-align: center;
-    background-size: cover;
-    
+.form-label {
+    font-weight:normal;
 }
-
-.img-crd{
-    height: 28em;
+.hrline
+{
+    border: 1px solid #077396;
 }
-
-.img-crd-in{
-height: 27em;
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    padding-left: 2em;
+    border-width: 0;
 }
+.hrrl
+{
+    border: 1px dashed;
+    border-color: #077396;
 
-
-.up-rec{
-    font-size: 14px;
-    line-height: 24px;
-    font-weight: 700;
-    
 }
-
-
-.check-crd{
-    min-height: 12em;
+.nextbtn
+{
+    background-color: #077396;
+    color: white;
+    border-color: white;
 }
-
-.decide{
-    font-size: 14px;
-    line-height: 25px;
-    color: #077396;
+.nextbtn:hover {
+   
+    background-color: #077396;
+    color: white;
+    border-color: white;
 }
