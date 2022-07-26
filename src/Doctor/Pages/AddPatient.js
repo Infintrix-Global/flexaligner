@@ -408,389 +408,1622 @@ function AddPatient() {
                                 </Col>
                               </Row>
                             </Tab.Pane>
-                          <Tab.Pane eventKey="second">a</Tab.Pane>
-                          <Tab.Pane eventKey="third"><Row className="pt-4 justify-content-center px-5">
-                        <Col
-                          sm={{ span: 12 }}
-                          style={{ border: "solid 0.1em lightgray" }}
-                        >
-                          <Tab.Content>
-                            <Tab.Pane eventKey="first">
-                              <Row className="pt-4 pb-3">
-                                <Col md={{ span: 6 }}>
-                                  <Form.Group controlId="validationFirstname">
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="First Name"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                      <Form.Control.Feedback type="invalid">
-                                        Please Enter a First Name.
-                                      </Form.Control.Feedback>
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationLastname"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Last Name"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                      <Form.Control.Feedback type="invalid">
-                                        Please Enter a Last Name.
-                                      </Form.Control.Feedback>
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationMI"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="MI"
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group>
-                                    Gender
-                                    <br></br>
-                                    <Form.Check
-                                      type="radio"
-                                      aria-label="radio 1"
-                                      label="Male"
-                                      className="pt-2"
-                                      name="gender"
-                                      inline
-                                      feedbackType="invalid"
-                                      required
-                                    />
-                                    <Form.Check
-                                      type="radio"
-                                      aria-label="radio 1"
-                                      label="Female"
-                                      name="gender"
-                                      inline
-                                      feedbackType="invalid"
-                                      required
-                                    />
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationDate"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <FaCalendarAlt
-                                          fontSize={28}
-                                        ></FaCalendarAlt>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Date"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                    </InputGroup>
-                                    <Form.Control.Feedback type="invalid">
-                                      Please Enter a Date.
-                                    </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationDoctorsname"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Doctor's Name"
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationClinicAddress"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text
-                                        id="basic-addon1"
-                                        style={{ height: "4em" }}
-                                      >
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        as="textarea"
-                                        rows={2}
-                                        placeholder="ClinicAddress"
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationCaseNo"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Case No."
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
+                            <Tab.Pane eventKey="second">
+                              <Row>
+                                <Col md={6}>
+                                  <p>csd</p>
                                 </Col>
-                                <Col md={{ span: 6 }}>
-                                  <Form.Group>
-                                    Ship to Office
-                                    <Form.Check
-                                      type="radio"
-                                      label="2004,
-                                          B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST,
-                                          MUMBAI 400066"
-                                      className="pt-2"
-                                    />
-                                    <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-                                  </Form.Group>
-                                  <br></br>
-                                  Bill to Office
-                                  <Form.Check
-                                    type="radio"
-                                    aria-label="radio 1"
-                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
-                                    className="pt-2"
-                                    defaultChecked
-                                  />
-                                  <br></br>
-                                  Payer?
-                                  <Form.Check
-                                    type="radio"
-                                    aria-label="radio 1"
-                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
-                                    className="pt-2"
-                                    disabled
-                                  />
+                                <Col md={6}>
+                                  <p>sdsd</p>
                                 </Col>
                               </Row>
                             </Tab.Pane>
-                          <Tab.Pane eventKey="second">a</Tab.Pane>
-                          <Tab.Pane eventKey="third"><Row className="pt-4 justify-content-center px-5">
-                        <Col
-                          sm={{ span: 12 }}
-                          style={{ border: "solid 0.1em lightgray" }}
-                        >
-                          <Tab.Content>
-                            <Tab.Pane eventKey="first">
+                            <Tab.Pane eventKey="third">
                               <Row className="pt-4 pb-3">
                                 <Col md={{ span: 6 }}>
-                                  <Form.Group controlId="validationFirstname">
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="First Name"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                      <Form.Control.Feedback type="invalid">
-                                        Please Enter a First Name.
-                                      </Form.Control.Feedback>
-                                    </InputGroup>
-                                  </Form.Group>
+                                  <p>Chief Complaint</p>
                                   <Form.Group
-                                    controlId="validationLastname"
+                                    controlId="validationChiefComplaint"
                                     className="mt-3"
                                   >
                                     <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Last Name"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                      <Form.Control.Feedback type="invalid">
-                                        Please Enter a Last Name.
-                                      </Form.Control.Feedback>
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationMI"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="MI"
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group>
-                                    Gender
-                                    <br></br>
-                                    <Form.Check
-                                      type="radio"
-                                      aria-label="radio 1"
-                                      label="Male"
-                                      className="pt-2"
-                                      name="gender"
-                                      inline
-                                      feedbackType="invalid"
-                                      required
-                                    />
-                                    <Form.Check
-                                      type="radio"
-                                      aria-label="radio 1"
-                                      label="Female"
-                                      name="gender"
-                                      inline
-                                      feedbackType="invalid"
-                                      required
-                                    />
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationDate"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <FaCalendarAlt
-                                          fontSize={28}
-                                        ></FaCalendarAlt>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Date"
-                                        aria-describedby="inputGroupPrepend"
-                                        required
-                                      />
-                                    </InputGroup>
-                                    <Form.Control.Feedback type="invalid">
-                                      Please Enter a Date.
-                                    </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationDoctorsname"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
-                                      <Form.Control
-                                        type="text"
-                                        placeholder="Doctor's Name"
-                                        aria-describedby="inputGroupPrepend"
-                                      />
-                                    </InputGroup>
-                                  </Form.Group>
-                                  <Form.Group
-                                    controlId="validationClinicAddress"
-                                    className="mt-3"
-                                  >
-                                    <InputGroup hasValidation>
-                                      <InputGroup.Text
-                                        id="basic-addon1"
-                                        style={{ height: "4em" }}
-                                      >
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
                                       <Form.Control
                                         as="textarea"
-                                        rows={2}
-                                        placeholder="ClinicAddress"
+                                        rows={6}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
                                   </Form.Group>
                                   <Form.Group
-                                    controlId="validationCaseNo"
+                                    controlId="validationQuotation"
                                     className="mt-3"
                                   >
+                                    <Form.Label>
+                                      Quotation (Only Numbers Eg:20000)
+                                    </Form.Label>
                                     <InputGroup hasValidation>
-                                      <InputGroup.Text id="inputGroupPrepend">
-                                        <TbUser fontSize={28}></TbUser>
-                                      </InputGroup.Text>
                                       <Form.Control
                                         type="text"
-                                        placeholder="Case No."
                                         aria-describedby="inputGroupPrepend"
+                                        required
                                       />
+                                      <Form.Control.Feedback type="invalid">
+                                        Please Enter a Quotation.
+                                      </Form.Control.Feedback>
                                     </InputGroup>
                                   </Form.Group>
                                 </Col>
                                 <Col md={{ span: 6 }}>
-                                  <Form.Group>
-                                    Ship to Office
-                                    <Form.Check
-                                      type="radio"
-                                      label="2004,
-                                          B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST,
-                                          MUMBAI 400066"
-                                      className="pt-2"
-                                    />
-                                    <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Row>
+                                    <Col md={{ span: 6 }}>
+                                      <p>Upper Midline</p>
+                                      <Form.Group>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Centered"
+                                          name="midline"
+                                        />
+                                      </Form.Group>
+                                      <Form.Group controlId="validationRight">
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Shifted Right"
+                                          name="midline"
+                                        />
+                                        <InputGroup hasValidation>
+                                          <Form.Control
+                                            type="number"
+                                            aria-describedby="inputGroupPrepend"
+                                          />
+                                          &nbsp; MM
+                                        </InputGroup>
+                                      </Form.Group>
+                                      <Form.Group controlId="validationRight">
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Shifted Left"
+                                          name="midline"
+                                        />
+                                        <InputGroup hasValidation>
+                                          <Form.Control
+                                            type="number"
+                                            aria-describedby="inputGroupPrepend"
+                                          />
+                                          &nbsp; MM
+                                        </InputGroup>
+                                      </Form.Group>
+                                      <p className="mt-4">Lower Midline</p>
+                                      <Form.Group>
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Centered"
+                                          name="Lowermidline"
+                                        />
+                                      </Form.Group>
+                                      <Form.Group controlId="validationRight">
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Shifted Right"
+                                          name="Lowermidline"
+                                        />
+                                        <InputGroup hasValidation>
+                                          <Form.Control
+                                            type="number"
+                                            aria-describedby="inputGroupPrepend"
+                                          />
+                                          &nbsp; MM
+                                        </InputGroup>
+                                      </Form.Group>
+                                      <Form.Group controlId="validationRight">
+                                        <Form.Check
+                                          type="radio"
+                                          aria-label="radio 1"
+                                          label="Shifted Left"
+                                          name="Lowermidline"
+                                        />
+                                        <InputGroup hasValidation>
+                                          <Form.Control
+                                            type="number"
+                                            aria-describedby="inputGroupPrepend"
+                                          />
+                                          &nbsp; MM
+                                        </InputGroup>
+                                      </Form.Group>
+                                    </Col>
+                                    <Col md={{ span: 6 }}>
+                                      <p>Canine Relationship</p>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Right Class
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Control type="number" />
+                                        </Col>
+                                      </Form.Group>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                        className="mt-2 mb-4"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Left Class
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Control type="number" />
+                                        </Col>
+                                      </Form.Group>
+                                      <p>Molar Relationship</p>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Right Class
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Control type="number" />
+                                        </Col>
+                                      </Form.Group>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                        className="mt-2 mb-4"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Left Class
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Control type="number" />
+                                        </Col>
+                                      </Form.Group>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                        className="mt-2"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Endon
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Select size="sm">
+                                            <option>Select</option>
+                                            <option>Right</option>
+                                            <option>Left</option>
+                                            <option>Both</option>
+                                          </Form.Select>
+                                        </Col>
+                                      </Form.Group>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                        className="mt-2"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Overbite
+                                        </Form.Label>
+                                        <Col sm="5">
+                                          <Form.Select size="sm">
+                                            <option>Select</option>
+                                            <option>25%</option>
+                                            <option>50%</option>
+                                            <option>75%</option>
+                                            <option>100%</option>
+                                          </Form.Select>
+                                        </Col>
+                                      </Form.Group>
+                                      <Form.Group
+                                        as={Row}
+                                        controlId="validationCanine"
+                                        className="mt-2 mb-4"
+                                      >
+                                        <Form.Label column sm="4">
+                                          Overjet
+                                        </Form.Label>
+                                        <Col sm="5 p-0">
+                                          <Form.Control type="number" />
+                                        </Col>
+                                        <Col sm="1 px-2">MM</Col>
+                                      </Form.Group>
+                                    </Col>
+                                  </Row>
+                                </Col>
+                              </Row>
+                              <hr className="hrline" />
+                              <Row>
+                                <Col md={{ span: 5 }}>
+                                  <h3>Instruction</h3>
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Upper Midline:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct1"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct1"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct1"
+                                      />
+                                    </Col>
                                   </Form.Group>
-                                  <br></br>
-                                  Bill to Office
-                                  <Form.Check
-                                    type="radio"
-                                    aria-label="radio 1"
-                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
-                                    className="pt-2"
-                                    defaultChecked
-                                  />
-                                  <br></br>
-                                  Payer?
-                                  <Form.Check
-                                    type="radio"
-                                    aria-label="radio 1"
-                                    label="2004, B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
-                                    className="pt-2"
-                                    disabled
-                                  />
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Lower Midline:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct2"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct2"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct2"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Overjet:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct3"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct3"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct3"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Overbite:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct4"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct4"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct4"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Arch Form:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct5"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct5"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct5"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Canine Relationship:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct6"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct6"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct6"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Molar Relationship:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct7"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct7"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct7"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Posterior Crossbite :
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Maintain"
+                                        name="instruct8"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Improve"
+                                        name="instruct8"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Idealize"
+                                        name="instruct8"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      IPR :
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Yes"
+                                        name="instruct9"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="No"
+                                        name="instruct9"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Only If Needed"
+                                        name="instruct9"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Engagers & Attachments:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Yes"
+                                        name="instruct10"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="No"
+                                        name="instruct10"
+                                      />
+                                    </Col>
+
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Only If Needed"
+                                        name="instruct10"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Procline:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Yes"
+                                        name="instruct11"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="No"
+                                        name="instruct11"
+                                      />
+                                    </Col>
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Only If Needed"
+                                        name="instruct11"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Expand:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Yes"
+                                        name="instruct12"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="No"
+                                        name="instruct12"
+                                      />
+                                    </Col>
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Only If Needed"
+                                        name="instruct12"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+
+                                  <Form.Group as={Row}>
+                                    <Form.Label column sm="4">
+                                      Distalize:
+                                    </Form.Label>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Yes"
+                                        name="instruct13"
+                                      />
+                                    </Col>
+                                    <Col sm="3" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="No"
+                                        name="instruct13"
+                                      />
+                                    </Col>
+                                    <Col sm="2" className="mt-2">
+                                      <Form.Check
+                                        type="radio"
+                                        aria-label="radio 1"
+                                        label="Only If Needed"
+                                        name="instruct13"
+                                      />
+                                    </Col>
+                                  </Form.Group>
+                                </Col>
+                              </Row>
+                              <hr className="hrline" />
+                              <Row>
+                                <Col md={{ span: 12 }}>
+                                  <h3>Teeth are labeled</h3>
+                                  <h6>
+                                    Do Not Move These Teeth (Bridges, Ankylosed
+                                    Teeth, Etc.) :
+                                  </h6>
+                                  <table className="mt-3">
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            18
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <div>
+                                            17
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            16
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            15
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            14
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            13
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            12
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            11
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            21
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            22
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            23
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            24
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            25
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            26
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            27
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            28
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          R
+                                        </td>
+                                        <td colspan="16">
+                                          <hr
+                                            className="hrrl"
+                                            style={{
+                                              borderTop:
+                                                "margin-top: 25px; margin-bottom: 0px;",
+                                            }}
+                                          />
+                                        </td>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          L
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            48
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            47
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            46
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            45
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            44
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            43
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            42
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            41
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            31
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            32
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            33
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            34
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            35
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            36
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            37
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            38
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <h6 className="mt-4">
+                                    Avoid Engagers & Attachments On These Teeth
+                                    (Facial Restoration, Etc.) :
+                                  </h6>
+                                  <table className="mt-3">
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            18
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <div>
+                                            17
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            16
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            15
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            14
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            13
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            12
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            11
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            21
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            22
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            23
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            24
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            25
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            26
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            27
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            28
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          R
+                                        </td>
+                                        <td colspan="16">
+                                          <hr
+                                            className="hrrl"
+                                            style={{
+                                              borderTop:
+                                                "margin-top: 25px; margin-bottom: 0px;",
+                                            }}
+                                          />
+                                        </td>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          L
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            48
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            47
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            46
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            45
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            44
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            43
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            42
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            41
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            31
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            32
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            33
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            34
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            35
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            36
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            37
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            38
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <h6 className="mt-4">
+                                    I Will Extract These Teeth Before Treatment
+                                    :
+                                  </h6>
+                                  <table className="mt-3">
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            18
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <div>
+                                            17
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            16
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            15
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            14
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            13
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            12
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            11
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            21
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            22
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            23
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            24
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            25
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            26
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            27
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            28
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          R
+                                        </td>
+                                        <td colspan="16">
+                                          <hr
+                                            className="hrrl"
+                                            style={{
+                                              borderTop:
+                                                "margin-top: 25px; margin-bottom: 0px;",
+                                            }}
+                                          />
+                                        </td>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          L
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            48
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            47
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            46
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            45
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            44
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            43
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            42
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            41
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            31
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            32
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            33
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            34
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            35
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            36
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            37
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            38
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <h6 className="mt-4">
+                                    Leave These Spaces Open :{" "}
+                                  </h6>
+                                  <table className="mt-3">
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            18
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+
+                                        <td>
+                                          <div>
+                                            17
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            16
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            15
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            14
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            13
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            12
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            11
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            21
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            22
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            23
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            24
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            25
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            26
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            27
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            28
+                                            <br />
+                                            <Form.Check aria-label="option 1" />
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          R
+                                        </td>
+                                        <td colspan="16">
+                                          <hr
+                                            className="hrrl"
+                                            style={{
+                                              borderTop:
+                                                "margin-top: 25px; margin-bottom: 0px;",
+                                            }}
+                                          />
+                                        </td>
+                                        <td style={{ padding: "0px 8px;" }}>
+                                          L
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td></td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            48
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            47
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            46
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            45
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            44
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            43
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            42
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            41
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            31
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            32
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            33
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            34
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            35
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            36
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            37
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div>
+                                            <Form.Check aria-label="option 1" />
+                                            38
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </Col>
                               </Row>
                             </Tab.Pane>
-                          <Tab.Pane eventKey="second">a</Tab.Pane>
-                          <Tab.Pane eventKey="third">c</Tab.Pane>
                           </Tab.Content>
-                        </Col>
-                      </Row></Tab.Pane>
-                          </Tab.Content>
-                        </Col>
-                      </Row></Tab.Pane>
-                          </Tab.Content>
+                          <h6 className="mt-3">Additional Instruction:</h6>
+                          <Form.Group
+                            controlId="validationInstruction"
+                            className="mt-3 mb-5"
+                          >
+                            <InputGroup hasValidation>
+                              <Form.Control
+                                as="textarea"
+                                rows={7}
+                                aria-describedby="inputGroupPrepend"
+                              />
+                            </InputGroup>
+                          </Form.Group>
                         </Col>
                       </Row>
                       <Row className="text-end pt-3">
@@ -798,12 +2031,11 @@ function AddPatient() {
                           <Button variant="outline-dark" className="mx-3">
                             Back
                           </Button>
-                          <Button type="submit" variant="outline-dark">
+                          <Button type="submit"  className="nextbtn">
                             Next
                           </Button>
                         </Col>
                       </Row>
-
                     </Row>
                   </Tab.Container>
                 </Col>

@@ -27,3 +27,34 @@
 {
     border-radius: 0%;
 }
+.form-label {
+    font-weight:normal;
+}
+.hrline
+{
+    border: 1px solid #077396;
+}
+tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    padding-left: 2em;
+    border-width: 0;
+}
+.hrrl
+{
+    border: 1px dashed;
+    border-color: #077396;
+
+}
+.nextbtn
+{
+    background-color: #077396;
+    color: white;
+    border-color: white;
+}
+.nextbtn:hover {
+   
+    background-color: #077396;
+    color: white;
+    border-color: white;
+}
