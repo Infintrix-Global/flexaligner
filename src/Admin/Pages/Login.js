@@ -10,11 +10,31 @@ import {
 } from "react-bootstrap";
 import "../Styles/Login.css";
 import logo from "../../Assets/Ologo.png";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
+const [data, setData] = useState({
+Username:"",
+Password:""
+})
+
+
+const handle=(e)=>{
+  const newdata={...data}
+  newdata[e.target.name]=e.target.value;
+  setData(newdata);
+  console.log(newdata);
+}
+
+const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/VerifyLogin";
+
+
+const navigate=useNavigate();
+
+const handleSubmit = (event) => {
+  event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -22,7 +42,57 @@ function Login() {
     }
 
     setValidated(true);
+   
+    fetch(url,{
+      method:"POST",
+      headers:{
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then((res)=>res.json()).then((result)=>{
+      // console.log(result.message);
+      if(result.message==="Login Success"){
+        navigate("/view-doctors")
+      }
+    })
+
+
+  
+    
+
   };
+
+
+  // var details = {
+  //   'userName': "Doctor",
+  //   'password': "Doctor@123",
+  //   'grant_type': 'password'
+  //   };
+    
+  //   var formBody = [];
+  //   for (var property in details) {
+  //   var encodedKey = encodeURIComponent(property);
+  //   var encodedValue = encodeURIComponent(details[property]);
+  //   formBody.push(encodedKey + "=" + encodedValue);
+  //   }
+  //   formBody = formBody.join("&");
+    
+  //   fetch(url, {
+  //   method: 'POST',
+  //   headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   body: formBody
+  //   })
+
+  
+  // };
+
+ 
+
+
+
   return (
     <>
       <Container fluid>
@@ -53,14 +123,18 @@ function Login() {
                 <Row className="mt-3 m-3">
                   <Col>
                     <Form.Group controlId="validationCustom01">
-                      <Form.Label>Email Address</Form.Label>
+                      <Form.Label>UserName</Form.Label>
                       <Form.Control
                         required
-                        type="email"
-                        placeholder="Enter Email"
+                        type="text"
+                        placeholder="Enter UserName"
+                        name="Username"
+                        // id="Email"
+                        onChange={(e)=>handle(e)}
+                        value={data.Email}
                         className="p-2"
                       />
-                      <Form.Control.Feedback type="invalid">Enter Email Address!</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid">Enter Username!</Form.Control.Feedback>
                     </Form.Group>
                     <Row className="mt-3">
                       <Col>
@@ -68,7 +142,12 @@ function Login() {
                           <Form.Label>Password</Form.Label>
                           <Form.Control
                             required
-                            type="Password"
+                            type="password"
+                            name="Password"
+                            // id="Password"
+                        onChange={(e)=>handle(e)}
+
+                            value={data.Password}
                             placeholder="Enter Password"
                             className="p-2"
                           />

@@ -71,7 +71,7 @@ body{
 .doc-signup{
     background-color: #077396;
     color: white;
-    border-radius: 10em;
+    border-radius: 10em !important;
     padding: 0.5em 1.5em;
 }
 

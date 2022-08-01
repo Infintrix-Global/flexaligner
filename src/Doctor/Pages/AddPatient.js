@@ -21,7 +21,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import * as $ from "jquery";
+import $ from "jquery";
 
 function AddPatient() {
   const tglContent = () => {
@@ -249,12 +249,12 @@ function AddPatient() {
 
 
 
-  var rbutton1 = document.getElementById("r1");
-  var rbutton2 = document.getElementById("r2");
-  var rbutton3 = document.getElementById("r3");
-  var rbutton4 = document.getElementById("r4");
-  var pg = document.getElementById("de1");
-  var form = document.getElementsByClassName("fg");
+  // var rbutton1 = document.getElementById("r1");
+  // var rbutton2 = document.getElementById("r2");
+  // var rbutton3 = document.getElementById("r3");
+  // var rbutton4 = document.getElementById("r4");
+  // var pg = document.getElementById("de1");
+  // var form = document.getElementsByClassName("fg");
 
 //   var disppg=pg.style
 // // pg.style.display="none";
@@ -302,6 +302,12 @@ $("input[name$='graph']").click(function() {
 
 
 });
+
+
+
+
+
+
 
 
   return (

@@ -5,12 +5,15 @@ import {IoMdNotifications} from "react-icons/io";
 import {IoEyeOutline} from "react-icons/io5";
 
 import {FiMessageSquare,FiPower} from "react-icons/fi";
-import {FaBars,FaEdit} from "react-icons/fa";
+import {FaBars,FaEdit, FaPlus} from "react-icons/fa";
 import logo from "../../Assets/Ologo.png";
 import user from "../../Assets/user.png";
 import ReactHTMLTableToExcel from 'react-html-to-excel';
-
+import {LinkContainer} from 'react-router-bootstrap';
+import {useNavigate} from "react-router-dom";
 import {CgProfile} from "react-icons/cg";
+import $ from "jquery";
+
 
 function DoctorsList(){
     const tglContent = () => {
@@ -24,7 +27,18 @@ function DoctorsList(){
           Menu.classList.add("collapsed");
         }
       }
+const navigate=useNavigate();
 
+
+
+
+// $(document).on("click", ".edit", function(){		
+//   $(this).parents("tr").find("td:not(:last-child)").each(function(){
+// $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+// });		
+// $(this).parents("tr").find(".add, .edit").toggle();
+// $(".add-new").attr("disabled", "disabled");
+// });
     return(
         <>
         <Navbar collapseOnSelect expand="lg" className="navb">
@@ -72,12 +86,12 @@ function DoctorsList(){
                   </Col>
                   <Col>
                   <Button variant="link" className="prof-tab">Profile</Button>
-                  
+                   
                   </Col>
                 </Row> */}
                  <Nav className="justify-content-center">
-                 <Nav.Link href="#deets" className="doc-tab active">Doctor</Nav.Link>
-                 <Nav.Link href="#deets" className="prof-tab">Profile</Nav.Link>
+                 <LinkContainer to="/add-doctor"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
+                 <Nav.Link className="prof-tab">Profile</Nav.Link>
             
           </Nav>
               </Card>
@@ -90,7 +104,7 @@ function DoctorsList(){
                 <Card>
                     <Row className="text-end mt-3 me-2">
                         <Col>
-                        <Button variant="" className="add-doc-btn">Add Doctor</Button>
+                        <Button variant="" className="add-doc-btn" onClick={navigate("/add-doctor")}>Add Doctor</Button>
                         </Col>
                     </Row>
                     <Row>
@@ -156,8 +170,9 @@ function DoctorsList(){
 
                                           
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
+                                                    {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */}
                                                    
-                                                    <span><Button variant="" className="action-i"><FaEdit color="black"/></Button></span>
+                                                    <span><Button variant="" className="action-i edit"><FaEdit color="black"/></Button></span>
                                                    
                                               </td>
 
@@ -180,7 +195,7 @@ function DoctorsList(){
                                           
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                    
-                                                    <span><Button variant="" className="action-i"><FaEdit color="black"/></Button></span>
+                                                    <span><Button variant="" className="action-i edit"><FaEdit color="black"/></Button></span>
                                                    
                                               </td>
 
@@ -200,7 +215,7 @@ function DoctorsList(){
                                           
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                    
-                                                    <span><Button variant="" className="action-i"><FaEdit color="black"/></Button></span>
+                                                    <span><Button variant="" className="action-i edit"><FaEdit color="black"/></Button></span>
                                                    
                                               </td>
 

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Button, Col, Container ,Nav,Navbar, Row,Dropdown,Card,Form} from "react-bootstrap";
 import logo from "../../Assets/Ologo.png";
 import "../../Admin/Styles/AddDoctor.css";
@@ -6,8 +6,9 @@ import {IoMdNotifications} from "react-icons/io";
 import {FiMessageSquare,FiPower} from "react-icons/fi";
 import {FaBars} from "react-icons/fa";
 import {CgProfile} from "react-icons/cg";
-
+import {useNavigate} from "react-router-dom";
 import user from "../../Assets/user.png";
+import {LinkContainer} from 'react-router-bootstrap';
 
 
 
@@ -21,6 +22,118 @@ function AddDoctor(){
   //   setActivePath(path);
   // }, []);
 
+
+  const [data, setData] = useState({
+    FirstName:"",
+    LastName:"",
+    PracticeName:"",
+    PracticeName1:"",
+    TaxID:"",
+    Street1:"",
+    Street2:"",
+    City:"",
+    Country:"",
+    PostalCode:"",
+    PracticeWebsite:"",
+    Fax:"",
+    PracticeEmail:"",
+    PhoneNo:"",
+    Password:"",
+    ConfirmPassword:"",
+    mode:"1"
+  })
+
+
+  const [checked, setChecked] = useState({
+    isSelCCountry: false,
+    isSelPCountry: false,
+    isSelCState: false,
+    isSelPState: false,
+    isSelCCity: false,
+    isSelPCity: false,
+  });
+  const [countries, setCountries] = useState({
+    currentCountries: [],
+    // permCountries: [],
+  });
+  const [states, setStates] = useState({
+    currentStates: [],
+    // permStates: [],
+  });
+  const [cities, setCities] = useState({
+    currentCities: [],
+    // permCities: [],
+  });
+
+
+  useEffect(()=>{
+    
+  },[])
+
+
+  const handle=(e)=>{
+    const newdata={...data}
+    newdata[e.target.name]=e.target.value;
+    setData(newdata);
+    console.log(newdata);
+
+
+
+
+
+
+
+    switch (e.target.name) {
+      case "Country": {
+        setChecked((preData) => {
+          return {
+            ...preData,
+            isSelCCountry: true,
+            isSelCState: false,
+            isSelCCity: false,
+          };
+        });
+        // getStates(e.target.value, "current");
+        // setCities((preData) => {
+        //   return {
+        //     ...preData,
+        //     currentCities: [],
+        //   };
+        // });
+        setData((preData) => {
+          return {
+            ...preData,
+            CurrentCountryId: e.target.value,
+            CurrentStateId: "",
+            CurrentCityId: "",
+          };
+        });
+        break;
+      }
+      case "State": {
+        setChecked((preData) => {
+          return { ...preData, isSelCState: true, isSelCCity: false };
+        });
+        // getCities(e.target.value, "current");
+        setData((preData) => {
+          return {
+            ...preData,
+            CurrentCityId: "",
+          };
+        });
+        break;
+      }
+      case "City": {
+        setChecked((preData) => {
+          return { ...preData, isSelCCity: true };
+        });
+        break;
+      }
+    
+    }
+  }
+  const navigate=useNavigate();
+
       const tglContent = () => {
         let Menu = document.querySelector(".menuTab");
         
@@ -33,19 +146,48 @@ function AddDoctor(){
         }
       }
 
-
+      const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
 
       const [validated, setValidated] = useState(false);
 
       const handleSubmit = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
         }
-    
+
+
+
+
+        
         setValidated(true);
+
+
+
+
+        fetch(url,{
+          method:"POST",
+          headers:{
+            Accept: "application/json",
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then((res)=>res.json()).then((result)=>{
+          console.log(result.message);
+          if(result.message==="Added Successful"){
+            navigate("/view-doctors")
+          }
+        })
       };
+
+
+
+
+
+
+      
 
     return(
         <>
@@ -98,8 +240,8 @@ function AddDoctor(){
                   </Col>
                 </Row> */}
                  <Nav className="justify-content-center">
-                 <Nav.Link href="#deets" className="doc-tab active">Doctor</Nav.Link>
-                 <Nav.Link href="#deets" className="prof-tab">Profile</Nav.Link>
+                 <LinkContainer to="/add-doctor"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
+                 <LinkContainer to="/doctor-profile"><Nav.Link className="prof-tab">Profile</Nav.Link></LinkContainer> 
             
           </Nav>
               </Card>
@@ -123,6 +265,9 @@ function AddDoctor(){
                         <Form.Control
                           required
                           type="text"
+                        onChange={(e)=>handle(e)}
+                        name="FirstName"
+                        value={data.FirstName}
                           placeholder="Enter First Name"
                           className="p-3"
                         />
@@ -134,6 +279,9 @@ function AddDoctor(){
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
                           required
+                        onChange={(e)=>handle(e)}
+                          name="LastName"
+                          value={data.LastName}
                           type="text"
                           placeholder="Enter Last Name"
                           className="p-3"
@@ -147,24 +295,30 @@ function AddDoctor(){
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Practice Name</Form.Label>
                         <Form.Control
-                          required
+                          // required
                           type="text"
+                        onChange={(e)=>handle(e)}
+                          name="PracticeName"
+                          value={data.PracticeName}
                           placeholder="Enter Practice Name"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name!</Form.Control.Feedback>
+                        {/* <Form.Control.Feedback type="invalid">Enter Practice Name!</Form.Control.Feedback> */}
                       </Form.Group>
                       </Col>
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Practice Name1</Form.Label>
                         <Form.Control
-                          required
+                          // required
                           type="text"
+                        onChange={(e)=>handle(e)}
+                          name='PracticeName1'
+                          value={data.PracticeName1}
                           placeholder="Enter Practice Name1"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name1!</Form.Control.Feedback>
+                        {/* <Form.Control.Feedback type="invalid">Enter Practice Name1!</Form.Control.Feedback> */}
                       </Form.Group>
                       </Col>
                       </Row>
@@ -173,12 +327,15 @@ function AddDoctor(){
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Tax ID</Form.Label>
                         <Form.Control
-                          required
+                          // required
+                        onChange={(e)=>handle(e)}
+                          name="TaxID"
+                          value={data.TaxID}
                           type="text"
                           placeholder="Enter Tax ID"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Tax ID!</Form.Control.Feedback>
+                        {/* <Form.Control.Feedback type="invalid">Enter Tax ID!</Form.Control.Feedback> */}
                       </Form.Group>
                       </Col>
                      
@@ -195,50 +352,60 @@ function AddDoctor(){
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Street 1</Form.Label>
                         <Form.Control
-                          required
+                          // required
+                        onChange={(e)=>handle(e)}
+                        name="Street1"
+                        value={data.Street1}
                           type="text"
                           placeholder="Enter Strret"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name!</Form.Control.Feedback>
+                        {/* <Form.Control.Feedback type="invalid">Enter Practice Name!</Form.Control.Feedback> */}
                       </Form.Group>
                       </Col>
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Street 2</Form.Label>
                         <Form.Control
-                          required
+                          // required
+                        onChange={(e)=>handle(e)}
+                        name="Street2"
+                        value={data.Street2}
                           type="text"
                           placeholder="Enter Practice Name1"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name1!</Form.Control.Feedback>
+                        {/* <Form.Control.Feedback type="invalid">Enter Practice Name1!</Form.Control.Feedback> */}
                       </Form.Group>
                       </Col>
                       </Row>
                       <Row className="mt-3">
                       <Col md={6}>
-                      <Form.Group controlId="validationCustom01">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="Enter Practice Name"
-                          className="p-3"
-                        />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name!</Form.Control.Feedback>
+                      
+
+
+<Form.Group controlId="validationCustom01">
+                        <Form.Label>Country</Form.Label>
+                        <Form.Select aria-label="Default select example" className="p-3">
+      <option>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+    
+                        <Form.Control.Feedback type="invalid">Enter Country!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="Enter Practice Name1"
-                          className="p-3"
-                        />
-                        <Form.Control.Feedback type="invalid">Enter Practice Name1!</Form.Control.Feedback>
+                        <Form.Label>State</Form.Label>
+                        <Form.Select aria-label="Default select example" className="p-3">
+      <option>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+                        <Form.Control.Feedback type="invalid">Enter State!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
                       </Row>
@@ -246,9 +413,26 @@ function AddDoctor(){
                       <Row className="mt-3">
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
+                        <Form.Label>City</Form.Label>
+                        
+                         <Form.Select aria-label="Default select example" className="p-3">
+      <option>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+                        <Form.Control.Feedback type="invalid">Enter Postal Code!</Form.Control.Feedback>
+                      </Form.Group>
+                      </Col>
+                      <Col md={6}>
+                      <Form.Group controlId="validationCustom01">
                         <Form.Label>Postal Code</Form.Label>
+                       
                         <Form.Control
                           required
+                        onChange={(e)=>handle(e)}
+                        name="PostalCode"
+                        value={data.PostalCode}
                           type="text"
                           placeholder="Enter Postal Code"
                           className="p-3"
@@ -256,26 +440,34 @@ function AddDoctor(){
                         <Form.Control.Feedback type="invalid">Enter Postal Code!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
-                      <Col md={6}>
-                      <Form.Group controlId="validationCustom01">
-                        <Form.Label>Practice Website</Form.Label>
-                        <Form.Control
-                          required
-                          type="text"
-                          placeholder="Enter Practice Website"
-                          className="p-3"
-                        />
-                        <Form.Control.Feedback type="invalid">Enter Practice Website!</Form.Control.Feedback>
-                      </Form.Group>
-                      </Col>
                       </Row>
 
                       <Row className="mt-3">
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
+                        <Form.Label>Practice Website</Form.Label>
+                     
+                         <Form.Control
+                          // required
+                        onChange={(e)=>handle(e)}
+                        name="PracticeWebsite"
+                        value={data.PracticeWebsite}
+                          type="text"
+                          placeholder="Enter Practice Website"
+                          className="p-3"
+                        />
+                        {/* <Form.Control.Feedback type="invalid">Enter Fax!</Form.Control.Feedback> */}
+                      </Form.Group>
+                      </Col>
+                      <Col md={6}>
+                      <Form.Group controlId="validationCustom01">
                         <Form.Label>Fax</Form.Label>
-                        <Form.Control
-                          required
+                        
+                           <Form.Control
+                          // required
+                        onChange={(e)=>handle(e)}
+                        name="Fax"
+                        value={data.Fax}
                           type="text"
                           placeholder="Enter Fax"
                           className="p-3"
@@ -283,11 +475,18 @@ function AddDoctor(){
                         <Form.Control.Feedback type="invalid">Enter Fax!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
+                      </Row>
+
+                      <Row className="mt-3">
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Practice Email</Form.Label>
+                       
                         <Form.Control
                           required
+                        onChange={(e)=>handle(e)}
+                        name='PracticeEmail'
+                        value={data.PracticeEmail}
                           type="email"
                           placeholder="Enter Practice Email"
                           className="p-3"
@@ -295,46 +494,54 @@ function AddDoctor(){
                         <Form.Control.Feedback type="invalid">Enter Practice Email!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
-                      </Row>
-
-                      <Row className="mt-3">
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
-                        <Form.Label>Phone No.</Form.Label>
-                        <Form.Control
+                        <Form.Label>Phone No</Form.Label>
+                       
+                         <Form.Control
                           required
+                        onChange={(e)=>handle(e)}
+                        name="PhoneNo"
+                        value={data.PhoneNo}
                           type="number"
                           placeholder="Enter Phone No."
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Phone No.!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Enter Phone No!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
+                      </Row>
+                      <Row className="mt-3">
                       <Col md={6}>
                       <Form.Group controlId="validationCustom01">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control
+                       
+                         <Form.Control
                           required
                           type="password"
+                        onChange={(e)=>handle(e)}
+                        name="Password"
+                        value={data.Password}
                           placeholder="Enter Password"
                           className="p-3"
                         />
                         <Form.Control.Feedback type="invalid">Enter Password!</Form.Control.Feedback>
                       </Form.Group>
                       </Col>
-                      </Row>
-                      <Row className="mt-3">
                       <Col md={6}>
-                      <Form.Group controlId="validationCustom01">
+                        <Form.Group>
                         <Form.Label>Confirm Password</Form.Label>
+
                         <Form.Control
                           required
+                        onChange={(e)=>handle(e)}
+                        name="ConfirmPassword"
+                        value={data.ConfirmPassword}
                           type="password"
                           placeholder="Enter Confirm Password"
                           className="p-3"
                         />
-                        <Form.Control.Feedback type="invalid">Enter Confirm Password!</Form.Control.Feedback>
-                      </Form.Group>
+                        </Form.Group>
                       </Col>
                      
                       </Row>
