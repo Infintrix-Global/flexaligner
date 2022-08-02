@@ -53,7 +53,7 @@ function AddPatient() {
 
     event.preventDefault();
     event.stopPropagation();
-    
+
     let imageFile = event.dataTransfer.files[0];
     handleFile(imageFile);
   
@@ -72,58 +72,58 @@ function AddPatient() {
     let imageFile = event.dataTransfer.files[0];
 
     handleFileTab72(imageFile);
-  }
+  };
 
-  const handleOndrop1=(event)=>{
+  const handleOndrop1 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile1(imageFile);
-  }
+  };
 
-  const handleOndrop2=(event)=>{
+  const handleOndrop2 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile2(imageFile);
-  }
-  const handleOndrop3=(event)=>{
+  };
+  const handleOndrop3 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile3(imageFile);
-  }
-  const handleOndrop4=(event)=>{
+  };
+  const handleOndrop4 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile4(imageFile);
-  }
-  const handleOndrop5=(event)=>{
+  };
+  const handleOndrop5 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile5(imageFile);
-  }
-  const handleOndrop6=(event)=>{
+  };
+  const handleOndrop6 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile6(imageFile);
-  }
-  const handleOndrop7=(event)=>{
+  };
+  const handleOndrop7 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
 
     handleFile7(imageFile);
-  }
+  };
 
   const fileInput = useRef(null);
   const fileInput1 = useRef(null);
@@ -136,10 +136,6 @@ function AddPatient() {
   const fileInputTab71 = useRef(null);
   const fileInputTab72 = useRef(null);
 
-
-
-
-
   const [image, setImage] = useState(null);
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
@@ -150,9 +146,6 @@ function AddPatient() {
   const [image7, setImage7] = useState(null);
   const [imageTab71, setImageTab71] = useState(null);
   const [imageTab72, setImageTab72] = useState(null);
-
-
-
 
   const [previewUrl, setPreviewUrl] = useState("");
   const [previewUrl1, setPreviewUrl1] = useState("");
@@ -165,150 +158,103 @@ function AddPatient() {
   const [previewUrlTab71, setPreviewUrlTab71] = useState("");
   const [previewUrlTab72, setPreviewUrlTab72] = useState("");
 
-
-
-
-
   const handleFile = (file) => {
-
     setImage(file);
 
-
     setPreviewUrl(URL.createObjectURL(file));
-   
-
   };
 
-
-
-  const handleFile1=(file)=>{
+  const handleFile1 = (file) => {
     setImage1(file);
     setPreviewUrl1(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile2=(file)=>{
+  const handleFile2 = (file) => {
     setImage2(file);
     setPreviewUrl2(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile3=(file)=>{
+  const handleFile3 = (file) => {
     setImage3(file);
     setPreviewUrl3(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile4=(file)=>{
+  const handleFile4 = (file) => {
     setImage4(file);
     setPreviewUrl4(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile5=(file)=>{
+  const handleFile5 = (file) => {
     setImage5(file);
     setPreviewUrl5(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile6=(file)=>{
+  const handleFile6 = (file) => {
     setImage6(file);
     setPreviewUrl6(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFile7=(file)=>{
+  const handleFile7 = (file) => {
     setImage7(file);
     setPreviewUrl7(URL.createObjectURL(file));
+  };
 
-    
-  }
-
-  const handleFileTab71=(file)=>{
+  const handleFileTab71 = (file) => {
     setImageTab71(file);
     setPreviewUrlTab71(URL.createObjectURL(file));
-  }
-  const handleFileTab72=(file)=>{
+  };
+  const handleFileTab72 = (file) => {
     setImageTab72(file);
     setPreviewUrlTab72(URL.createObjectURL(file));
-  }
-  
+  };
 
+  var rbutton1 = document.getElementById("r1");
+  var rbutton2 = document.getElementById("r2");
+  var rbutton3 = document.getElementById("r3");
+  var rbutton4 = document.getElementById("r4");
+  var pg = document.getElementById("de1");
+  var form = document.getElementsByClassName("fg");
 
+  //   var disppg=pg.style
+  // // pg.style.display="none";
 
+  // if(!rbutton1.checked)
+  // {
+  //   pg.style.display="none";
+  // }
+  // else{
+  //   pg.style.display="block";
+  // }
 
-
-
-
-
-
-
-  // var rbutton1 = document.getElementById("r1");
-  // var rbutton2 = document.getElementById("r2");
-  // var rbutton3 = document.getElementById("r3");
-  // var rbutton4 = document.getElementById("r4");
-  // var pg = document.getElementById("de1");
-  // var form = document.getElementsByClassName("fg");
-
-//   var disppg=pg.style
-// // pg.style.display="none";
-
-// if(!rbutton1.checked)
-// {
-//   pg.style.display="none";
-// }
-// else{
-//   pg.style.display="block";
-// }
-
-
-$(document).ready(function() {
-  $("input[name$='radioo']").click(function() {
+  $(document).ready(function () {
+    $("input[name$='radioo']").click(function () {
       var test = $(this).val();
 
       $(".desc").hide();
       $("#frm" + test).show();
+    });
+
+    $("input[name$='portrait']").click(function () {
+      var test = $(this).val();
+
+      $(".desc").hide();
+      $("#port" + test).show();
+    });
+
+    $("input[name$='photo']").click(function () {
+      var test = $(this).val();
+
+      $(".desc").hide();
+      $("#Ph" + test).show();
+    });
+
+    $("input[name$='graph']").click(function () {
+      var test = $(this).val();
+
+      $(".desc").hide();
+      $("#G" + test).show();
+    });
   });
-
-
-  $("input[name$='portrait']").click(function() {
-    var test = $(this).val();
-
-    $(".desc").hide();
-    $("#port" + test).show();
-});
-
-$("input[name$='photo']").click(function() {
-  var test = $(this).val();
-
-  $(".desc").hide();
-  $("#Ph" + test).show();
-});
-
-$("input[name$='graph']").click(function() {
-  var test = $(this).val();
-
-  $(".desc").hide();
-  $("#G" + test).show();
-});
-
-
-
-
-});
-
-
-
-
-
-
-
 
   return (
     <>
@@ -677,45 +623,94 @@ $("input[name$='graph']").click(function() {
                             <Tab.Pane eventKey="second">
                               <Row>
                                 <Col md={6}>
-                                <p>Clinical Conditions*</p>
-                                <Row>
-                                  <Col md={6}>
-                                  <Form.Check type="checkbox" label="Crowding" />
-                                  <Form.Check type="checkbox" label="Spacing" />
-                                  <Form.Check type="checkbox" label="Class II div 1" />
-                                  <Form.Check type="checkbox" label="Class II div 2" />
-                                  <Form.Check type="checkbox" label="CClass III" />
-                                  <Form.Check type="checkbox" label="Open bite" />
-                                  <Form.Check type="checkbox" label="Anterior crossbite" />
-                                  <Form.Check type="checkbox" label="Posterior crossbite" />
-                                  </Col>
-                                  <Col md={6}>
-                                  <Form.Check type="checkbox" label="Deep Bite" />
-                                  <Form.Check type="checkbox" label="Narrow Arch" />
-                                  <Form.Check type="checkbox" label="Flared Teeth" />
-                                  <Form.Check type="checkbox" label="Overjet" />
-                                  <Form.Check type="checkbox" label="Uneven smile" />
-                                  <Form.Check type="checkbox" label="Misshapen teeth" />
-                                  <Form.Check type="checkbox" label="Other" />
-
-                                  </Col>
-                                </Row>
+                                  <p>Clinical Conditions*</p>
+                                  <Row>
+                                    <Col md={6}>
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Crowding"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Spacing"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Class II div 1"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Class II div 2"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="CClass III"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Open bite"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Anterior crossbite"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Posterior crossbite"
+                                      />
+                                    </Col>
+                                    <Col md={6}>
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Deep Bite"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Narrow Arch"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Flared Teeth"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Overjet"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Uneven smile"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Misshapen teeth"
+                                      />
+                                      <Form.Check
+                                        type="checkbox"
+                                        label="Other"
+                                      />
+                                    </Col>
+                                  </Row>
                                 </Col>
                                 <Col md={6}>
-                                <p>General Notes</p>
-                                <Row>
-                                  <Col>
-                                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        {/* <Form.Label>Example textarea</Form.Label> */}
-        <Form.Control as="textarea" rows={7} />
-        <Form.Text className="text-muted">
-        *Clinical Conditions and General Notes are for your reference and statistical purposes only and will NOT be considered as treatment planning instructions
-        </Form.Text>
-      </Form.Group>
-
-      
-                                  </Col>
-                                </Row>
+                                  <p>General Notes</p>
+                                  <Row>
+                                    <Col>
+                                      <Form.Group
+                                        className="mb-3"
+                                        controlId="exampleForm.ControlTextarea1"
+                                      >
+                                        {/* <Form.Label>Example textarea</Form.Label> */}
+                                        <Form.Control as="textarea" rows={7} />
+                                        <Form.Text className="text-muted">
+                                          *Clinical Conditions and General Notes
+                                          are for your reference and statistical
+                                          purposes only and will NOT be
+                                          considered as treatment planning
+                                          instructions
+                                        </Form.Text>
+                                      </Form.Group>
+                                    </Col>
+                                  </Row>
                                   <p>csd</p>
                                 </Col>
                                 <Col md={6}>
@@ -2402,7 +2397,10 @@ $("input[name$='graph']").click(function() {
                                     </Card>
 
                                     <Card className="desc" id="port2">
-                                        <img src="https://www.portal.flexalign.in/user/img/bg-portrait.gif" alt="" />
+                                      <img
+                                        src="https://www.portal.flexalign.in/user/img/bg-portrait.gif"
+                                        alt=""
+                                      />
                                     </Card>
                                   </Card>
                                 </Col>
@@ -2466,12 +2464,15 @@ $("input[name$='graph']").click(function() {
                                         <p className="decide" id="de1">
                                           Decide Later.
                                         </p>
-                                        </Col>
-                                        </Row>
-                                       
-                                       
-                                        <Row className="desc" id="frm2" style={{display:"none"}}>
-                                          <Col>
+                                      </Col>
+                                    </Row>
+
+                                    <Row
+                                      className="desc"
+                                      id="frm2"
+                                      style={{ display: "none" }}
+                                    >
+                                      <Col>
                                         <Form.Group
                                           controlId="formFileMultiple"
                                           className="mb-3 fg"
@@ -2485,8 +2486,12 @@ $("input[name$='graph']").click(function() {
                                       </Col>
                                     </Row>
 
-                                    <Row className="desc" id="frm3" style={{display:"none"}}>
-                                          <Col>
+                                    <Row
+                                      className="desc"
+                                      id="frm3"
+                                      style={{ display: "none" }}
+                                    >
+                                      <Col>
                                         <Form.Group
                                           controlId="formFileMultiple"
                                           className="mb-3 fg"
@@ -2500,9 +2505,12 @@ $("input[name$='graph']").click(function() {
                                       </Col>
                                     </Row>
 
-
-                                    <Row className="desc" id="frm4"  style={{display:"none"}}>
-                                          <Col>
+                                    <Row
+                                      className="desc"
+                                      id="frm4"
+                                      style={{ display: "none" }}
+                                    >
+                                      <Col>
                                         <Form.Group
                                           controlId="formFileMultiple"
                                           className="mb-3 fg"
@@ -2515,8 +2523,6 @@ $("input[name$='graph']").click(function() {
                                         </Form.Group>
                                       </Col>
                                     </Row>
-
-
                                   </Card>
                                 </Col>
                                 <Col md={4}>
@@ -2527,7 +2533,7 @@ $("input[name$='graph']").click(function() {
                               </Row>
                             </Tab.Pane>
                             <Tab.Pane eventKey="sixth">
-                            {/* <section>
+                              {/* <section>
       <label>
         + Add Images
         <br />  
@@ -2580,9 +2586,7 @@ $("input[name$='graph']").click(function() {
       </div>
     </section> */}
 
-
-
-<Row className="m-2">
+                              <Row className="m-2">
                                 <Col md={8}>
                                   <Card className="img-crd">
                                     <Row className="p-3">
@@ -2615,188 +2619,246 @@ $("input[name$='graph']").click(function() {
                                       // onDrop={handleOndrop}
                                       // onClick={() => fileInput.current.click()}
                                     >
-                                       <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile(e.target.files[0])}/>
+                                          handleFile(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput1}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile1(e.target.files[0])}/>
+                                          handleFile1(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput2}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile2(e.target.files[0])}/>
-                                          
-                                          <input
+                                          handleFile2(e.target.files[0])
+                                        }
+                                      />
+
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput3}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile3(e.target.files[0])}/>
+                                          handleFile3(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput4}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile4(e.target.files[0])}/>
+                                          handleFile4(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput5}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile5(e.target.files[0])}/>
+                                          handleFile5(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput6}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile6(e.target.files[0])}/>
+                                          handleFile6(e.target.files[0])
+                                        }
+                                      />
 
-                                          <input
+                                      <input
                                         type="file"
                                         accept="image/*"
                                         ref={fileInput7}
                                         hidden
                                         onChange={(e) =>
-                                          handleFile7(e.target.files[0])}/>
-
+                                          handleFile7(e.target.files[0])
+                                        }
+                                      />
 
                                       <Row>
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop} onClick={() => fileInput.current.click()}>
-                                        {previewUrl && (
-                                       
-                                          <img
-                                            src={previewUrl}
-                                            alt="image"
-                                            className="img-s"
-                                          />
-                                         
-                                        )}
-                                        </Card>
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop}
+                                            onClick={() =>
+                                              fileInput.current.click()
+                                            }
+                                          >
+                                            {previewUrl && (
+                                              <img
+                                                src={previewUrl}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
+                                          </Card>
                                         </Col>
                                         <Col md={4}>
-                                         <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop1} onClick={() => fileInput1.current.click()}>
-                                         {previewUrl1 && (
-                                       
-                                       <img
-                                         src={previewUrl1}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
-                                        </Card>
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop1}
+                                            onClick={() =>
+                                              fileInput1.current.click()
+                                            }
+                                          >
+                                            {previewUrl1 && (
+                                              <img
+                                                src={previewUrl1}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
+                                          </Card>
                                         </Col>
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop2} onClick={() => fileInput2.current.click()}>
-                                        {previewUrl2 && (
-                                       
-                                       <img
-                                         src={previewUrl2}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop2}
+                                            onClick={() =>
+                                              fileInput2.current.click()
+                                            }
+                                          >
+                                            {previewUrl2 && (
+                                              <img
+                                                src={previewUrl2}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
                                         </Col>
                                       </Row>
                                       <Row className="mt-3">
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop3} onClick={() => fileInput3.current.click()}>
-                                        {previewUrl3 && (
-                                       
-                                       <img
-                                         src={previewUrl3}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop3}
+                                            onClick={() =>
+                                              fileInput3.current.click()
+                                            }
+                                          >
+                                            {previewUrl3 && (
+                                              <img
+                                                src={previewUrl3}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
                                         </Col>
                                         <Col md={4}>
-                                        <Card className="border-0 p-2">
-                                            <p>Drag and drop individual photos from desktop folder to respective tile</p>
-                                        </Card>
+                                          <Card className="border-0 p-2">
+                                            <p>
+                                              Drag and drop individual photos
+                                              from desktop folder to respective
+                                              tile
+                                            </p>
+                                          </Card>
                                         </Col>
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop4} onClick={() => fileInput4.current.click()}>
-                                        {previewUrl4 && (
-                                       
-                                       <img
-                                         src={previewUrl4}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop4}
+                                            onClick={() =>
+                                              fileInput4.current.click()
+                                            }
+                                          >
+                                            {previewUrl4 && (
+                                              <img
+                                                src={previewUrl4}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
                                         </Col>
                                       </Row>
                                       <Row className="mt-3">
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop5} onClick={() => fileInput5.current.click()}>
-                                        {previewUrl5 && (
-                                       
-                                       <img
-                                         src={previewUrl5}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop5}
+                                            onClick={() =>
+                                              fileInput5.current.click()
+                                            }
+                                          >
+                                            {previewUrl5 && (
+                                              <img
+                                                src={previewUrl5}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
                                         </Col>
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop6} onClick={() => fileInput6.current.click()}>
-                                        {previewUrl6 && (
-                                       
-                                       <img
-                                         src={previewUrl6}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop6}
+                                            onClick={() =>
+                                              fileInput6.current.click()
+                                            }
+                                          >
+                                            {previewUrl6 && (
+                                              <img
+                                                src={previewUrl6}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
                                         </Col>
                                         <Col md={4}>
-                                        <Card className="crd-up" onDragOver={handleOndragOver} onDrop={handleOndrop7} onClick={() => fileInput7.current.click()}>
-                                        {previewUrl7 && (
-                                       
-                                       <img
-                                         src={previewUrl7}
-                                         alt="image"
-                                         className="img-s"
-                                       />
-                                      
-                                     )}
+                                          <Card
+                                            className="crd-up"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop7}
+                                            onClick={() =>
+                                              fileInput7.current.click()
+                                            }
+                                          >
+                                            {previewUrl7 && (
+                                              <img
+                                                src={previewUrl7}
+                                                alt="image"
+                                                className="img-s"
+                                              />
+                                            )}
                                           </Card>
-                                          
                                         </Col>
                                       </Row>
-                                      
+
                                       {/* {previewUrl ? (
                                         ""
                                       ) : (
@@ -2823,66 +2885,54 @@ $("input[name$='graph']").click(function() {
                                         } */}
                                     </Card>
                                     <Card className="desc" id="Ph2">
-                                            <Row>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
+                                      <Row>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                      </Row>
 
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
+                                      <Row>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                      </Row>
 
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                            </Row>
-
-                                            <Row>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                            </Row>
-
-                                            <Row>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                              <Col md={4}>
-                                              <Card className="crd-up">
-
-                                              </Card>
-                                              </Col>
-                                            </Row>
-                                          </Card>
-                                     <Row className="m-2 mt-1">
+                                      <Row>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                        <Col md={4}>
+                                          <Card className="crd-up"></Card>
+                                        </Col>
+                                      </Row>
+                                    </Card>
+                                    <Row className="m-2 mt-1">
                                       <Col>
-                                      <p className="m-0 pb-1">Add More Photos</p>
-                                      <Form.Control type="file" multiple  className=""/>
+                                        <p className="m-0 pb-1">
+                                          Add More Photos
+                                        </p>
+                                        <Form.Control
+                                          type="file"
+                                          multiple
+                                          className=""
+                                        />
                                       </Col>
-                                     </Row>
+                                    </Row>
                                   </Card>
                                 </Col>
                                 <Col md={4}>
@@ -2891,11 +2941,10 @@ $("input[name$='graph']").click(function() {
                                   </Card>
                                 </Col>
                               </Row>
-
                             </Tab.Pane>
 
                             <Tab.Pane eventKey="seventh">
-                            <Row className="m-2">
+                              <Row className="m-2">
                                 <Col md={8}>
                                   <Card className="img-crd">
                                     <Row className="p-3">
@@ -2920,7 +2969,7 @@ $("input[name$='graph']").click(function() {
                                         />
                                       </Col>
                                       <Col>
-                                      <Form.Check
+                                        <Form.Check
                                           type="radio"
                                           aria-label="radio 2"
                                           id="r3"
@@ -2933,42 +2982,63 @@ $("input[name$='graph']").click(function() {
                                     <hr className="m-2" />
                                     <Card
                                       className="img-crd-in m-2 desc"
-                                        id="G1"
+                                      id="G1"
                                       // onDragOver={handleOndragOver}
                                       // onDrop={handleOndrop}
                                       // onClick={() => fileInputTab7.current.click()}
                                     >
-                                     <Row className="m-3">
+                                      <Row className="m-3">
                                         <Col>
-                                        <Card className="crd-up2" onDragOver={handleOndragOver} onDrop={handleOndrop71} onClick={() => fileInputTab71.current.click()}>
-                                          {previewUrlTab71?"":<p className="text-center mt-5 pt-5">Drag Image or click to browse</p>}
-                                        {previewUrlTab71 && (
-                                       
-                                          <img
-                                            src={previewUrlTab71}
-                                            alt="image"
-                                            className="img-s m-3"
-                                          />
-                                         
-                                        )}
-                                        </Card>
+                                          <Card
+                                            className="crd-up2"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop71}
+                                            onClick={() =>
+                                              fileInputTab71.current.click()
+                                            }
+                                          >
+                                            {previewUrlTab71 ? (
+                                              ""
+                                            ) : (
+                                              <p className="text-center mt-5 pt-5">
+                                                Drag Image or click to browse
+                                              </p>
+                                            )}
+                                            {previewUrlTab71 && (
+                                              <img
+                                                src={previewUrlTab71}
+                                                alt="image"
+                                                className="img-s m-3"
+                                              />
+                                            )}
+                                          </Card>
                                         </Col>
-                                            <Col>
-                                        <Card className="crd-up2" onDragOver={handleOndragOver} onDrop={handleOndrop72} onClick={() => fileInputTab72.current.click()}>
-                                        {previewUrlTab72?"":<p className="text-center mt-5 pt-5">Drag Image or click to browse</p>}
-                                      
-                                        {previewUrlTab72 && (
-                                       
-                                          <img
-                                            src={previewUrlTab72}
-                                            alt="image"
-                                            className="img-s2  m-3"
-                                          />
-                                         
-                                        )}
-                                        </Card>
+                                        <Col>
+                                          <Card
+                                            className="crd-up2"
+                                            onDragOver={handleOndragOver}
+                                            onDrop={handleOndrop72}
+                                            onClick={() =>
+                                              fileInputTab72.current.click()
+                                            }
+                                          >
+                                            {previewUrlTab72 ? (
+                                              ""
+                                            ) : (
+                                              <p className="text-center mt-5 pt-5">
+                                                Drag Image or click to browse
+                                              </p>
+                                            )}
+
+                                            {previewUrlTab72 && (
+                                              <img
+                                                src={previewUrlTab72}
+                                                alt="image"
+                                                className="img-s2  m-3"
+                                              />
+                                            )}
+                                          </Card>
                                         </Col>
-                                      
                                       </Row>
                                       <input
                                         type="file"
@@ -2990,14 +3060,18 @@ $("input[name$='graph']").click(function() {
                                       />
                                     </Card>
                                     <Card className="desc p-2" id="G2">
-                                          <img src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png" alt=""/>
+                                      <img
+                                        src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png"
+                                        alt=""
+                                      />
                                     </Card>
                                     <Card className="desc p-2" id="G3">
-                                    <img src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png" alt=""/>
-
+                                      <img
+                                        src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png"
+                                        alt=""
+                                      />
                                     </Card>
                                   </Card>
-
                                 </Col>
                                 <Col md={4}>
                                   <Card className="p-3">
@@ -3015,7 +3089,6 @@ $("input[name$='graph']").click(function() {
                             Back
                           </Button>
                           <Button type="submit" className="nextbtn">
-
                             Next
                           </Button>
                         </Col>
