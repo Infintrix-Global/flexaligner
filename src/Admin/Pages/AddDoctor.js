@@ -72,6 +72,12 @@ function AddDoctor() {
   });
 
   function handle(e) {
+    const newdata={...data}
+    newdata[e.target.name]=e.target.value;
+    setData(newdata);
+    console.log(newdata);
+
+
     switch (e.target.name) {
       case "CountryId": {
         setChecked((preData) => {

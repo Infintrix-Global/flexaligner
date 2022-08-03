@@ -21,10 +21,53 @@ import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import {useNavigate} from "react-router-dom";
 import $ from "jquery";
 
 function AddPatient() {
-  const tglContent = () => {
+
+
+    const [values, setValues] = useState({
+      DoctorId:0,
+      FirstName:"",
+      LastName:"",
+      Mi:"",
+      Gender:"",
+      DateofBirth:"",
+      DoctorName:"",
+      ClinicAddress:"",
+      CaseNo:"",
+      ClinicalConditions:[],
+      GeneralNotes:"",
+      ChiefComplaint:"",
+      Quotation:"",
+      UpperMidline:"",
+      LowerMidline:"",
+      CanineRelationshipRightClass:"",
+      CanineRelationshipLeftClass:"",
+      MolarRelationshipRightClass:"",
+      MolarRelationshipLeftClass:"",
+      Endon:"",
+      Overbite:"",
+      Overjet:"",
+      InstructionUpperMidline:"",
+      InstructionLowerMidline:"",
+      InstructionOverjet :"",
+      InstructionOverbite:"",
+      InstructionArchForm:"",
+      InstructionCanineRelationship:"",
+      InstructionMolarRelationship:"",
+      InstructionPosteriorCrossbite:"",
+      InstructionIPR:"",
+      InstructionEngagersAttachments:"",
+      InstructionProcline:"",
+      InstructionExpand:"",
+      InstructionDistalize:""
+    })
+
+
+    
+    const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
     if (Menu.classList.contains("collapsed")) {
@@ -35,6 +78,7 @@ function AddPatient() {
   };
 
   const [validated, setValidated] = useState(false);
+  // const navigate=useNavigate();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -44,7 +88,85 @@ function AddPatient() {
     }
 
     setValidated(true);
+
+
+    const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
+    fetch(url,{
+      method:"POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    }).then((res)=>res.json()).then((result)=>{
+      console.log(result.message);
+      if (result.message === "Added Successful") {
+        // navigate("/view-doctors");
+      }
+    })
+
+
+    
   };
+  
+  
+  const handlecheck=(e)=>{
+    
+    const { value, checked } = e.target;
+    const { ClinicalConditions } = values;
+      
+    // console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setValues({
+        ClinicalConditions: [...ClinicalConditions, value],
+        // response: [...languages, value],
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setValues({
+        ClinicalConditions: ClinicalConditions.filter((e) => e !== value)
+        // response: languages.filter((e) => e !== value),
+      });
+    }
+
+    console.log(values.ClinicalConditions);
+  }
+
+  
+  
+  const handleChange = (e) => {
+    // to find out if it's checked or not; returns true or false
+    // const checkradio = e.target.checked;
+    
+    // console.log(checkradio);
+    
+    // to get the checked value
+    // const checkedValue = e.target.value;
+    // console.log(checkedValue);
+    // setValues({
+    //   ClinicalConditions:[checkedValue]
+    // })
+    // console.log(values.ClinicalConditions);
+    const newdata={...values} 
+    newdata[e.target.name]=e.target.value;
+    setValues(newdata);
+    console.log(newdata.Endon);
+    // console.warn(newdata);
+
+
+
+    
+    // to get the checked name
+
+    // const checkedName = e.target.name;
+    // console.log(checkedName);
+
+    //then you can do with the value all you want to do with it.
+    };
 
   const handleOndragOver = (event) => {
     event.preventDefault();
@@ -208,12 +330,7 @@ function AddPatient() {
     setPreviewUrlTab72(URL.createObjectURL(file));
   };
 
-  var rbutton1 = document.getElementById("r1");
-  var rbutton2 = document.getElementById("r2");
-  var rbutton3 = document.getElementById("r3");
-  var rbutton4 = document.getElementById("r4");
-  var pg = document.getElementById("de1");
-  var form = document.getElementsByClassName("fg");
+ 
 
   //   var disppg=pg.style
   // // pg.style.display="none";
@@ -255,6 +372,99 @@ function AddPatient() {
       $("#G" + test).show();
     });
   });
+
+
+
+
+
+
+
+  const handleRadio3=(e)=>{
+   
+   setValues({UpperMidline:e.target.value})
+    console.log({UpperMidline:e.target.value})
+
+
+    
+  }
+
+
+  const handleRadio31=(e)=>{
+    setValues({LowerMidline:e.target.value})
+    console.log({LowerMidline:e.target.value})
+  }
+
+
+  const handleInstructionUpperMidline=(e)=>{
+    setValues({InstructionUpperMidline:e.target.value})
+    console.log({InstructionUpperMidline:e.target.value})
+  }
+
+  const handleInstructionLowerMidline=(e)=>{
+    setValues({InstructionLowerMidline:e.target.value})
+    console.log({InstructionLowerMidline:e.target.value})
+  }
+
+
+  const handleInstructionOverjet=(e)=>{
+    setValues({InstructionOverjet:e.target.value})
+    console.log({InstructionOverjet:e.target.value})
+  }
+
+  const handleInstructionOverbite=(e)=>{
+    setValues({InstructionOverbite:e.target.value})
+    console.log({InstructionOverbite:e.target.value})
+  }
+
+
+  const handleInstructionArchForm=(e)=>{
+    setValues({InstructionArchForm:e.target.value})
+    console.log({InstructionArchForm:e.target.value})
+  }
+
+
+  const handleInstructionCanineRelationship=(e)=>{
+    setValues({InstructionCanineRelationship:e.target.value})
+    console.log({InstructionCanineRelationship:e.target.value})
+  }
+
+
+  const handleInstructionMolarRelationship=(e)=>{
+    setValues({InstructionMolarRelationship:e.target.value})
+    console.log({InstructionMolarRelationship:e.target.value})
+  }
+
+
+  const handleInstructionPosteriorCrossbite=(e)=>{
+    setValues({InstructionPosteriorCrossbite:e.target.value})
+    console.log({InstructionPosteriorCrossbite:e.target.value})
+  }
+
+  const handleInstructionIPR=(e)=>{
+    setValues({InstructionIPR:e.target.value})
+    console.log({InstructionIPR:e.target.value})
+  }
+
+  const handleInstructionEngagersAttachments=(e)=>{
+    setValues({InstructionEngagersAttachments:e.target.value})
+    console.log({InstructionEngagersAttachments:e.target.value})
+  }
+
+  const handleInstructionProcline=(e)=>{
+    setValues({InstructionProcline:e.target.value})
+    console.log({InstructionProcline:e.target.value})
+  }
+
+  const handleInstructionExpand=(e)=>{
+    setValues({InstructionExpand:e.target.value})
+    console.log({InstructionExpand:e.target.value})
+  }
+
+
+  const handleInstructionDistalize=(e)=>{
+    setValues({InstructionDistalize:e.target.value})
+    console.log({InstructionDistalize:e.target.value})
+  }
 
   return (
     <>
@@ -451,6 +661,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="First Name"
+                                        name="FirstName"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                       />
@@ -470,6 +682,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="Last Name"
+                                        name="LastName"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                       />
@@ -489,6 +703,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="MI"
+                                        name="Mi"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
@@ -501,7 +717,8 @@ function AddPatient() {
                                       aria-label="radio 1"
                                       label="Male"
                                       className="pt-2"
-                                      name="gender"
+                                      onChange={handleChange}
+                                      name="Gender"
                                       inline
                                       feedbackType="invalid"
                                       required
@@ -510,7 +727,8 @@ function AddPatient() {
                                       type="radio"
                                       aria-label="radio 1"
                                       label="Female"
-                                      name="gender"
+                                      name="Gender"
+                                      onChange={handleChange}
                                       inline
                                       feedbackType="invalid"
                                       required
@@ -529,6 +747,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="Date"
+                                        name="DateofBirth"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                       />
@@ -548,6 +768,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="Doctor's Name"
+                                        name="DoctorName"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
@@ -567,6 +789,8 @@ function AddPatient() {
                                         as="textarea"
                                         rows={2}
                                         placeholder="ClinicAddress"
+                                        name="ClinicAddress"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
@@ -582,6 +806,8 @@ function AddPatient() {
                                       <Form.Control
                                         type="text"
                                         placeholder="Case No."
+                                        name="CaseNo"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
@@ -596,6 +822,7 @@ function AddPatient() {
                                           B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH NAGAR BORIVALI EAST,
                                           MUMBAI 400066"
                                       className="pt-2"
+                                      onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                                   </Form.Group>
@@ -619,7 +846,19 @@ function AddPatient() {
                                   />
                                 </Col>
                               </Row>
+                              {/* <Button type="submit" onClick={handleSubmit}>Submit</Button> */}
                             </Tab.Pane>
+
+
+                            
+
+
+
+
+
+
+
+
                             <Tab.Pane eventKey="second">
                               <Row>
                                 <Col md={6}>
@@ -629,64 +868,148 @@ function AddPatient() {
                                       <Form.Check
                                         type="checkbox"
                                         label="Crowding"
+                                        value="Crowding"
+                                        name="ClinicalConditions"
+                                        onChange={handlecheck}
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Spacing"
+                                        value="Spacing"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+                                        
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Class II div 1"
+                                        value="Class II div 1"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Class II div 2"
+                                        value="Class II div 2"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="CClass III"
+                                        value="CClass III"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Open bite"
+                                        value="Open bite"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Anterior crossbite"
+                                        value="Anterior crossbite"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Posterior crossbite"
+                                        value="Posterior crossbite"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                     </Col>
                                     <Col md={6}>
                                       <Form.Check
                                         type="checkbox"
                                         label="Deep Bite"
+                                        value="Deep Bite"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Narrow Arch"
+                                        value="Narrow Arch"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Flared Teeth"
+                                        value="Flared Teeth"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Overjet"
+                                        value="Overjet"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Uneven smile"
+                                        value="Uneven smile"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Misshapen teeth"
+                                        value="Misshapen teeth"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                       <Form.Check
                                         type="checkbox"
                                         label="Other"
+                                        value="Other"
+                                        name="ClinicalConditions"
+
+                                        onChange={handlecheck}
+
+
                                       />
                                     </Col>
                                   </Row>
@@ -700,22 +1023,20 @@ function AddPatient() {
                                         controlId="exampleForm.ControlTextarea1"
                                       >
                                         {/* <Form.Label>Example textarea</Form.Label> */}
-                                        <Form.Control as="textarea" rows={7} />
+                                        <Form.Control as="textarea" rows={7} name="GeneralNotes" onChange={handleChange}/>
                                         <Form.Text className="text-muted">
                                           *Clinical Conditions and General Notes
                                           are for your reference and statistical
                                           purposes only and will NOT be
                                           considered as treatment planning
-                                          instructions
+                                          instructions.
                                         </Form.Text>
                                       </Form.Group>
                                     </Col>
                                   </Row>
-                                  <p>csd</p>
+                                  
                                 </Col>
-                                <Col md={6}>
-                                  <p>sdsd</p>
-                                </Col>
+                               
                               </Row>
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
@@ -730,6 +1051,8 @@ function AddPatient() {
                                       <Form.Control
                                         as="textarea"
                                         rows={6}
+                                        name="ChiefComplaint"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                       />
                                     </InputGroup>
@@ -744,6 +1067,8 @@ function AddPatient() {
                                     <InputGroup hasValidation>
                                       <Form.Control
                                         type="text"
+                                        name="Quotation"
+                                        onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                       />
@@ -762,7 +1087,10 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Centered"
-                                          name="midline"
+                                          id="um1"
+                                          name="UpperMidline"
+                                          value="Centered"
+                                          onChange={handleRadio3}
                                         />
                                       </Form.Group>
                                       <Form.Group controlId="validationRight">
@@ -770,7 +1098,10 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Shifted Right"
-                                          name="midline"
+                                          value="Shifted Right"
+                                          id="um2"
+                                          name="UpperMidline"
+                                          onChange={handleRadio3}
                                         />
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -785,7 +1116,10 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Shifted Left"
-                                          name="midline"
+                                          id="um3"
+                                          value="Shifted Left"
+                                          name="UpperMidline"
+                                          onChange={handleRadio3}
                                         />
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -801,7 +1135,9 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Centered"
-                                          name="Lowermidline"
+                                          value="Centered"
+                                          name="LowerMidline"
+                                          onChange={handleRadio31}
                                         />
                                       </Form.Group>
                                       <Form.Group controlId="validationRight">
@@ -809,7 +1145,9 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Shifted Right"
-                                          name="Lowermidline"
+                                          value="Shifted Right"
+                                          name="LowerMidline"
+                                          onChange={handleRadio31}
                                         />
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -824,7 +1162,9 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Shifted Left"
-                                          name="Lowermidline"
+                                          value="Shifted Left"
+                                          name="LowerMidline"
+                                          onChange={handleRadio31}
                                         />
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -845,7 +1185,7 @@ function AddPatient() {
                                           Right Class
                                         </Form.Label>
                                         <Col sm="5">
-                                          <Form.Control type="number" />
+                                          <Form.Control type="number" name="CanineRelationshipRightClass" onChange={handleChange}/>
                                         </Col>
                                       </Form.Group>
                                       <Form.Group
@@ -857,7 +1197,7 @@ function AddPatient() {
                                           Left Class
                                         </Form.Label>
                                         <Col sm="5">
-                                          <Form.Control type="number" />
+                                          <Form.Control type="number" name="CanineRelationshipLeftClass" onChange={handleChange}/>
                                         </Col>
                                       </Form.Group>
                                       <p>Molar Relationship</p>
@@ -869,7 +1209,7 @@ function AddPatient() {
                                           Right Class
                                         </Form.Label>
                                         <Col sm="5">
-                                          <Form.Control type="number" />
+                                          <Form.Control type="number" name="MolarRelationshipRightClass" onChange={handleChange}/>
                                         </Col>
                                       </Form.Group>
                                       <Form.Group
@@ -881,7 +1221,7 @@ function AddPatient() {
                                           Left Class
                                         </Form.Label>
                                         <Col sm="5">
-                                          <Form.Control type="number" />
+                                          <Form.Control type="number" name="MolarRelationshipLeftClass" onChange={handleChange}/>
                                         </Col>
                                       </Form.Group>
                                       <Form.Group
@@ -893,7 +1233,7 @@ function AddPatient() {
                                           Endon
                                         </Form.Label>
                                         <Col sm="5">
-                                          <Form.Select size="sm">
+                                          <Form.Select size="sm" name="Endon" onChange={handleChange}>
                                             <option>Select</option>
                                             <option>Right</option>
                                             <option>Left</option>
@@ -906,7 +1246,7 @@ function AddPatient() {
                                         controlId="validationCanine"
                                         className="mt-2"
                                       >
-                                        <Form.Label column sm="4">
+                                        <Form.Label column sm="4" name="Overbite" onChange={handleChange}>
                                           Overbite
                                         </Form.Label>
                                         <Col sm="5">
@@ -928,7 +1268,7 @@ function AddPatient() {
                                           Overjet
                                         </Form.Label>
                                         <Col sm="5 p-0">
-                                          <Form.Control type="number" />
+                                          <Form.Control type="number" name="Overjet" onChange={handleChange}/>
                                         </Col>
                                         <Col sm="1 px-2">MM</Col>
                                       </Form.Group>
@@ -949,7 +1289,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct1"
+                                        value="Maintain"
+                                        name="InstructionUpperMidline"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -957,7 +1298,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct1"
+                                        value="Improve"
+                                        name="InstructionUpperMidline"
                                       />
                                     </Col>
 
@@ -966,7 +1308,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct1"
+                                        value="Idealize"
+                                        name="InstructionUpperMidline"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -980,7 +1323,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct2"
+                                        value="Maintain"
+                                        name="InstructionLowerMidline"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -988,7 +1332,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct2"
+                                        value="Improve"
+                                        name="InstructionLowerMidline"
                                       />
                                     </Col>
 
@@ -997,7 +1342,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct2"
+                                        value="Idealize"
+                                        name="InstructionLowerMidline"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1011,7 +1357,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct3"
+                                        value="Maintain"
+                                        name="InstructionOverjet"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1019,7 +1366,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct3"
+                                        value="Improve"
+                                        name="InstructionOverjet"
                                       />
                                     </Col>
 
@@ -1028,7 +1376,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct3"
+                                        value="Idealize"
+                                        name="InstructionOverjet"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1042,7 +1391,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct4"
+                                        value="Maintain"
+                                        name="InstructionOverbite"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1050,7 +1400,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct4"
+                                        value="Improve"
+                                        name="InstructionOverbite"
                                       />
                                     </Col>
 
@@ -1059,7 +1410,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct4"
+                                        value="Idealize"
+                                        name="InstructionOverbite"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1073,7 +1425,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct5"
+                                        value="Maintain"
+                                        name="InstructionArchForm"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1081,7 +1434,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct5"
+                                        value="Improve"
+                                        name="InstructionArchForm"
                                       />
                                     </Col>
 
@@ -1090,7 +1444,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct5"
+                                        value="Idealize"
+                                        name="InstructionArchForm"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1104,7 +1459,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct6"
+                                        value="Maintain"
+                                        name="InstructionCanineRelationship"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1112,7 +1468,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct6"
+                                        value="Improve"
+                                        name="InstructionCanineRelationship"
                                       />
                                     </Col>
 
@@ -1121,7 +1478,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct6"
+                                        value="Idealize"
+                                        name="InstructionCanineRelationship"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1135,7 +1493,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct7"
+                                        value="Maintain"
+                                        name="InstructionMolarRelationship"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1143,7 +1502,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct7"
+                                        value="Improve"
+                                        name="InstructionMolarRelationship"
                                       />
                                     </Col>
 
@@ -1152,7 +1512,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct7"
+                                        value="Idealize"
+                                        name="InstructionMolarRelationship"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1166,7 +1527,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Maintain"
-                                        name="instruct8"
+                                        value="Maintain"
+                                        name="InstructionPosteriorCrossbite"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1174,7 +1536,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Improve"
-                                        name="instruct8"
+                                        value="Improve"
+                                        name="InstructionPosteriorCrossbite"
                                       />
                                     </Col>
 
@@ -1183,7 +1546,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Idealize"
-                                        name="instruct8"
+                                        value="Idealize"
+                                        name="InstructionPosteriorCrossbite"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1197,7 +1561,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Yes"
-                                        name="instruct9"
+                                        value="Yes"
+                                        name="InstructionIPR"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1205,7 +1570,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="No"
-                                        name="instruct9"
+                                        value="No"
+                                        name="InstructionIPR"
                                       />
                                     </Col>
 
@@ -1214,7 +1580,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Only If Needed"
-                                        name="instruct9"
+                                        value="Only If Needed"
+                                        name="InstructionIPR"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1228,7 +1595,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Yes"
-                                        name="instruct10"
+                                        value="Yes"
+                                        name="InstructionEngagersAttachments"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1236,7 +1604,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="No"
-                                        name="instruct10"
+                                        value="No"
+                                        name="InstructionEngagersAttachments"
                                       />
                                     </Col>
 
@@ -1245,7 +1614,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Only If Needed"
-                                        name="instruct10"
+                                        value="Only If Needed"
+                                        name="InstructionEngagersAttachments"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1259,7 +1629,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Yes"
-                                        name="instruct11"
+                                        value="Yes"
+                                        name="InstructionProcline"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1267,7 +1638,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="No"
-                                        name="instruct11"
+                                        value="No"
+                                        name="InstructionProcline"
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1275,7 +1647,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Only If Needed"
-                                        name="instruct11"
+                                        value="Only If Needed"
+                                        name="InstructionProcline"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1289,7 +1662,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Yes"
-                                        name="instruct12"
+                                        value="Yes"
+                                        name="InstructionExpand"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1297,7 +1671,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="No"
-                                        name="instruct12"
+                                        value="No"
+                                        name="InstructionExpand"
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1305,7 +1680,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Only If Needed"
-                                        name="instruct12"
+                                        value="Only If Needed"
+                                        name="InstructionExpand"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1319,7 +1695,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Yes"
-                                        name="instruct13"
+                                        value="Yes"
+                                        name="InstructionDistalize"
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1327,7 +1704,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="No"
-                                        name="instruct13"
+                                        value="No"
+                                        name="InstructionDistalize"
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1335,7 +1713,8 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="Only If Needed"
-                                        name="instruct13"
+                                        value="Only If Needed"
+                                        name="InstructionDistalize"
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1468,7 +1847,7 @@ function AddPatient() {
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td style={{ padding: "0px 8px;" }}>
+                                        <td style={{ padding: "0px 8px" }}>
                                           R
                                         </td>
                                         <td colspan="16">
@@ -1480,7 +1859,7 @@ function AddPatient() {
                                             }}
                                           />
                                         </td>
-                                        <td style={{ padding: "0px 8px;" }}>
+                                        <td style={{ padding: "0px 8px" }}>
                                           L
                                         </td>
                                       </tr>
@@ -2396,7 +2775,7 @@ function AddPatient() {
                                       />
                                     </Card>
 
-                                    <Card className="desc" id="port2">
+                                    <Card className="desc" id="port2" style={{display:"none"}}>
                                       <img
                                         src="https://www.portal.flexalign.in/user/img/bg-portrait.gif"
                                         alt=""
@@ -2884,7 +3263,7 @@ function AddPatient() {
                                      
                                         } */}
                                     </Card>
-                                    <Card className="desc" id="Ph2">
+                                    <Card className="desc" id="Ph2" style={{display:"none"}}>
                                       <Row>
                                         <Col md={4}>
                                           <Card className="crd-up"></Card>
@@ -3059,13 +3438,13 @@ function AddPatient() {
                                         }
                                       />
                                     </Card>
-                                    <Card className="desc p-2" id="G2">
+                                    <Card className="desc p-2" id="G2" style={{display:"none"}}>
                                       <img
                                         src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png"
                                         alt=""
                                       />
                                     </Card>
-                                    <Card className="desc p-2" id="G3">
+                                    <Card className="desc p-2" id="G3" style={{display:"none"}}>
                                       <img
                                         src="https://www.portal.flexalign.in/user/img/bg-x-ray-dis-n.png"
                                         alt=""
