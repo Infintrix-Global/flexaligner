@@ -6,6 +6,7 @@ import DoctorsList from "./Admin/Pages/DoctorsList";
 import AddPatient from "./Doctor/Pages/AddPatient";
 import PatientLogin from "./Doctor/Pages/PatientLogin";
 import Upload from "./Doctor/Pages/Upload";
+import PatientList from "./Doctor/Pages/PatientList";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
           <Route path="/view-doctors" element={<DoctorsList/>}/>
           <Route path="/add-patient" element={<AddPatient/>}/>
           <Route path="/patient-login" element={<PatientLogin/>}/>
-          <Route path="/upload" element={<Upload/>}/>
+          {/* <Route path="/upload" element={<Upload/>}/> */}
 
+          <Route path="/patient-list" element={<PatientList/>}/>
         </Routes>
       </Router>
     </div>
