@@ -1,4 +1,4 @@
-label
+.dataTables_wrapper label
 {
     padding-top: 1em;
     margin-left: 0.5em;
@@ -30,7 +30,8 @@ tbody, td, tfoot, th, thead, tr {
     background-color: #077396 !important;
     color: white;
 }
-.paginate_button:hover
-{
-    background-color: #077396 !important;
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+
 }
