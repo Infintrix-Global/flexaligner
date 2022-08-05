@@ -23,6 +23,7 @@ import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import {useNavigate} from "react-router-dom";
 import $ from "jquery";
+import axios from "axios";
 
 function AddPatient() {
 
@@ -70,6 +71,15 @@ function AddPatient() {
     })
 
 
+
+
+
+    const [uploads, setUploads] = useState({
+      portrait:null
+    })
+    
+
+
     
     const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
@@ -84,7 +94,7 @@ function AddPatient() {
   const [validated, setValidated] = useState(false);
   // const navigate=useNavigate();
 
-  const handleSubmit = (event) => {
+  const submitData = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -112,6 +122,28 @@ function AddPatient() {
 
     
   };
+
+
+
+  
+
+
+
+  const handleUpload=(e)=>{
+    e.preventDefault();
+    const fd=new FormData();
+     fd.append("fileContent",uploads.portrait);
+     fd.append("Name",uploads.portrait.name);
+    axios.post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos",fd,{
+        onUploadProgress:ProgressEvent=>{
+            console.log("Upload Progress of portrait:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+        }
+    })
+    .then(res=>{
+        console.log(res);
+    });
+
+  }
   
   
   const handlecheck=(e)=>{
@@ -635,7 +667,7 @@ function AddPatient() {
         </Row>
       </Container>
 
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form noValidate validated={validated}>
         <Container
           className="pt-5 mt-5  pb-5 mb-5"
           style={{ boxShadow: "0px 0px 5px 5px #dee2e6" }}
@@ -2871,7 +2903,14 @@ function AddPatient() {
                                   />
                                 </InputGroup>
                               </Form.Group>
+                            <Row className="text-center m-2"><Col><Button variant="" className="thirdTabSubmit" onClick={submitData}>Submit</Button></Col></Row>
                             </Tab.Pane>
+
+
+
+
+
+
                             <Tab.Pane eventKey="fourth" className="p-3">
                               <Row>
                                 <Col md={8}>
@@ -3626,6 +3665,11 @@ function AddPatient() {
                                   <Card className="p-3">
                                     <p className="up-rec">UPLOADED RECORDS</p>
                                   </Card>
+                                </Col>
+                              </Row>
+                              <Row className="text-center">
+                                <Col>
+                                <Button variant="" className="seventhTabSubmit" onClick={handleUpload}>Submit</Button>
                                 </Col>
                               </Row>
                             </Tab.Pane>

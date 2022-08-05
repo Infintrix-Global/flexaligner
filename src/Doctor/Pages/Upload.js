@@ -6,6 +6,7 @@ function Upload(){
 
     const [state, setState] = useState({
         fileContent:null
+        
     })
 
 const onChange=(e)=>{
