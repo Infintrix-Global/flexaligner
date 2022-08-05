@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "../Styles/DoctorsList.css";
 import { Button, Col, Container ,Nav,Navbar, Row,Dropdown,Card,Form,Table} from "react-bootstrap";
 import {IoMdNotifications} from "react-icons/io";
@@ -16,7 +16,10 @@ import $ from "jquery";
 
 
 function DoctorsList(){
-    const tglContent = () => {
+  
+  
+  
+  const tglContent = () => {
         let Menu = document.querySelector(".menuTab");
         
         if(Menu.classList.contains("collapsed"))
@@ -27,7 +30,28 @@ function DoctorsList(){
           Menu.classList.add("collapsed");
         }
       }
-const navigate=useNavigate();
+
+
+      const edit=()=>{
+        document.getElementById("tblrw").contentEditable=true;
+      }
+
+
+      
+
+      const navigate=useNavigate();
+
+      
+      const [data, setData] = useState([]);
+    const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+
+
+    useEffect(()=>{
+    fetch(url).then((res)=>res.json()).then((list)=>{
+      console.log(list.Data);
+      setData(list.Data);
+    })
+    },[])
 
 
 
@@ -104,7 +128,7 @@ const navigate=useNavigate();
                 <Card>
                     <Row className="text-end mt-3 me-2">
                         <Col>
-                        <Button variant="" className="add-doc-btn" onClick={navigate("/add-doctor")}>Add Doctor</Button>
+                        <Button variant="" className="add-doc-btn" onClick={() => navigate("/add-doctor")}>Add Doctor</Button>
                         </Col>
                     </Row>
                     <Row>
@@ -151,38 +175,40 @@ const navigate=useNavigate();
                                             </tr>
                                           </thead>
 
-
                                           <tbody>
-                                            <tr>
+                                            
+                                            {data.map((docList,index)=>{
+                                              return(
+                                                  <>
+                                                   <tr id="tblrw">
                                               <td>1</td>
-                                              <td>335</td>
-                                              <td>RYTHM K</td>
+                                              <td>{docList.DoctorID}</td>
+                                              <td>{docList.Name}</td>
                                               <td>1</td>
-                                              <td>orthosquare</td>
-                                              <td>rythmk@gmail.com</td>
-                                              <td>7827864761</td>
+                                              <td>{docList.PracticeName}</td>
+                                              <td>{docList.PracticeEmail}</td>
+                                              <td>{docList.PhoneNo}</td>
                                               <td>Active</td>
                                               <td>
-
-
-
-
-
-                                          
+      
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
-                                                    {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */}
-                                                   
-                                                    <span><Button variant="" className="action-i edit"><FaEdit color="black"/></Button></span>
+                                                    {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */} 
+                                                    <span><Button variant="" className="action-i edit" onClick={()=>edit}><FaEdit color="black"/></Button></span>
                                                    
                                               </td>
 
                                             </tr>
+                                                  </>
+                                              );
+                                            })}
+                                            
+                                           
 
 
 
 
                                             
-                                            <tr>
+                                            {/* <tr>
                                               <td>2</td>
                                               <td>365</td>
                                               <td>DIVYA N</td>
@@ -219,7 +245,7 @@ const navigate=useNavigate();
                                                    
                                               </td>
 
-                                            </tr>
+                                            </tr> */}
                                           </tbody>
                                         </Table>
                                 </Col>
