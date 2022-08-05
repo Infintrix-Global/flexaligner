@@ -1,37 +1,89 @@
-.dataTables_wrapper label
-{
-    padding-top: 1em;
-    margin-left: 0.5em;
-    padding-bottom: 0.5em;
+.dataTables_wrapper label {
+  /* padding-top: 1em; */
+  margin-left: 0.5em;
+  /* padding-bottom: 0.5em; */
 }
-button, input, optgroup, select, textarea {
-    /* margin: 0; */
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-   
+button,
+input,
+optgroup,
+select,
+textarea {
+  /* margin: 0; */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
-tbody, td, tfoot, th, thead, tr {
-    border-color: inherit;
-    border-style: solid;
-    padding-left: 2em;
-    border-width: 0;
-    padding-top: 1em;
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: inherit;
+  border-style: solid;
+  padding-left: 2em;
+  border-width: 0;
+  padding-top: 1em;
+  background-color: white;
 }
-.dataTables_wrapper {
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background-color: #077396 !important;
+  color: white;
+}
+
+table.dataTable.display > tbody > tr.even > .sorting_1,
+table.dataTable.order-column.stripe > tbody > tr.even > .sorting_1 {
+  box-shadow: none !important;
+}
+table.dataTable.display > tbody > tr.odd > .sorting_1,
+table.dataTable.order-column.stripe > tbody > tr.odd > .sorting_1 {
+  box-shadow: none !important;
+}
+table.dataTable.stripe > tbody > tr.odd > *,
+table.dataTable.display > tbody > tr.odd > * {
+  box-shadow: none !important;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* STYLES GO HERE */
+  .dataTables_wrapper {
     position: relative;
     clear: both;
     margin-top: 2em;
     background-color: white;
     box-shadow: 0px 0px 5px 5px #dee2e6;
     padding: 1em;
+    width: fit-content;
+  }
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.current{
-    background-color: #077396 !important;
-    color: white;
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  /* STYLES GO HERE */
+  .dataTables_wrapper {
+    position: relative;
+    clear: both;
+    margin-top: 2em;
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px #dee2e6;
+    padding: 1em;
+    width: max-content;
+  }
 }
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+@media only screen and (min-device-width: 1024px) and (max-device-width: 2560px) {
+  /* STYLES GO HERE */
+  .dataTables_wrapper {
+    position: relative;
+    clear: both;
+    margin-top: 2em;
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px #dee2e6;
+    padding: 1em;
+  }
+}
+table {
+  counter-reset: section;
+}
 
+.count:before {
+  counter-increment: section;
+  content: counter(section);
 }
