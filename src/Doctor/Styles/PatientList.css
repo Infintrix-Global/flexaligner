@@ -110,7 +110,6 @@ table {
   overflow-y: auto;
   min-height: 0;
   max-height: 100vh;
-  box-shadow: 0px 0px 5px #dee2e6;
   -webkit-overflow-scrolling: touch;
 }
 .jxflYm {
@@ -140,7 +139,6 @@ table {
   border-top-style: solid;
   border-top-width: 1px;
   border-top-color: rgba(0,0,0,.12);
-  box-shadow: 0px 0px 5px 5px #dee2e6;
 }
 .ifOHjV {
   position: relative;
@@ -173,5 +171,4 @@ table {
   flex-wrap: wrap;
   background-color: white;
   min-height: 52px;
-  box-shadow: 0px 0px 5px 5px #dee2e6;
 }

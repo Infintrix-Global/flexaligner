@@ -160,27 +160,36 @@ function PatientList() {
           </Col>
         </Row>
 
-        <Row className="m-4">
-          <Col>
-            <DataTable
-              columns={columns}
-              data={filteredNames}
-              pagination
-              fixedHeader
-              highlightOnHover
-              subHeader
-              subHeaderComponent={
-                <input
-                  type="text"
-                  className="w-25 form-control mt-4 mb-4"
-                  placeholder="Search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                ></input>
-              }
-            />
-          </Col>
-        </Row>
+        <Container>
+          <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
+            <Col>
+              <Row>
+                <Col
+                  className="m-5"
+                  style={{ border: "solid 0.1em lightgray" }}
+                >
+                  <DataTable
+                    columns={columns}
+                    data={filteredNames}
+                    pagination
+                    fixedHeader
+                    highlightOnHover
+                    subHeader
+                    subHeaderComponent={
+                      <input
+                        type="text"
+                        className="w-25 form-control mt-4 mb-4"
+                        placeholder="Search by Name"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      ></input>
+                    }
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     </>
   );
