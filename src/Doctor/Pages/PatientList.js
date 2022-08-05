@@ -15,13 +15,75 @@ import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
-import $ from "jquery";
 import Male from "../../Assets/Male.png";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import axios from "axios";
 
 function PatientList() {
+  const [patient, setPatient] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filteredNames, setFilteredNames] = useState([]);
+  const getPatient = async () => {
+    try {
+      const response = await axios.get(
+        "http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
+      );
+      setPatient(response.data.Data);
+      setFilteredNames(response.data.Data);
+      console.log(response.data.Data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const columns = [
+    {
+      name: "PatientId",
+      selector: (row) => row.PatientId,
+      sortable: true,
+    },
+    {
+      name: "CaseNo",
+      selector: (row) => row.CaseNo,
+      sortable: true,
+    },
+    {
+      name: "DateOfBirth",
+      selector: (row) => row.DateofBirth,
+      sortable: true,
+    },
+    {
+      name: "DoctorID",
+      selector: (row) => row.DoctorID,
+      sortable: true,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.Gender,
+      sortable: true,
+    },
+    {
+      name: "MI",
+      selector: (row) => row.Mi,
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+  ];
+
+  useEffect(() => {
+    getPatient();
+  }, []);
+
+  useEffect(() => {
+    const result = patient.filter((patientname) => {
+      return patientname.Name.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredNames(result);
+  }, [search]);
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
@@ -86,15 +148,6 @@ function PatientList() {
         <Row className="menuTab">
           <Col>
             <Card body className="border-0">
-              {/* <Row>
-                    <Col>
-                    <Button variant="link" className="doc-tab">Doctor</Button>
-                    </Col>
-                    <Col>
-                    <Button variant="link" className="prof-tab">Profile</Button>
-                    
-                    </Col>
-                  </Row> */}
               <Nav className="justify-content-center">
                 <Nav.Link href="#deets" className="doc-tab active">
                   Doctor
@@ -106,7 +159,28 @@ function PatientList() {
             </Card>
           </Col>
         </Row>
-        
+
+        <Row className="m-4">
+          <Col>
+            <DataTable
+              columns={columns}
+              data={filteredNames}
+              pagination
+              fixedHeader
+              highlightOnHover
+              subHeader
+              subHeaderComponent={
+                <input
+                  type="text"
+                  className="w-25 form-control mt-4 mb-4"
+                  placeholder="Search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                ></input>
+              }
+            />
+          </Col>
+        </Row>
       </Container>
     </>
   );
