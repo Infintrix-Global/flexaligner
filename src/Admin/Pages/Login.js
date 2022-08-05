@@ -51,9 +51,11 @@ const handleSubmit = (event) => {
       },
       body: JSON.stringify(data)
     }).then((res)=>res.json()).then((result)=>{
-      // console.log(result.message);
-      if(result.message==="Login Success"){
+      console.log(result.Data[0].RoleId);
+      if(result.Data[0].RoleId==="1"){
         navigate("/view-doctors")
+      }else if(result.Data[0].RoleId==="2"){
+        navigate("/add-patient")
       }
     })
 

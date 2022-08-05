@@ -32,6 +32,11 @@ function DoctorsList(){
       }
 
 
+      const edit=()=>{
+        document.getElementById("tblrw").contentEditable=true;
+      }
+
+
       
 
       const navigate=useNavigate();
@@ -175,7 +180,7 @@ function DoctorsList(){
                                             {data.map((docList,index)=>{
                                               return(
                                                   <>
-                                                   <tr>
+                                                   <tr id="tblrw">
                                               <td>1</td>
                                               <td>{docList.DoctorID}</td>
                                               <td>{docList.Name}</td>
@@ -188,7 +193,7 @@ function DoctorsList(){
       
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                     {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */} 
-                                                    <span><Button variant="" className="action-i edit"><FaEdit color="black"/></Button></span>
+                                                    <span><Button variant="" className="action-i edit" onClick={()=>edit}><FaEdit color="black"/></Button></span>
                                                    
                                               </td>
 

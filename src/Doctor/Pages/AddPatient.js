@@ -62,7 +62,11 @@ function AddPatient() {
       InstructionEngagersAttachments:"",
       InstructionProcline:"",
       InstructionExpand:"",
-      InstructionDistalize:""
+      InstructionDistalize:"",
+      DoNotMoveTheseTeeth:[],
+      IWillExtractTheseTeethBeforeTreatment:[],
+      LeaveTheseSpacesOpen:[],
+      AdditionalInstruction:""
     })
 
 
@@ -154,7 +158,7 @@ function AddPatient() {
     const newdata={...values} 
     newdata[e.target.name]=e.target.value;
     setValues(newdata);
-    console.log(newdata.Endon);
+    console.log(newdata);
     // console.warn(newdata);
 
 
@@ -465,6 +469,94 @@ function AddPatient() {
     setValues({InstructionDistalize:e.target.value})
     console.log({InstructionDistalize:e.target.value})
   }
+
+
+
+
+
+  const handleDoNotMoveTheseTeeth=(e)=>{
+    const { value, checked } = e.target;
+    const { DoNotMoveTheseTeeth } = values;
+      
+    // console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setValues({
+        DoNotMoveTheseTeeth: [...DoNotMoveTheseTeeth, value],
+        // response: [...languages, value],
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setValues({
+        DoNotMoveTheseTeeth: DoNotMoveTheseTeeth.filter((e) => e !== value)
+        // response: languages.filter((e) => e !== value),
+      });
+    }
+
+    console.log(values.DoNotMoveTheseTeeth);
+  }
+
+
+  const handleIWillExtractTheseTeethBeforeTreatment=(e)=>{
+    const { value, checked } = e.target;
+    const { IWillExtractTheseTeethBeforeTreatment } = values;
+      
+    // console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setValues({
+        IWillExtractTheseTeethBeforeTreatment: [...IWillExtractTheseTeethBeforeTreatment, value],
+        // response: [...languages, value],
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setValues({
+        IWillExtractTheseTeethBeforeTreatment: IWillExtractTheseTeethBeforeTreatment.filter((e) => e !== value)
+        // response: languages.filter((e) => e !== value),
+      });
+    }
+
+    console.log(values.IWillExtractTheseTeethBeforeTreatment);
+  }
+
+
+
+  const handleLeaveTheseSpacesOpen=(e)=>{
+    const { value, checked } = e.target;
+    const { LeaveTheseSpacesOpen } = values;
+      
+    // console.log(`${value} is ${checked}`);
+     
+    // Case 1 : The user checks the box
+    if (checked) {
+      setValues({
+        LeaveTheseSpacesOpen: [...LeaveTheseSpacesOpen, value],
+        // response: [...languages, value],
+      });
+    }
+  
+    // Case 2  : The user unchecks the box
+    else {
+      setValues({
+        LeaveTheseSpacesOpen: LeaveTheseSpacesOpen.filter((e) => e !== value)
+        // response: languages.filter((e) => e !== value),
+      });
+    }
+
+    console.log(values.LeaveTheseSpacesOpen);
+  }
+
+
+
+
+
+
 
   return (
     <>
@@ -1291,6 +1383,7 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionUpperMidline"
+                                        onChange={handleInstructionUpperMidline}
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1300,6 +1393,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionUpperMidline"
+                                        onChange={handleInstructionUpperMidline}
+
                                       />
                                     </Col>
 
@@ -1310,6 +1405,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionUpperMidline"
+                                        onChange={handleInstructionUpperMidline}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1325,6 +1422,8 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionLowerMidline"
+                                        onChange={handleInstructionLowerMidline}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1334,6 +1433,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionLowerMidline"
+                                        onChange={handleInstructionLowerMidline}
+
                                       />
                                     </Col>
 
@@ -1344,6 +1445,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionLowerMidline"
+                                        onChange={handleInstructionLowerMidline}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1359,6 +1462,7 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionOverjet"
+                                        onChange={handleInstructionOverjet}
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1368,6 +1472,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionOverjet"
+                                        onChange={handleInstructionOverjet}
+
                                       />
                                     </Col>
 
@@ -1378,6 +1484,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionOverjet"
+                                        onChange={handleInstructionOverjet}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1393,6 +1501,8 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionOverbite"
+                                        onChange={handleInstructionOverbite}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1402,6 +1512,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionOverbite"
+                                        onChange={handleInstructionOverbite}
+
                                       />
                                     </Col>
 
@@ -1412,6 +1524,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionOverbite"
+                                        onChange={handleInstructionOverbite}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1427,6 +1541,7 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionArchForm"
+                                        onChange={handleInstructionArchForm}
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1436,6 +1551,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionArchForm"
+                                        onChange={handleInstructionArchForm}
+
                                       />
                                     </Col>
 
@@ -1446,6 +1563,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionArchForm"
+                                        onChange={handleInstructionArchForm}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1461,6 +1580,8 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionCanineRelationship"
+                                        onChange={handleInstructionCanineRelationship}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1470,6 +1591,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionCanineRelationship"
+                                        onChange={handleInstructionCanineRelationship}
+
                                       />
                                     </Col>
 
@@ -1480,6 +1603,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionCanineRelationship"
+                                        onChange={handleInstructionCanineRelationship}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1495,6 +1620,8 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionMolarRelationship"
+                                        onChange={handleInstructionMolarRelationship}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1504,6 +1631,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionMolarRelationship"
+                                        onChange={handleInstructionMolarRelationship}
+
                                       />
                                     </Col>
 
@@ -1514,6 +1643,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionMolarRelationship"
+                                        onChange={handleInstructionMolarRelationship}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1529,6 +1660,8 @@ function AddPatient() {
                                         label="Maintain"
                                         value="Maintain"
                                         name="InstructionPosteriorCrossbite"
+                                        onChange={handleInstructionPosteriorCrossbite}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1538,6 +1671,8 @@ function AddPatient() {
                                         label="Improve"
                                         value="Improve"
                                         name="InstructionPosteriorCrossbite"
+                                        onChange={handleInstructionPosteriorCrossbite}
+
                                       />
                                     </Col>
 
@@ -1548,6 +1683,8 @@ function AddPatient() {
                                         label="Idealize"
                                         value="Idealize"
                                         name="InstructionPosteriorCrossbite"
+                                        onChange={handleInstructionPosteriorCrossbite}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1563,6 +1700,8 @@ function AddPatient() {
                                         label="Yes"
                                         value="Yes"
                                         name="InstructionIPR"
+                                        onChange={handleInstructionIPR}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1572,6 +1711,8 @@ function AddPatient() {
                                         label="No"
                                         value="No"
                                         name="InstructionIPR"
+                                        onChange={handleInstructionIPR}
+
                                       />
                                     </Col>
 
@@ -1582,6 +1723,8 @@ function AddPatient() {
                                         label="Only If Needed"
                                         value="Only If Needed"
                                         name="InstructionIPR"
+                                        onChange={handleInstructionIPR}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1597,6 +1740,8 @@ function AddPatient() {
                                         label="Yes"
                                         value="Yes"
                                         name="InstructionEngagersAttachments"
+                                        onChange={handleInstructionEngagersAttachments}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1606,6 +1751,8 @@ function AddPatient() {
                                         label="No"
                                         value="No"
                                         name="InstructionEngagersAttachments"
+                                        onChange={handleInstructionEngagersAttachments}
+
                                       />
                                     </Col>
 
@@ -1616,6 +1763,8 @@ function AddPatient() {
                                         label="Only If Needed"
                                         value="Only If Needed"
                                         name="InstructionEngagersAttachments"
+                                        onChange={handleInstructionEngagersAttachments}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1631,6 +1780,8 @@ function AddPatient() {
                                         label="Yes"
                                         value="Yes"
                                         name="InstructionProcline"
+                                        onChange={handleInstructionProcline}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1640,6 +1791,8 @@ function AddPatient() {
                                         label="No"
                                         value="No"
                                         name="InstructionProcline"
+                                        onChange={handleInstructionProcline}
+
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1649,6 +1802,8 @@ function AddPatient() {
                                         label="Only If Needed"
                                         value="Only If Needed"
                                         name="InstructionProcline"
+                                        onChange={handleInstructionProcline}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1664,6 +1819,8 @@ function AddPatient() {
                                         label="Yes"
                                         value="Yes"
                                         name="InstructionExpand"
+                                        onChange={handleInstructionExpand}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1673,6 +1830,8 @@ function AddPatient() {
                                         label="No"
                                         value="No"
                                         name="InstructionExpand"
+                                        onChange={handleInstructionExpand}
+
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1682,6 +1841,8 @@ function AddPatient() {
                                         label="Only If Needed"
                                         value="Only If Needed"
                                         name="InstructionExpand"
+                                        onChange={handleInstructionExpand}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1697,6 +1858,8 @@ function AddPatient() {
                                         label="Yes"
                                         value="Yes"
                                         name="InstructionDistalize"
+                                        onChange={handleInstructionDistalize}
+
                                       />
                                     </Col>
                                     <Col sm="3" className="mt-2">
@@ -1706,6 +1869,8 @@ function AddPatient() {
                                         label="No"
                                         value="No"
                                         name="InstructionDistalize"
+                                        onChange={handleInstructionDistalize}
+
                                       />
                                     </Col>
                                     <Col sm="2" className="mt-2">
@@ -1715,6 +1880,8 @@ function AddPatient() {
                                         label="Only If Needed"
                                         value="Only If Needed"
                                         name="InstructionDistalize"
+                                        onChange={handleInstructionDistalize}
+
                                       />
                                     </Col>
                                   </Form.Group>
@@ -1736,7 +1903,7 @@ function AddPatient() {
                                           <div>
                                             18
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="18" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
 
@@ -1744,105 +1911,105 @@ function AddPatient() {
                                           <div>
                                             17
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="17" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             16
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="16" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             15
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="15" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             14
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="14" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             13
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="13" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             12
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="12" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             11
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="11" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             21
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="21" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             22
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="22" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             23
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="23" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             24
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="24" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             25
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="25" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             26
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="26" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             27
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="27" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             28
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="28" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                           </div>
                                         </td>
                                       </tr>
@@ -1867,97 +2034,97 @@ function AddPatient() {
                                         <td></td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="48" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             48
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="47" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             47
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="46" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             46
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="45" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             45
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="44" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             44
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="43" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             43
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="42" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             42
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="41" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             41
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="31" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             31
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="32" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             32
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="33" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             33
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="34" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             34
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="35" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             35
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="36" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             36
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="37" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             37
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="38" name="DoNotMoveTheseTeeth" onChange={handleDoNotMoveTheseTeeth}/>
                                             38
                                           </div>
                                         </td>
@@ -1977,7 +2144,7 @@ function AddPatient() {
                                           <div>
                                             18
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="18" name="" onChange=""/>
                                           </div>
                                         </td>
 
@@ -1985,105 +2152,105 @@ function AddPatient() {
                                           <div>
                                             17
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="17" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             16
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="16" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             15
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="15" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             14
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="14" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             13
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="13" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             12
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="12" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             11
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="11" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             21
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="21" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             22
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="22" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             23
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="23" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             24
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="24" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             25
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="25" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             26
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="26" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             27
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="27" name="" onChange=""/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             28
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="28" name="" onChange=""/>
                                           </div>
                                         </td>
                                       </tr>
@@ -2108,97 +2275,97 @@ function AddPatient() {
                                         <td></td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="48" name="" onChange=""/>
                                             48
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="47" name="" onChange=""/>
                                             47
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="46" name="" onChange=""/>
                                             46
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="45" name="" onChange=""/>
                                             45
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="44" name="" onChange=""/>
                                             44
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="43" name="" onChange=""/>
                                             43
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="42" name="" onChange=""/>
                                             42
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="41" name="" onChange=""/>
                                             41
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="31" name="" onChange=""/>
                                             31
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="32" name="" onChange=""/>
                                             32
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="33" name="" onChange=""/>
                                             33
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="34" name="" onChange=""/>
                                             34
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="35" name="" onChange=""/>
                                             35
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="36" name="" onChange=""/>
                                             36
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="37" name="" onChange=""/>
                                             37
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="38" name="" onChange=""/>
                                             38
                                           </div>
                                         </td>
@@ -2218,7 +2385,7 @@ function AddPatient() {
                                           <div>
                                             18
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="18" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
 
@@ -2226,105 +2393,105 @@ function AddPatient() {
                                           <div>
                                             17
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="17" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             16
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="16" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             15
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="15" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             14
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="14" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             13
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="13" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             12
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="12" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             11
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="11" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             21
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="21" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             22
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="22" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             23
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="23" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             24
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="24" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             25
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="25" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             26
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="26" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             27
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="27" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             28
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="28" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                           </div>
                                         </td>
                                       </tr>
@@ -2349,97 +2516,97 @@ function AddPatient() {
                                         <td></td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="48" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             48
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="47" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             47
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="46" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             46
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="45" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             45
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="44" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             44
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="43" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             43
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="42" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             42
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="41" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             41
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="31" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             31
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="32" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             32
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="33" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             33
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="34" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             34
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="35" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             35
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="36" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             36
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="37" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             37
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="38" name="IWillExtractTheseTeethBeforeTreatment" onChange={handleIWillExtractTheseTeethBeforeTreatment}/>
                                             38
                                           </div>
                                         </td>
@@ -2458,7 +2625,7 @@ function AddPatient() {
                                           <div>
                                             18
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="18" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
 
@@ -2466,105 +2633,105 @@ function AddPatient() {
                                           <div>
                                             17
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="17" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             16
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="16" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             15
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="15" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             14
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="14" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             13
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="13" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             12
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="12" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             11
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="11" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             21
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="21" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             22
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="22" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             23
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="23" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             24
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="24" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             25
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="25" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             26
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="26" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             27
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="27" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                         <td>
                                           <div>
                                             28
                                             <br />
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="28" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                           </div>
                                         </td>
                                       </tr>
@@ -2589,97 +2756,97 @@ function AddPatient() {
                                         <td></td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="48" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             48
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="47" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             47
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="46" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             46
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="45" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             45
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="44" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             44
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="43" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             43
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="42" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             42
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="41" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             41
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="31" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             31
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="32" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             32
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="33" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             33
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="34" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             34
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="35" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             35
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="36" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             36
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="37" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             37
                                           </div>
                                         </td>
                                         <td>
                                           <div>
-                                            <Form.Check aria-label="option 1" />
+                                            <Form.Check aria-label="option 1" value="38" name="LeaveTheseSpacesOpen" onChange={handleLeaveTheseSpacesOpen}/>
                                             38
                                           </div>
                                         </td>
@@ -2698,6 +2865,9 @@ function AddPatient() {
                                     as="textarea"
                                     rows={7}
                                     aria-describedby="inputGroupPrepend"
+                                    name="AdditionalInstruction"
+                                    value={values.AdditionalInstruction}
+                                    onChange={handleChange}
                                   />
                                 </InputGroup>
                               </Form.Group>
