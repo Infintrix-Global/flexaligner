@@ -1197,7 +1197,7 @@ setState67(file)
   <Button variant="outline-dark" className="mx-3">
   Back
   </Button>
-  <Button className="nextbtn" href="/add-patient#twoTab">
+  <Button className="nextbtn" >
   Next
   </Button>
   </Col>

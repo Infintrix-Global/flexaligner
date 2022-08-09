@@ -1,12 +1,12 @@
 .sup-btn{
-    background-color: #077396;
+    background-color: #C49358;
     color: white;
     border-radius: 7em;
     padding: 0.7em 1.8em;
 }
 
 .sup-btn:focus{
-    background-color: #077396;
+    background-color: #C49358;
     color: white;
 }
 
@@ -18,5 +18,5 @@
 .log-text{
     font-size: 30px;
     font-weight: 500;
-    color: #077396;
+    color: #C49358;
 }

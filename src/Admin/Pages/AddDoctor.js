@@ -10,7 +10,7 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
-import logo from "../../Assets/Ologo.png";
+import logo from "../../Assets/Logoremovebg.png";
 import "../../Admin/Styles/AddDoctor.css";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
@@ -220,18 +220,18 @@ function AddDoctor() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Button variant="" onClick={tglContent}>
-                <FaBars fontSize={28} color="white" />
+              <Button variant="" onClick={tglContent} className="navhide">
+                <FaBars fontSize={28} color="#C49358" />
               </Button>
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="white" />
+                <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="white" className="me-2" />
+                <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
               </Nav.Link>
-              <span>
+              <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
               <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
@@ -262,6 +262,7 @@ function AddDoctor() {
         </Container>
       </Navbar>
       <Container fluid>
+        
         <Row className="menuTab">
           <Col>
             <Card body className="border-0">
@@ -288,6 +289,7 @@ function AddDoctor() {
       </Container>
 
       <Container fluid>
+        <Row style={{height:"30px"}}></Row>
         <Row className="justify-content-center mt-3">
           <Col md={10}>
             <Card className="mb-3 border-0 p-crd">
@@ -683,6 +685,7 @@ function AddDoctor() {
             </Card>
           </Col>
         </Row>
+        <Row style={{height:"30px"}}></Row>
       </Container>
     </>
   );

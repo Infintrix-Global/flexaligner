@@ -9,7 +9,7 @@ import {
   Form,
 } from "react-bootstrap";
 import "../Styles/Login.css";
-import logo from "../../Assets/Ologo.png";
+import logo from "../../Assets/Logo.jpg";
 import {useNavigate} from "react-router-dom";
 
 function Login() {
@@ -109,10 +109,10 @@ const handleSubmit = (event) => {
 
         <Row className="mt-5">
           <Col md={4} className="mx-auto">
-            <Card body className="pt-3 pb-3 mt-5">
+            <Card body className="pt-3 pb-3 mt-5" style={{boxShadow: "0px 0px 15px  #C49358"}}>
               <Row className="text-center">
                 <Col>
-                  <img src={logo} alt="" className="" />
+                  <img src={logo} alt="" className="" height={150} width={150}/>
                 </Col>
               </Row>
               <Row className="text-center mt-4">
