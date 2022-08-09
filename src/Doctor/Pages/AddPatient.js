@@ -66,7 +66,9 @@ import {
   LeaveTheseSpacesOpen:[],
   AdditionalInstruction:"",
   PortraitPath:sessionStorage.getItem("path"),
-  PathOfDoc:sessionStorage.getItem("path1")
+  PathOfDoc:sessionStorage.getItem("path1"),
+  ProfileRepose:sessionStorage.getItem("pathProfileRepose"),
+  XrayLeft:sessionStorage.getItem("XrayLeft")
   })
   
   const tglContent = () => {
@@ -82,8 +84,9 @@ import {
   const [validated, setValidated] = useState(false);
   // const navigate=useNavigate();
 
-
-
+  
+  
+  var radGarph1=document.getElementById("rGraph1");
 
   const handleSubmit = (event) => {
   const form = event.currentTarget;
@@ -92,6 +95,33 @@ import {
   event.stopPropagation();
   }
   setValidated(true);
+
+
+
+  const fd=new FormData();
+  if(radGarph1.checked){
+  fd.append("Name",radio.name);
+fd.append("fileContent",radio);
+console.log(radio);
+  }
+
+  axios.post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos",fd,{
+onUploadProgress:ProgressEvent=>{
+console.log("Upload Progress:"+ 
+Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+}
+})
+.then(res=>{
+  var arr=res.data;
+console.log(arr);
+sessionStorage.setItem("XrayLeft",arr.path.toString());
+
+});
+
+
+
+
+
   const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
   fetch(url,{
   method:"POST",
@@ -106,6 +136,8 @@ import {
   // navigate("/view-doctors");
   }
   })
+
+  console.log(values);
   
   };
 
@@ -232,7 +264,7 @@ var pvs1=document.getElementById("five2");
 var pvs2=document.getElementById("five3");
 var pvs3=document.getElementById("five4");
 // var pvs1=document.getElementById("five2");
-
+// console.log(pvs1);
 
   const  handleUpload1=(e)=>{
     e.preventDefault();
@@ -285,6 +317,46 @@ if(pvs3.checked){
 
 
   }
+
+
+
+
+
+  const handleUpload2=(e)=>{
+    e.preventDefault();
+
+    const fd=new FormData();
+    fd.append("Name",state6.name);
+  fd.append("fileContent",state6);
+  console.log(state6);
+
+
+
+  axios.post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos",fd,{
+  onUploadProgress:ProgressEvent=>{
+  console.log("Upload Progress:"+ 
+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+  }
+  })
+  .then(res=>{
+    var arr=res.data;
+  console.log(arr);
+  sessionStorage.setItem("pathProfileRepose",arr.path.toString());
+  
+  });
+
+
+  }
+
+
+
+  // const handleUpload3=(e)=>{
+  //   e.preventDefault();
+
+   
+
+
+  // }
 
 
 
@@ -844,7 +916,7 @@ setState67(file)
   </Nav.Link>
   </Nav.Item>
   <Nav.Item>
-  <Nav.Link eventKey="second" href="#">
+  <Nav.Link eventKey="second" href="#" id="twoTab">
   <Button
   variant="light"
   style={{ borderRadius: "50%" }}
@@ -1125,7 +1197,7 @@ setState67(file)
   <Button variant="outline-dark" className="mx-3">
   Back
   </Button>
-  <Button className="nextbtn">
+  <Button className="nextbtn" href="/add-patient#twoTab">
   Next
   </Button>
   </Col>
@@ -3821,7 +3893,7 @@ setState67(file)
   <Button variant="outline-dark" className="mx-3">
   Back
   </Button>
-  <Button className="nextbtn">
+  <Button className="nextbtn" onClick={handleUpload2}>
   Next
   </Button>
   </Col>
@@ -3836,7 +3908,7 @@ setState67(file)
   <Form.Check
   type="radio"
   aria-label="radio 1"
-  id="r1"
+  id="rGraph1"
   name="graph"
   label="Upload Radiographs Now"
   value="1"
@@ -3846,7 +3918,7 @@ setState67(file)
   <Form.Check
   type="radio"
   aria-label="radio 2"
-  id="r2"
+  id="rGraph2"
   name="graph"
   label="Upload Radiographs later"
   value="2"
@@ -3980,7 +4052,7 @@ setState67(file)
   <Button variant="outline-dark" className="mx-3">
   Back
   </Button>
-  <Button className="nextbtn">
+  <Button className="nextbtn" onClick={handleSubmit}>
   Next
   </Button>
   </Col>
