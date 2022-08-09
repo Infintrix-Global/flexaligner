@@ -1,10 +1,10 @@
 body{
     overflow-x: hidden;
-    background-color: rgb(210 238 247 / 25%);
+    background-color: #f8f3ec;
 }
 
 .navb{
-    background-color: #077396;
+    background-color: #ebdbc6;
 }
 .menuTab {
  
@@ -27,7 +27,7 @@ body{
 }
 
 .user{
-    color: white;
+    color: #C49358;
 }
 
 .p-crd{
@@ -69,7 +69,7 @@ body{
 }
 
 .doc-signup{
-    background-color: #077396;
+    background-color: #C49358;
     color: white;
     border-radius: 10em !important;
     padding: 0.5em 1.5em;
@@ -82,4 +82,21 @@ body{
 .add-t{
     font-size: 22px;
     font-weight: 500;
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 991px) {
+    .navhide
+    {
+        visibility: hidden;
+    }
+    .notification
+    {
+        margin-top: -80px;
+    }
+    .address
+    {
+        margin-top: -40px;
+    }
 }

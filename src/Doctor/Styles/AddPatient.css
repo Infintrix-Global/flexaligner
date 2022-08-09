@@ -1,6 +1,6 @@
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: var(--bs-nav-pills-link-active-color);
-    background-color: #077396;
+    background-color: #C49358;
 }
 .nav-pills .nav-link {
     background: 0 0;
@@ -8,7 +8,7 @@
     background-color: #e9dfdf; 
     border: solid 0.1em;
     border-color: white;
-    color:#077396;
+    color:#C49358;
     border-radius: 0%;
 }
 .input-group-text {
@@ -20,8 +20,8 @@
     border-radius: 0%;
 }
 .form-check-input:checked {
-    background-color: #077396;
-    border-color: #077396;
+    background-color: #C49358;
+    border-color: #C49358;
 }
 .btn
 {
@@ -88,20 +88,20 @@ tbody, td, tfoot, th, thead, tr {
 .hrrl
 {
     border: 1px dashed;
-    border-color: #077396;
+    border-color: #C49358;
 
 }
 .nextbtn
 {
-    background-color: #077396;
+    background-color: #C49358;
     color: white;
     border-color: white;
 }
 .nextbtn:hover {
    
-    background-color: #077396;
-    color: white;
-    border-color: white;
+    background-color: white;
+    color: #C49358;
+    border-color: #C49358;
 }
 
 .image {
@@ -112,7 +112,7 @@ tbody, td, tfoot, th, thead, tr {
 
  
 .nav-link:focus, .nav-link:hover {
-    color: #077396;
+    color:#C49358;
 
     
 }
@@ -138,4 +138,106 @@ tbody, td, tfoot, th, thead, tr {
 .seventhTabSubmit{
     background-color: #077396;
     color: white;
+}
+body{
+    overflow-x: hidden;
+    background-color: #f8f3ec;
+}
+
+.navb{
+    background-color: #ebdbc6;
+}
+.menuTab {
+ 
+    box-shadow: 0px 3px 16px rgb(0 0 0 / 0.1);
+    
+    width: 100vw;
+    background: #ffffff;
+    height: 8vh;        
+    overflow-y: hidden;
+    overflow-x: hidden;
+    transition: 0.3s all ease;
+   
+}
+.menuTab.collapsed {
+    height: 0;
+}
+
+.btn{
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem transparent, .5;
+}
+
+.user{
+    color: #C49358;
+}
+
+.p-crd{
+    box-shadow: 0 0 20px rgba(165, 174, 177, 0.25);
+}
+
+.doc-tab{
+    float: right;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.doc-tab:focus{
+   border-bottom: 2px solid #077396;
+   border-bottom-left-radius: 0px;
+   border-bottom-right-radius: 0px;
+   transition: 0.1s border-bottom ease-in;
+   color: black;
+}
+
+.prof-tab{
+    float: left;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+
+
+}
+
+.prof-tab:focus{
+    border-bottom: 2px solid #077396;
+   border-bottom-left-radius: 0px;
+   border-bottom-right-radius: 0px;
+   transition: 0.2s border-bottom ease;
+   
+}
+
+.doc-signup{
+    background-color: #C49358;
+    color: white;
+    border-radius: 10em !important;
+    padding: 0.5em 1.5em;
+}
+
+.form-label{
+    font-weight: 500;
+}
+
+.add-t{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 991px) {
+    .navhide
+    {
+        visibility: hidden;
+    }
+    .notification
+    {
+        margin-top: -80px;
+    }
+    .address
+    {
+        margin-top: -40px;
+    }
 }

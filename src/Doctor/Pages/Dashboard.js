@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import "../../Doctor/Styles/Dashboard.css";
 import user from "../../Assets/user.png";
-import logo from "../../Assets/Ologo.png";
+import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
@@ -38,18 +38,26 @@ function Dashboard() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Button variant="" onClick={tglContent}>
-                <FaBars fontSize={28} color="white" />
+              <Button variant="" onClick={tglContent} className="navhide">
+                <FaBars fontSize={28} color="#C49358" />
               </Button>
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="white" />
+                <IoMdNotifications
+                  fontSize={30}
+                  color="#C49358"
+                  className="notification"
+                />
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="white" className="me-2" />
+                <FiMessageSquare
+                  fontSize={30}
+                  color="#C49358"
+                  className="me-2 notification"
+                />
               </Nav.Link>
-              <span>
+              <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
               <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
@@ -104,7 +112,7 @@ function Dashboard() {
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#077396", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
                   >
                     <p className="mt-4">
@@ -115,7 +123,7 @@ function Dashboard() {
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#077396", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
                   >
                     <p className="mt-4">
@@ -129,7 +137,7 @@ function Dashboard() {
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#077396", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
                   >
                     <p className="mt-4">
@@ -141,7 +149,7 @@ function Dashboard() {
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#077396", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
                   >
                     <p className="mt-4">
@@ -155,7 +163,7 @@ function Dashboard() {
                 <img src={advertisement} className="w-100"></img>
                 <Button
                   className="mt-5 w-100"
-                  style={{ backgroundColor: "#077396" }}
+                  style={{ backgroundColor: "#C49358" }}
                 >
                   Add Patient
                 </Button>
@@ -165,8 +173,8 @@ function Dashboard() {
               <Col md={{ span: 6 }}>
                 <Row className="mt-5">
                   <Col
-                    md={{ span: 9,offset:1 }}
-                    style={{ boxShadow: "0px 0px 5px 5px #dee2e6" }}
+                    md={{ span: 8, offset: 1 }}
+                    style={{ boxShadow: "0px 0px 5px 5px #dee2e6",backgroundColor:"#ebdbc6" }}
                     className="p-3"
                   >
                     <img
@@ -192,17 +200,17 @@ function Dashboard() {
                 <Row className="mt-5">
                   <Col
                     md={{ span: 11 }}
-                    style={{ boxShadow: "0px 0px 5px 5px #dee2e6" }}
+                    style={{ boxShadow: "0px 0px 5px 5px #dee2e6",backgroundColor:"#ebdbc6"}}
                     className="p-5"
                   >
-                    <p>Practice Name: 2004</p>
-                    <p>License # : kdsljkjd;n090-</p>
-                    <p>
+                    <p style={{ fontWeight: "bold" }}>Practice Name: 2004</p>
+                    <p style={{ fontWeight: "bold" }}>License # : kdsljkjd;n090-</p>
+                    <p style={{ fontWeight: "bold" }}>
                       Address : B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH
                       NAGAR BORIVALI EAST, MUMBAI 400066
                     </p>
-                    <p>Phone no : +91 9619971989</p>
-                    <p>Email Id : nidhi.mehta@infintrixglobal.com</p>
+                    <p style={{ fontWeight: "bold" }}>Phone no : +91 9619971989</p>
+                    <p style={{ fontWeight: "bold" }}>Email Id : nidhi.mehta@infintrixglobal.com</p>
                   </Col>
                 </Row>
               </Col>

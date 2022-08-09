@@ -22,7 +22,7 @@ function App() {
           {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
           <Route path="/upload" element={<Upload />} />
           {/* <Route path="/file" element={<File/>}/> */}
-          <Route path="/doctor-dashboard" element={<Dashboard/>}/>
+          <Route path="/doctor-dashboard" element={<Dashboard/>}/>s
           <Route path="/patient-list" element={<PatientList />} />
         </Routes>
       </Router>

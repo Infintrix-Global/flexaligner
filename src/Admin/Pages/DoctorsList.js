@@ -1,12 +1,12 @@
 import React, { useEffect,useState } from "react";
 import "../Styles/DoctorsList.css";
-import { Button, Col, Container ,Nav,Navbar, Row,Dropdown,Card,Form,Table} from "react-bootstrap";
+import { Button, Col, Container ,Nav,Navbar, Row,Dropdown,Card,Form,Table, ToastHeader} from "react-bootstrap";
 import {IoMdNotifications} from "react-icons/io";
 import {IoEyeOutline} from "react-icons/io5";
 
 import {FiMessageSquare,FiPower} from "react-icons/fi";
 import {FaBars,FaEdit, FaPlus} from "react-icons/fa";
-import logo from "../../Assets/Ologo.png";
+import logo from "../../Assets/Logoremovebg.png";
 import user from "../../Assets/user.png";
 import ReactHTMLTableToExcel from 'react-html-to-excel';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -32,11 +32,29 @@ function DoctorsList(){
       }
 
 
-      const edit=()=>{
-        document.getElementById("tblrw").contentEditable=true;
-      }
-
-
+      
+        $(document).ready(function () {
+          $('.editbtn').click(function () {
+              var currentTD = $(this).parents('tr').find('td');
+              if ($(this).html() == 'Edit') {
+                  currentTD = $(this).parents('tr').find('td');
+                  $.each(currentTD, function () {
+                      $(this).prop('contenteditable', true)
+                      $(this).parents('tr').find('td').focus()
+                  });
+              } else {
+                 $.each(currentTD, function () {
+                      $(this).prop('contenteditable', false)
+                  });
+              }
+    
+              $(this).html($(this).html() == 'Edit' ? 'Save' : 'Edit')
+    
+          });
+    
+      });
+      
+     
       
 
       const navigate=useNavigate();
@@ -73,12 +91,12 @@ function DoctorsList(){
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Button variant="" onClick={tglContent}><FaBars fontSize={28} color="white"/></Button>
+            <Button variant="" onClick={tglContent}><FaBars fontSize={28} color="#C49358"/></Button>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="white"/></Nav.Link>
+            <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="#C49358"/></Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
-            <FiMessageSquare fontSize={30} color="white" className="me-2"/>
+            <FiMessageSquare fontSize={30} color="#C49358" className="me-2"/>
             </Nav.Link>
             <span><img src={user} alt="" width={35} className="mt-1"/></span>
             <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
@@ -122,8 +140,8 @@ function DoctorsList(){
               </Col>
             </Row>
         </Container>
-        <Container fluid>
-            <Row className="justify-content-center mt-5">
+        <Container fluid >
+            <Row className="justify-content-center mt-5" >
                 <Col md={10}>
                 <Card>
                     <Row className="text-end mt-3 me-2">
@@ -158,14 +176,14 @@ function DoctorsList(){
                             </Row>
 
 
-                            <Row className="m-2">
+                            <Row className="m-2" >
                                 <Col>
-                                    <Table striped bordered hover id="table-to-xls">
+                                    <Table striped bordered hover id="table-to-xls" responsive>
                                           <thead>
                                             <tr>
                                               <th>SR.NO</th>
                                               <th>DOCTOR ID</th>
-                                              <th>DOCTOT NAME</th>
+                                              <th>DOCTOR NAME</th>
                                               <th>PATIENT COUNT</th>
                                               <th>PRACTICE NAME</th>
                                               <th>EMAIL</th>
@@ -181,21 +199,21 @@ function DoctorsList(){
                                               return(
                                                   <>
                                                    <tr id="tblrw">
-                                              <td>1</td>
-                                              <td>{docList.DoctorID}</td>
-                                              <td>{docList.Name}</td>
-                                              <td>1</td>
-                                              <td>{docList.PracticeName}</td>
-                                              <td>{docList.PracticeEmail}</td>
-                                              <td>{docList.PhoneNo}</td>
-                                              <td>Active</td>
-                                              <td>
+                                              <th contenteditable="false">1</th>
+                                              <td contenteditable="false">{docList.DoctorID}</td>
+                                              <td contenteditable="false">{docList.Name}</td>
+                                              <td contenteditable="false">1</td>
+                                              <td contenteditable="false">{docList.PracticeName}</td>
+                                              <td contenteditable="false">{docList.PracticeEmail}</td>
+                                              <td contenteditable="false">{docList.PhoneNo}</td>
+                                              <td contenteditable="false">Active</td>
+                                              <th>
       
                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
                                                     {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */} 
-                                                    <span><Button variant="" className="action-i edit" onClick={()=>edit}><FaEdit color="black"/></Button></span>
+                                                    <span><Button variant="" className="action-i edit editbtn">Edit</Button></span>
                                                    
-                                              </td>
+                                              </th>
 
                                             </tr>
                                                   </>
@@ -256,6 +274,7 @@ function DoctorsList(){
                 </Card>
                 </Col>
             </Row>
+            <Row style={{height:"50px"}}></Row>
         </Container>
         </>
     );
