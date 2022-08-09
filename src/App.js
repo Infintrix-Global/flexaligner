@@ -8,21 +8,22 @@ import AddPatient from "./Doctor/Pages/AddPatient";
 import Upload from "./Doctor/Pages/Upload";
 import PatientList from "./Doctor/Pages/PatientList";
 // import File from "./Doctor/Pages/File";
+import Dashboard from "./Doctor/Pages/Dashboard";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/add-doctor" element={<AddDoctor/>}/>
-          <Route path="/view-doctors" element={<DoctorsList/>}/>
-          <Route path="/add-patient" element={<AddPatient/>}/>
+          <Route path="/" element={<Login />} />
+          <Route path="/add-doctor" element={<AddDoctor />} />
+          <Route path="/view-doctors" element={<DoctorsList />} />
+          <Route path="/add-patient" element={<AddPatient />} />
           {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
-          <Route path="/upload" element={<Upload/>}/>
+          <Route path="/upload" element={<Upload />} />
           {/* <Route path="/file" element={<File/>}/> */}
-
-          <Route path="/patient-list" element={<PatientList/>}/>
+          <Route path="/doctor-dashboard" element={<Dashboard/>}/>
+          <Route path="/patient-list" element={<PatientList />} />
         </Routes>
       </Router>
     </div>
