@@ -41,6 +41,14 @@ body{
     color: #C49358;
 }
 
+.user:hover{
+    border: none;
+}
+
+.user:focus{
+    border: none;
+}
+
 .p-crd{
     box-shadow: 0 0 20px rgba(165, 174, 177, 0.25);
 }

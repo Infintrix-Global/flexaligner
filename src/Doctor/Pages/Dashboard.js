@@ -61,7 +61,7 @@ function Dashboard() {
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
               <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-                <Dropdown>
+                <Dropdown className="out-dd">
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
