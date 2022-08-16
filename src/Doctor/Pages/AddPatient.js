@@ -845,10 +845,14 @@ function AddPatient() {
                           <Row className="pt-4 justify-content-center px-5">
                             <Col
                               sm={{ span: 12 }}
-                              style={{ border: "solid 0.1em lightgray" }}
+                              style={{ border: "solid 0.1em lightgray",backgroundColor:"white"}}
                             >
-                              <Tabs activeKey={currentTab} justify className="mt-3">
-                                <Tab eventKey={0} title="1.Patient Data" >
+                              <Tabs
+                                activeKey={currentTab}
+                                justify
+                                className="mt-3"
+                              >
+                                <Tab eventKey={0} title="1.Patient Data">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
@@ -1052,16 +1056,9 @@ function AddPatient() {
                                   <hr />
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
+                                      
                                       <Button
-                                        className="success"
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev - 1)
-                                        }
-                                      >
-                                        Prev
-                                      </Button>
-                                      <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -1219,15 +1216,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                        variant="outline-dark"
+                                        className="mx-3"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -1305,9 +1303,13 @@ function AddPatient() {
                                             controlId="validationProductType"
                                             className="mt-3"
                                           >
-                                            <Form.Label>Product Type</Form.Label>
+                                            <Form.Label>
+                                              Product Type
+                                            </Form.Label>
                                             <Form.Select aria-label="Default select example">
-                                              <option>Select Product type</option>
+                                              <option>
+                                                Select Product type
+                                              </option>
                                               <option value="1">Classic</option>
                                               <option value="2">Premium</option>
                                             </Form.Select>
@@ -1418,7 +1420,7 @@ function AddPatient() {
                                             as={Row}
                                             controlId="validationCanine"
                                           >
-                                            <Form.Label column sm="4">
+                                            <Form.Label column sm="4" className="form-labeltext">
                                               Right Class
                                             </Form.Label>
                                             <Col sm="5">
@@ -2013,7 +2015,9 @@ function AddPatient() {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                         <Col sm="3" className="mt-2">
@@ -2023,7 +2027,9 @@ function AddPatient() {
                                             label="No"
                                             value="No"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                         <Col sm="2" className="mt-2">
@@ -2033,7 +2039,9 @@ function AddPatient() {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                       </Form.Group>
@@ -3856,15 +3864,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                        variant="outline-dark"
+                                        className="mx-3"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -3966,7 +3975,9 @@ function AddPatient() {
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -3974,15 +3985,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                        variant="outline-dark"
+                                        className="mx-3"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -4131,7 +4143,9 @@ function AddPatient() {
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -4400,8 +4414,8 @@ function AddPatient() {
                                             <Col md={4}>
                                               <Card className="border-0 p-2">
                                                 <p className="text-center">
-                                                  Drag and drop individual photos
-                                                  from desktop folder to
+                                                  Drag and drop individual
+                                                  photos from desktop folder to
                                                   respective tile
                                                 </p>
                                               </Card>
@@ -4566,7 +4580,9 @@ function AddPatient() {
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -4652,7 +4668,8 @@ function AddPatient() {
                                                   ""
                                                 ) : (
                                                   <p className="text-center mt-5 pt-5">
-                                                    Drag Image or click to browse
+                                                    Drag Image or click to
+                                                    browse
                                                   </p>
                                                 )}
                                                 {previewUrlTab71 && (
@@ -4677,7 +4694,8 @@ function AddPatient() {
                                                   ""
                                                 ) : (
                                                   <p className="text-center mt-5 pt-5">
-                                                    Drag Image or click to browse
+                                                    Drag Image or click to
+                                                    browse
                                                   </p>
                                                 )}
                                                 {previewUrlTab72 && (
@@ -4735,7 +4753,9 @@ function AddPatient() {
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -4784,15 +4804,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                        variant="outline-dark"
+                                        className="mx-3"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
