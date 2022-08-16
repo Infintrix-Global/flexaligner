@@ -147,6 +147,8 @@ function DoctorsList(){
                     <Row className="text-end mt-3 me-2">
                         <Col>
                         <Button variant="" className="add-doc-btn" onClick={() => navigate("/add-doctor")}>Add Doctor</Button>
+                        <Button variant="" className="add-doc-btn mx-2" onClick={() => navigate("/patient-list")}>View Patient</Button>
+                        
                         </Col>
                     </Row>
                     <Row>

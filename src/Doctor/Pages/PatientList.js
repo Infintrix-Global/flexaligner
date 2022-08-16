@@ -19,8 +19,11 @@ import Male from "../../Assets/Male.png";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function PatientList() {
+  
+  const navigate=useNavigate();
   const [patient, setPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
@@ -72,6 +75,10 @@ function PatientList() {
       name: "Name",
       selector: (row) => row.Name,
     },
+    {
+      name: "Action",
+      cell: row => <button className="edit-patient-btn"  onClick={() => navigate("/add-patient")}>Edit</button>
+    }
   ];
 
   useEffect(() => {

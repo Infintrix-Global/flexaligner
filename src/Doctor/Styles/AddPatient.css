@@ -241,3 +241,8 @@ and (max-device-width : 991px) {
         margin-top: -40px;
     }
 }
+.edit-patient-btn {
+    background-color: #C49358;
+    color: white;
+    border-color: white;
+}
