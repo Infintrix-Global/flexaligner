@@ -852,7 +852,7 @@ function AddPatient() {
                                 justify
                                 className="mt-3"
                               >
-                                <Tab eventKey={0} title="1.Patient Data">
+                                <Tab eventKey={0} title="1.&nbsp;Patient Data">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
@@ -1068,7 +1068,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={1} title="ClinicalMalocclusion">
+                                <Tab eventKey={1} title="2.&nbsp;ClinicalMalocclusion">
                                   <Row>
                                     <Col md={6}>
                                       <p>Clinical Conditions*</p>
@@ -1235,7 +1235,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={2} title="Prescription Form">
+                                <Tab eventKey={2} title="3.&nbsp;Prescription Form">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <p>Chief Complaint</p>
@@ -3885,7 +3885,7 @@ function AddPatient() {
                                 </Tab>
                                 <Tab
                                   eventKey={3}
-                                  title="Patient Potrait"
+                                  title="4.&nbsp;Patient Potrait"
                                   className="p-3"
                                 >
                                   <Row>
@@ -4004,7 +4004,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={4} title="PVS/Scan">
+                                <Tab eventKey={4} title="5.&nbsp;PVS/Scan">
                                   <Row className="p-3">
                                     <Col md={8}>
                                       <Card className="p-3 check-crd">
@@ -4173,7 +4173,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={5} title="Photos">
+                                <Tab eventKey={5} title="6.&nbsp;Photos">
                                   {/* <section>
                 <label>
                 + Add Images
@@ -4610,7 +4610,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={6} title="Radiographs">
+                                <Tab eventKey={6} title="7.&nbsp;Radiographs">
                                   <Row className="m-2">
                                     <Col md={8}>
                                       <Card className="img-crd">
@@ -4789,7 +4789,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={7} title="Upload Video">
+                                <Tab eventKey={7} title="8.&nbsp;Upload Video">
                                   <Row className="m-2">
                                     <Col md={12}>
                                       <Card className="p-3">
