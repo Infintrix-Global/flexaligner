@@ -846,8 +846,8 @@ function AddPatient() {
                             sm={{ span: 12 }}
                             style={{ border: "solid 0.1em lightgray" }}
                           >
-                            <Tabs activeKey={currentTab} justify>
-                              <Tab eventKey={0} title=" Patient Data">
+                            <Tabs activeKey={currentTab} justify className="mt-3">
+                              <Tab eventKey={0} title="1. &nbsp;Patient Data" >
                                 <Row className="pt-4 pb-3">
                                   <Col md={{ span: 6 }}>
                                     <Form.Group controlId="validationFirstname">
@@ -4149,16 +4149,452 @@ function AddPatient() {
                                     </Button>
                                     <Button
                                       className="nextbtn"
-                                     // onClick={handleUpload1}
-                                     onClick={() => setCurrentTab((prev) => prev + 1)}
+                                      //  onClick={handleUpload1}
+                                      onClick={() =>
+                                        setCurrentTab((prev) => prev + 1)
+                                      }
                                     >
                                       Next
                                     </Button>
                                   </Col>
                                 </Row>
                               </Tab>
-                             
-                              <Tab eventKey={5} title="Radiographs">
+                              <Tab eventKey={5} title="Photos">
+                                {/* <section>
+      <label>
+      + Add Images
+      <br />
+      <span>up to 10 images</span>
+      <input
+      type="file"
+      name="images"
+      onChange={onSelectFile}
+      multiple
+      accept="image/png , image/jpeg, image/webp"
+      />
+      </label>
+      <br />
+      <input type="file" multiple />
+      {selectedImages.length > 0 &&
+      (selectedImages.length > 10 ? (
+      <p className="error">
+      You can't upload more than 10 images! <br />
+      <span>
+      please delete <b> {selectedImages.length - 10} </b> of them{" "}
+      </span>
+      </p>
+      ) : (
+      <button
+      className="upload-btn"
+      onClick={() => {
+      console.log(selectedImages);
+      }}
+      >
+      UPLOAD {selectedImages.length} IMAGE
+      {selectedImages.length === 1 ? "" : "S"}
+      </button>
+      ))}
+      <div className="images">
+      {selectedImages &&
+      selectedImages.map((image, index) => {
+      return (
+      <div key={image} className="image">
+      <img src={image} height="200" alt="upload" />
+      <button onClick={() => deleteHandler(image)}>
+      delete image
+      </button>
+      <p>{index + 1}</p>
+      </div>
+      );
+      })}
+      </div>
+      </section> */}
+                                <Row className="m-2">
+                                  <Col md={8}>
+                                    <Card className="img-crd">
+                                      <Row className="p-3">
+                                        <Col>
+                                          <Form.Check
+                                            type="radio"
+                                            aria-label="radio 1"
+                                            id="r1"
+                                            name="photo"
+                                            label="Upload photos now"
+                                            value="1"
+                                          />
+                                        </Col>
+                                        <Col>
+                                          <Form.Check
+                                            type="radio"
+                                            aria-label="radio 2"
+                                            id="r2"
+                                            name="photo"
+                                            label="Upload photos later"
+                                            value="2"
+                                          />
+                                        </Col>
+                                      </Row>
+                                      <hr className="m-2" />
+                                      <Card
+                                        className="img-crd-in m-2 p-3 desc"
+                                        id="Ph1"
+                                        // onDragOver={handleOndragOver}
+                                        // onDrop={handleOndrop}
+                                        // onClick={() => fileInput.current.click()}
+                                      >
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInputTab61}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFileTab61(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput1}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile1(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput2}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile2(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput3}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile3(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput4}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile4(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput5}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile5(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput6}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile6(e.target.files[0])
+                                          }
+                                        />
+                                        <input
+                                          type="file"
+                                          accept="image/*"
+                                          ref={fileInput7}
+                                          hidden
+                                          name="Name"
+                                          onChange={(e) =>
+                                            handleFile7(e.target.files[0])
+                                          }
+                                        />
+                                        <Row>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndropTab61}
+                                              onClick={() =>
+                                                fileInputTab61.current.click()
+                                              }
+                                            >
+                                              {previewUrlTab61 && (
+                                                <img
+                                                  src={previewUrlTab61}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop1}
+                                              onClick={() =>
+                                                fileInput1.current.click()
+                                              }
+                                            >
+                                              {previewUrl1 && (
+                                                <img
+                                                  src={previewUrl1}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop2}
+                                              onClick={() =>
+                                                fileInput2.current.click()
+                                              }
+                                            >
+                                              {previewUrl2 && (
+                                                <img
+                                                  src={previewUrl2}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop3}
+                                              onClick={() =>
+                                                fileInput3.current.click()
+                                              }
+                                            >
+                                              {previewUrl3 && (
+                                                <img
+                                                  src={previewUrl3}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="border-0 p-2">
+                                              <p className="text-center">
+                                                Drag and drop individual photos
+                                                from desktop folder to
+                                                respective tile
+                                              </p>
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop4}
+                                              onClick={() =>
+                                                fileInput4.current.click()
+                                              }
+                                            >
+                                              {previewUrl4 && (
+                                                <img
+                                                  src={previewUrl4}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop5}
+                                              onClick={() =>
+                                                fileInput5.current.click()
+                                              }
+                                            >
+                                              {previewUrl5 && (
+                                                <img
+                                                  src={previewUrl5}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop6}
+                                              onClick={() =>
+                                                fileInput6.current.click()
+                                              }
+                                            >
+                                              {previewUrl6 && (
+                                                <img
+                                                  src={previewUrl6}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card
+                                              className="crd-up"
+                                              onDragOver={handleOndragOver}
+                                              onDrop={handleOndrop7}
+                                              onClick={() =>
+                                                fileInput7.current.click()
+                                              }
+                                            >
+                                              {previewUrl7 && (
+                                                <img
+                                                  src={previewUrl7}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
+                                              )}
+                                            </Card>
+                                          </Col>
+                                        </Row>
+                                        {/* {previewUrl ? (
+      ""
+      ) : (
+      <p className="text-center">
+      Drag or click to browse
+      </p>
+      )} */}
+                                        {/* {" "}
+      <br />
+      <Button
+      variant=""
+      onClick={() => {
+      setPreviewUrl("");
+      // e.stopPropagation();
+      }}
+      >
+      Delete
+      </Button>
+      <p> {image.name} </p>
+      </div>
+      )}
+    
+      } */}
+                                      </Card>
+                                      <Card
+                                        className="desc border-0"
+                                        id="Ph2"
+                                        style={{ display: "none" }}
+                                      >
+                                        <Row className="m-2">
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                        </Row>
+                                        <Row className="m-2">
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                        </Row>
+                                        <Row className="m-2">
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                          <Col md={4}>
+                                            <Card className="crd-up"></Card>
+                                          </Col>
+                                        </Row>
+                                      </Card>
+                                      <Row className="m-2 mt-1">
+                                        <Col>
+                                          <p className="m-0 pb-1">
+                                            Add More Photos
+                                          </p>
+                                          <Form.Control
+                                            type="file"
+                                            multiple
+                                            className=""
+                                            name="Name"
+                                            onChange={(e) => {
+                                              handleChangeTab6Add(
+                                                e.target.files
+                                              );
+                                            }}
+                                          />
+                                        </Col>
+                                      </Row>
+                                    </Card>
+                                  </Col>
+                                  <Col md={4}>
+                                    <Card className="p-3">
+                                      <p className="up-rec">UPLOADED RECORDS</p>
+                                    </Card>
+                                  </Col>
+                                </Row>
+                                <hr />
+                                <Row className="text-end mt-1 mb-2">
+                                  <Col className="me-4">
+                                    <Button
+                                      variant="outline-dark"
+                                      className="mx-3"
+                                      onClick={() =>
+                                        setCurrentTab((prev) => prev - 1)
+                                      }
+                                    >
+                                      Back
+                                    </Button>
+                                    <Button
+                                      className="nextbtn"
+                                      // onClick={handleUpload2}
+                                      onClick={() =>
+                                        setCurrentTab((prev) => prev + 1)
+                                      }
+                                    >
+                                      Next
+                                    </Button>
+                                  </Col>
+                                </Row>
+                              </Tab>
+                              <Tab eventKey={6} title="Radiographs">
                                 <Row className="m-2">
                                   <Col md={8}>
                                     <Card className="img-crd">
@@ -4323,23 +4759,25 @@ function AddPatient() {
                                     </Button>
                                     <Button
                                       className="nextbtn"
-                                     // onClick={handleSubmit}
+                                      //   onClick={handleSubmit}
 
-                                       onClick={() => setCurrentTab((prev) => prev + 1)}
+                                      onClick={() =>
+                                        setCurrentTab((prev) => prev + 1)
+                                      }
                                     >
                                       Next
                                     </Button>
                                   </Col>
                                 </Row>
                               </Tab>
-                              <Tab eventKey={6} title="Upload Video">
+                              <Tab eventKey={7} title="Upload Video">
                                 <Row className="m-2">
                                   <Col md={12}>
                                     <Card className="p-3">
                                       <p className="up-rec">
                                         UPLOAD VIDEO FILE
                                       </p>
-                                      <input type="file"></input>
+                                      <input type="file" multiple></input>
                                     </Card>
                                   </Col>
                                 </Row>

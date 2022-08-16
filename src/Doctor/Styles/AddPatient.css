@@ -246,3 +246,13 @@ and (max-device-width : 991px) {
     color: white;
     border-color: white;
 }
+.nav-tabs .nav-link {
+    color: #C49358;
+    background-color: rgb(0 0 0 / 13%);
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+}
+.nav-tabs .nav-link.active {
+    color: #f8f9fa;
+    background-color: #c49358;
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+}
