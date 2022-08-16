@@ -4475,7 +4475,7 @@ function AddPatient() {
                                             </Col> */}
                                             <Col md={6}>
                                               <Card
-                                                className="crd-up"
+                                                className="crd-up mb-3"
                                                 onDragOver={handleOndragOver}
                                                 onDrop={handleOndrop2}
                                                 onClick={() =>
@@ -4492,7 +4492,7 @@ function AddPatient() {
                                               </Card>
                                             </Col>
                                           </Row>
-                                          <Row className="mt-3 justify-content-center m-2">
+                                          <Row className="mt-4 justify-content-center">
                                             {/* <Col md={4}>
                                               <Card
                                                 className="crd-up"
