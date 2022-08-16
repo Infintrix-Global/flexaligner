@@ -256,3 +256,19 @@ and (max-device-width : 991px) {
     background-color: #c49358;
     border-color: var(--bs-nav-tabs-link-active-border-color);
 }
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #c49358;
+    --bs-btn-border-color: #f8f9fa;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #c49358;
+    --bs-btn-hover-border-color: #c49358;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c49358;
+    --bs-btn-active-border-color: #c49358;
+    --bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #c49358;
+    --bs-btn-disabled-border-color: #c49358;
+}
