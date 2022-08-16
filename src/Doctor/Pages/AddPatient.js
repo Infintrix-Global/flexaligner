@@ -1981,7 +1981,7 @@ function AddPatient() {
                                             onChange={handleInstructionExpand}
                                           />
                                         </Col>
-                                        <Col sm="3" className="mt-2">
+                                        <Col sm="3" className="mt-2">  
                                           <Form.Check
                                             type="radio"
                                             aria-label="radio 1"
