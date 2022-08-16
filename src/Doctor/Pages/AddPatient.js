@@ -947,7 +947,7 @@ function AddPatient() {
                                             ></FaCalendarAlt>
                                           </InputGroup.Text>
                                           <Form.Control
-                                            type="text"
+                                            type="date"
                                             placeholder="Date"
                                             name="DateofBirth"
                                             onChange={handleChange}
@@ -4839,4 +4839,5 @@ function AddPatient() {
     </>
   );
 }
+
 export default AddPatient;
