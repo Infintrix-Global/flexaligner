@@ -4492,7 +4492,7 @@ function AddPatient() {
                                               </Card>
                                             </Col>
                                           </Row>
-                                          <Row className="mt-3 justify-content-center">
+                                          <Row className="mt-3 justify-content-center m-2">
                                             {/* <Col md={4}>
                                               <Card
                                                 className="crd-up"
