@@ -257,5 +257,5 @@ and (max-device-width : 991px) {
     border-color: white;
 }
 .form-label {
-    font-weight:normal;
+    font-weight:normal !important;
 }
