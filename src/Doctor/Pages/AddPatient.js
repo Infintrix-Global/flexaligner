@@ -4338,7 +4338,7 @@ function AddPatient() {
                                         <p className="up-rec">
                                           UPLOAD VIDEO FILE
                                         </p>
-                                        <input type="file"></input>
+                                        <input type="file" multiple></input>
                                       </Card>
                                     </Col>
                                   </Row>
