@@ -847,7 +847,7 @@ function AddPatient() {
                             style={{ border: "solid 0.1em lightgray" }}
                           >
                             <Tabs activeKey={currentTab} justify className="mt-3">
-                              <Tab eventKey={0} title="1. &nbsp;Patient Data" >
+                              <Tab eventKey={0} title="1. Patient Data" >
                                 <Row className="pt-4 pb-3">
                                   <Col md={{ span: 6 }}>
                                     <Form.Group controlId="validationFirstname">
