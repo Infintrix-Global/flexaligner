@@ -17,6 +17,7 @@ import $ from "jquery";
 
 function DoctorsList(){
   
+  const [searchInput, setSearchInput] = useState('');
   
   
   const tglContent = () => {
@@ -70,8 +71,26 @@ function DoctorsList(){
       setData(list.Data);
     })
     },[])
-
-
+    const [filteredResults, setFilteredResults] = useState([]);
+   
+    
+  
+    const searchItems = (searchValue) => {
+      setSearchInput(searchValue)
+      if (searchInput !== '') {
+      const filteredData = data.filter((item) => {
+        return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+      }
+      else{
+        setFilteredResults(data)
+    }
+    }
+        
+     
+     
+    
 
 
 // $(document).on("click", ".edit", function(){		
@@ -171,7 +190,7 @@ function DoctorsList(){
           Search
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="search" defaultValue="" />
+          <Form.Control type="search" onChange={(e) => searchItems(e.target.value)}/>
         </Col>
       </Form.Group>
                                 </Col>
@@ -197,7 +216,34 @@ function DoctorsList(){
 
                                           <tbody>
                                             
-                                            {data.map((docList,index)=>{
+                                            {
+                                              searchInput.length > 1 ? (
+                                                filteredResults.map((docList) => {
+                                                  return (
+                                                    <>
+                                                    <tr id="tblrw">
+                                               <th contenteditable="false">1</th>
+                                               <td contenteditable="false">{docList.DoctorID}</td>
+                                               <td contenteditable="false">{docList.Name}</td>
+                                               <td contenteditable="false">1</td>
+                                               <td contenteditable="false">{docList.PracticeName}</td>
+                                               <td contenteditable="false">{docList.PracticeEmail}</td>
+                                               <td contenteditable="false">{docList.PhoneNo}</td>
+                                               <td contenteditable="false">Active</td>
+                                               <th>
+       
+                                                     <span><Button variant="" className="action-i"><IoEyeOutline color="black"/></Button></span>
+                                                     {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */} 
+                                                     <span><Button variant="" className="action-i edit editbtn">Edit</Button></span>
+                                                    
+                                               </th>
+ 
+                                             </tr>
+                                                   </>
+                                                  )
+                                                })
+                                              ):(
+                                            data.map((docList,index)=>{
                                               return(
                                                   <>
                                                    <tr id="tblrw">
@@ -220,7 +266,8 @@ function DoctorsList(){
                                             </tr>
                                                   </>
                                               );
-                                            })}
+                                            })
+                                           ) }
                                             
                                            
 

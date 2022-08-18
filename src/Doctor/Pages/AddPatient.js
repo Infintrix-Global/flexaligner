@@ -25,6 +25,8 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
+  
+
 function AddPatient() {
   const [values, setValues] = useState({
     DoctorId: 0,
@@ -86,6 +88,13 @@ function AddPatient() {
 
   var radGarph1 = document.getElementById("rGraph1");
 
+
+
+
+
+
+
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -94,28 +103,31 @@ function AddPatient() {
     }
     setValidated(true);
 
-    const fd = new FormData();
-    if (radGarph1.checked) {
-      fd.append("Name", radio.name);
-      fd.append("fileContent", radio);
-      console.log(radio);
-    }
+
+    const fd=new FormData();
+    fd.append("Name",vid.name);
+    fd.append("fileContent",vid);
+    console.log(vid);
 
     axios
-      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            "Upload Progress:" +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
-          );
-        },
-      })
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("XrayLeft", arr.path.toString());
-      });
+    .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+            "%"
+        );
+      },
+    })
+    .then((res) => {
+      var arr = res.data;
+      console.log(arr);
+      sessionStorage.setItem("path", arr.path.toString());
+    });
+
+
+
+
 
     const url =
       "http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
@@ -136,7 +148,14 @@ function AddPatient() {
       });
 
     console.log(values);
+
+    setCurrentTab((prev) => prev + 1)
   };
+
+
+
+
+
 
   const [state, setState] = useState(null);
   const [pvs, setPvs] = useState({
@@ -145,10 +164,16 @@ function AddPatient() {
     models: null,
   });
 
+  const [vid, setvid] = useState(null);
+
   const [state6, setState6] = useState(null);
   const [state61, setState61] = useState(null);
   const [state62, setState62] = useState(null);
   const [state63, setState63] = useState(null);
+
+
+
+
   const [state64, setState64] = useState(null);
   const [state65, setState65] = useState(null);
   const [state66, setState66] = useState(null);
@@ -163,18 +188,29 @@ function AddPatient() {
 
 
   const [add, setAdd] = useState(null);
+  const [addExtraO, setAddExtraO] = useState(null);
+
 
   const [radio, setRadio] = useState(null);
 
   const [radio1, setRadio1] = useState(null);
 
+
+
+
+  var portrait=document.getElementById("four1");
+
+
   const handleupload = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
+
+    if(portrait.checked){
     fd.append("Name", state.name);
     fd.append("fileContent", state);
     console.log(state);
+    }
 
     // fd.append("Name",pvs.pvsScan.name);
     // fd.append("fileContent",pvs.pvsScan)
@@ -247,6 +283,8 @@ function AddPatient() {
         console.log(arr);
         sessionStorage.setItem("path", arr.path.toString());
       });
+
+      setCurrentTab((prev) => prev + 1)
   };
 
   var pvs1 = document.getElementById("five2");
@@ -302,15 +340,64 @@ function AddPatient() {
         console.log(arr);
         sessionStorage.setItem("path1", arr.path.toString());
       });
+
+      setCurrentTab((prev) => prev + 1)
   };
+
+
+
+
+  var ext=document.getElementById("ExtraNow");
+  var intra=document.getElementById("IntraNow");
+
 
   const handleUpload2 = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
+
+    if(ext.checked){
     fd.append("Name", state6.name);
     fd.append("fileContent", state6);
-    console.log(state6);
+
+    fd.append("Name",state62.name);
+    fd.append("fileContent",state62)
+
+    fd.append("Name",state65.name);
+    fd.append("fileContent",state65)
+    console.log(state65);
+
+    fd.append("Name",state67.name);
+    fd.append("fileContent",state67)
+    console.log(state67);
+
+    fd.append("Name",add.name);
+    fd.append("fileContent",add);
+
+    }
+
+
+    if(intra.checked){
+    fd.append("Name",state662.name);
+    fd.append("fileContent",state662);
+
+    fd.append("Name",state6621.name);
+    fd.append("fileContent",state6621);
+
+    fd.append("Name",state6622.name);
+    fd.append("fileContent",state6622);
+
+    fd.append("Name",state6623.name);
+    fd.append("fileContent",state6623);
+
+    fd.append("Name",state6624.name);
+    fd.append("fileContent",state6624);
+    console.log(state6624);
+    
+    fd.append("Name",addExtraO.name);
+    fd.append("fileContent",addExtraO);
+    }
+
 
     axios
       .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
@@ -327,7 +414,74 @@ function AddPatient() {
         console.log(arr);
         sessionStorage.setItem("pathProfileRepose", arr.path.toString());
       });
+
+      setCurrentTab((prev) => prev + 1)
   };
+
+
+  const handleUpload3=(e)=>{
+    e.preventDefault();
+
+    const fd = new FormData();
+    if (radGarph1.checked) {
+      fd.append("Name", radio.name);
+      fd.append("fileContent", radio);
+      console.log(radio);
+
+      fd.append("Name",radio1.name);
+      fd.append("fileContent",radio1);
+
+    }
+
+    axios
+      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+        onUploadProgress: (ProgressEvent) => {
+          console.log(
+            "Upload Progress:" +
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%"
+          );
+        },
+      })
+      .then((res) => {
+        var arr = res.data;
+        console.log(arr);
+        sessionStorage.setItem("XrayLeft", arr.path.toString());
+      });
+      setCurrentTab((prev) => prev + 1)
+
+  }
+
+
+  const submitTab1=(event)=>{
+   
+setCurrentTab((prev)=>prev+1)
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // const handleUpload3=(e)=>{
   //   e.preventDefault();
@@ -575,6 +729,11 @@ function AddPatient() {
     console.log(file);
   };
 
+  const handleChangeTab6AddExtraOral=(file)=>{
+    setAddExtraO(file);
+    console.log(file);
+  }
+
   const handleChangeTab51 = (file) => {
     // setImageTab51(file);
     // setPreviewUrlTab51(URL.createObjectURL(file));
@@ -587,11 +746,40 @@ function AddPatient() {
   const handleChangeTab52 = (file) => {
     // setImageTab52(file);
     // setPreviewUrlTab52(URL.createObjectURL(file));
+    var fileInput =
+                document.getElementById('files');
+             
+            var filePath = fileInput.value;
+         
+            // Allowing file type
+            var allowedExtensions =
+/(\.stl|\.dcm)$/i;
+             
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type \nUpload .stl and .dcm files Only!');
+                fileInput.value = '';
+                return false;
+            }
     setPvs({
       intraoral: file,
     });
+
+    
     console.log(file);
   };
+
+
+    const handleChangeVid=(file)=>{
+
+      setvid(file);
+      console.log(file);
+
+    }
+
+
+
+
+
 
   const handleChangeTab53 = (file) => {
     // setImageTab53(file);
@@ -725,6 +913,12 @@ function AddPatient() {
       var test = $(this).val();
       $(".desc").hide();
       $("#Ph" + test).show();
+    });
+
+    $("input[name$='inPhoto']").click(function () {
+      var test = $(this).val();
+      $(".desc1").hide();
+      $("#iPh" + test).show();
     });
     $("input[name$='graph']").click(function () {
       var test = $(this).val();
@@ -866,7 +1060,12 @@ function AddPatient() {
     console.log(values.LeaveTheseSpacesOpen);
   };
 
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
+
+ 
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -942,13 +1141,17 @@ function AddPatient() {
           </Col>
         </Row>
       </Container>
+
+
+
+
       <Row className="justify-content-center">
         <Col md={11}>
           <Container fluid>
             <Form noValidate validated={validated}>
               <Container
                 className="pt-5 mt-5 pb-5 mb-5"
-                style={{ boxShadow: "0px 0px 5px 5px #dee2e6" }}
+                style={{ boxShadow: "0px 0px 5px 5px #dee2e6", backgroundColor:"white" }}
                 fluid
               >
                 <Row>
@@ -962,7 +1165,7 @@ function AddPatient() {
                               style={{ border: "solid 0.1em lightgray" }}
                             >
                               <Tabs activeKey={currentTab} justify className="mt-3">
-                                <Tab eventKey={0} title="1.Patient Data" >
+                                <Tab eventKey={0} title="1. Patient Data" >
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
@@ -1028,6 +1231,7 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Male"
+                                          value="Male"
                                           className="pt-2"
                                           onChange={handleChange}
                                           name="Gender"
@@ -1039,6 +1243,7 @@ function AddPatient() {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Female"
+                                          value="Female"
                                           name="Gender"
                                           onChange={handleChange}
                                           inline
@@ -1166,26 +1371,24 @@ function AddPatient() {
                                   <hr />
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
-                                      <Button
+                                      {/* <Button
                                         className="success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
                                         Prev
-                                      </Button>
+                                      </Button> */}
                                       <Button
-                                        className="success"
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        className="success nextbtn"
+                                        onClick={submitTab1}
                                       >
                                         Next
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={1} title="ClinicalMalocclusion">
+                                <Tab eventKey={1} title="2. ClinicalMalocclusion">
                                   <Row>
                                     <Col md={6}>
                                       <p>Clinical Conditions*</p>
@@ -1309,7 +1512,7 @@ function AddPatient() {
                                             className="mb-3"
                                             controlId="exampleForm.ControlTextarea1"
                                           >
-                                            {/* <Form.Label>Example
+                    {/* <Form.Label>Example
                  textarea</Form.Label> */}
                                             <Form.Control
                                               as="textarea"
@@ -1333,15 +1536,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                      variant="outline-dark"
+                                        className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="success nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -1351,7 +1555,7 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={2} title="Prescription Form">
+                                <Tab eventKey={2} title="3. Prescription Form">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <p>Chief Complaint</p>
@@ -3970,15 +4174,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                      variant="outline-dark"
+                                        className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
@@ -3988,9 +4193,16 @@ function AddPatient() {
                                     </Col>
                                   </Row>
                                 </Tab>
+
+
+
+
+
+
+
                                 <Tab
                                   eventKey={3}
-                                  title="Patient Potrait"
+                                  title="4. Patient Potrait"
                                   className="p-3"
                                 >
                                   <Row>
@@ -4088,25 +4300,23 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                        className="mx-3 success backbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        className="success nextbtn"
+                                        onClick={handleupload}
                                       >
                                         Next
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={4} title="PVS/Scan">
+                                <Tab eventKey={4} title="5. PVS/Scan">
                                   <Row className="p-3">
                                     <Col md={8}>
                                       <Card className="p-3 check-crd">
@@ -4204,6 +4414,7 @@ function AddPatient() {
                                               <Form.Control
                                                 type="file"
                                                 multiple
+                                                id="files"
                                                 onChange={(e) => {
                                                   handleChangeTab52(
                                                     e.target.files
@@ -4264,16 +4475,19 @@ function AddPatient() {
                                       <Button
                                         className="nextbtn"
                                         //  onClick={handleUpload1}
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        onClick={handleUpload1}
                                       >
                                         Next
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={5} title="Photos">
+
+
+
+
+
+                                <Tab eventKey={5} title="6. Photos">
                                   {/* <section>
                 <label>
                 + Add Images
@@ -4326,12 +4540,15 @@ function AddPatient() {
                                   <Row className="m-2">
                                     <Col md={6}>
                                       <Card className="img-crd">
+                                        <Card.Header>
+                                          <p>Extraoral Photos</p>
+                                        </Card.Header>
                                         <Row className="p-3">
                                           <Col>
                                             <Form.Check
                                               type="radio"
                                               aria-label="radio 1"
-                                              id="r1"
+                                              id="ExtraNow"
                                               name="photo"
                                               label="Upload photos now"
                                               value="1"
@@ -4341,7 +4558,7 @@ function AddPatient() {
                                             <Form.Check
                                               type="radio"
                                               aria-label="radio 2"
-                                              id="r2"
+                                              id="ExtraLater"
                                               name="photo"
                                               label="Upload photos later"
                                               value="2"
@@ -4446,13 +4663,15 @@ function AddPatient() {
                                                   fileInputTab61.current.click()
                                                 }
                                               >
-                                                {previewUrlTab61 && (
+                                              
+
+                                                {previewUrlTab61? previewUrlTab61 && (
                                                   <img
                                                     src={previewUrlTab61}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Front: Rest</p>}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4482,13 +4701,13 @@ function AddPatient() {
                                                   fileInput2.current.click()
                                                 }
                                               >
-                                                {previewUrl2 && (
+                                                {previewUrl2?previewUrl2 && (
                                                   <img
                                                     src={previewUrl2}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Front: Smile</p>}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -4549,13 +4768,13 @@ function AddPatient() {
                                                   fileInput5.current.click()
                                                 }
                                               >
-                                                {previewUrl5 && (
+                                                {previewUrl5?previewUrl5 && (
                                                   <img
                                                     src={previewUrl5}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Profile</p>}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4669,7 +4888,7 @@ function AddPatient() {
                                               className=""
                                               name="Name"
                                               onChange={(e) => {
-                                                handleChangeTab6Add(
+                                                handleChangeTab6AddExtraOral(
                                                   e.target.files
                                                 );
                                               }}
@@ -4680,13 +4899,16 @@ function AddPatient() {
                                     </Col>
                                     <Col md={6}>
                                     <Card className="img-crd">
+                                    <Card.Header>
+                                          <p>Intraoral Photos</p>
+                                        </Card.Header>
                                         <Row className="p-3">
                                           <Col>
                                             <Form.Check
                                               type="radio"
                                               aria-label="radio 1"
-                                              id="r1"
-                                              name="photo"
+                                              id="IntraNow"
+                                              name="inPhoto"
                                               label="Upload photos now"
                                               value="1"
                                             />
@@ -4695,8 +4917,8 @@ function AddPatient() {
                                             <Form.Check
                                               type="radio"
                                               aria-label="radio 2"
-                                              id="r2"
-                                              name="photo"
+                                              id="IntraLater"
+                                              name="inPhoto"
                                               label="Upload photos later"
                                               value="2"
                                             />
@@ -4704,8 +4926,8 @@ function AddPatient() {
                                         </Row>
                                         <hr className="m-2" />
                                         <Card
-                                          className="img-crd-in m-2 p-3 desc"
-                                          id="Ph1"
+                                          className="img-crd-in m-2 p-3 desc1"
+                                          id="iPh1"
                                           // onDragOver={handleOndragOver}
                                           // onDrop={handleOndrop}
                                           // onClick={() => fileInput.current.click()}
@@ -4800,13 +5022,13 @@ function AddPatient() {
                                                   fileInput62.current.click()
                                                 }
                                               >
-                                                {previewUrl62 && (
+                                                {previewUrl62?previewUrl62 && (
                                                   <img
                                                     src={previewUrl62}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Right Buccal</p>}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4836,13 +5058,13 @@ function AddPatient() {
                                                   fileInput21.current.click()
                                                 }
                                               >
-                                                {previewUrl21 && (
+                                                {previewUrl21?previewUrl21 && (
                                                   <img
                                                     src={previewUrl21}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Front Buccal</p>}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -4883,13 +5105,13 @@ function AddPatient() {
                                                   fileInput22.current.click()
                                                 }
                                               >
-                                                {previewUrl22 && (
+                                                {previewUrl22?previewUrl22 && (
                                                   <img
                                                     src={previewUrl22}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Left Buccal</p>}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -4903,13 +5125,13 @@ function AddPatient() {
                                                   fileInput23.current.click()
                                                 }
                                               >
-                                                {previewUrl23 && (
+                                                {previewUrl23?previewUrl23 && (
                                                   <img
                                                     src={previewUrl23}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Upper Occulus</p>}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4939,13 +5161,13 @@ function AddPatient() {
                                                   fileInput24.current.click()
                                                 }
                                               >
-                                                {previewUrl24 && (
+                                                {previewUrl24?previewUrl24 && (
                                                   <img
                                                     src={previewUrl24}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<p className="text-center mt-5">Lower Occulus</p>}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -4974,8 +5196,8 @@ function AddPatient() {
                 } */}
                                         </Card>
                                         <Card
-                                          className="desc border-0"
-                                          id="Ph2"
+                                          className="desc1 border-0"
+                                          id="iPh2"
                                           style={{ display: "none" }}
                                         >
                                           <Row className="m-2">
@@ -5057,16 +5279,18 @@ function AddPatient() {
                                       <Button
                                         className="nextbtn"
                                         // onClick={handleUpload2}
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        onClick={handleUpload2}
                                       >
                                         Next
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={6} title="Radiographs">
+
+
+
+
+                                <Tab eventKey={6} title="7. Radiographs">
                                   <Row className="m-2">
                                     <Col md={8}>
                                       <Card className="img-crd">
@@ -5109,9 +5333,15 @@ function AddPatient() {
                                           // onDragOver={handleOndragOver}
                                           // onDrop={handleOndrop}
                                           // onClick={() => fileInputTab7.current.click()}
-                                        >
+                                          >
+                                            
+                                            
+                                          
+                                          
                                           <Row className="m-3">
-                                            <Col>
+
+                                              
+                                              <Col>
                                               <Card
                                                 className="crd-up2"
                                                 onDragOver={handleOndragOver}
@@ -5124,7 +5354,7 @@ function AddPatient() {
                                                   ""
                                                 ) : (
                                                   <p className="text-center mt-5 pt-5">
-                                                    Drag Image or click to browse
+                                                    OBJ
                                                   </p>
                                                 )}
                                                 {previewUrlTab71 && (
@@ -5136,32 +5366,36 @@ function AddPatient() {
                                                 )}
                                               </Card>
                                             </Col>
-                                            <Col>
-                                              <Card
-                                                className="crd-up2"
-                                                onDragOver={handleOndragOver}
-                                                onDrop={handleOndrop72}
-                                                onClick={() =>
-                                                  fileInputTab72.current.click()
-                                                }
-                                              >
-                                                {previewUrlTab72 ? (
-                                                  ""
-                                                ) : (
-                                                  <p className="text-center mt-5 pt-5">
-                                                    Drag Image or click to browse
-                                                  </p>
-                                                )}
-                                                {previewUrlTab72 && (
-                                                  <img
+                                            
+                                          </Row>
+                                          <Row className="m-3">
+                                              <Col md={6}>
+                                                <Card
+                                                  className="crd-up2"
+                                                  onDragOver={handleOndragOver}
+                                                  onDrop={handleOndrop72}
+                                                  onClick={() =>
+                                                    fileInputTab72.current.click()
+                                                  }
+                                                  >
+                                                  {previewUrlTab72 ? (
+                                                    ""
+                                                    ) : (
+                                                      <p className="text-center mt-5 pt-5">
+                                                      Drag Image or click to browse
+                                                    </p>
+                                                  )}
+                                                  {previewUrlTab72 && (
+                                                    <img
                                                     src={previewUrlTab72}
                                                     alt="image"
                                                     className="img-s2 m-3"
-                                                  />
-                                                )}
-                                              </Card>
-                                            </Col>
-                                          </Row>
+                                                    />
+                                                    )}
+                                                </Card>
+                                              </Col>
+                                            </Row>
+                                              
                                           <input
                                             type="file"
                                             accept="image/*"
@@ -5232,23 +5466,25 @@ function AddPatient() {
                                       <Button
                                         className="nextbtn"
                                         //   onClick={handleSubmit}
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        onClick={handleUpload3}
                                       >
                                         Next
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={7} title="Upload Video">
+
+
+
+
+                                <Tab eventKey={7} title="8. Upload Video">
                                   <Row className="m-2">
                                     <Col md={12}>
                                       <Card className="p-3">
                                         <p className="up-rec">
                                           UPLOAD VIDEO FILE
                                         </p>
-                                        <input type="file" multiple></input>
+                                        <input type="file" multiple onChange={(e) => {handleChangeVid(e.target.files)}}></input>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -5256,15 +5492,16 @@ function AddPatient() {
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                        className="success"
+                                      variant="outline-dark"
+                                        className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
                                         }
                                       >
-                                        Prev
+                                        Back
                                       </Button>
                                       <Button
-                                        className="success"
+                                        className="success nextbtn"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev + 1)
                                         }
