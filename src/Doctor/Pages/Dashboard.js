@@ -17,7 +17,10 @@ import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import advertisement from "../../Assets/advertisement.png";
+import {LinkContainer} from 'react-router-bootstrap';
 import patientimg from "../../Assets/mock1.jpg";
+import {useNavigate} from "react-router-dom";
+
 function Dashboard() {
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
@@ -28,6 +31,11 @@ function Dashboard() {
       Menu.classList.add("collapsed");
     }
   };
+
+  const navigate=useNavigate();
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -78,7 +86,7 @@ function Dashboard() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3">Logout</span>
+                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -92,9 +100,11 @@ function Dashboard() {
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active">
-                  Doctor
-                </Nav.Link>
+                <LinkContainer to={"/doctor-dashboard"}>
+                  <Nav.Link className="doc-tab active">
+                    Doctor
+                  </Nav.Link>
+                </LinkContainer>
                 <Nav.Link href="#deets" className="prof-tab">
                   Profile
                 </Nav.Link>
@@ -164,6 +174,7 @@ function Dashboard() {
                 <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}
+                  onClick={()=>navigate("/add-patient")}
                 >
                   Add Patient
                 </Button>

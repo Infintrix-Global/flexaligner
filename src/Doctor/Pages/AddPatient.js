@@ -17,7 +17,7 @@ import { TbUser } from "react-icons/tb";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../../Doctor/Styles/AddPatient.css";
 import user from "../../Assets/user.png";
-import logo from "../../Assets/Ologo.png";
+import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
@@ -72,6 +72,7 @@ function AddPatient() {
     PathOfDoc: sessionStorage.getItem("path1"),
     ProfileRepose: sessionStorage.getItem("pathProfileRepose"),
     XrayLeft: sessionStorage.getItem("XrayLeft"),
+    UploadVideo:""
   });
 
   const tglContent = () => {
@@ -84,7 +85,7 @@ function AddPatient() {
   };
 
   const [validated, setValidated] = useState(false);
-  // const navigate=useNavigate();
+  const navigate=useNavigate();
 
   var radGarph1 = document.getElementById("rGraph1");
 
@@ -110,7 +111,7 @@ function AddPatient() {
     console.log(vid);
 
     axios
-    .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+    .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
       onUploadProgress: (ProgressEvent) => {
         console.log(
           "Upload Progress:" +
@@ -130,7 +131,7 @@ function AddPatient() {
 
 
     const url =
-      "http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
+      "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
     fetch(url, {
       method: "POST",
       headers: {
@@ -269,7 +270,7 @@ function AddPatient() {
     // console.log(radio1);
 
     axios
-      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
         onUploadProgress: (ProgressEvent) => {
           console.log(
             "Upload Progress:" +
@@ -326,7 +327,7 @@ function AddPatient() {
     // console.log(pvs.models);
 
     axios
-      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
         onUploadProgress: (ProgressEvent) => {
           console.log(
             "Upload Progress:" +
@@ -400,7 +401,7 @@ function AddPatient() {
 
 
     axios
-      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
         onUploadProgress: (ProgressEvent) => {
           console.log(
             "Upload Progress:" +
@@ -434,7 +435,7 @@ function AddPatient() {
     }
 
     axios
-      .post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
+      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
         onUploadProgress: (ProgressEvent) => {
           console.log(
             "Upload Progress:" +
@@ -1071,7 +1072,7 @@ setCurrentTab((prev)=>prev+1)
       <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
-            <img src={logo} alt="" className="" width={120} />
+          <img src={logo} alt="" className="" width={120} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -1107,7 +1108,7 @@ setCurrentTab((prev)=>prev+1)
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3">Logout</span>
+                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -5502,9 +5503,7 @@ setCurrentTab((prev)=>prev+1)
                                       </Button>
                                       <Button
                                         className="success nextbtn"
-                                        onClick={() =>
-                                          setCurrentTab((prev) => prev + 1)
-                                        }
+                                        // onClick={}
                                       >
                                         Submit
                                       </Button>

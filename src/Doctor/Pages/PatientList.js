@@ -30,7 +30,7 @@ function PatientList() {
   const getPatient = async () => {
     try {
       const response = await axios.get(
-        "http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
       );
       setPatient(response.data.Data);
       setFilteredNames(response.data.Data);
@@ -142,7 +142,7 @@ function PatientList() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3">Logout</span>
+                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

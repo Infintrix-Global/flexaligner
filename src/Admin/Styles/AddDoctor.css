@@ -1,6 +1,7 @@
 body{
     overflow-x: hidden;
     background-color: #f8f3ec;
+    /* counter-reset: my-sec-counter; */
 }
 
 .navb{
@@ -100,3 +101,5 @@ and (max-device-width : 991px) {
         margin-top: -40px;
     }
 }
+
+

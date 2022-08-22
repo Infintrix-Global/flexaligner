@@ -1,3 +1,7 @@
+/* body{
+    counter-reset: my-sec-counter;
+} */
+
 .add-doc-btn{
     background-color: #C49358;
     color: white;
@@ -16,3 +20,8 @@
     color: black !important;
 
 }
+
+/* .incr{
+    counter-increment: my-sec-counter;
+  content: counter(my-sec-counter)
+} */

@@ -128,7 +128,7 @@ function AddDoctor() {
   }
 
   const getStates = async (countryId, cORp) => {
-    let url = `http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetStatelist/${countryId}`;
+    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetStatelist/${countryId}`;
     let state = await (await fetch(url)).json();
     console.log(state.Data);
     if (cORp === "current") {
@@ -140,7 +140,7 @@ function AddDoctor() {
   };
 
   const getCities = async (stateId, cORp) => {
-    let url = `http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetCitylist/${stateId}`;
+    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCitylist/${stateId}`;
     let city = await (await fetch(url)).json();
     console.log(city.Data);
     if (cORp === "current") {
@@ -152,7 +152,7 @@ function AddDoctor() {
   };
 
   const getCountries = async () => {
-    let url = "http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetCoutryList";
+    let url = "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCoutryList";
     let country = await (await fetch(url)).json();
     console.log(country.Data.slice(0, 2));
     setCountries({
@@ -179,7 +179,7 @@ function AddDoctor() {
   };
 
   const url =
-    "http://infintrix.in/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
 
   const [validated, setValidated] = useState(false);
 
@@ -252,7 +252,7 @@ function AddDoctor() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3">Logout</span>
+                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "hobyjoby-8b9ca"
+  },
+  "targets": {
+    "hobyjoby-8b9ca": {
+      "hosting": {
+        "hobyjoby": [
+          "hobyjoby-8b9ca.web.app"
+        ]
+      }
+    }
+  }
+}

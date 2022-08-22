@@ -62,7 +62,7 @@ function DoctorsList(){
 
       
       const [data, setData] = useState([]);
-    const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+    const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
 
 
     useEffect(()=>{
@@ -127,7 +127,7 @@ function DoctorsList(){
       <Dropdown.Menu>
         <Dropdown.Item href="#/action-1"><CgProfile fontSize={25}/><span className="px-3">Profile</span></Dropdown.Item>
         <hr />
-        <Dropdown.Item href="#/action-2"><FiPower fontSize={25}/><span className="px-3">Logout</span></Dropdown.Item>
+        <Dropdown.Item href="#/action-2"><FiPower fontSize={25}/><span className="px-3" onClick={()=>navigate("/")}>Logout</span></Dropdown.Item>
        
       </Dropdown.Menu>
     </Dropdown>
@@ -151,7 +151,7 @@ function DoctorsList(){
                   </Col>
                 </Row> */}
                  <Nav className="justify-content-center">
-                 <LinkContainer to="/add-doctor"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
+                 <LinkContainer to="/doctor-dashboard"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
                  <Nav.Link className="prof-tab">Profile</Nav.Link>
             
           </Nav>
@@ -222,7 +222,7 @@ function DoctorsList(){
                                                   return (
                                                     <>
                                                     <tr id="tblrw">
-                                               <th contenteditable="false">1</th>
+                                               <th contenteditable="false" className="">1</th>
                                                <td contenteditable="false">{docList.DoctorID}</td>
                                                <td contenteditable="false">{docList.Name}</td>
                                                <td contenteditable="false">1</td>
@@ -247,7 +247,7 @@ function DoctorsList(){
                                               return(
                                                   <>
                                                    <tr id="tblrw">
-                                              <th contenteditable="false">1</th>
+                                              <th contenteditable="false" className="">1</th>
                                               <td contenteditable="false">{docList.DoctorID}</td>
                                               <td contenteditable="false">{docList.Name}</td>
                                               <td contenteditable="false">1</td>

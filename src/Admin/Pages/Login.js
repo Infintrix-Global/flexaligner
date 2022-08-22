@@ -28,7 +28,9 @@ const handle=(e)=>{
   console.log(newdata);
 }
 
-const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/VerifyLogin";
+const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/VerifyLogin";
+
+// const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/VerifyLogin";
 
 
 const navigate=useNavigate();
@@ -55,7 +57,7 @@ const handleSubmit = (event) => {
       if(result.Data[0].RoleId==="1"){
         navigate("/view-doctors")
       }else if(result.Data[0].RoleId==="2"){
-        navigate("/add-patient")
+        navigate("/doctor-dashboard")
       }
     })
 
@@ -102,7 +104,7 @@ const handleSubmit = (event) => {
           <Button variant="link" className="ms-auto acc-btn action-i">
             Don't have an account?
           </Button>
-          <Button variant="" className="sup-btn">
+          <Button variant="" className="sup-btn" onClick={()=>navigate("/add-doctor")}>
             Sign up
           </Button>
         </Stack>
