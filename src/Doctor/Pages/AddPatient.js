@@ -1003,18 +1003,18 @@ function AddPatient() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Button variant="" onClick={tglContent}>
-                <FaBars fontSize={28} color="white" />
+              <Button variant="" onClick={tglContent} className="navhide">
+                <FaBars fontSize={28} color="#C49358" />
               </Button>
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="white" />
+                <IoMdNotifications fontSize={30} color="#C49358" className="notification"/>
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="white" className="me-2" />
+                <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
               </Nav.Link>
-              <span>
+              <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
               <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
@@ -1059,7 +1059,7 @@ function AddPatient() {
   </Col>
   </Row> */}
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active">
+                <Nav.Link href="#deets" className="doc-tab active" onClick={()=>navigate("/doctor-dashboard")}>
                   Doctor
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
@@ -5020,6 +5020,7 @@ function AddPatient() {
                                                   fileInput21.current.click()
                                                 }
                                               >
+
                                                 {previewUrl21 ? (
                                                   previewUrl21 && (
                                                     <img
@@ -5033,6 +5034,15 @@ function AddPatient() {
                                                     Front Buccal
                                                   </p>
                                                 )}
+
+                                                {previewUrl21?previewUrl21 && (
+                                                  <img
+                                                    src={previewUrl21}
+                                                    alt="image"
+                                                    className="img-s"
+                                                  />
+                                                ):<p className="text-center mt-5">Left Buccal</p>}
+
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5073,6 +5083,7 @@ function AddPatient() {
                                                   fileInput22.current.click()
                                                 }
                                               >
+
                                                 {previewUrl22 ? (
                                                   previewUrl22 && (
                                                     <img
@@ -5086,6 +5097,15 @@ function AddPatient() {
                                                     Left Buccal
                                                   </p>
                                                 )}
+
+                                                {previewUrl22?previewUrl22 && (
+                                                  <img
+                                                    src={previewUrl22}
+                                                    alt="image"
+                                                    className="img-s"
+                                                  />
+                                                ):<p className="text-center mt-5">Front Buccal</p>}
+
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5099,6 +5119,7 @@ function AddPatient() {
                                                   fileInput23.current.click()
                                                 }
                                               >
+
                                                 {previewUrl23 ? (
                                                   previewUrl23 && (
                                                     <img
@@ -5112,6 +5133,15 @@ function AddPatient() {
                                                     Upper Occulus
                                                   </p>
                                                 )}
+
+                                                {previewUrl23?previewUrl23 && (
+                                                  <img
+                                                    src={previewUrl23}
+                                                    alt="image"
+                                                    className="img-s"
+                                                  />
+                                                ):<p className="text-center mt-5">Upper Occulosal</p>}
+
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -5141,6 +5171,7 @@ function AddPatient() {
                                                   fileInput24.current.click()
                                                 }
                                               >
+
                                                 {previewUrl24 ? (
                                                   previewUrl24 && (
                                                     <img
@@ -5154,6 +5185,15 @@ function AddPatient() {
                                                     Lower Occulus
                                                   </p>
                                                 )}
+=======
+                                                {previewUrl24?previewUrl24 && (
+                                                  <img
+                                                    src={previewUrl24}
+                                                    alt="image"
+                                                    className="img-s"
+                                                  />
+                                                ):<p className="text-center mt-5">Lower Occulosal</p>}
+
                                               </Card>
                                             </Col>
                                           </Row>
