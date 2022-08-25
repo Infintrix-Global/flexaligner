@@ -5,10 +5,11 @@
   "targets": {
     "hobyjoby-8b9ca": {
       "hosting": {
-        "hobyjoby": [
-          "hobyjoby-8b9ca.web.app"
+        "flexismile": [
+          "flexismile.web.app"
         ]
       }
     }
-  }
+  },
+  "etags": {}
 }

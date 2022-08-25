@@ -72,10 +72,13 @@ function AddDoctor() {
   });
 
   function handle(e) {
+    
     const newdata={...data}
     newdata[e.target.name]=e.target.value;
+    
     setData(newdata);
     console.log(newdata);
+    
 
 
     switch (e.target.name) {
@@ -168,15 +171,15 @@ function AddDoctor() {
   }, []);
   const navigate = useNavigate();
 
-  const tglContent = () => {
-    let Menu = document.querySelector(".menuTab");
+  // const tglContent = () => {
+  //   let Menu = document.querySelector(".menuTab");
 
-    if (Menu.classList.contains("collapsed")) {
-      Menu.classList.remove("collapsed");
-    } else {
-      Menu.classList.add("collapsed");
-    }
-  };
+  //   if (Menu.classList.contains("collapsed")) {
+  //     Menu.classList.remove("collapsed");
+  //   } else {
+  //     Menu.classList.add("collapsed");
+  //   }
+  // };
 
   const url =
     "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
@@ -189,6 +192,8 @@ function AddDoctor() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+
+       
     }
 
     setValidated(true);
@@ -204,15 +209,17 @@ function AddDoctor() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result.message);
-        if (result.message === "Added Successful") {
+        if (result.message === "Added Successful" && form.checkValidity() === true) {
           navigate("/view-doctors");
         }
       });
+
+   
   };
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="navb">
+      {/* <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="" width={120} />
@@ -260,12 +267,12 @@ function AddDoctor() {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
-      <Container fluid>
+      </Navbar> */}
+      {/* <Container fluid>
         
         <Row className="menuTab">
           <Col>
-            <Card body className="border-0">
+            <Card body className="border-0"> */}
               {/* <Row>
                   <Col>
                   <Button variant="link" className="doc-tab">Doctor</Button>
@@ -275,7 +282,7 @@ function AddDoctor() {
                   
                   </Col>
                 </Row> */}
-              <Nav className="justify-content-center">
+              {/* <Nav className="justify-content-center">
                 <LinkContainer to="/add-doctor">
                   <Nav.Link className="doc-tab active">Doctor</Nav.Link>
                 </LinkContainer>
@@ -286,7 +293,7 @@ function AddDoctor() {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container> */}
 
       <Container fluid>
         <Row style={{height:"30px"}}></Row>

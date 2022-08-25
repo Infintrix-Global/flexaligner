@@ -9,7 +9,7 @@ import {
   Form,
 } from "react-bootstrap";
 import "../Styles/Login.css";
-import logo from "../../Assets/Logo.jpg";
+import logo from "../../Assets/Logoremovebg.png";
 import {useNavigate} from "react-router-dom";
 
 function Login() {

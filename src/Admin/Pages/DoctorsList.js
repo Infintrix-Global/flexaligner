@@ -110,14 +110,14 @@ function DoctorsList(){
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Button variant="" onClick={tglContent}><FaBars fontSize={28} color="#C49358"/></Button>
+            <Button variant="" onClick={tglContent} className="navhide"><FaBars fontSize={28} color="#C49358"/></Button>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="#C49358"/></Nav.Link>
+            <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="#C49358" className="notification"/></Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
-            <FiMessageSquare fontSize={30} color="#C49358" className="me-2"/>
+            <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification"/>
             </Nav.Link>
-            <span><img src={user} alt="" width={35} className="mt-1"/></span>
+            <span className="address"><img src={user} alt="" width={35} className="mt-1"/></span>
             <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
             <Dropdown>
       <Dropdown.Toggle variant="" id="dropdown-basic" className="user">
@@ -202,7 +202,7 @@ function DoctorsList(){
                                     <Table striped bordered hover id="table-to-xls" responsive>
                                           <thead>
                                             <tr>
-                                              <th>SR.NO</th>
+                                              {/* <th>SR.NO</th> */}
                                               <th>DOCTOR ID</th>
                                               <th>DOCTOR NAME</th>
                                               <th>PATIENT COUNT</th>
@@ -222,7 +222,7 @@ function DoctorsList(){
                                                   return (
                                                     <>
                                                     <tr id="tblrw">
-                                               <th contenteditable="false" className="">1</th>
+                                               {/* <th contenteditable="false" className="">1</th> */}
                                                <td contenteditable="false">{docList.DoctorID}</td>
                                                <td contenteditable="false">{docList.Name}</td>
                                                <td contenteditable="false">1</td>
@@ -247,7 +247,7 @@ function DoctorsList(){
                                               return(
                                                   <>
                                                    <tr id="tblrw">
-                                              <th contenteditable="false" className="">1</th>
+                                              {/* <th contenteditable="false" className="">1</th> */}
                                               <td contenteditable="false">{docList.DoctorID}</td>
                                               <td contenteditable="false">{docList.Name}</td>
                                               <td contenteditable="false">1</td>
