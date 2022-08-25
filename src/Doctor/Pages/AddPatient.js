@@ -25,7 +25,6 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
-  
 
 function AddPatient() {
   const [values, setValues] = useState({
@@ -72,7 +71,7 @@ function AddPatient() {
     PathOfDoc: sessionStorage.getItem("path1"),
     ProfileRepose: sessionStorage.getItem("pathProfileRepose"),
     XrayLeft: sessionStorage.getItem("XrayLeft"),
-    UploadVideo:""
+    UploadVideo: "",
   });
 
   const tglContent = () => {
@@ -85,16 +84,9 @@ function AddPatient() {
   };
 
   const [validated, setValidated] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   var radGarph1 = document.getElementById("rGraph1");
-
-
-
-
-
-
-
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -104,31 +96,30 @@ function AddPatient() {
     }
     setValidated(true);
 
-
-    const fd=new FormData();
-    fd.append("Name",vid.name);
-    fd.append("fileContent",vid);
+    const fd = new FormData();
+    fd.append("Name", vid.name);
+    fd.append("fileContent", vid);
     console.log(vid);
 
     axios
-    .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-      onUploadProgress: (ProgressEvent) => {
-        console.log(
-          "Upload Progress:" +
-            Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-            "%"
-        );
-      },
-    })
-    .then((res) => {
-      var arr = res.data;
-      console.log(arr);
-      sessionStorage.setItem("path", arr.path.toString());
-    });
-
-
-
-
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
+      .then((res) => {
+        var arr = res.data;
+        console.log(arr);
+        sessionStorage.setItem("path", arr.path.toString());
+      });
 
     const url =
       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
@@ -150,13 +141,8 @@ function AddPatient() {
 
     console.log(values);
 
-    setCurrentTab((prev) => prev + 1)
+    setCurrentTab((prev) => prev + 1);
   };
-
-
-
-
-
 
   const [state, setState] = useState(null);
   const [pvs, setPvs] = useState({
@@ -172,14 +158,10 @@ function AddPatient() {
   const [state62, setState62] = useState(null);
   const [state63, setState63] = useState(null);
 
-
-
-
   const [state64, setState64] = useState(null);
   const [state65, setState65] = useState(null);
   const [state66, setState66] = useState(null);
   const [state67, setState67] = useState(null);
-
 
   const [state662, setstate662] = useState(null);
   const [state6621, setstate6621] = useState(null);
@@ -187,30 +169,24 @@ function AddPatient() {
   const [state6623, setstate6623] = useState(null);
   const [state6624, setstate6624] = useState(null);
 
-
   const [add, setAdd] = useState(null);
   const [addExtraO, setAddExtraO] = useState(null);
-
 
   const [radio, setRadio] = useState(null);
 
   const [radio1, setRadio1] = useState(null);
 
-
-
-
-  var portrait=document.getElementById("four1");
-
+  var portrait = document.getElementById("four1");
 
   const handleupload = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
 
-    if(portrait.checked){
-    fd.append("Name", state.name);
-    fd.append("fileContent", state);
-    console.log(state);
+    if (portrait.checked) {
+      fd.append("Name", state.name);
+      fd.append("fileContent", state);
+      console.log(state);
     }
 
     // fd.append("Name",pvs.pvsScan.name);
@@ -270,22 +246,26 @@ function AddPatient() {
     // console.log(radio1);
 
     axios
-      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            "Upload Progress:" +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
-          );
-        },
-      })
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
       .then((res) => {
         var arr = res.data;
         console.log(arr);
         sessionStorage.setItem("path", arr.path.toString());
       });
 
-      setCurrentTab((prev) => prev + 1)
+    setCurrentTab((prev) => prev + 1);
   };
 
   var pvs1 = document.getElementById("five2");
@@ -327,100 +307,100 @@ function AddPatient() {
     // console.log(pvs.models);
 
     axios
-      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            "Upload Progress:" +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
-          );
-        },
-      })
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
       .then((res) => {
         var arr = res.data;
         console.log(arr);
         sessionStorage.setItem("path1", arr.path.toString());
       });
 
-      setCurrentTab((prev) => prev + 1)
+    setCurrentTab((prev) => prev + 1);
   };
 
-
-
-
-  var ext=document.getElementById("ExtraNow");
-  var intra=document.getElementById("IntraNow");
-
+  var ext = document.getElementById("ExtraNow");
+  var intra = document.getElementById("IntraNow");
 
   const handleUpload2 = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
 
-    if(ext.checked){
-    fd.append("Name", state6.name);
-    fd.append("fileContent", state6);
+    if (ext.checked) {
+      fd.append("Name", state6.name);
+      fd.append("fileContent", state6);
 
-    fd.append("Name",state62.name);
-    fd.append("fileContent",state62)
+      fd.append("Name", state62.name);
+      fd.append("fileContent", state62);
 
-    fd.append("Name",state65.name);
-    fd.append("fileContent",state65)
-    console.log(state65);
+      fd.append("Name", state65.name);
+      fd.append("fileContent", state65);
+      console.log(state65);
 
-    fd.append("Name",state67.name);
-    fd.append("fileContent",state67)
-    console.log(state67);
+      fd.append("Name", state67.name);
+      fd.append("fileContent", state67);
+      console.log(state67);
 
-    fd.append("Name",add.name);
-    fd.append("fileContent",add);
-
+      fd.append("Name", add.name);
+      fd.append("fileContent", add);
     }
 
+    if (intra.checked) {
+      fd.append("Name", state662.name);
+      fd.append("fileContent", state662);
 
-    if(intra.checked){
-    fd.append("Name",state662.name);
-    fd.append("fileContent",state662);
+      fd.append("Name", state6621.name);
+      fd.append("fileContent", state6621);
 
-    fd.append("Name",state6621.name);
-    fd.append("fileContent",state6621);
+      fd.append("Name", state6622.name);
+      fd.append("fileContent", state6622);
 
-    fd.append("Name",state6622.name);
-    fd.append("fileContent",state6622);
+      fd.append("Name", state6623.name);
+      fd.append("fileContent", state6623);
 
-    fd.append("Name",state6623.name);
-    fd.append("fileContent",state6623);
+      fd.append("Name", state6624.name);
+      fd.append("fileContent", state6624);
+      console.log(state6624);
 
-    fd.append("Name",state6624.name);
-    fd.append("fileContent",state6624);
-    console.log(state6624);
-    
-    fd.append("Name",addExtraO.name);
-    fd.append("fileContent",addExtraO);
+      fd.append("Name", addExtraO.name);
+      fd.append("fileContent", addExtraO);
     }
-
 
     axios
-      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            "Upload Progress:" +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
-          );
-        },
-      })
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
       .then((res) => {
         var arr = res.data;
         console.log(arr);
         sessionStorage.setItem("pathProfileRepose", arr.path.toString());
       });
 
-      setCurrentTab((prev) => prev + 1)
+    setCurrentTab((prev) => prev + 1);
   };
 
-
-  const handleUpload3=(e)=>{
+  const handleUpload3 = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
@@ -429,60 +409,35 @@ function AddPatient() {
       fd.append("fileContent", radio);
       console.log(radio);
 
-      fd.append("Name",radio1.name);
-      fd.append("fileContent",radio1);
-
+      fd.append("Name", radio1.name);
+      fd.append("fileContent", radio1);
     }
 
     axios
-      .post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos", fd, {
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            "Upload Progress:" +
-              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-              "%"
-          );
-        },
-      })
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
       .then((res) => {
         var arr = res.data;
         console.log(arr);
         sessionStorage.setItem("XrayLeft", arr.path.toString());
       });
-      setCurrentTab((prev) => prev + 1)
+    setCurrentTab((prev) => prev + 1);
+  };
 
-  }
-
-
-  const submitTab1=(event)=>{
-   
-setCurrentTab((prev)=>prev+1)
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const submitTab1 = (event) => {
+    setCurrentTab((prev) => prev + 1);
+  };
 
   // const handleUpload3=(e)=>{
   //   e.preventDefault();
@@ -602,14 +557,12 @@ setCurrentTab((prev)=>prev+1)
     handleFile7(imageFile);
   };
 
-
   const handleOndrop662 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
     handleFile662(imageFile);
   };
-
 
   const handleOndrop6621 = (event) => {
     event.preventDefault();
@@ -632,16 +585,12 @@ setCurrentTab((prev)=>prev+1)
     handleFile6623(imageFile);
   };
 
-
   const handleOndrop6624 = (event) => {
     event.preventDefault();
     event.stopPropagation();
     let imageFile = event.dataTransfer.files[0];
     handleFile6624(imageFile);
   };
-  
-
-
 
   const handleOndropTab61 = (event) => {
     event.preventDefault();
@@ -669,8 +618,6 @@ setCurrentTab((prev)=>prev+1)
   const fileInput23 = useRef(null);
   const fileInput24 = useRef(null);
 
-
-
   const fileInputTab71 = useRef(null);
   const fileInputTab72 = useRef(null);
 
@@ -695,8 +642,6 @@ setCurrentTab((prev)=>prev+1)
   const [image6623, setImage6623] = useState(null);
   const [image6624, setImage6624] = useState(null);
 
-
-
   const [imageTab71, setImageTab71] = useState(null);
   const [imageTab72, setImageTab72] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -714,7 +659,6 @@ setCurrentTab((prev)=>prev+1)
   const [previewUrl23, setPreviewUrl23] = useState("");
   const [previewUrl24, setPreviewUrl24] = useState("");
 
-
   const [previewUrlTab71, setPreviewUrlTab71] = useState("");
   const [previewUrlTab72, setPreviewUrlTab72] = useState("");
 
@@ -730,10 +674,10 @@ setCurrentTab((prev)=>prev+1)
     console.log(file);
   };
 
-  const handleChangeTab6AddExtraOral=(file)=>{
+  const handleChangeTab6AddExtraOral = (file) => {
     setAddExtraO(file);
     console.log(file);
-  }
+  };
 
   const handleChangeTab51 = (file) => {
     // setImageTab51(file);
@@ -747,40 +691,29 @@ setCurrentTab((prev)=>prev+1)
   const handleChangeTab52 = (file) => {
     // setImageTab52(file);
     // setPreviewUrlTab52(URL.createObjectURL(file));
-    var fileInput =
-                document.getElementById('files');
-             
-            var filePath = fileInput.value;
-         
-            // Allowing file type
-            var allowedExtensions =
-/(\.stl|\.dcm)$/i;
-             
-            if (!allowedExtensions.exec(filePath)) {
-                alert('Invalid file type \nUpload .stl and .dcm files Only!');
-                fileInput.value = '';
-                return false;
-            }
+    var fileInput = document.getElementById("files");
+
+    var filePath = fileInput.value;
+
+    // Allowing file type
+    var allowedExtensions = /(\.stl|\.dcm)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+      alert("Invalid file type \nUpload .stl and .dcm files Only!");
+      fileInput.value = "";
+      return false;
+    }
     setPvs({
       intraoral: file,
     });
 
-    
     console.log(file);
   };
 
-
-    const handleChangeVid=(file)=>{
-
-      setvid(file);
-      console.log(file);
-
-    }
-
-
-
-
-
+  const handleChangeVid = (file) => {
+    setvid(file);
+    console.log(file);
+  };
 
   const handleChangeTab53 = (file) => {
     // setImageTab53(file);
@@ -840,8 +773,6 @@ setCurrentTab((prev)=>prev+1)
     setState67(file);
   };
 
-
-
   const handleFile662 = (file) => {
     setImage662(file);
     setPreviewUrl62(URL.createObjectURL(file));
@@ -876,7 +807,6 @@ setCurrentTab((prev)=>prev+1)
     console.log(file);
     setstate6624(file);
   };
-
 
   const handleFileTab71 = (file) => {
     setImageTab71(file);
@@ -1063,16 +993,12 @@ setCurrentTab((prev)=>prev+1)
 
   const [currentTab, setCurrentTab] = useState(0);
 
- 
-
-
-
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
-          <img src={logo} alt="" className="" width={120} />
+            <img src={logo} alt="" className="" width={120} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -1108,7 +1034,9 @@ setCurrentTab((prev)=>prev+1)
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
+                      <span className="px-3" onClick={() => navigate("/")}>
+                        Logout
+                      </span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -1143,16 +1071,16 @@ setCurrentTab((prev)=>prev+1)
         </Row>
       </Container>
 
-
-
-
       <Row className="justify-content-center">
         <Col md={11}>
           <Container fluid>
             <Form noValidate validated={validated}>
               <Container
                 className="pt-5 mt-5 pb-5 mb-5"
-                style={{ boxShadow: "0px 0px 5px 5px #dee2e6", backgroundColor:"white" }}
+                style={{
+                  boxShadow: "0px 0px 5px 5px #dee2e6",
+                  backgroundColor: "white",
+                }}
                 fluid
               >
                 <Row>
@@ -1165,8 +1093,12 @@ setCurrentTab((prev)=>prev+1)
                               sm={{ span: 12 }}
                               style={{ border: "solid 0.1em lightgray" }}
                             >
-                              <Tabs activeKey={currentTab} justify className="mt-3">
-                                <Tab eventKey={0} title="1. Patient Data" >
+                              <Tabs
+                                activeKey={currentTab}
+                                justify
+                                className="mt-3"
+                              >
+                                <Tab eventKey={0} title="1. Patient Data">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
@@ -1389,7 +1321,10 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={1} title="2. ClinicalMalocclusion">
+                                <Tab
+                                  eventKey={1}
+                                  title="2. ClinicalMalocclusion"
+                                >
                                   <Row>
                                     <Col md={6}>
                                       <p>Clinical Conditions*</p>
@@ -1513,7 +1448,7 @@ setCurrentTab((prev)=>prev+1)
                                             className="mb-3"
                                             controlId="exampleForm.ControlTextarea1"
                                           >
-                    {/* <Form.Label>Example
+                                            {/* <Form.Label>Example
                  textarea</Form.Label> */}
                                             <Form.Control
                                               as="textarea"
@@ -1537,7 +1472,7 @@ setCurrentTab((prev)=>prev+1)
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                      variant="outline-dark"
+                                        variant="outline-dark"
                                         className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
@@ -1624,9 +1559,13 @@ setCurrentTab((prev)=>prev+1)
                                             controlId="validationProductType"
                                             className="mt-3"
                                           >
-                                            <Form.Label>Product Type</Form.Label>
+                                            <Form.Label>
+                                              Product Type
+                                            </Form.Label>
                                             <Form.Select aria-label="Default select example">
-                                              <option>Select Product type</option>
+                                              <option>
+                                                Select Product type
+                                              </option>
                                               <option value="1">Classic</option>
                                               <option value="2">Premium</option>
                                             </Form.Select>
@@ -2332,7 +2271,9 @@ setCurrentTab((prev)=>prev+1)
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                         <Col sm="3" className="mt-2">
@@ -2342,7 +2283,9 @@ setCurrentTab((prev)=>prev+1)
                                             label="No"
                                             value="No"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                         <Col sm="2" className="mt-2">
@@ -2352,7 +2295,9 @@ setCurrentTab((prev)=>prev+1)
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionDistalize"
-                                            onChange={handleInstructionDistalize}
+                                            onChange={
+                                              handleInstructionDistalize
+                                            }
                                           />
                                         </Col>
                                       </Form.Group>
@@ -4175,7 +4120,7 @@ setCurrentTab((prev)=>prev+1)
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                      variant="outline-dark"
+                                        variant="outline-dark"
                                         className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
@@ -4194,12 +4139,6 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                   </Row>
                                 </Tab>
-
-
-
-
-
-
 
                                 <Tab
                                   eventKey={3}
@@ -4293,7 +4232,9 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -4457,7 +4398,9 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -4483,10 +4426,6 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                   </Row>
                                 </Tab>
-
-
-
-
 
                                 <Tab eventKey={5} title="6. Photos">
                                   {/* <section>
@@ -4664,15 +4603,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInputTab61.current.click()
                                                 }
                                               >
-                                              
-
-                                                {previewUrlTab61? previewUrlTab61 && (
-                                                  <img
-                                                    src={previewUrlTab61}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Front: Rest</p>}
+                                                {previewUrlTab61 ? (
+                                                  previewUrlTab61 && (
+                                                    <img
+                                                      src={previewUrlTab61}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Front: Rest
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4702,13 +4645,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput2.current.click()
                                                 }
                                               >
-                                                {previewUrl2?previewUrl2 && (
-                                                  <img
-                                                    src={previewUrl2}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Front: Smile</p>}
+                                                {previewUrl2 ? (
+                                                  previewUrl2 && (
+                                                    <img
+                                                      src={previewUrl2}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Front: Smile
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -4734,8 +4683,8 @@ setCurrentTab((prev)=>prev+1)
                                             <Col md={4}>
                                               <Card className="border-0 p-2">
                                                 <p className="text-center">
-                                                  Drag and drop individual photos
-                                                  from desktop folder to
+                                                  Drag and drop individual
+                                                  photos from desktop folder to
                                                   respective tile
                                                 </p>
                                               </Card>
@@ -4769,13 +4718,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput5.current.click()
                                                 }
                                               >
-                                                {previewUrl5?previewUrl5 && (
-                                                  <img
-                                                    src={previewUrl5}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Profile</p>}
+                                                {previewUrl5 ? (
+                                                  previewUrl5 && (
+                                                    <img
+                                                      src={previewUrl5}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Profile
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -4899,8 +4854,8 @@ setCurrentTab((prev)=>prev+1)
                                       </Card>
                                     </Col>
                                     <Col md={6}>
-                                    <Card className="img-crd">
-                                    <Card.Header>
+                                      <Card className="img-crd">
+                                        <Card.Header>
                                           <p>Intraoral Photos</p>
                                         </Card.Header>
                                         <Row className="p-3">
@@ -5023,13 +4978,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput62.current.click()
                                                 }
                                               >
-                                                {previewUrl62?previewUrl62 && (
-                                                  <img
-                                                    src={previewUrl62}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Right Buccal</p>}
+                                                {previewUrl62 ? (
+                                                  previewUrl62 && (
+                                                    <img
+                                                      src={previewUrl62}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Right Buccal
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -5059,13 +5020,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput21.current.click()
                                                 }
                                               >
-                                                {previewUrl21?previewUrl21 && (
-                                                  <img
-                                                    src={previewUrl21}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Front Buccal</p>}
+                                                {previewUrl21 ? (
+                                                  previewUrl21 && (
+                                                    <img
+                                                      src={previewUrl21}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Front Buccal
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5106,13 +5073,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput22.current.click()
                                                 }
                                               >
-                                                {previewUrl22?previewUrl22 && (
-                                                  <img
-                                                    src={previewUrl22}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Left Buccal</p>}
+                                                {previewUrl22 ? (
+                                                  previewUrl22 && (
+                                                    <img
+                                                      src={previewUrl22}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Left Buccal
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5126,13 +5099,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput23.current.click()
                                                 }
                                               >
-                                                {previewUrl23?previewUrl23 && (
-                                                  <img
-                                                    src={previewUrl23}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Upper Occulus</p>}
+                                                {previewUrl23 ? (
+                                                  previewUrl23 && (
+                                                    <img
+                                                      src={previewUrl23}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Upper Occulus
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -5162,13 +5141,19 @@ setCurrentTab((prev)=>prev+1)
                                                   fileInput24.current.click()
                                                 }
                                               >
-                                                {previewUrl24?previewUrl24 && (
-                                                  <img
-                                                    src={previewUrl24}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Lower Occulus</p>}
+                                                {previewUrl24 ? (
+                                                  previewUrl24 && (
+                                                    <img
+                                                      src={previewUrl24}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Lower Occulus
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5257,10 +5242,11 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                   </Row>
                                   <Row className="m-2">
-
                                     <Col>
-                                    <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                      <Card className="p-3">
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -5287,9 +5273,6 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                   </Row>
                                 </Tab>
-
-
-
 
                                 <Tab eventKey={6} title="7. Radiographs">
                                   <Row className="m-2">
@@ -5334,15 +5317,9 @@ setCurrentTab((prev)=>prev+1)
                                           // onDragOver={handleOndragOver}
                                           // onDrop={handleOndrop}
                                           // onClick={() => fileInputTab7.current.click()}
-                                          >
-                                            
-                                            
-                                          
-                                          
+                                        >
                                           <Row className="m-3">
-
-                                              
-                                              <Col>
+                                            <Col>
                                               <Card
                                                 className="crd-up2"
                                                 onDragOver={handleOndragOver}
@@ -5367,36 +5344,36 @@ setCurrentTab((prev)=>prev+1)
                                                 )}
                                               </Card>
                                             </Col>
-                                            
                                           </Row>
                                           <Row className="m-3">
-                                              <Col md={6}>
-                                                <Card
-                                                  className="crd-up2"
-                                                  onDragOver={handleOndragOver}
-                                                  onDrop={handleOndrop72}
-                                                  onClick={() =>
-                                                    fileInputTab72.current.click()
-                                                  }
-                                                  >
-                                                  {previewUrlTab72 ? (
-                                                    ""
-                                                    ) : (
-                                                      <p className="text-center mt-5 pt-5">
-                                                      Drag Image or click to browse
-                                                    </p>
-                                                  )}
-                                                  {previewUrlTab72 && (
-                                                    <img
+                                            <Col md={6}>
+                                              <Card
+                                                className="crd-up2"
+                                                onDragOver={handleOndragOver}
+                                                onDrop={handleOndrop72}
+                                                onClick={() =>
+                                                  fileInputTab72.current.click()
+                                                }
+                                              >
+                                                {previewUrlTab72 ? (
+                                                  ""
+                                                ) : (
+                                                  <p className="text-center mt-5 pt-5">
+                                                    Drag Image or click to
+                                                    browse
+                                                  </p>
+                                                )}
+                                                {previewUrlTab72 && (
+                                                  <img
                                                     src={previewUrlTab72}
                                                     alt="image"
                                                     className="img-s2 m-3"
-                                                    />
-                                                    )}
-                                                </Card>
-                                              </Col>
-                                            </Row>
-                                              
+                                                  />
+                                                )}
+                                              </Card>
+                                            </Col>
+                                          </Row>
+
                                           <input
                                             type="file"
                                             accept="image/*"
@@ -5442,7 +5419,9 @@ setCurrentTab((prev)=>prev+1)
                                     </Col>
                                     <Col md={4}>
                                       <Card className="p-3">
-                                        <p className="up-rec">UPLOADED RECORDS</p>
+                                        <p className="up-rec">
+                                          UPLOADED RECORDS
+                                        </p>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -5475,9 +5454,6 @@ setCurrentTab((prev)=>prev+1)
                                   </Row>
                                 </Tab>
 
-
-
-
                                 <Tab eventKey={7} title="8. Upload Video">
                                   <Row className="m-2">
                                     <Col md={12}>
@@ -5485,7 +5461,13 @@ setCurrentTab((prev)=>prev+1)
                                         <p className="up-rec">
                                           UPLOAD VIDEO FILE
                                         </p>
-                                        <input type="file" multiple onChange={(e) => {handleChangeVid(e.target.files)}}></input>
+                                        <input
+                                          type="file"
+                                          multiple
+                                          onChange={(e) => {
+                                            handleChangeVid(e.target.files);
+                                          }}
+                                        ></input>
                                       </Card>
                                     </Col>
                                   </Row>
@@ -5493,7 +5475,7 @@ setCurrentTab((prev)=>prev+1)
                                   <Row className="text-end mt-1 mb-2">
                                     <Col className="me-4">
                                       <Button
-                                      variant="outline-dark"
+                                        variant="outline-dark"
                                         className="mx-3 success"
                                         onClick={() =>
                                           setCurrentTab((prev) => prev - 1)
