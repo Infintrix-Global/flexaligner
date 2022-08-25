@@ -5526,5 +5526,4 @@ setCurrentTab((prev)=>prev+1)
     </>
   );
 }
-
 export default AddPatient;
