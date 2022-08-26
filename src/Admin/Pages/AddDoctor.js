@@ -317,6 +317,7 @@ function AddDoctor() {
                               type="text"
                               onChange={(e) => handle(e)}
                               name="FirstName"
+                              // pattern="[A-Za-z]"
                               value={data.FirstName}
                               placeholder="Enter First Name"
                               className="p-3"
