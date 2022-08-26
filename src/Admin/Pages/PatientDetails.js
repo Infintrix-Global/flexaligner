@@ -170,13 +170,12 @@ function PatientList() {
                 <table>
                   <tr>
                     <th>PatientId:</th>
-                  </tr>
-                  <tr>
                     <td contentEditable="false">{patient[0]?.PatientId}</td>
-                  </tr>
                   <Button variant="" className="action-i edit editbtn">
                     Edit
                   </Button>
+                  </tr>
+                 
                 </table>
                 {/* <Col>
                   <p>
