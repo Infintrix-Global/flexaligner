@@ -68,15 +68,14 @@ function PatientList() {
       Menu.classList.add("collapsed");
     }
   };
-
   $(document).ready(function () {
     $(".editbtn").click(function () {
-      var currentTD = $(this).find("p");
+      var currentTD = $(this).parents("tr").find("td");
       if ($(this).html() == "Edit") {
-        currentTD = $(this).find("p");
+        currentTD = $(this).parents("tr").find("td");
         $.each(currentTD, function () {
           $(this).prop("contenteditable", true);
-          $(this).find("p").focus();
+          $(this).parents("tr").find("td").focus();
         });
       } else {
         $.each(currentTD, function () {
@@ -168,7 +167,16 @@ function PatientList() {
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
               <Row>
-                <Col>
+                <table>
+                  <tr>
+                    <th>PatientId:</th>
+                    <td>{patient[0]?.PatientId}</td>
+                  </tr>
+                  <Button variant="" className="action-i edit editbtn">
+                    Edit
+                  </Button>
+                </table>
+                {/* <Col>
                   <p>
                     <b>PatientId:</b>&nbsp;{patient[0]?.PatientId}
                   </p>
@@ -194,7 +202,7 @@ function PatientList() {
                   <Button variant="" className="action-i edit editbtn">
                     Edit
                   </Button>
-                </Col>
+                </Col> */}
               </Row>
             </Col>
             <Row className="mt-4 mb-5">
