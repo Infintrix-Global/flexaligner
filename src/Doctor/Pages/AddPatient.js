@@ -1554,49 +1554,99 @@ function AddPatient() {
                                           </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
-                                      <Row>
-                                        <Col>
+                                      
+                                        <Row>
+                                          <Col>
+                                            <Form.Group
+                                              controlId="validationNoOfAligners"
+                                              className="mt-3"
+                                            >
+                                              <Form.Label>
+                                                Expected No. of Aligners
+                                              </Form.Label>
+                                              <InputGroup hasValidation>
+                                                <Form.Control
+                                                  type="text"
+                                                  name="Quotation"
+                                                  onChange={handleChange}
+                                                  aria-describedby="inputGroupPrepend"
+                                                  required
+                                                />
+                                                {/* <Form.Control.Feedback type="invalid">
+                                                          Please Enter a Quotation.
+                                                          </Form.Control.Feedback> */}
+                                              </InputGroup>
+                                            </Form.Group>
+                                          </Col>
+                                          <Col>
+                                            <Form.Group
+                                              controlId="validationProductType"
+                                              className="mt-3"
+                                            >
+                                              <Form.Label>
+                                                Product Type
+                                              </Form.Label>
+                                              <Form.Select aria-label="Default select example">
+                                                <option>
+                                                  Select Product type
+                                                </option>
+                                                <option value="1">Classic</option>
+                                                <option value="2">Premium</option>
+                                              </Form.Select>
+                                              <Form.Control.Feedback type="invalid">
+                                                          Please Select Product type.
+                                                          </Form.Control.Feedback>
+                                            </Form.Group>
+                                          </Col>
+                                        </Row>
+
+                                        <Row>
+                                          <Col>
                                           <Form.Group
-                                            controlId="validationNoOfAligners"
-                                            className="mt-3"
-                                          >
-                                            <Form.Label>
-                                              Expected No. of Aligners
-                                            </Form.Label>
-                                            <InputGroup hasValidation>
-                                              <Form.Control
-                                                type="text"
-                                                name="Quotation"
-                                                onChange={handleChange}
-                                                aria-describedby="inputGroupPrepend"
-                                                required
-                                              />
-                                              {/* <Form.Control.Feedback type="invalid">
-                Please Enter a Quotation.
-                </Form.Control.Feedback> */}
-                                            </InputGroup>
-                                          </Form.Group>
-                                        </Col>
-                                      </Row>
-                                      <Row>
-                                        <Col>
+                                              controlId="validationNoOfAligners"
+                                              className="mt-3"
+                                            >
+                                              <Form.Label>
+                                                Amount Paid
+                                              </Form.Label>
+                                              <InputGroup hasValidation>
+                                                <Form.Control
+                                                  type="number"
+                                                  name="Quotation"
+                                                  onChange={handleChange}
+                                                  aria-describedby="inputGroupPrepend"
+                                                  required
+                                                />
+                                                {/* <Form.Control.Feedback type="invalid">
+                                                          Please Enter a Quotation.
+                                                          </Form.Control.Feedback> */}
+                                              </InputGroup>
+                                            </Form.Group>
+                                          </Col>
+                                          <Col>
                                           <Form.Group
-                                            controlId="validationProductType"
-                                            className="mt-3"
-                                          >
-                                            <Form.Label>
-                                              Product Type
-                                            </Form.Label>
-                                            <Form.Select aria-label="Default select example">
-                                              <option>
-                                                Select Product type
-                                              </option>
-                                              <option value="1">Classic</option>
-                                              <option value="2">Premium</option>
-                                            </Form.Select>
-                                          </Form.Group>
-                                        </Col>
-                                      </Row>
+                                              controlId="validationNoOfAligners"
+                                              className="mt-3"
+                                            >
+                                              <Form.Label>
+                                                Date
+                                              </Form.Label>
+                                              <InputGroup hasValidation>
+                                                <Form.Control
+                                                  type="date"
+                                                  name="Quotation"
+                                                  onChange={handleChange}
+                                                  aria-describedby="inputGroupPrepend"
+                                                  required
+                                                />
+                                                {/* <Form.Control.Feedback type="invalid">
+                                                          Please Enter a Quotation.
+                                                          </Form.Control.Feedback> */}
+                                              </InputGroup>
+                                            </Form.Group>
+                                          </Col>
+                                        </Row>
+                                      
                                     </Col>
                                     <Col md={{ span: 6 }}>
                                       <Row>
