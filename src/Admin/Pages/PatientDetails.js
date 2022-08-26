@@ -170,13 +170,16 @@ function PatientList() {
                 <table>
                   <tr>
                     <th>PatientId:</th>
-                  </tr>
-                  <tr>
                     <td contentEditable="false">{patient[0]?.PatientId}</td>
-                    
-                  <Button variant="" className="action-i edit editbtn">
-                    Edit
-                  </Button>
+                    <th>Patient Name:</th>
+                    <td contentEditable="false">{patient[0]?.Name}</td>
+                    <th>Patient Case No:</th>
+                    <td contentEditable="false">{patient[0]?.CaseNo}</td>
+                    <th>Patient Gender:</th>
+                    <td contentEditable="false">{patient[0]?.Gender}</td>
+                    <Button variant="" className="action-i edit editbtn">
+                      Edit
+                    </Button>
                   </tr>
                 </table>
                 {/* <Col>
@@ -354,6 +357,12 @@ function PatientList() {
                     }}
                   ></img>
                 </Stack>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <input type="file"></input>
+                <input type="submit" value="Upload"></input>
               </Col>
             </Row>
           </Row>

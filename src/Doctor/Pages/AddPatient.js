@@ -41,6 +41,10 @@ function AddPatient() {
     GeneralNotes: "",
     ChiefComplaint: "",
     Quotation: "",
+    ExpectedNoOfAligners:"",
+    ProductType:"",
+    AmountPaid:"",
+    PrescriptionDate:"",
     UpperMidline: "",
     LowerMidline: "",
     CanineRelationshipRightClass: "",
@@ -1567,7 +1571,7 @@ function AddPatient() {
                                               <InputGroup hasValidation>
                                                 <Form.Control
                                                   type="text"
-                                                  name="Quotation"
+                                                  name="ExpectedNoOfAligners"
                                                   onChange={handleChange}
                                                   aria-describedby="inputGroupPrepend"
                                                   required
@@ -1586,7 +1590,7 @@ function AddPatient() {
                                               <Form.Label>
                                                 Product Type
                                               </Form.Label>
-                                              <Form.Select aria-label="Default select example">
+                                              <Form.Select aria-label="Default select example" name="ProductType" onChange={handleChange}>
                                                 <option>
                                                   Select Product type
                                                 </option>
@@ -1612,10 +1616,10 @@ function AddPatient() {
                                               <InputGroup hasValidation>
                                                 <Form.Control
                                                   type="number"
-                                                  name="Quotation"
+                                                  name="AmountPaid"
                                                   onChange={handleChange}
                                                   aria-describedby="inputGroupPrepend"
-                                                  required
+                                                  
                                                 />
                                                 {/* <Form.Control.Feedback type="invalid">
                                                           Please Enter a Quotation.
@@ -1634,10 +1638,10 @@ function AddPatient() {
                                               <InputGroup hasValidation>
                                                 <Form.Control
                                                   type="date"
-                                                  name="Quotation"
+                                                  name="PrescriptionDate"
                                                   onChange={handleChange}
                                                   aria-describedby="inputGroupPrepend"
-                                                  required
+                                                  
                                                 />
                                                 {/* <Form.Control.Feedback type="invalid">
                                                           Please Enter a Quotation.
