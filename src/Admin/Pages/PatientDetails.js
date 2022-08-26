@@ -167,19 +167,24 @@ function PatientList() {
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
               <Row>
-                <table>
+                <table style={{width: "45em"}}>
                   <tr>
-                    <th>PatientId:</th>
-                    <td contentEditable="false">{patient[0]?.PatientId}</td>
-                    <th>Patient Name:</th>
-                    <td contentEditable="false">{patient[0]?.Name}</td>
-                    <th>Patient Case No:</th>
-                    <td contentEditable="false">{patient[0]?.CaseNo}</td>
-                    <th>Patient Gender:</th>
-                    <td contentEditable="false">{patient[0]?.Gender}</td>
+
+
+                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
                     <Button variant="" className="action-i edit editbtn">
-                      Edit
-                    </Button>
+                    Edit
+                  </Button>
+                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+               
                   </tr>
                 </table>
                 {/* <Col>
