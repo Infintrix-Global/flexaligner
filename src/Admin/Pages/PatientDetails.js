@@ -21,6 +21,7 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import $ from "jquery";
 
 function PatientList() {
   const navigate = useNavigate();
@@ -67,6 +68,25 @@ function PatientList() {
       Menu.classList.add("collapsed");
     }
   };
+
+  $(document).ready(function () {
+    $(".editbtn").click(function () {
+      var currentTD = $(this).find("p");
+      if ($(this).html() == "Edit") {
+        currentTD = $(this).find("p");
+        $.each(currentTD, function () {
+          $(this).prop("contenteditable", true);
+          $(this).find("p").focus();
+        });
+      } else {
+        $.each(currentTD, function () {
+          $(this).prop("contenteditable", false);
+        });
+      }
+
+      $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
+    });
+  });
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -168,6 +188,12 @@ function PatientList() {
                   <p>
                     <b>Patient DOB:</b>&nbsp;{patient[0]?.DateofBirth}
                   </p>
+                </Col>
+                <Col>
+                  {" "}
+                  <Button variant="" className="action-i edit editbtn">
+                    Edit
+                  </Button>
                 </Col>
               </Row>
             </Col>
