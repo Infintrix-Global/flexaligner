@@ -42,7 +42,7 @@ function DoctorsList() {
   $(document).ready(function () {
     $(".editbtn").click(function () {
       var currentTD = $(this).parents("tr").find("td");
-      if ($(this).html() === "Edit") {
+      if ($(this).html() == "Edit") {
         currentTD = $(this).parents("tr").find("td");
         $.each(currentTD, function () {
           $(this).prop("contenteditable", true);
@@ -54,7 +54,7 @@ function DoctorsList() {
         });
       }
 
-      $(this).html($(this).html() === "Edit" ? "Save" : "Edit");
+      $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
     });
   });
 
@@ -106,7 +106,12 @@ function DoctorsList() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Button variant="" onClick={tglContent} className="navhide">
+              <Button
+                variant=""
+                hidden
+                onClick={tglContent}
+                className="navhide"
+              >
                 <FaBars fontSize={28} color="#C49358" />
               </Button>
             </Nav>
@@ -157,62 +162,11 @@ function DoctorsList() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container fluid>
-        <Row className="menuTab">
-          <Col>
-            <Card body className="border-0">
-              {/* <Row>
-=======
-// $(document).on("click", ".edit", function(){		
-//   $(this).parents("tr").find("td:not(:last-child)").each(function(){
-// $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-// });		
-// $(this).parents("tr").find(".add, .edit").toggle();
-// $(".add-new").attr("disabled", "disabled");
-// });
-    return(
-        <>
-        <Navbar collapseOnSelect expand="lg" className="navb">
-      <Container>
-        <Navbar.Brand href="#home">
-        <img src={logo} alt="" className="" width={120}/>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Button variant="" hidden onClick={tglContent} className="navhide"><FaBars fontSize={28} color="#C49358"/></Button>
-          </Nav>
-          <Nav>
-            <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="#C49358" className="notification"/></Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-            <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification"/>
-            </Nav.Link>
-            <span className="address"><img src={user} alt="" width={35} className="mt-1"/></span>
-            <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-            <Dropdown>
-      <Dropdown.Toggle variant="" id="dropdown-basic" className="user">
-        admin@gmail.com
-        </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1"><CgProfile fontSize={25}/><span className="px-3">Profile</span></Dropdown.Item>
-        <hr />
-        <Dropdown.Item href="#/action-2"><FiPower fontSize={25}/><span className="px-3" onClick={()=>navigate("/")}>Logout</span></Dropdown.Item>
-       
-      </Dropdown.Menu>
-    </Dropdown>
-            </Nav.Link>
-
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-        {/* <Container fluid>
+      {/* <Container fluid>
             <Row className="menuTab">
               <Col>
               <Card body className="border-0"> */}
-                {/* <Row>
->>>>>>> 0545596d6c5bea7bc1b482af97226085fd1126d4
+      {/* <Row>
                   <Col>
                   <Button variant="link" className="doc-tab">Doctor</Button>
                   </Col>
@@ -221,17 +175,15 @@ function DoctorsList() {
                    
                   </Col>
                 </Row> */}
-
-              <Nav className="justify-content-center">
-                <LinkContainer to="/doctor-dashboard">
-                  <Nav.Link className="doc-tab active">Doctor</Nav.Link>
-                </LinkContainer>
-                <Nav.Link className="prof-tab">Profile</Nav.Link>
-              </Nav>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      {/* <Nav className="justify-content-center">
+                 <LinkContainer to="/doctor-dashboard"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
+                 <Nav.Link className="prof-tab">Profile</Nav.Link>
+            
+          </Nav>
+              </Card>
+              </Col>
+            </Row>
+        </Container> */}
       <Container fluid>
         <Row className="justify-content-center mt-5">
           <Col md={10}>
@@ -285,25 +237,6 @@ function DoctorsList() {
                           </Col>
                         </Form.Group>
                       </Col>
-                 {/* <Nav className="justify-content-center">
-                 <LinkContainer to="/doctor-dashboard"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
-                 <Nav.Link className="prof-tab">Profile</Nav.Link>
-            
-          </Nav>
-              </Card>
-              </Col>
-            </Row>
-        </Container> */}
-        <Container fluid >
-            <Row className="justify-content-center mt-5" >
-                <Col md={10}>
-                <Card>
-                    <Row className="text-end mt-3 me-2">
-                        <Col>
-                        <Button variant="" className="add-doc-btn" onClick={() => navigate("/add-doctor")}>Add Doctor</Button>
-                        <Button variant="" className="add-doc-btn mx-2" onClick={() => navigate("/patient-list")}>View Patient</Button>
-                        
-                        </Col>
                     </Row>
 
                     <Row className="m-2">
