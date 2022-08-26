@@ -88,18 +88,40 @@ function AddPatient() {
 
   var radGarph1 = document.getElementById("rGraph1");
 
+
+
+
+
+
+
+
+
+
+
+
+
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+
+
     }
     setValidated(true);
 
     const fd = new FormData();
-    fd.append("Name", vid.name);
-    fd.append("fileContent", vid);
-    console.log(vid);
+    if (radGarph1.checked) {
+      fd.append("Name", radio.name);
+      fd.append("fileContent", radio);
+      console.log(radio);
+
+      fd.append("Name", radio1.name);
+      fd.append("fileContent", radio1);
+    }
+    // console.log(vid);
 
     axios
       .post(
@@ -123,6 +145,8 @@ function AddPatient() {
 
     const url =
       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
+
+      
     fetch(url, {
       method: "POST",
       headers: {
@@ -134,15 +158,23 @@ function AddPatient() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result.message);
-        if (result.message === "Added Successful") {
-          // navigate("/view-doctors");
+        if (result.message === "Added Successful" && form.checkValidity() === true){
+          
+          navigate("/patient-list");
         }
       });
+    
 
     console.log(values);
 
-    setCurrentTab((prev) => prev + 1);
+    // setCurrentTab((prev) => prev + 1);
   };
+
+
+
+
+
+
 
   const [state, setState] = useState(null);
   const [pvs, setPvs] = useState({
@@ -400,40 +432,33 @@ function AddPatient() {
     setCurrentTab((prev) => prev + 1);
   };
 
-  const handleUpload3 = (e) => {
-    e.preventDefault();
+  // const handleUpload3 = (e) => {
+  //   e.preventDefault();
 
-    const fd = new FormData();
-    if (radGarph1.checked) {
-      fd.append("Name", radio.name);
-      fd.append("fileContent", radio);
-      console.log(radio);
+  //   const fd = new FormData();
+   
 
-      fd.append("Name", radio1.name);
-      fd.append("fileContent", radio1);
-    }
-
-    axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-        fd,
-        {
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-      )
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("XrayLeft", arr.path.toString());
-      });
-    setCurrentTab((prev) => prev + 1);
-  };
+  //   axios
+  //     .post(
+  //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+  //       fd,
+  //       {
+  //         onUploadProgress: (ProgressEvent) => {
+  //           console.log(
+  //             "Upload Progress:" +
+  //               Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+  //               "%"
+  //           );
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       var arr = res.data;
+  //       console.log(arr);
+  //       sessionStorage.setItem("XrayLeft", arr.path.toString());
+  //     });
+  //   setCurrentTab((prev) => prev + 1);
+  // };
 
   const submitTab1 = (event) => {
     setCurrentTab((prev) => prev + 1);
@@ -1074,7 +1099,7 @@ function AddPatient() {
       <Row className="justify-content-center">
         <Col md={11}>
           <Container fluid>
-            <Form noValidate validated={validated}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Container
                 className="pt-5 mt-5 pb-5 mb-5"
                 style={{
@@ -5021,7 +5046,7 @@ function AddPatient() {
                                                 }
                                               >
 
-                                                {previewUrl21 ? (
+                                                {/* {previewUrl21 ? (
                                                   previewUrl21 && (
                                                     <img
                                                       src={previewUrl21}
@@ -5033,7 +5058,7 @@ function AddPatient() {
                                                   <p className="text-center mt-5">
                                                     Front Buccal
                                                   </p>
-                                                )}
+                                                )} */}
 
                                                 {previewUrl21?previewUrl21 && (
                                                   <img
@@ -5084,7 +5109,7 @@ function AddPatient() {
                                                 }
                                               >
 
-                                                {previewUrl22 ? (
+                                                {/* {previewUrl22 ? (
                                                   previewUrl22 && (
                                                     <img
                                                       src={previewUrl22}
@@ -5096,7 +5121,7 @@ function AddPatient() {
                                                   <p className="text-center mt-5">
                                                     Left Buccal
                                                   </p>
-                                                )}
+                                                )} */}
 
                                                 {previewUrl22?previewUrl22 && (
                                                   <img
@@ -5130,17 +5155,17 @@ function AddPatient() {
                                                   )
                                                 ) : (
                                                   <p className="text-center mt-5">
-                                                    Upper Occulus
+                                                    Upper Occulosal
                                                   </p>
                                                 )}
 
-                                                {previewUrl23?previewUrl23 && (
+                                                {/* {previewUrl23?previewUrl23 && (
                                                   <img
                                                     src={previewUrl23}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                ):<p className="text-center mt-5">Upper Occulosal</p>}
+                                                ):<p className="text-center mt-5">Upper Occulosal</p>} */}
 
                                               </Card>
                                             </Col>
@@ -5182,17 +5207,17 @@ function AddPatient() {
                                                   )
                                                 ) : (
                                                   <p className="text-center mt-5">
-                                                    Lower Occulus
+                                                    Lower Occulosal
                                                   </p>
                                                 )}
-=======
-                                                {previewUrl24?previewUrl24 && (
+
+                                                {/* {previewUrl24?previewUrl24 && (
                                                   <img
                                                     src={previewUrl24}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                ):<p className="text-center mt-5">Lower Occulosal</p>}
+                                                ):<p className="text-center mt-5">Lower Occulosal</p>} */}
 
                                               </Card>
                                             </Col>
@@ -5485,16 +5510,17 @@ function AddPatient() {
                                       </Button>
                                       <Button
                                         className="nextbtn"
+                                        type="submit"
                                         //   onClick={handleSubmit}
-                                        onClick={handleUpload3}
+                                        // onClick={handleSubmit}
                                       >
-                                        Next
+                                        Submit
                                       </Button>
                                     </Col>
                                   </Row>
                                 </Tab>
 
-                                <Tab eventKey={7} title="8. Upload Video">
+                                {/* <Tab eventKey={7} title="8. Upload Video">
                                   <Row className="m-2">
                                     <Col md={12}>
                                       <Card className="p-3">
@@ -5531,7 +5557,7 @@ function AddPatient() {
                                       </Button>
                                     </Col>
                                   </Row>
-                                </Tab>
+                                </Tab> */}
                               </Tabs>
                             </Col>
                           </Row>

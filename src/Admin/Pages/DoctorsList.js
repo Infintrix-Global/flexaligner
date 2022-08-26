@@ -110,7 +110,7 @@ function DoctorsList(){
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Button variant="" onClick={tglContent} className="navhide"><FaBars fontSize={28} color="#C49358"/></Button>
+            <Button variant="" hidden onClick={tglContent} className="navhide"><FaBars fontSize={28} color="#C49358"/></Button>
           </Nav>
           <Nav>
             <Nav.Link href="#deets"><IoMdNotifications fontSize={30} color="#C49358" className="notification"/></Nav.Link>
@@ -137,10 +137,10 @@ function DoctorsList(){
         </Navbar.Collapse>
       </Container>
     </Navbar>
-        <Container fluid>
+        {/* <Container fluid>
             <Row className="menuTab">
               <Col>
-              <Card body className="border-0">
+              <Card body className="border-0"> */}
                 {/* <Row>
                   <Col>
                   <Button variant="link" className="doc-tab">Doctor</Button>
@@ -150,7 +150,7 @@ function DoctorsList(){
                    
                   </Col>
                 </Row> */}
-                 <Nav className="justify-content-center">
+                 {/* <Nav className="justify-content-center">
                  <LinkContainer to="/doctor-dashboard"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
                  <Nav.Link className="prof-tab">Profile</Nav.Link>
             
@@ -158,7 +158,7 @@ function DoctorsList(){
               </Card>
               </Col>
             </Row>
-        </Container>
+        </Container> */}
         <Container fluid >
             <Row className="justify-content-center mt-5" >
                 <Col md={10}>
