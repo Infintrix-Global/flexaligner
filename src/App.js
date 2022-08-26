@@ -9,7 +9,7 @@ import Upload from "./Doctor/Pages/Upload";
 import PatientList from "./Doctor/Pages/PatientList";
 // import File from "./Doctor/Pages/File";
 import Dashboard from "./Doctor/Pages/Dashboard";
-
+import PatientDetails from "./Admin/Pages/PatientDetails";
 function App() {
   return (
     <div>
@@ -22,8 +22,9 @@ function App() {
           {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
           <Route path="/upload" element={<Upload />} />
           {/* <Route path="/file" element={<File/>}/> */}
-          <Route path="/doctor-dashboard" element={<Dashboard/>}/>s
+          <Route path="/doctor-dashboard" element={<Dashboard/>}/>
           <Route path="/patient-list" element={<PatientList />} />
+          <Route path="/patient-details" element={<PatientDetails/>}/>
         </Routes>
       </Router>
     </div>
