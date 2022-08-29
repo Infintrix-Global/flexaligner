@@ -167,8 +167,8 @@ function PatientList() {
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
               <Row className="mb-5">
-                <Col md={2}>
-                <p>
+                <Col md={3}>
+                <p className="mx-5">
                   <b>Patient Potrait</b>
                 </p>
                 <Row>
@@ -178,16 +178,16 @@ function PatientList() {
                       className="rounded"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
+                        height: "200px",
+                        width: "200px",
                       }}
                     ></img>
                   </Stack>
                 </Row>
                 </Col>
 
-                <Col md={10}>
-                  <table style={{width: "45em"}}>
+                <Col md={9}>
+                  <table style={{width: "45em"}} className="mt-5">
                     <tr>
                       <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
                       <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
@@ -271,7 +271,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -297,7 +297,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
@@ -317,7 +317,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -352,7 +352,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
@@ -372,7 +372,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -380,7 +380,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
