@@ -166,26 +166,47 @@ function PatientList() {
         <Container>
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
-              <Row>
-                <table style={{width: "45em"}}>
-                  <tr>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <Button variant="" className="action-i edit editbtn mt-4">
-                    Edit
-                  </Button>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                 
-                  </tr>
-                 
-                </table>
+              <Row className="mb-5">
+                <Col md={2}>
+                <p>
+                  <b>Patient Potrait</b>
+                </p>
+                <Row>
+                  <Stack direction="horizontal" gap={5}>
+                    <img
+                      src={user}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                  </Stack>
+                </Row>
+                </Col>
+
+                <Col md={10}>
+                  <table style={{width: "45em"}}>
+                    <tr>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Name:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Name}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>CaseNo:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.CaseNo}</td>
+                      <Button variant="" className="action-i edit editbtn mt-4">
+                      Edit
+                    </Button>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Gender:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Gender}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>DOB:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.DateofBirth}</td>
+                  
+                    </tr>
+                  
+                  </table>
+                </Col>
                 {/* <Col>
                   <p>
                     <b>PatientId:</b>&nbsp;{patient[0]?.PatientId}
@@ -215,7 +236,7 @@ function PatientList() {
                 </Col> */}
               </Row>
             </Col>
-            <Row className="mt-4 mb-5">
+            {/* <Row className="mt-4 mb-5">
               <Col md={{ span: 12 }}>
                 <p>
                   <b>View Patient Potrait</b>
@@ -234,8 +255,8 @@ function PatientList() {
                   </Stack>
                 </Row>
               </Col>
-            </Row>
-            <Row className="mt-4 mb-5">
+            </Row> */}
+            <Row className="mt-4 mb-5 mt-5">
               <Col md={{ span: 12 }}>
                 <p>
                   <b>View Extraoral Photos</b>

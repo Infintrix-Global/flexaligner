@@ -1598,8 +1598,8 @@ function AddPatient() {
                                                 <option value="2">Premium</option>
                                               </Form.Select>
                                               <Form.Control.Feedback type="invalid">
-                                                          Please Select Product type.
-                                                          </Form.Control.Feedback>
+                                        Please Select Product type.
+                                              </Form.Control.Feedback>
                                             </Form.Group>
                                           </Col>
                                         </Row>
