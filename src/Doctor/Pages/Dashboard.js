@@ -178,6 +178,14 @@ function Dashboard() {
                 >
                   Add Patient
                 </Button>
+
+                <Button
+                  className="mt-5 w-100"
+                  style={{ backgroundColor: "#C49358" }}
+                  onClick={()=>navigate("/patient-list")}
+                >
+                  View Patients
+                </Button>
               </Col>
             </Row>
             <Row className="mb-5">

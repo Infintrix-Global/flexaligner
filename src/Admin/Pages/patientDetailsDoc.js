@@ -1,117 +1,52 @@
+import React,{useState,useEffect} from "react";
 import {
-  Container,
-  Row,
-  Col,
-  Nav,
-  Button,
-  Navbar,
-  Dropdown,
-  Card,
-  Stack,
-  Form
-} from "react-bootstrap";
-import "../../Doctor/Styles/PatientList.css";
-import "../../Doctor/Styles/PatientDetails.css";
-
+    Container,
+    Row,
+    Col,
+    Nav,
+    Button,
+    Navbar,
+    Dropdown,
+    Card,
+    Stack,
+    Form
+  } from "react-bootstrap";
 import user from "../../Assets/user.png";
+// import user from "../../Assets/user.png";
+import { CgProfile } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
+
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars,FaEdit } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import Male from "../../Assets/Male.png";
-import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
 
 
-function PatientList() {
-  const navigate = useNavigate(); 
+
+
+function PatientDetailsDoc(){
   const [patient, setPatient] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filteredNames, setFilteredNames] = useState([]);
+  const navigate = useNavigate();
   const urlParams = useParams()
-  console.log(urlParams);
-  const ID=urlParams.PatientId;
-
-
-
-  const [state, setState] = useState({
-    fileContent:null
-    
-})
-
-const onChange=(e)=>{
-setState({
-    fileContent:e.target.files[0]
-})
-console.log(e.target.files[0]);
-}
-
-const uploadHandler=()=>{
-
-  const fd=new FormData();
-  fd.append("Name",state.fileContent.name);
-  fd.append("fileContent",state.fileContent);
-  fd.append("PatientId",patient.PatientId);
- axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
-  maxContentLength: 50000,
-  maxBodyLength: 5000
-  ,
-  
-     onUploadProgress:ProgressEvent=>{
-         console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
-     }
- })
- .then(res=>{
-     console.log(res);
- });
-
-
-}
-
-
-
-
-
-
-
-  //   const getPatient = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
-  //       );
-  //       setPatient(response.data.Data);
-  //       setFilteredNames(response.data.Data);
-  //       console.log(response.data.Data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+console.log(urlParams);
+const ID=urlParams.PatientId;
   const url ="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/"+ID;
 
-  useEffect(() => {
+useEffect(() => {
   console.log(urlParams);
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((details) => {
-        console.log(details.Data);
-        setPatient(details.Data);
-        // console.log(patient);
-      });
-  }, []);
-
-  useEffect(() => {
-    const result = patient.filter((patientname) => {
-      return patientname.Name.toLowerCase().match(search.toLowerCase());
+  fetch(url)
+    .then((res) => res.json())
+    .then((det) => {
+      console.log(det.Data);
+      setPatient(det.Data);
+      // console.log(patient);
     });
-    setFilteredNames(result);
-  }, [search]);
-  const tglContent = () => {
+}, []);
+
+
+const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
     if (Menu.classList.contains("collapsed")) {
@@ -138,9 +73,12 @@ const uploadHandler=()=>{
       $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
     });
   });
-  return (
-    <>
-      <Navbar collapseOnSelect expand="lg" className="navb">
+
+
+    return(
+        <>
+
+<Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="" width={120} />
@@ -188,7 +126,9 @@ const uploadHandler=()=>{
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => navigate("/")}>
+                      <span className="px-3" onClick={()=>{navigate("/");
+                    sessionStorage.removeItem("Role");
+                    }}>
                         Logout
                       </span>
                     </Dropdown.Item>
@@ -214,8 +154,11 @@ const uploadHandler=()=>{
             </Card>
           </Col>
         </Row>
+        </Container>
 
-        <Container fluid>
+
+
+         <Container fluid>
           <Row className="justify-content-center">
             <Col md={10}>
               <Row className="mt-5 mb-5 p-5 pt-0" style={{ backgroundColor: "white",boxShadow: "0px 0px 15px  #C49358",borderRadius:"8px" }}>
@@ -226,7 +169,7 @@ const uploadHandler=()=>{
                     </Col>
                   </Row>
                   <Row className="mb-5">
-                    <Col md={3} lg={3} sm={12} xs={12}>
+                    <Col md={3}>
                     <p className="mx-4 px-2 fs-5">
                       <b>Patient Potrait</b>
                     </p>
@@ -244,7 +187,7 @@ const uploadHandler=()=>{
                       </Stack>
                     </Row>
                     </Col>
-                    <Col md={9} lg={9} sm={12} xs={12}>
+                    <Col md={9}>
                       <table style={{width: "45em"}} className="mt-5">
                         <tr>
                           <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
@@ -293,7 +236,6 @@ const uploadHandler=()=>{
                       </Button>
                     </Col> */}
                   </Row>
-                  <hr />
                 </Col>
                 {/* <Row className="mt-4 mb-5">
                   <Col md={{ span: 12 }}>
@@ -441,21 +383,11 @@ const uploadHandler=()=>{
                     </Stack>
                   </Col>
                 </Row>
-                <Row>
-                  <Col>
-                  <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label className="pd-vid">Upload Videos</Form.Label>
-        <Form.Control type="file" multiple onChange={onChange} name="Name"/>
-      </Form.Group>
-      <Button variant="" className="btn" onClick={uploadHandler}>Upload</Button>
-                  </Col>
                 </Row>
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      </Container>
-    </>
-  );
+                </Col></Row></Container>
+        </>
+    );
 }
-export default PatientList;
+
+
+export default PatientDetailsDoc;

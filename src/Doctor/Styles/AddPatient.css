@@ -52,7 +52,7 @@ overflow-x: hidden;
 
 .img-s{
     /* width: 12em; */
-    max-height: 8em;
+    max-height: -webkit-fill-available;
     background-size: contain;
 }
 .up-rec{
@@ -132,7 +132,7 @@ border: 1px solid black;
 
 
 .img-s2{
-    max-height: 8em;
+    max-height: -webkit-fill-available;
     background-size: contain;
 }
 

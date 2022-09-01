@@ -132,6 +132,7 @@ function AddPatient() {
         "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
         fd,
         {
+          
           onUploadProgress: (ProgressEvent) => {
             console.log(
               "Upload Progress:" +
@@ -164,12 +165,12 @@ function AddPatient() {
         console.log(result.message);
         if (result.message === "Added Successful" && form.checkValidity() === true){
           
+          console.log(values);
           navigate("/patient-list");
         }
       });
     
 
-    console.log(values);
 
     // setCurrentTab((prev) => prev + 1);
   };

@@ -40,6 +40,10 @@ function PatientList() {
     }
   };
 
+  const RoleId = sessionStorage.getItem("Role");
+
+sessionStorage.setItem("PatientId",patient.PatientId)
+
   const columns = [
     {
       name: "PatientId",
@@ -77,7 +81,9 @@ function PatientList() {
     },
     {
       name: "Action",
-      cell: row => <button className="edit-patient-btn"  onClick={() => navigate("/add-patient")}>Edit</button>
+      cell: row => <button className="edit-patient-btn"  onClick={() =>{ RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
+    console.log(patient);
+    }}>Edit</button>
     }
   ];
 
@@ -142,7 +148,9 @@ function PatientList() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
+                      <span className="px-3" onClick={()=>{navigate("/");
+                    sessionStorage.removeItem("Role");
+                    }}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
