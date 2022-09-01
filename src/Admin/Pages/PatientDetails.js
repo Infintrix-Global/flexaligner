@@ -166,6 +166,7 @@ function PatientList() {
         <Container>
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
+<<<<<<< HEAD
               <Row>
                 <table style={{ width: "45em" }}>
                   <tr>
@@ -279,6 +280,49 @@ function PatientList() {
                     </td>
                   </tr>
                 </table>
+=======
+              <Row className="mb-5">
+                <Col md={3}>
+                <p className="mx-5">
+                  <b>Patient Potrait</b>
+                </p>
+                <Row>
+                  <Stack direction="horizontal" gap={5}>
+                    <img
+                      src={user}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "200px",
+                        width: "200px",
+                      }}
+                    ></img>
+                  </Stack>
+                </Row>
+                </Col>
+
+                <Col md={9}>
+                  <table style={{width: "45em"}} className="mt-5">
+                    <tr>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Name:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Name}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>CaseNo:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.CaseNo}</td>
+                      <Button variant="" className="action-i edit editbtn mt-4">
+                      Edit
+                    </Button>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Gender:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Gender}</td>
+                      <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>DOB:</th>
+                      <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.DateofBirth}</td>
+                  
+                    </tr>
+                  
+                  </table>
+                </Col>
+>>>>>>> d8a12114ede46edb5e38a282a91ff4b017162feb
                 {/* <Col>
                   <p>
                     <b>PatientId:</b>&nbsp;{patient[0]?.PatientId}
@@ -308,7 +352,7 @@ function PatientList() {
                 </Col> */}
               </Row>
             </Col>
-            <Row className="mt-4 mb-5">
+            {/* <Row className="mt-4 mb-5">
               <Col md={{ span: 12 }}>
                 <p>
                   <b>View Patient Potrait</b>
@@ -327,8 +371,8 @@ function PatientList() {
                   </Stack>
                 </Row>
               </Col>
-            </Row>
-            <Row className="mt-4 mb-5">
+            </Row> */}
+            <Row className="mt-4 mb-5 mt-5">
               <Col md={{ span: 12 }}>
                 <p>
                   <b>View Extraoral Photos</b>
@@ -343,7 +387,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -369,7 +413,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
@@ -389,7 +433,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -424,7 +468,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
@@ -444,7 +488,7 @@ function PatientList() {
                       width: "100px",
                     }}
                   ></img>
-                  <img
+                  {/* <img
                     src={user}
                     className="rounded"
                     style={{
@@ -452,7 +496,7 @@ function PatientList() {
                       height: "100px",
                       width: "100px",
                     }}
-                  ></img>
+                  ></img> */}
                 </Stack>
               </Col>
             </Row>
