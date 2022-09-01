@@ -77,7 +77,7 @@ function PatientList() {
     },
     {
       name: "Action",
-      cell: row => <button className="edit-patient-btn"  onClick={() => navigate("/add-patient")}>Edit</button>
+      cell: row => <button className="edit-patient-btn btn btn-link"  onClick={() => navigate("/add-patient")}>Edit</button>
     }
   ];
 
@@ -167,11 +167,12 @@ function PatientList() {
           </Col>
         </Row>
 
-        <Container>
-          <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
-            <Col>
+        <Container fluid>
+          <Row className="mt-5 mb-5 justify-content-center">
+            <Col md={11} style={{ backgroundColor: "white" }}>
               <Row>
                 <Col
+                
                   className="m-5"
                   style={{ border: "solid 0.1em lightgray" }}
                 >

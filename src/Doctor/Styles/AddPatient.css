@@ -249,9 +249,10 @@ and (max-device-width : 991px) {
     }
 }
 .edit-patient-btn {
-    background-color: #C49358;
-    color: white;
-    border-color: white;
+    /* background-color: #C49358; */
+    color: #C49358;
+    text-decoration: none;
+    /* border-color: white; */
 }
 .nav-tabs .nav-link {
     color: #C49358;

@@ -14,7 +14,7 @@ import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars,FaEdit } from "react-icons/fa";
+import { FaBars, FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Male from "../../Assets/Male.png";
 import React, { useEffect, useState } from "react";
@@ -167,24 +167,116 @@ function PatientList() {
           <Row className="mt-5 mb-5 p-4" style={{ backgroundColor: "white" }}>
             <Col className="mt-5">
               <Row>
-                <table style={{width: "45em"}}>
+                <table style={{ width: "45em" }}>
                   <tr>
-
-
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
+                    <th
+                      style={{
+                        width: "110px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      PatientId:
+                    </th>
+                    <td
+                      contentEditable="false"
+                      style={{
+                        width: "100px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {patient[0]?.PatientId}
+                    </td>
+                    <th
+                      style={{
+                        width: "110px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      Patient Name:
+                    </th>
+                    <td
+                      contentEditable="false"
+                      style={{
+                        width: "100px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {patient[0]?.Name}
+                    </td>
+                    <th
+                      style={{
+                        width: "110px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      Patient Case No:
+                    </th>
+                    <td
+                      contentEditable="false"
+                      style={{
+                        width: "100px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {patient[0]?.PatientCaseNo}
+                    </td>
                     <Button variant="" className="action-i edit editbtn mt-4">
-                    Edit
-                  </Button>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                    <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                    <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-               
+                      Edit
+                    </Button>
+                    <th
+                      style={{
+                        width: "110px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      PatientId:
+                    </th>
+                    <td
+                      contentEditable="false"
+                      style={{
+                        width: "100px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {patient[0]?.PatientId}
+                    </td>
+                    <th
+                      style={{
+                        width: "110px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      PatientId:
+                    </th>
+                    <td
+                      contentEditable="false"
+                      style={{
+                        width: "100px",
+                        wordWrap: "break-word",
+                        display: "inline-block",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {patient[0]?.PatientId}
+                    </td>
                   </tr>
                 </table>
                 {/* <Col>
