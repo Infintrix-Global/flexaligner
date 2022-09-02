@@ -252,6 +252,8 @@ and (max-device-width : 991px) {
     /* background-color: #C49358; */
     color: #C49358;
     text-decoration: none;
+    border: 0;
+    background-color: transparent;
     /* border-color: white; */
 }
 .nav-tabs .nav-link {

@@ -44,12 +44,18 @@ function PatientList() {
     
 })
 
+const [IPR, setIPR] = useState({
+  IprReport:null
+})
+
 const onChange=(e)=>{
 setState({
-    fileContent:e.target.files[0]
+    fileContent:e.target.files
 })
-console.log(e.target.files[0]);
+console.log(e.target.files);
 }
+
+
 
 const uploadHandler=()=>{
 
@@ -72,6 +78,38 @@ const uploadHandler=()=>{
 
 
 }
+
+const onChangeIpr=(e)=>{
+  setIPR({
+      IprReport:e.target.files[0]
+  })
+  console.log(e.target.files[0]);
+  }
+
+
+  
+const uploadHandlerIpr=()=>{
+
+  const fd=new FormData();
+  fd.append("Name",IPR.IprReport.name);
+  fd.append("fileContent",IPR.IprReport);
+  // fd.append("PatientId",patient.PatientId);
+ axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
+  maxContentLength: 50000,
+  maxBodyLength: 5000,
+  
+     onUploadProgress:ProgressEvent=>{
+         console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+     }
+ })
+ .then(res=>{
+     console.log(res);
+ });
+
+
+}
+
+
 
 
 
@@ -199,8 +237,8 @@ const uploadHandler=()=>{
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container fluid>
-        <Row className="menuTab">
+      {/* <Container fluid> */}
+        {/* <Row className="menuTab">
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
@@ -213,7 +251,7 @@ const uploadHandler=()=>{
               </Nav>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
         <Container fluid>
           <Row className="justify-content-center">
@@ -449,12 +487,19 @@ const uploadHandler=()=>{
       </Form.Group>
       <Button variant="" className="btn" onClick={uploadHandler}>Upload</Button>
                   </Col>
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label className="pd-ipr">Upload IPR File</Form.Label>
+        <Form.Control type="file" onChange={onChangeIpr} name="Name"/>
+      </Form.Group>
+      <Button variant="" className="btn" onClick={uploadHandlerIpr}>Upload</Button>
+                  </Col>
                 </Row>
               </Row>
             </Col>
           </Row>
         </Container>
-      </Container>
+      {/* </Container> */}
     </>
   );
 }

@@ -22,6 +22,7 @@ import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars,FaEdit } from "react-icons/fa";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -73,6 +74,54 @@ const tglContent = () => {
       $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
     });
   });
+
+const [Reports, setReports] = useState({
+  upReports:null
+})
+  const onChangeReports=(e)=>{
+
+    var fileInput = document.getElementById("files");
+
+    var filePath = fileInput.value;
+
+    // Allowing file type
+    var allowedExtensions = /(\.pdf|\.jpg|\.jpeg|\.png|\.html)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+      alert("Invalid file type \nUpload .pdf or image files Only!");
+      fileInput.value = "";
+      return false;
+    }
+
+    setReports({
+        upReports:e.target.files[0]
+    })
+    console.log(e.target.files[0]);
+    }
+    
+    
+    
+    const uploadHandlerReports=()=>{
+    
+      const fd=new FormData();
+      fd.append("Name",Reports.upReports.name);
+      fd.append("fileContent",Reports.upReports);
+      // fd.append("PatientId",patient.PatientId);
+     axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
+      maxContentLength: 50000,
+      maxBodyLength: 5000
+      ,
+      
+         onUploadProgress:ProgressEvent=>{
+             console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+         }
+     })
+     .then(res=>{
+         console.log(res);
+     });
+    
+    
+    }
 
 
     return(
@@ -383,7 +432,56 @@ const tglContent = () => {
                     </Stack>
                   </Col>
                 </Row>
+
+                <Row>
+                  <Col>
+                  <p className="fs-4">
+                      <b>Videos</b>
+                    </p>
+                    <Stack direction="horizontal" gap={5}>
+                      <img
+                        src={user}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
+                      
+                    </Stack>
+                  </Col>
                 </Row>
+                <Row className="mt-5">
+                  <Col>
+                  <p className="fs-4">
+                      <b>IPR</b>
+                    </p>
+                    <Stack direction="horizontal" gap={5}>
+                      <img
+                        src={user}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
+                      
+                    </Stack>
+                  </Col>
+                </Row>
+                <Row className="mt-5">
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label className="pd-ipr">Upload Reports</Form.Label>
+        <Form.Control type="file" id="files" onChange={onChangeReports} name="Name"/>
+      </Form.Group>
+      <Button variant="" className="btn" onClick={uploadHandlerReports}>Upload</Button>
+                  </Col>
+                </Row>
+                </Row>
+               
                 </Col></Row></Container>
         </>
     );

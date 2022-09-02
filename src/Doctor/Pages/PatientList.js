@@ -42,7 +42,7 @@ function PatientList() {
 
   const RoleId = sessionStorage.getItem("Role");
 
-sessionStorage.setItem("PatientId",patient.PatientId)
+// sessionStorage.setItem("PatientId",patient.PatientId)
 
   const columns = [
     {
@@ -160,6 +160,7 @@ sessionStorage.setItem("PatientId",patient.PatientId)
         </Container>
       </Navbar>
       <Container fluid>
+        {RoleId==="1"?"":
         <Row className="menuTab">
           <Col>
             <Card body className="border-0">
@@ -174,7 +175,7 @@ sessionStorage.setItem("PatientId",patient.PatientId)
             </Card>
           </Col>
         </Row>
-
+}
         <Container>
           <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
             <Col>

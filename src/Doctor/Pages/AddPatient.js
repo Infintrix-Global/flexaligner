@@ -295,6 +295,7 @@ function AddPatient() {
             );
           },
         }
+        
       )
       .then((res) => {
         var arr = res.data;
