@@ -12,7 +12,7 @@ import {
   Card,
   Tabs,
 } from "react-bootstrap";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { TbUser } from "react-icons/tb";
 import { FaCalendarAlt } from "react-icons/fa";
 import "../../Doctor/Styles/AddPatient.css";
@@ -25,8 +25,12 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function AddPatient() {
+  const pPath = sessionStorage.getItem("path");
+  const scans = sessionStorage.getItem("path1");
+
   const [values, setValues] = useState({
     DoctorId: 0,
     FirstName: "",
@@ -41,10 +45,10 @@ function AddPatient() {
     GeneralNotes: "",
     ChiefComplaint: "",
     Quotation: "",
-    ExpectedNoOfAligners:"",
-    ProductType:"",
-    AmountPaid:"",
-    PrescriptionDate:"",
+    ExpectedNoOfAligners: "",
+    ProductType: "",
+    AmountPaid: "",
+    PrescriptionDate: "",
     UpperMidline: "",
     LowerMidline: "",
     CanineRelationshipRightClass: "",
@@ -68,15 +72,33 @@ function AddPatient() {
     InstructionExpand: "",
     InstructionDistalize: "",
     DoNotMoveTheseTeeth: [],
+    Engagers: [],
     IWillExtractTheseTeethBeforeTreatment: [],
     LeaveTheseSpacesOpen: [],
     AdditionalInstruction: "",
-    PortraitPath: sessionStorage.getItem("path"),
-    PathOfDoc: sessionStorage.getItem("path1"),
+    PortraitPath: pPath,
+    TypeOfPVSScan:"",
+    PathOfDoc: scans,
     ProfileRepose: sessionStorage.getItem("pathProfileRepose"),
-    XrayLeft: sessionStorage.getItem("XrayLeft"),
-    UploadVideo: "",
+    // XrayLeft: sessionStorage.getItem("XrayLeft"),
+    // UploadVideo: "",
   });
+
+  // const [dmt, setDoNotMoveTheseTeeth] = useState({
+  //   DoNotMoveTheseTeeth:[]
+  // });
+
+  // const [eng, setEngagers] = useState({
+  //   Engagers:[]
+  // })
+
+  // const [ext, setIWillExtractTheseTeethBeforeTreatment] = useState({
+  //   IWillExtractTheseTeethBeforeTreatment:[]
+  // })
+
+  // const [leavespaces, setLeaveTheseSpacesOpen] = useState({
+  //   LeaveTheseSpacesOpen:[]
+  // })
 
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
@@ -92,29 +114,37 @@ function AddPatient() {
 
   var radGarph1 = document.getElementById("rGraph1");
 
+  // const arrayToString = (arr) => {
+  //   for (let i = 0;i<arr.length ;i++) {
+  //     if (i == arr.length-1) {
+  //       s.concat(arr[i]);
+  //       console.log(s);
+  //     } else {
+  //       s.concat(arr[i]).concat(',');
+  //       console.log(s);
+  //     }
+  //     return s;
+  //   }
+  // }
 
+//   useEffect(() => {
+//     // let s = [1, 2, 3, 4];
+//     // console.log(s.toString());
+//     // console.log("s :", s);
+//     console.log(method);
+//   }, []);
 
-
-
-
-
-
-
-
-
-
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-
-
     }
     setValidated(true);
+
+    // console.log(values.PortraitPath);
 
     const fd = new FormData();
     if (radGarph1.checked) {
@@ -124,62 +154,99 @@ function AddPatient() {
 
       fd.append("Name", radio1.name);
       fd.append("fileContent", radio1);
+
+      await axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          var radioPath = arr.path;
+          // sessionStorage.setItem("path",radioPath);
+        });
     }
     // console.log(vid);
-
-    axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-        fd,
-        {
-          
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-      )
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("path", arr.path.toString());
-      });
 
     const url =
       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
 
-      
-    fetch(url, {
+    // var obj={};
+    // obj.vals=values;
+    // obj.dont=dmt;
+    // obj.engaging=eng;
+    // obj.extract=ext;
+    // obj.leave=leavespaces;
+
+    let n = {
+      ...values,
+      ClinicalConditions: values.ClinicalConditions.toString(),
+      DoNotMoveTheseTeeth: values.DoNotMoveTheseTeeth.toString(),
+      Engagers: values.Engagers.toString(),
+      IWillExtractTheseTeethBeforeTreatment:
+        values.IWillExtractTheseTeethBeforeTreatment.toString(),
+      LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
+    };
+
+    // setValues((pre) => {
+    //   return {
+    //     ...pre,
+    //     ClinicalConditions: pre.ClinicalConditions.toString(),
+    //     DoNotMoveTheseTeeth: pre.DoNotMoveTheseTeeth.toString(),
+    //     Engagers: pre.Engagers.toString(),
+    //     IWillExtractTheseTeethBeforeTreatment:
+    //       pre.IWillExtractTheseTeethBeforeTreatment.toString(),
+    //     LeaveTheseSpacesOpen: pre.LeaveTheseSpacesOpen.toString(),
+    //   };
+    // });
+    console.log("n :", n);
+
+    await fetch(url, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify(n),
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result.message);
-        if (result.message === "Added Successful" && form.checkValidity() === true){
+        console.log("result :", result.message);
+        if(form.checkValidity() === false){
+          alert("Please go back and fill required fields marked with *")
+        }
+        if (
+          result.message === "Added Successful" &&
+          form.checkValidity() === true
+        ) {
           
-          console.log(values);
+          Swal.fire({
+            title: "Added Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
           navigate("/patient-list");
         }
-      });
-    
-
+      })
+      .catch((err) => console.log(err));
+    console.log(values);
+    console.log(pPath);
 
     // setCurrentTab((prev) => prev + 1);
   };
-
-
-
-
-
-
 
   const [state, setState] = useState(null);
   const [pvs, setPvs] = useState({
@@ -215,6 +282,19 @@ function AddPatient() {
 
   var portrait = document.getElementById("four1");
 
+  // const getBase64=(file)=>{
+  //   return new Promise((resolve)=>{
+  //     let baseURL="";
+  //     let reader=new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload=()=>{
+  //       console.log("Called",reader);
+  //       baseURL=reader.result;
+  //       resolve(baseURL);
+  //     }
+  //   })
+  // }
+
   const handleupload = (e) => {
     e.preventDefault();
 
@@ -224,6 +304,32 @@ function AddPatient() {
       fd.append("Name", state.name);
       fd.append("fileContent", state);
       console.log(state);
+
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          // console.log(res);
+          var arr = res.data;
+          console.log(arr);
+          var portPath = arr.path;
+          // console.log(portPath);
+          sessionStorage.setItem("path", portPath);
+          // console.log(values.PortraitPath);
+        });
     }
 
     // fd.append("Name",pvs.pvsScan.name);
@@ -282,26 +388,29 @@ function AddPatient() {
     // fd.append("fileContent",radio1)
     // console.log(radio1);
 
-    axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-        fd,
-        {
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-        
-      )
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("path", arr.path.toString());
-      });
+    // console.log(values.PortraitPath);
+
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "multipart/mixed");
+
+    // var formdata = new FormData();
+    // formdata.append("MsgPhoto", state, "/C:/Users/www.abcom.in/Downloads/Logoremovebg.png");
+    // formdata.append("Senderid", 1);
+    // formdata.append("Receiverid", 2);
+    // formdata.append("Message", "Hi");
+    // formdata.append("MsgPhoto", "Hi");
+
+    // var requestOptions = {
+    //   method: 'POST',
+    //   headers: myHeaders,
+    //   body: formdata,
+    //   redirect: 'follow'
+    // };
+
+    // fetch("https://infintrixglobal.com/ChatApplication/webservices/insert_usermessage.php", requestOptions)
+    //   .then(response => response.text())
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log('error', error));
 
     setCurrentTab((prev) => prev + 1);
   };
@@ -309,6 +418,13 @@ function AddPatient() {
   var pvs1 = document.getElementById("five2");
   var pvs2 = document.getElementById("five3");
   var pvs3 = document.getElementById("five4");
+
+
+//   const link = document.querySelector('#five2');
+// let method = link.getAttribute('label');
+// useEffect(()=>{
+// console.log(method);
+// },[])
   // var pvs1=document.getElementById("five2");
   // console.log(pvs1);
 
@@ -320,10 +436,38 @@ function AddPatient() {
     // fd.append("fileContent",state);
     // console.log(state);
     if (pvs1.checked) {
+      // setValues((pre)=>{
+      //   return{...pre,TypeOfPVSScan:}
+      // })
       Array.from(pvs.pvsScan).forEach((up) => {
         fd.append("Name", up.name);
         fd.append("fileContent", up);
       });
+      // setValues(prev=>{
+      //   return{...prev, TypeOfPVSScan:prev.TypeOfPVSScan}
+      // })
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          var scansp = arr.path;
+          sessionStorage.setItem("path1", scansp);
+        });
     }
 
     if (pvs2.checked) {
@@ -331,6 +475,28 @@ function AddPatient() {
         fd.append("Name", up.name);
         fd.append("fileContent", up);
       });
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          var scansp = arr.path;
+          sessionStorage.setItem("path1", scansp);
+        });
     }
 
     if (pvs3.checked) {
@@ -338,36 +504,38 @@ function AddPatient() {
         fd.append("Name", up.name);
         fd.append("fileContent", up);
       });
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          var scansp = arr.path;
+          sessionStorage.setItem("path1", scansp);
+        });
     }
 
     // console.log(pvs.pvsScan);
     // console.log(pvs.intraoral);
     // console.log(pvs.models);
 
-    axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-        fd,
-        {
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-      )
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("path1", arr.path.toString());
-      });
-
     setCurrentTab((prev) => prev + 1);
   };
 
-  var ext = document.getElementById("ExtraNow");
+  var extra = document.getElementById("ExtraNow");
   var intra = document.getElementById("IntraNow");
 
   const handleUpload2 = (e) => {
@@ -375,7 +543,7 @@ function AddPatient() {
 
     const fd = new FormData();
 
-    if (ext.checked) {
+    if (extra.checked) {
       fd.append("Name", state6.name);
       fd.append("fileContent", state6);
 
@@ -390,9 +558,61 @@ function AddPatient() {
       fd.append("fileContent", state67);
       console.log(state67);
 
-      fd.append("Name", add.name);
-      fd.append("fileContent", add);
+      fd.append("Name", addExtraO.name);
+      fd.append("fileContent", addExtraO);
+
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          // var photoPath = arr.path;
+          // sessionStorage.setItem("pathProfileRepose", photoPath);
+        });
     }
+
+    if(document.getElementById("uploadBox").value != "") {
+      fd.append("Name", addExtraO[0].name);
+      fd.append("fileContent", addExtraO[0]);
+      console.log(addExtraO[0]); 
+
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log("ExtraO:"+arr.path);
+          // var photoPath = arr.path;
+          // sessionStorage.setItem("pathProfileRepose", photoPath);
+        });
+   }
 
     if (intra.checked) {
       fd.append("Name", state662.name);
@@ -411,29 +631,61 @@ function AddPatient() {
       fd.append("fileContent", state6624);
       console.log(state6624);
 
-      fd.append("Name", addExtraO.name);
-      fd.append("fileContent", addExtraO);
-    }
+     
 
-    axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-        fd,
-        {
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-      )
-      .then((res) => {
-        var arr = res.data;
-        console.log(arr);
-        sessionStorage.setItem("pathProfileRepose", arr.path.toString());
-      });
+     
+
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log(arr);
+          var photoPath = arr.path;
+          sessionStorage.setItem("pathProfileRepose", photoPath);
+        });
+    }
+    if(document.getElementById("uploadBox").value != "") {
+      fd.append("Name", add[0].name);
+      fd.append("fileContent", add[0]);
+      console.log(add[0]);
+      axios
+        .post(
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          fd,
+          {
+            onUploadProgress: (ProgressEvent) => {
+              console.log(
+                "Upload Progress:" +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              );
+            },
+          }
+        )
+        .then((res) => {
+          var arr = res.data;
+          console.log("ExtraO:"+arr.path);
+          // var photoPath = arr.path;
+          // sessionStorage.setItem("pathProfileRepose", photoPath);
+        });
+   }
+
 
     setCurrentTab((prev) => prev + 1);
   };
@@ -442,7 +694,6 @@ function AddPatient() {
   //   e.preventDefault();
 
   //   const fd = new FormData();
-   
 
   //   axios
   //     .post(
@@ -477,26 +728,28 @@ function AddPatient() {
 
   const handlecheck = (e) => {
     const { value, checked } = e.target;
-    const { ClinicalConditions } = values;
-
-    // console.log(`${value} is ${checked}`);
 
     // Case 1 : The user checks the box
     if (checked) {
-      setValues({
-        ClinicalConditions: [...ClinicalConditions, value],
-        // response: [...languages, value],
+      setValues((pre) => {
+        return {
+          ...pre,
+          ClinicalConditions: [...pre.ClinicalConditions, value],
+        };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
-      setValues({
-        ClinicalConditions: ClinicalConditions.filter((e) => e !== value),
-        // response: languages.filter((e) => e !== value),
+      setValues((pre) => {
+        return {
+          ...pre,
+          ClinicalConditions: pre.ClinicalConditions.filter((e) => e !== value),
+        };
       });
     }
-    console.log(values.ClinicalConditions);
+
+    console.log(values);
   };
 
   const handleChange = (e) => {
@@ -512,7 +765,7 @@ function AddPatient() {
     // ClinicalConditions:[checkedValue]
     // })
     // console.log(values.ClinicalConditions);
-    const newdata = { ...values };
+    let newdata = { ...values };
     newdata[e.target.name] = e.target.value;
     setValues(newdata);
     console.log(newdata);
@@ -693,11 +946,25 @@ function AddPatient() {
   const [previewUrlTab71, setPreviewUrlTab71] = useState("");
   const [previewUrlTab72, setPreviewUrlTab72] = useState("");
 
-  const handleFile = (e) => {
-    setImage(e);
-    setPreviewUrl(URL.createObjectURL(e));
-    setState(e);
-    console.log(e);
+  const handleFile = (file) => {
+    setImage(file);
+
+    setPreviewUrl(URL.createObjectURL(file));
+    console.log(file);
+    // if(file){
+    //   getBase64(file).then((result)=>{
+    //     file["base64"]=result;
+
+    //     setState({
+    //       base64URL:result,
+    //       file,
+    //     })
+    //   }).catch((err)=>{
+    //     console.log("Error",err);
+    //   });
+
+    // }
+    setState(file);
   };
 
   const handleChangeTab6Add = (file) => {
@@ -888,139 +1155,205 @@ function AddPatient() {
       $("#G" + test).show();
     });
   });
+
   const handleRadio3 = (e) => {
-    setValues({ UpperMidline: e.target.value });
-    console.log({ UpperMidline: e.target.value });
+    setValues((pre) => {
+      return { ...pre, UpperMidline: e.target.value };
+    });
+    // console.log({ UpperMidline: e.target.value });
   };
   const handleRadio31 = (e) => {
-    setValues({ LowerMidline: e.target.value });
-    console.log({ LowerMidline: e.target.value });
+    setValues((pre) => {
+      return { ...pre, LowerMidline: e.target.value };
+    });
+    // console.log({ LowerMidline: e.target.value });
   };
   const handleInstructionUpperMidline = (e) => {
-    setValues({ InstructionUpperMidline: e.target.value });
-    console.log({ InstructionUpperMidline: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionUpperMidline: e.target.value };
+    });
+    // console.log({ InstructionUpperMidline: e.target.value });
   };
   const handleInstructionLowerMidline = (e) => {
-    setValues({ InstructionLowerMidline: e.target.value });
-    console.log({ InstructionLowerMidline: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionLowerMidline: e.target.value };
+    });
+    // console.log({ InstructionLowerMidline: e.target.value });
   };
   const handleInstructionOverjet = (e) => {
-    setValues({ InstructionOverjet: e.target.value });
-    console.log({ InstructionOverjet: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionOverjet: e.target.value };
+    });
+    // console.log({ InstructionOverjet: e.target.value });
   };
   const handleInstructionOverbite = (e) => {
-    setValues({ InstructionOverbite: e.target.value });
-    console.log({ InstructionOverbite: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionOverbite: e.target.value };
+    });
+    // console.log({ InstructionOverbite: e.target.value });
   };
   const handleInstructionArchForm = (e) => {
-    setValues({ InstructionArchForm: e.target.value });
-    console.log({ InstructionArchForm: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionArchForm: e.target.value };
+    });
+    // console.log({ InstructionArchForm: e.target.value });
   };
   const handleInstructionCanineRelationship = (e) => {
-    setValues({ InstructionCanineRelationship: e.target.value });
-    console.log({ InstructionCanineRelationship: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionCanineRelationship: e.target.value };
+    });
+    // console.log({ InstructionCanineRelationship: e.target.value });
   };
   const handleInstructionMolarRelationship = (e) => {
-    setValues({ InstructionMolarRelationship: e.target.value });
-    console.log({ InstructionMolarRelationship: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionMolarRelationship: e.target.value };
+    });
+    // console.log({ InstructionMolarRelationship: e.target.value });
   };
   const handleInstructionPosteriorCrossbite = (e) => {
-    setValues({ InstructionPosteriorCrossbite: e.target.value });
-    console.log({ InstructionPosteriorCrossbite: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionPosteriorCrossbite: e.target.value };
+    });
+    // console.log({ InstructionPosteriorCrossbite: e.target.value });
   };
   const handleInstructionIPR = (e) => {
-    setValues({ InstructionIPR: e.target.value });
-    console.log({ InstructionIPR: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionIPR: e.target.value };
+    });
+    // console.log({ InstructionIPR: e.target.value });
   };
   const handleInstructionEngagersAttachments = (e) => {
-    setValues({ InstructionEngagersAttachments: e.target.value });
-    console.log({ InstructionEngagersAttachments: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionEngagersAttachments: e.target.value };
+    });
+    // console.log({ InstructionEngagersAttachments: e.target.value });
   };
   const handleInstructionProcline = (e) => {
-    setValues({ InstructionProcline: e.target.value });
-    console.log({ InstructionProcline: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionProcline: e.target.value };
+    });
+    // console.log({ InstructionProcline: e.target.value });
   };
   const handleInstructionExpand = (e) => {
-    setValues({ InstructionExpand: e.target.value });
-    console.log({ InstructionExpand: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionExpand: e.target.value };
+    });
+    // console.log({ InstructionExpand: e.target.value });
   };
   const handleInstructionDistalize = (e) => {
-    setValues({ InstructionDistalize: e.target.value });
-    console.log({ InstructionDistalize: e.target.value });
+    setValues((pre) => {
+      return { ...pre, InstructionDistalize: e.target.value };
+    });
+    console.log(values);
   };
   const handleDoNotMoveTheseTeeth = (e) => {
     const { value, checked } = e.target;
     const { DoNotMoveTheseTeeth } = values;
 
-    // console.log(`${value} is ${checked}`);
-
-    // Case 1 : The user checks the box
     if (checked) {
-      setValues({
-        DoNotMoveTheseTeeth: [...DoNotMoveTheseTeeth, value],
-        // response: [...languages, value],
+      setValues((pre) => {
+        return {
+          ...pre,
+          DoNotMoveTheseTeeth: [...pre.DoNotMoveTheseTeeth, value],
+        };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
-      setValues({
-        DoNotMoveTheseTeeth: DoNotMoveTheseTeeth.filter((e) => e !== value),
-        // response: languages.filter((e) => e !== value),
+      setValues((pre) => {
+        return {
+          ...pre,
+          DoNotMoveTheseTeeth: pre.DoNotMoveTheseTeeth.filter(
+            (e) => e !== value
+          ),
+        };
       });
     }
-    console.log(values.DoNotMoveTheseTeeth);
+    console.log(values);
   };
+
+  const handleEngagers = (e) => {
+    const { value, checked } = e.target;
+    const { Engagers } = values;
+
+    // console.log(`${value} is ${checked}`);
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setValues((pre) => {
+        return { ...pre, Engagers: [...pre.Engagers, value] };
+      });
+    }
+
+    // Case 2 : The user unchecks the box
+    else {
+      setValues((pre) => {
+        return { ...pre, Engagers: pre.Engagers.filter((e) => e !== value) };
+      });
+    }
+    console.log(values);
+  };
+
   const handleIWillExtractTheseTeethBeforeTreatment = (e) => {
     const { value, checked } = e.target;
     const { IWillExtractTheseTeethBeforeTreatment } = values;
 
-    // console.log(`${value} is ${checked}`);
-
-    // Case 1 : The user checks the box
     if (checked) {
-      setValues({
-        IWillExtractTheseTeethBeforeTreatment: [
-          ...IWillExtractTheseTeethBeforeTreatment,
-          value,
-        ],
-        // response: [...languages, value],
+      setValues((pre) => {
+        return {
+          ...pre,
+          IWillExtractTheseTeethBeforeTreatment: [
+            ...pre.IWillExtractTheseTeethBeforeTreatment,
+            value,
+          ],
+        };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
-      setValues({
-        IWillExtractTheseTeethBeforeTreatment:
-          IWillExtractTheseTeethBeforeTreatment.filter((e) => e !== value),
-        // response: languages.filter((e) => e !== value),
+      setValues((pre) => {
+        return {
+          ...pre,
+          IWillExtractTheseTeethBeforeTreatment:
+            pre.IWillExtractTheseTeethBeforeTreatment.filter(
+              (e) => e !== value
+            ),
+        };
       });
     }
-    console.log(values.IWillExtractTheseTeethBeforeTreatment);
+    console.log(values);
   };
+
   const handleLeaveTheseSpacesOpen = (e) => {
     const { value, checked } = e.target;
     const { LeaveTheseSpacesOpen } = values;
 
-    // console.log(`${value} is ${checked}`);
-
-    // Case 1 : The user checks the box
     if (checked) {
-      setValues({
-        LeaveTheseSpacesOpen: [...LeaveTheseSpacesOpen, value],
-        // response: [...languages, value],
+      setValues((pre) => {
+        return {
+          ...pre,
+          LeaveTheseSpacesOpen: [...pre.LeaveTheseSpacesOpen, value],
+        };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
-      setValues({
-        LeaveTheseSpacesOpen: LeaveTheseSpacesOpen.filter((e) => e !== value),
-        // response: languages.filter((e) => e !== value),
+      setValues((pre) => {
+        return {
+          ...pre,
+          LeaveTheseSpacesOpen: pre.LeaveTheseSpacesOpen.filter(
+            (e) => e !== value
+          ),
+        };
       });
     }
-    console.log(values.LeaveTheseSpacesOpen);
+    console.log(values);
   };
+
+// var method=pvs1.getAttribute("label")
 
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -1040,10 +1373,18 @@ function AddPatient() {
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="#C49358" className="notification"/>
+                <IoMdNotifications
+                  fontSize={30}
+                  color="#C49358"
+                  className="notification"
+                />
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
+                <FiMessageSquare
+                  fontSize={30}
+                  color="#C49358"
+                  className="me-2 notification"
+                />
               </Nav.Link>
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
@@ -1090,7 +1431,11 @@ function AddPatient() {
   </Col>
   </Row> */}
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active" onClick={()=>navigate("/doctor-dashboard")}>
+                <Nav.Link
+                  href="#deets"
+                  className="doc-tab active"
+                  onClick={() => navigate("/doctor-dashboard")}
+                >
                   Doctor
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
@@ -1139,7 +1484,7 @@ function AddPatient() {
                                           </InputGroup.Text>
                                           <Form.Control
                                             type="text"
-                                            placeholder="First Name"
+                                            placeholder="First Name *"
                                             name="FirstName"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -1160,7 +1505,7 @@ function AddPatient() {
                                           </InputGroup.Text>
                                           <Form.Control
                                             type="text"
-                                            placeholder="Last Name"
+                                            placeholder="Last Name *"
                                             name="LastName"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -1189,7 +1534,7 @@ function AddPatient() {
                                         </InputGroup>
                                       </Form.Group>
                                       <Form.Group>
-                                        Gender
+                                        Gender *
                                         <br></br>
                                         <Form.Check
                                           type="radio"
@@ -1227,7 +1572,7 @@ function AddPatient() {
                                           </InputGroup.Text>
                                           <Form.Control
                                             type="date"
-                                            placeholder="Date"
+                                            placeholder="Date *"
                                             name="DateofBirth"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -1299,10 +1644,14 @@ function AddPatient() {
                                         Ship to Office
                                         <Form.Check
                                           type="radio"
+                                          value="2004,
+                                          B-103 RADHA GOVIND RADHA RESIDENCY
+                                           SIDDHARTH NAGAR BORIVALI EAST,
+                                          MUMBAI 400066"
                                           label="2004,
-                B-103 RADHA GOVIND RADHA RESIDENCY
-                 SIDDHARTH NAGAR BORIVALI EAST,
-                MUMBAI 400066"
+                                            B-103 RADHA GOVIND RADHA RESIDENCY
+                                            SIDDHARTH NAGAR BORIVALI EAST,
+                                            MUMBAI 400066"
                                           className="pt-2"
                                           onChange={handleChange}
                                         />
@@ -1314,7 +1663,7 @@ function AddPatient() {
                                         type="radio"
                                         aria-label="radio 1"
                                         label="2004, B-103 RADHA GOVIND RADHA RESIDENCY
-                 SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
+                                         SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
                                         className="pt-2"
                                         defaultChecked
                                       />
@@ -1358,7 +1707,7 @@ function AddPatient() {
                                 >
                                   <Row>
                                     <Col md={6}>
-                                      <p>Clinical Conditions*</p>
+                                      <p>Clinical Conditions</p>
                                       <Row>
                                         <Col md={6}>
                                           <Form.Check
@@ -1545,7 +1894,7 @@ function AddPatient() {
                                         className="mt-3"
                                       >
                                         <Form.Label>
-                                          Quotation (Only Numbers Eg:20000)
+                                          Quotation * (Only Numbers Eg:20000)
                                         </Form.Label>
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -1560,99 +1909,98 @@ function AddPatient() {
                                           </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
-                                      
-                                        <Row>
-                                          <Col>
-                                            <Form.Group
-                                              controlId="validationNoOfAligners"
-                                              className="mt-3"
-                                            >
-                                              <Form.Label>
-                                                Expected No. of Aligners
-                                              </Form.Label>
-                                              <InputGroup hasValidation>
-                                                <Form.Control
-                                                  type="text"
-                                                  name="ExpectedNoOfAligners"
-                                                  onChange={handleChange}
-                                                  aria-describedby="inputGroupPrepend"
-                                                  required
-                                                />
-                                                {/* <Form.Control.Feedback type="invalid">
+
+                                      <Row>
+                                        <Col>
+                                          <Form.Group
+                                            controlId="validationNoOfAligners"
+                                            className="mt-3"
+                                          >
+                                            <Form.Label>
+                                              Expected No. of Aligners *
+                                            </Form.Label>
+                                            <InputGroup>
+                                              <Form.Control
+                                                type="text"
+                                                name="ExpectedNoOfAligners"
+                                                onChange={handleChange}
+                                                aria-describedby="inputGroupPrepend"
+                                                required
+                                              />
+                                              {/* <Form.Control.Feedback type="invalid">
                                                           Please Enter a Quotation.
                                                           </Form.Control.Feedback> */}
-                                              </InputGroup>
-                                            </Form.Group>
-                                          </Col>
-                                          <Col>
-                                            <Form.Group
-                                              controlId="validationProductType"
-                                              className="mt-3"
-                                            >
-                                              <Form.Label>
-                                                Product Type
-                                              </Form.Label>
-                                              <Form.Select aria-label="Default select example" name="ProductType" onChange={handleChange}>
+                                            </InputGroup>
+                                          </Form.Group>
+                                        </Col>
+                                        <Col>
+                                          <Form.Group
+                                            controlId="validationProductType"
+                                            className="mt-3"
+                                          >
+                                            <Form.Label>
+                                              Product Type *
+                                            </Form.Label>
+                                            <InputGroup hasValidation>
+                                              <Form.Select
+                                                aria-label="Default select example"
+                                                name="ProductType"
+                                                onChange={handleChange}
+                                              >
                                                 <option>
                                                   Select Product type
                                                 </option>
                                                 <option value="1">Classic</option>
                                                 <option value="2">Premium</option>
                                               </Form.Select>
-                                              <Form.Control.Feedback type="invalid">
-                                        Please Select Product type.
-                                              </Form.Control.Feedback>
-                                            </Form.Group>
-                                          </Col>
-                                        </Row>
+                                            </InputGroup>
+                                            <Form.Control.Feedback type="invalid">
+                                              Please Select Product type.
+                                            </Form.Control.Feedback>
+                                          </Form.Group>
+                                        </Col>
+                                      </Row>
 
-                                        <Row>
-                                          <Col>
+                                      <Row>
+                                        <Col>
                                           <Form.Group
-                                              controlId="validationNoOfAligners"
-                                              className="mt-3"
-                                            >
-                                              <Form.Label>
-                                                Amount Paid
-                                              </Form.Label>
-                                              <InputGroup hasValidation>
-                                                <Form.Control
-                                                  type="number"
-                                                  name="AmountPaid"
-                                                  onChange={handleChange}
-                                                  aria-describedby="inputGroupPrepend"
-                                                  
-                                                />
-                                                {/* <Form.Control.Feedback type="invalid">
+                                            controlId="validationNoOfAligners"
+                                            className="mt-3"
+                                          >
+                                            <Form.Label>Amount Paid</Form.Label>
+                                            <InputGroup hasValidation>
+                                              <Form.Control
+                                                type="number"
+                                                name="AmountPaid"
+                                                onChange={handleChange}
+                                                aria-describedby="inputGroupPrepend"
+                                              />
+                                              {/* <Form.Control.Feedback type="invalid">
                                                           Please Enter a Quotation.
                                                           </Form.Control.Feedback> */}
-                                              </InputGroup>
-                                            </Form.Group>
-                                          </Col>
-                                          <Col>
+                                            </InputGroup>
+                                          </Form.Group>
+                                        </Col>
+                                        <Col>
                                           <Form.Group
-                                              controlId="validationNoOfAligners"
-                                              className="mt-3"
-                                            >
-                                              <Form.Label>
-                                                Date
-                                              </Form.Label>
-                                              <InputGroup hasValidation>
-                                                <Form.Control
-                                                  type="date"
-                                                  name="PrescriptionDate"
-                                                  onChange={handleChange}
-                                                  aria-describedby="inputGroupPrepend"
-                                                  
-                                                />
-                                                {/* <Form.Control.Feedback type="invalid">
+                                            controlId="validationNoOfAligners"
+                                            className="mt-3"
+                                          >
+                                            <Form.Label>Date</Form.Label>
+                                            <InputGroup hasValidation>
+                                              <Form.Control
+                                                type="date"
+                                                name="PrescriptionDate"
+                                                onChange={handleChange}
+                                                aria-describedby="inputGroupPrepend"
+                                              />
+                                              {/* <Form.Control.Feedback type="invalid">
                                                           Please Enter a Quotation.
                                                           </Form.Control.Feedback> */}
-                                              </InputGroup>
-                                            </Form.Group>
-                                          </Col>
-                                        </Row>
-                                      
+                                            </InputGroup>
+                                          </Form.Group>
+                                        </Col>
+                                      </Row>
                                     </Col>
                                     <Col md={{ span: 6 }}>
                                       <Row>
@@ -2866,8 +3214,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="18"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2878,8 +3226,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="17"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2890,8 +3238,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="16"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2902,8 +3250,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="15"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2914,8 +3262,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="14"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2926,8 +3274,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="13"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2938,8 +3286,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="12"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2950,8 +3298,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="11"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2962,8 +3310,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="21"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2974,8 +3322,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="22"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2986,8 +3334,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="23"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -2998,8 +3346,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="24"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -3010,8 +3358,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="25"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -3022,8 +3370,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="26"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -3034,8 +3382,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="27"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -3046,8 +3394,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="28"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                               </div>
                                             </td>
@@ -3076,8 +3424,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="48"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 48
                                               </div>
@@ -3087,8 +3435,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="47"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 47
                                               </div>
@@ -3098,8 +3446,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="46"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 46
                                               </div>
@@ -3109,8 +3457,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="45"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 45
                                               </div>
@@ -3120,8 +3468,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="44"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 44
                                               </div>
@@ -3131,8 +3479,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="43"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 43
                                               </div>
@@ -3142,8 +3490,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="42"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 42
                                               </div>
@@ -3153,8 +3501,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="41"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 41
                                               </div>
@@ -3164,8 +3512,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="31"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 31
                                               </div>
@@ -3175,8 +3523,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="32"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 32
                                               </div>
@@ -3186,8 +3534,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="33"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 33
                                               </div>
@@ -3197,8 +3545,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="34"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 34
                                               </div>
@@ -3208,8 +3556,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="35"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 35
                                               </div>
@@ -3219,8 +3567,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="36"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 36
                                               </div>
@@ -3230,8 +3578,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="37"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 37
                                               </div>
@@ -3241,8 +3589,8 @@ function AddPatient() {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="38"
-                                                  name=""
-                                                  onChange=""
+                                                  name="Engagers"
+                                                  onChange={handleEngagers}
                                                 />
                                                 38
                                               </div>
@@ -4273,7 +4621,7 @@ function AddPatient() {
                                               <img
                                                 src={previewUrl}
                                                 alt="image"
-                                                className="mt-5"
+                                                className="mt-5 img-s2"
                                               />{" "}
                                               <br />
                                               <Button
@@ -4388,7 +4736,7 @@ function AddPatient() {
                                         </Row>
                                         <Row className="desc" id="frm1">
                                           <Col>
-                                            <p className="decide" id="de1">
+                                            <p className="decide" id="de1 decLater">
                                               Decide Later.
                                             </p>
                                           </Col>
@@ -4405,7 +4753,7 @@ function AddPatient() {
                                               id="formFileMultiple"
                                             >
                                               <Form.Label>
-                                                Multiple files input example
+                                               PVS Impresssions
                                               </Form.Label>
                                               <Form.Control
                                                 type="file"
@@ -4432,7 +4780,7 @@ function AddPatient() {
                                               id="formFileMultiple"
                                             >
                                               <Form.Label>
-                                                Multiple files input example
+                                                Intraoral Scans
                                               </Form.Label>
                                               <Form.Control
                                                 type="file"
@@ -4460,7 +4808,7 @@ function AddPatient() {
                                               id="formFileMultiple"
                                             >
                                               <Form.Label>
-                                                Multiple files input example
+                                                Models
                                               </Form.Label>
                                               <Form.Control
                                                 type="file"
@@ -4924,6 +5272,7 @@ function AddPatient() {
                                               multiple
                                               className=""
                                               name="Name"
+                                              id="uploadBox"
                                               onChange={(e) => {
                                                 handleChangeTab6AddExtraOral(
                                                   e.target.files
@@ -5101,7 +5450,6 @@ function AddPatient() {
                                                   fileInput21.current.click()
                                                 }
                                               >
-
                                                 {/* {previewUrl21 ? (
                                                   previewUrl21 && (
                                                     <img
@@ -5116,14 +5464,19 @@ function AddPatient() {
                                                   </p>
                                                 )} */}
 
-                                                {previewUrl21?previewUrl21 && (
-                                                  <img
-                                                    src={previewUrl21}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Left Buccal</p>}
-
+                                                {previewUrl21 ? (
+                                                  previewUrl21 && (
+                                                    <img
+                                                      src={previewUrl21}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Left Buccal
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5164,7 +5517,6 @@ function AddPatient() {
                                                   fileInput22.current.click()
                                                 }
                                               >
-
                                                 {/* {previewUrl22 ? (
                                                   previewUrl22 && (
                                                     <img
@@ -5179,14 +5531,19 @@ function AddPatient() {
                                                   </p>
                                                 )} */}
 
-                                                {previewUrl22?previewUrl22 && (
-                                                  <img
-                                                    src={previewUrl22}
-                                                    alt="image"
-                                                    className="img-s"
-                                                  />
-                                                ):<p className="text-center mt-5">Front Buccal</p>}
-
+                                                {previewUrl22 ? (
+                                                  previewUrl22 && (
+                                                    <img
+                                                      src={previewUrl22}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
+                                                  )
+                                                ) : (
+                                                  <p className="text-center mt-5">
+                                                    Front Buccal
+                                                  </p>
+                                                )}
                                               </Card>
                                             </Col>
                                           </Row>
@@ -5200,7 +5557,6 @@ function AddPatient() {
                                                   fileInput23.current.click()
                                                 }
                                               >
-
                                                 {previewUrl23 ? (
                                                   previewUrl23 && (
                                                     <img
@@ -5222,7 +5578,6 @@ function AddPatient() {
                                                     className="img-s"
                                                   />
                                                 ):<p className="text-center mt-5">Upper Occulosal</p>} */}
-
                                               </Card>
                                             </Col>
                                             {/* <Col md={4}>
@@ -5252,7 +5607,6 @@ function AddPatient() {
                                                   fileInput24.current.click()
                                                 }
                                               >
-
                                                 {previewUrl24 ? (
                                                   previewUrl24 && (
                                                     <img
@@ -5274,7 +5628,6 @@ function AddPatient() {
                                                     className="img-s"
                                                   />
                                                 ):<p className="text-center mt-5">Lower Occulosal</p>} */}
-
                                               </Card>
                                             </Col>
                                           </Row>

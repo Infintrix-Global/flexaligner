@@ -39,71 +39,59 @@ function PatientList() {
 
 
 
-  const [state, setState] = useState({
-    fileContent:null
-    
-})
+  const [state, setState] = useState(null)
 
-const [IPR, setIPR] = useState({
-  IprReport:null
-})
+const [IPR, setIPR] = useState(null)
 
 const onChange=(e)=>{
-setState({
-    fileContent:e.target.files
-})
+setState(e.target.files[0])
 console.log(e.target.files);
 }
 
 
 
-const uploadHandler=()=>{
-
+const uploadHandler=(e)=>{
+e.preventDefault();
   const fd=new FormData();
-  fd.append("Name",state.fileContent.name);
-  fd.append("fileContent",state.fileContent);
-  fd.append("PatientId",patient.PatientId);
+  // fd.append("Name",state.fileContent.name);
+  fd.append("PatientId",ID);
+  fd.append("fileContent",state);
+console.log("ID is:"+ID);
+console.log("Content of file:"+state);
+
  axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
-  maxContentLength: 50000,
-  maxBodyLength: 5000
-  ,
-  
+   
      onUploadProgress:ProgressEvent=>{
          console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
      }
  })
  .then(res=>{
-     console.log(res);
+     console.log(res.data);
  });
 
 
 }
 
 const onChangeIpr=(e)=>{
-  setIPR({
-      IprReport:e.target.files[0]
-  })
+  setIPR(e.target.files[0])
   console.log(e.target.files[0]);
   }
 
 
   
-const uploadHandlerIpr=()=>{
-
+const uploadHandlerIpr=(e)=>{
+e.preventDefault();
   const fd=new FormData();
-  fd.append("Name",IPR.IprReport.name);
-  fd.append("fileContent",IPR.IprReport);
+  fd.append("Name",IPR.name);
+  fd.append("fileContent",IPR);
   // fd.append("PatientId",patient.PatientId);
- axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
-  maxContentLength: 50000,
-  maxBodyLength: 5000,
-  
+ axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",fd,{  
      onUploadProgress:ProgressEvent=>{
          console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
      }
  })
  .then(res=>{
-     console.log(res);
+     console.log(res.data);
  });
 
 
@@ -271,7 +259,7 @@ const uploadHandlerIpr=()=>{
                     <Row>
                       <Stack direction="horizontal" gap={5}>
                         <img
-                          src={user}
+                          src={patient[0]?.ProfileImagePath}
                           className="rounded"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -485,14 +473,14 @@ const uploadHandlerIpr=()=>{
         <Form.Label className="pd-vid">Upload Videos</Form.Label>
         <Form.Control type="file" multiple onChange={onChange} name="Name"/>
       </Form.Group>
-      <Button variant="" className="btn" onClick={uploadHandler}>Upload</Button>
+      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandler}>Upload</Button>
                   </Col>
                   <Col>
                   <Form.Group controlId="formFile" className="mb-3">
         <Form.Label className="pd-ipr">Upload IPR File</Form.Label>
         <Form.Control type="file" onChange={onChangeIpr} name="Name"/>
       </Form.Group>
-      <Button variant="" className="btn" onClick={uploadHandlerIpr}>Upload</Button>
+      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandlerIpr}>Upload</Button>
                   </Col>
                 </Row>
               </Row>

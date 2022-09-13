@@ -75,9 +75,7 @@ const tglContent = () => {
     });
   });
 
-const [Reports, setReports] = useState({
-  upReports:null
-})
+const [Reports, setReports] = useState(null)
   const onChangeReports=(e)=>{
 
     var fileInput = document.getElementById("files");
@@ -93,9 +91,7 @@ const [Reports, setReports] = useState({
       return false;
     }
 
-    setReports({
-        upReports:e.target.files[0]
-    })
+    setReports(e.target.files[0])
     console.log(e.target.files[0]);
     }
     
@@ -104,20 +100,17 @@ const [Reports, setReports] = useState({
     const uploadHandlerReports=()=>{
     
       const fd=new FormData();
-      fd.append("Name",Reports.upReports.name);
-      fd.append("fileContent",Reports.upReports);
+      fd.append("Name",Reports.name);
+      fd.append("fileContent",Reports);
       // fd.append("PatientId",patient.PatientId);
-     axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
-      maxContentLength: 50000,
-      maxBodyLength: 5000
-      ,
+     axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",fd,{
       
          onUploadProgress:ProgressEvent=>{
              console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
          }
      })
      .then(res=>{
-         console.log(res);
+         console.log(res.data);
      });
     
     
@@ -225,7 +218,7 @@ const [Reports, setReports] = useState({
                     <Row>
                       <Stack direction="horizontal" gap={5}>
                         <img
-                          src={user}
+                          src={patient[0]?.ProfileImagePath}
                           className="rounded"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -477,7 +470,7 @@ const [Reports, setReports] = useState({
         <Form.Label className="pd-ipr">Upload Reports</Form.Label>
         <Form.Control type="file" id="files" onChange={onChangeReports} name="Name"/>
       </Form.Group>
-      <Button variant="" className="btn" onClick={uploadHandlerReports}>Upload</Button>
+      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandlerReports}>Upload</Button>
                   </Col>
                 </Row>
                 </Row>
