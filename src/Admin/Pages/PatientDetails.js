@@ -26,6 +26,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 
 function PatientList() {
@@ -34,43 +36,91 @@ function PatientList() {
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
   const urlParams = useParams()
-  console.log(urlParams);
+  // console.log(urlParams);
   const ID=urlParams.PatientId;
 
 
+// const MAX_COUNT=5;
+  
+const [state, setState] = useState("") 
 
-  const [state, setState] = useState(null)
+// const [fileLimit, setFileLimit] = useState(false)
 
-const [IPR, setIPR] = useState(null)
 
-const onChange=(e)=>{
-setState(e.target.files[0])
-console.log(e.target.files);
+  // const handleUploadFiles=files=>{
+  //   const uploaded=[...state];
+  //     let limitExceeded=false;
+  //     files.some((file)=>{
+  //       if(uploaded.findIndex((f)=>f.name===file.name)===-1){
+  //         uploaded.push(file);
+  //         if(uploaded.length===MAX_COUNT) setFileLimit(true);
+  //         if(uploaded.length>MAX_COUNT){
+  //           alert(`You can only add maximum of ${MAX_COUNT} files!`)
+  //           setFileLimit(false);
+  //           limitExceeded=true;
+  //         return true;
+  //         }
+  //       }
+  //     })
+  //     if (!limitExceeded) setState(uploaded)   
+
+  //     console.log(state);
+  // }
+
+  
+  const onChange=(e)=>{
+  // const newFiles = []
+  // for(let i = 0; i < e.target.files.length; i++){
+  //    newFiles.push(e.target.files[i])
+  // }
+  // setState(e.target.files)
+  // console.log(state);
+  // const chosenFiles=Array.prototype.slice.call(e.target.files)
+  // setState(chosenFiles);
+  // console.log(chosenFiles);
+
+  setState(e.target.files);
+  console.log(state);
 }
 
 
 
 const uploadHandler=(e)=>{
-e.preventDefault();
+  e.preventDefault();
   const fd=new FormData();
   // fd.append("Name",state.fileContent.name);
   fd.append("PatientId",ID);
-  fd.append("fileContent",state);
-console.log("ID is:"+ID);
-console.log("Content of file:"+state);
+  for(let i=0;i<state.length;i++){
+  fd.append("fileContent",state[i]);
+  }
+  console.log("ID is:"+ID);
+  console.log("Content of file:"+state);
 
- axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadVideo",fd,{
+  axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultipleVideo",fd,{
    
      onUploadProgress:ProgressEvent=>{
-         console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+       console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
      }
- })
+    })
  .then(res=>{
-     console.log(res.data);
- });
+   console.log(res.data);
 
-
+     if(res.data.status==="1"){
+      Swal.fire({
+        title: "Uploaded Successfully!",
+        // text: 'Do you want to continue',
+        icon: "success",
+        // confirmButtonText: 'Cool'
+      });
+      
+    }
+  });
+  
+  
 }
+
+
+const [IPR, setIPR] = useState(null)
 
 const onChangeIpr=(e)=>{
   setIPR(e.target.files[0])
@@ -92,6 +142,15 @@ e.preventDefault();
  })
  .then(res=>{
      console.log(res.data);
+     if(res.data.status==="1"){
+      Swal.fire({
+        title: "Uploaded Successfully!",
+        // text: 'Do you want to continue',
+        icon: "success",
+        // confirmButtonText: 'Cool'
+      });
+
+     }
  });
 
 
@@ -348,16 +407,7 @@ e.preventDefault();
                     </p>
                     <Stack direction="horizontal" gap={5}>
                       <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      {/* <img
-                        src={user}
+                        src={patient[0]?.FrontalRepose}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -366,7 +416,7 @@ e.preventDefault();
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.FrontalSmiling}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -375,14 +425,23 @@ e.preventDefault();
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.ProfileRepose}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
+                      <img
+                        src={patient[0]?.FrontOpImage}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
                     </Stack>
                   </Col>
                 </Row>
@@ -393,16 +452,7 @@ e.preventDefault();
                     </p>
                     <Stack direction="horizontal" gap={5}>
                       <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      {/* <img
-                        src={user}
+                        src={patient[0]?.BuccalRight}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -411,7 +461,7 @@ e.preventDefault();
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.BuccalLeft}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -420,7 +470,7 @@ e.preventDefault();
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.BuccalFront}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -429,14 +479,23 @@ e.preventDefault();
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.OcclussalUpper}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
+                      <img
+                        src={patient[0]?.OcclussalLower}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
                     </Stack>
                   </Col>
                 </Row>
@@ -471,7 +530,7 @@ e.preventDefault();
                   <Col>
                   <Form.Group controlId="formFile" className="mb-3">
         <Form.Label className="pd-vid">Upload Videos</Form.Label>
-        <Form.Control type="file" multiple onChange={onChange} name="Name"/>
+        <Form.Control type="file" multiple onChange={(e)=>onChange(e)} name="Name"/>
       </Form.Group>
       <Button variant="" className="btn btn-outline-dark" onClick={uploadHandler}>Upload</Button>
                   </Col>

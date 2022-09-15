@@ -148,8 +148,8 @@ function PatientList() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{navigate("/");
-                    sessionStorage.removeItem("Role");
+                      <span className="px-3" onClick={()=>{navigate("/")
+                    sessionStorage.clear();
                     }}>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>

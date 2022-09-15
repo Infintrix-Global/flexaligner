@@ -23,6 +23,7 @@ import { FaBars,FaEdit } from "react-icons/fa";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -95,7 +96,7 @@ const [Reports, setReports] = useState(null)
     console.log(e.target.files[0]);
     }
     
-    
+
     
     const uploadHandlerReports=()=>{
     
@@ -111,15 +112,22 @@ const [Reports, setReports] = useState(null)
      })
      .then(res=>{
          console.log(res.data);
-     });
+
+         if(res.data.status==="1"){
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
     
+         }
+     });
     
     }
 
-
     return(
         <>
-
 <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
@@ -168,8 +176,8 @@ const [Reports, setReports] = useState(null)
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{navigate("/");
-                    sessionStorage.removeItem("Role");
+                      <span className="px-3" onClick={()=>{navigate("/")
+                    sessionStorage.clear();
                     }}>
                         Logout
                       </span>
@@ -305,17 +313,8 @@ const [Reports, setReports] = useState(null)
                       <b>View Extraoral Photos</b>
                     </p>
                     <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      {/* <img
-                        src={user}
+                    <img
+                        src={patient[0]?.FrontalRepose}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -324,7 +323,7 @@ const [Reports, setReports] = useState(null)
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.FrontalSmiling}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -333,14 +332,23 @@ const [Reports, setReports] = useState(null)
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.ProfileRepose}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
+                      <img
+                        src={patient[0]?.FrontOpImage}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
                     </Stack>
                   </Col>
                 </Row>
@@ -350,17 +358,8 @@ const [Reports, setReports] = useState(null)
                       <b>View Intraoral Photos</b>
                     </p>
                     <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      {/* <img
-                        src={user}
+                    <img
+                        src={patient[0]?.BuccalRight}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -369,7 +368,7 @@ const [Reports, setReports] = useState(null)
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.BuccalLeft}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -378,7 +377,7 @@ const [Reports, setReports] = useState(null)
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.BuccalFront}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -387,14 +386,23 @@ const [Reports, setReports] = useState(null)
                         }}
                       ></img>
                       <img
-                        src={user}
+                        src={patient[0]?.OcclussalUpper}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
+                      <img
+                        src={patient[0]?.OcclussalLower}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img>
                     </Stack>
                   </Col>
                 </Row>

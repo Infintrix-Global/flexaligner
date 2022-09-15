@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import React, { useState, useRef, useEffect } from "react";
 import { TbUser } from "react-icons/tb";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaUpload } from "react-icons/fa";
 import "../../Doctor/Styles/AddPatient.css";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
@@ -28,8 +28,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function AddPatient() {
-  const pPath = sessionStorage.getItem("path");
-  const scans = sessionStorage.getItem("path1");
+
+
 
   const [values, setValues] = useState({
     DoctorId: 0,
@@ -76,13 +76,27 @@ function AddPatient() {
     IWillExtractTheseTeethBeforeTreatment: [],
     LeaveTheseSpacesOpen: [],
     AdditionalInstruction: "",
-    PortraitPath: pPath,
+    PortraitPath: "",
     TypeOfPVSScan:"",
-    PathOfDoc: scans,
-    ProfileRepose: sessionStorage.getItem("pathProfileRepose"),
+    PathOfDoc: [],
+    FrontalRepose:"",
+    FrontalSmiling:"",
+    ProfileRepose: "",
+    FrontOpImage:"",            
+    OcclussalUpper:"",
+    OcclussalLower:"",
+    BuccalRight:"",
+    BuccalLeft:"",
+    BuccalFront:"",
+    RadiographsType:"",
+    XrayLeft:"",
+    XrayRight:"",
+    ExtraOralMoreImages:"",
+    IntraOralMoreImages:""
     // XrayLeft: sessionStorage.getItem("XrayLeft"),
     // UploadVideo: "",
   });
+
 
   // const [dmt, setDoNotMoveTheseTeeth] = useState({
   //   DoNotMoveTheseTeeth:[]
@@ -134,6 +148,609 @@ function AddPatient() {
 //     console.log(method);
 //   }, []);
 
+var extra = document.getElementById("ExtraNow");
+var intra = document.getElementById("IntraNow");
+
+const IndividualUpload1=async ()=>{
+  const fd=new FormData();
+
+  if (extra.checked) {
+    fd.append("Name", state6.name);
+    fd.append("fileContent", state6);
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,FrontalRepose:res.data.path}
+    })
+    
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state6.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+  
+
+}
+
+
+const IndividualUpload2=async ()=>{
+  const fd=new FormData();
+
+  if (extra.checked) {
+    fd.append("Name", state62.name);
+    fd.append("fileContent", state62);
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,FrontalSmiling:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state62.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+  
+
+}
+
+const IndividualUpload3=async ()=>{
+  const fd=new FormData();
+
+  if (extra.checked) {
+    fd.append("Name", state65.name);
+    fd.append("fileContent", state65);
+    console.log(state65);
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,ProfileRepose:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state65.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+  
+
+}
+
+
+
+      
+
+     
+const IndividualUpload4=async ()=>{
+  const fd=new FormData();
+
+  if (extra.checked) {
+    fd.append("Name", state67.name);
+    fd.append("fileContent", state67);
+    console.log(state67);
+
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,FrontImage:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state67.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+// ---------------------------------------------------Intra Individual
+
+
+  
+
+  
+
+  
+
+  
+
+const IntraUpload1=async ()=>{
+  const fd=new FormData();
+
+  if (intra.checked) {
+    fd.append("Name", state662.name);
+  fd.append("fileContent", state662);
+
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,BuccalRight:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state662.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+
+const IntraUpload2=async ()=>{
+  const fd=new FormData();
+
+  if (intra.checked) {
+    fd.append("Name", state6621.name);
+    fd.append("fileContent", state6621);
+
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,BuccalLeft:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state6621.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+const IntraUpload3=async ()=>{
+  const fd=new FormData();
+
+  if (intra.checked) {
+    fd.append("Name", state6622.name);
+    fd.append("fileContent", state6622);
+
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+            return{...pre,BuccalFront:res.data.path}
+          })
+
+          if(res.data.status==="1"){Swal.fire({
+            title: `${state6622.name} \nUploaded Successfully!`,
+            // text: 'Do you want to continue',
+            icon: "success"
+            // confirmButtonText: 'Cool'
+          })}
+  });
+
+
+}
+
+
+
+const IntraUpload4=async ()=>{
+  const fd=new FormData();
+
+  if (intra.checked) {
+    fd.append("Name", state6623.name);
+    fd.append("fileContent", state6623);
+
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,OcclussalUpper:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state6623.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+const IntraUpload5=async ()=>{
+  const fd=new FormData();
+
+  if (intra.checked) {
+    fd.append("Name", state6624.name);
+    fd.append("fileContent", state6624);
+    console.log(state6624);
+  
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload photos now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,OcclussalLower:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${state6624.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+
+const RadioUpload1=async ()=>{
+  const fd=new FormData();
+
+  if (radGarph1.checked) {
+    fd.append("Name", radio.name);
+  fd.append("fileContent", radio);
+  console.log(radio);
+  
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload Radiographs now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,XrayLeft:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${radio.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+const RadioUpload2=async ()=>{
+  const fd=new FormData();
+
+  if (radGarph1.checked) {
+    
+  fd.append("Name", radio1.name);
+  fd.append("fileContent", radio1);
+  console.log(radio1);
+  
+  }
+  else{
+    Swal.fire({
+      title: "Select the Upload Radiographs now button!",
+      // text: 'Do you want to continue',
+      icon: "warning"
+      // confirmButtonText: 'Cool'
+    })
+  }
+  await axios
+  .post(
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    fd,
+    {
+      onUploadProgress: (ProgressEvent) => {
+        console.log(
+          "Upload Progress:" +
+            Math.round(
+              (ProgressEvent.loaded / ProgressEvent.total) * 100
+            ) +
+            "%"
+        );
+      },
+    }
+  )
+  .then((res) => {
+    var arr = res.data;
+    console.log(arr);
+    setValues(pre=>{
+      return{...pre,XrayRight:res.data.path}
+    })
+
+    if(res.data.status==="1"){Swal.fire({
+      title: `${radio1.name} \nUploaded Successfully!`,
+      // text: 'Do you want to continue',
+      icon: "success"
+      // confirmButtonText: 'Cool'
+    })}
+  });
+
+
+}
+
+
+
+
+
+
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -147,37 +764,37 @@ function AddPatient() {
     // console.log(values.PortraitPath);
 
     const fd = new FormData();
-    if (radGarph1.checked) {
-      fd.append("Name", radio.name);
-      fd.append("fileContent", radio);
-      console.log(radio);
+    // if (radGarph1.checked) {
+    //   fd.append("Name", radio.name);
+    //   fd.append("fileContent", radio);
+    //   console.log(radio);
 
-      fd.append("Name", radio1.name);
-      fd.append("fileContent", radio1);
+    //   fd.append("Name", radio1.name);
+    //   fd.append("fileContent", radio1);
 
-      await axios
-        .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-          fd,
-          {
-            onUploadProgress: (ProgressEvent) => {
-              console.log(
-                "Upload Progress:" +
-                  Math.round(
-                    (ProgressEvent.loaded / ProgressEvent.total) * 100
-                  ) +
-                  "%"
-              );
-            },
-          }
-        )
-        .then((res) => {
-          var arr = res.data;
-          console.log(arr);
-          var radioPath = arr.path;
-          // sessionStorage.setItem("path",radioPath);
-        });
-    }
+    //   await axios
+    //     .post(
+    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       fd,
+    //       {
+    //         onUploadProgress: (ProgressEvent) => {
+    //           console.log(
+    //             "Upload Progress:" +
+    //               Math.round(
+    //                 (ProgressEvent.loaded / ProgressEvent.total) * 100
+    //               ) +
+    //               "%"
+    //           );
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       var arr = res.data;
+    //       console.log(arr);
+    //       var radioPath = arr.path;
+    //       // sessionStorage.setItem("path",radioPath);
+    //     });
+    // }
     // console.log(vid);
 
     const url =
@@ -200,17 +817,7 @@ function AddPatient() {
       LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
     };
 
-    // setValues((pre) => {
-    //   return {
-    //     ...pre,
-    //     ClinicalConditions: pre.ClinicalConditions.toString(),
-    //     DoNotMoveTheseTeeth: pre.DoNotMoveTheseTeeth.toString(),
-    //     Engagers: pre.Engagers.toString(),
-    //     IWillExtractTheseTeethBeforeTreatment:
-    //       pre.IWillExtractTheseTeethBeforeTreatment.toString(),
-    //     LeaveTheseSpacesOpen: pre.LeaveTheseSpacesOpen.toString(),
-    //   };
-    // });
+   
     console.log("n :", n);
 
     await fetch(url, {
@@ -225,7 +832,7 @@ function AddPatient() {
       .then((result) => {
         console.log("result :", result.message);
         if(form.checkValidity() === false){
-          alert("Please go back and fill required fields marked with *")
+          alert("Please go back and fill required fields marked with "*"")
         }
         if (
           result.message === "Added Successful" &&
@@ -243,17 +850,24 @@ function AddPatient() {
       })
       .catch((err) => console.log(err));
     console.log(values);
-    console.log(pPath);
+    // sessionStorage.removeItem("path");
+    // console.log(pPath);
 
     // setCurrentTab((prev) => prev + 1);
   };
 
+  
+
   const [state, setState] = useState(null);
-  const [pvs, setPvs] = useState({
-    pvsScan: null,
-    intraoral: null,
-    models: null,
-  });
+  // const [pvs, setPvs] = useState({
+  //   pvsScan: "",
+  //   intraoral: "",
+  //   models: "",
+  // });
+
+  const [PVS, setPVS] = useState("")
+  const [IntraOral, setIntraOral] = useState("")
+  const [Models, setModels] = useState("")
 
   const [vid, setvid] = useState(null);
 
@@ -273,8 +887,8 @@ function AddPatient() {
   const [state6623, setstate6623] = useState(null);
   const [state6624, setstate6624] = useState(null);
 
-  const [add, setAdd] = useState(null);
-  const [addExtraO, setAddExtraO] = useState(null);
+  const [add, setAdd] = useState("");
+  const [addExtraO, setAddExtraO] = useState("");
 
   const [radio, setRadio] = useState(null);
 
@@ -295,7 +909,7 @@ function AddPatient() {
   //   })
   // }
 
-  const handleupload = (e) => {
+  const handleupload = async (e) => {
     e.preventDefault();
 
     const fd = new FormData();
@@ -305,7 +919,7 @@ function AddPatient() {
       fd.append("fileContent", state);
       console.log(state);
 
-      axios
+   await axios
         .post(
           "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
           fd,
@@ -320,16 +934,37 @@ function AddPatient() {
               );
             },
           }
-        )
-        .then((res) => {
+          )
+          .then((res) => {
+          
           // console.log(res);
           var arr = res.data;
           console.log(arr);
-          var portPath = arr.path;
+          setValues(pre=>{
+            return{...pre,PortraitPath:res.data.path}
+          })
+
+          if(res.data.status==="1"){Swal.fire({
+            title: `${state.name} \nUploaded Successfully!`,
+            // text: 'Do you want to continue',
+            icon: "success"
+            // confirmButtonText: 'Cool'
+          })}
+          // setportraitPath(arr.path)
+          console.log(res.data.path);
+          // var portPath = arr.path;
           // console.log(portPath);
-          sessionStorage.setItem("path", portPath);
-          // console.log(values.PortraitPath);
+        
         });
+    }
+    else{
+      Swal.fire({
+        title: "Select the Upload patient portrait now button!",
+        // text: 'Do you want to continue',
+        icon: "warning"
+        // confirmButtonText: 'Cool'
+      })
+      
     }
 
     // fd.append("Name",pvs.pvsScan.name);
@@ -439,16 +1074,18 @@ function AddPatient() {
       // setValues((pre)=>{
       //   return{...pre,TypeOfPVSScan:}
       // })
-      Array.from(pvs.pvsScan).forEach((up) => {
-        fd.append("Name", up.name);
-        fd.append("fileContent", up);
-      });
+      // Array.from(pvs.pvsScan).forEach((up) => {
+        fd.append("Name", PVS.name);
+        for(let i=0;i<PVS.length;i++){
+        fd.append("fileContent", PVS[i]);
+        }
+      // });
       // setValues(prev=>{
       //   return{...prev, TypeOfPVSScan:prev.TypeOfPVSScan}
       // })
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -464,20 +1101,27 @@ function AddPatient() {
         )
         .then((res) => {
           var arr = res.data;
-          console.log(arr);
-          var scansp = arr.path;
-          sessionStorage.setItem("path1", scansp);
+          console.log(arr.data);
+          setValues(pre=>{
+            return{...pre,PathOfDoc:res.data}
+          })
         });
     }
 
     if (pvs2.checked) {
-      Array.from(pvs.intraoral).forEach((up) => {
-        fd.append("Name", up.name);
-        fd.append("fileContent", up);
-      });
+      // Array.from(pvs.intraoral).forEach((up) => {
+      //   fd.append("Name", up.name);
+      //   for(let i=0;i<up.length;i++){
+      //     fd.append("fileContent", up[i]);
+      //     }
+      // });
+      fd.append("Name", IntraOral.name);
+        for(let i=0;i<IntraOral.length;i++){
+        fd.append("fileContent", IntraOral[i]);
+        }
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -494,19 +1138,26 @@ function AddPatient() {
         .then((res) => {
           var arr = res.data;
           console.log(arr);
-          var scansp = arr.path;
-          sessionStorage.setItem("path1", scansp);
+          setValues(pre=>{
+            return{...pre,PathOfDoc:res.data}
+          })
         });
     }
 
     if (pvs3.checked) {
-      Array.from(pvs.models).forEach((up) => {
-        fd.append("Name", up.name);
-        fd.append("fileContent", up);
-      });
+      // Array.from(pvs.models).forEach((up) => {
+      //   fd.append("Name", up.name);
+      //   for(let i=0;i<up.length;i++){
+      //     fd.append("fileContent", up[i]);
+      //     }
+      // });
+      fd.append("Name", Models.name);
+        for(let i=0;i<Models.length;i++){
+        fd.append("fileContent", Models[i]);
+        }
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -523,8 +1174,9 @@ function AddPatient() {
         .then((res) => {
           var arr = res.data;
           console.log(arr);
-          var scansp = arr.path;
-          sessionStorage.setItem("path1", scansp);
+          setValues(pre=>{
+            return{...pre,PathOfDoc:res.data}
+          })
         });
     }
 
@@ -535,35 +1187,65 @@ function AddPatient() {
     setCurrentTab((prev) => prev + 1);
   };
 
-  var extra = document.getElementById("ExtraNow");
-  var intra = document.getElementById("IntraNow");
 
   const handleUpload2 = (e) => {
     e.preventDefault();
 
     const fd = new FormData();
 
-    if (extra.checked) {
-      fd.append("Name", state6.name);
-      fd.append("fileContent", state6);
+    // if (extra.checked) {
+    //   fd.append("Name", state6.name);
+    //   fd.append("fileContent", state6);
 
-      fd.append("Name", state62.name);
-      fd.append("fileContent", state62);
+    //   fd.append("Name", state62.name);
+    //   fd.append("fileContent", state62);
 
-      fd.append("Name", state65.name);
-      fd.append("fileContent", state65);
-      console.log(state65);
+    //   fd.append("Name", state65.name);
+    //   fd.append("fileContent", state65);
+    //   console.log(state65);
 
-      fd.append("Name", state67.name);
-      fd.append("fileContent", state67);
-      console.log(state67);
+    //   fd.append("Name", state67.name);
+    //   fd.append("fileContent", state67);
+    //   console.log(state67);
+
+    //   fd.append("Name", addExtraO.name);
+    //   fd.append("fileContent", addExtraO);
+
+    //   axios
+    //     .post(
+    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       fd,
+    //       {
+    //         onUploadProgress: (ProgressEvent) => {
+    //           console.log(
+    //             "Upload Progress:" +
+    //               Math.round(
+    //                 (ProgressEvent.loaded / ProgressEvent.total) * 100
+    //               ) +
+    //               "%"
+    //           );
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       var arr = res.data;
+    //       console.log(arr);
+    //       // var photoPath = arr.path;
+    //       // sessionStorage.setItem("pathProfileRepose", photoPath);
+    //     });
+    // }
+
+    if(document.getElementById("uploadBox").value != "") {
 
       fd.append("Name", addExtraO.name);
-      fd.append("fileContent", addExtraO);
+      for(let i=0;i<addExtraO.length;i++){
+      fd.append("fileContent", addExtraO[i]);
+      }
+      console.log(addExtraO); 
 
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -580,64 +1262,74 @@ function AddPatient() {
         .then((res) => {
           var arr = res.data;
           console.log(arr);
-          // var photoPath = arr.path;
-          // sessionStorage.setItem("pathProfileRepose", photoPath);
-        });
-    }
-
-    if(document.getElementById("uploadBox").value != "") {
-      fd.append("Name", addExtraO[0].name);
-      fd.append("fileContent", addExtraO[0]);
-      console.log(addExtraO[0]); 
-
-      axios
-        .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-          fd,
-          {
-            onUploadProgress: (ProgressEvent) => {
-              console.log(
-                "Upload Progress:" +
-                  Math.round(
-                    (ProgressEvent.loaded / ProgressEvent.total) * 100
-                  ) +
-                  "%"
-              );
-            },
-          }
-        )
-        .then((res) => {
-          var arr = res.data;
-          console.log("ExtraO:"+arr.path);
-          // var photoPath = arr.path;
-          // sessionStorage.setItem("pathProfileRepose", photoPath);
+          // var EphotoPath = arr.data;
+          // sessionStorage.setItem("ExtraOralMoreImages", JSON.stringify(EphotoPath));
+          setValues(pre=>{
+            return{...pre,PathOfDoc:res.data}
+          })
         });
    }
 
-    if (intra.checked) {
-      fd.append("Name", state662.name);
-      fd.append("fileContent", state662);
+    // if (intra.checked) {
+    //   fd.append("Name", state662.name);
+    //   fd.append("fileContent", state662);
 
-      fd.append("Name", state6621.name);
-      fd.append("fileContent", state6621);
+    //   fd.append("Name", state6621.name);
+    //   fd.append("fileContent", state6621);
 
-      fd.append("Name", state6622.name);
-      fd.append("fileContent", state6622);
+    //   fd.append("Name", state6622.name);
+    //   fd.append("fileContent", state6622);
 
-      fd.append("Name", state6623.name);
-      fd.append("fileContent", state6623);
+    //   fd.append("Name", state6623.name);
+    //   fd.append("fileContent", state6623);
 
-      fd.append("Name", state6624.name);
-      fd.append("fileContent", state6624);
-      console.log(state6624);
-
-     
+    //   fd.append("Name", state6624.name);
+    //   fd.append("fileContent", state6624);
+    //   console.log(state6624);
 
      
 
+     
+
+    //   axios
+    //     .post(
+    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       fd,
+    //       {
+    //         onUploadProgress: (ProgressEvent) => {
+    //           console.log(
+    //             "Upload Progress:" +
+    //               Math.round(
+    //                 (ProgressEvent.loaded / ProgressEvent.total) * 100
+    //               ) +
+    //               "%"
+    //           );
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       var arr = res.data;
+    //       console.log(arr);
+    //       var photoPath = arr.path;
+    //       // sessionStorage.setItem("pathProfileRepose", photoPath);
+    //     });
+    // }
+
+
+
+
+
+    if(document.getElementById("uploadBox2").value != "") {
+    
+    
+      fd.append("Name", add.name);
+      for(let i=0;i<add.length;i++){
+      fd.append("fileContent", add[i]);
+      }
+      console.log(add);
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -646,7 +1338,7 @@ function AddPatient() {
                   Math.round(
                     (ProgressEvent.loaded / ProgressEvent.total) * 100
                   ) +
-                  "%"
+                  "%"   
               );
             },
           }
@@ -654,35 +1346,11 @@ function AddPatient() {
         .then((res) => {
           var arr = res.data;
           console.log(arr);
-          var photoPath = arr.path;
-          sessionStorage.setItem("pathProfileRepose", photoPath);
-        });
-    }
-    if(document.getElementById("uploadBox").value != "") {
-      fd.append("Name", add[0].name);
-      fd.append("fileContent", add[0]);
-      console.log(add[0]);
-      axios
-        .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
-          fd,
-          {
-            onUploadProgress: (ProgressEvent) => {
-              console.log(
-                "Upload Progress:" +
-                  Math.round(
-                    (ProgressEvent.loaded / ProgressEvent.total) * 100
-                  ) +
-                  "%"
-              );
-            },
-          }
-        )
-        .then((res) => {
-          var arr = res.data;
-          console.log("ExtraO:"+arr.path);
-          // var photoPath = arr.path;
-          // sessionStorage.setItem("pathProfileRepose", photoPath);
+          // var IphotoPath = arr.data;
+          // sessionStorage.setItem("IntraOralMoreImages", JSON.stringify(IphotoPath));
+          setValues(pre=>{
+            return{...pre,IntraOralMoreImages:res.data}
+          })
         });
    }
 
@@ -980,9 +1648,7 @@ function AddPatient() {
   const handleChangeTab51 = (file) => {
     // setImageTab51(file);
     // setPreviewUrlTab51(URL.createObjectURL(file));
-    setPvs({
-      pvsScan: file,
-    });
+    setPVS(file)
     console.log(file);
   };
 
@@ -1001,9 +1667,7 @@ function AddPatient() {
       fileInput.value = "";
       return false;
     }
-    setPvs({
-      intraoral: file,
-    });
+    setIntraOral(file);    
 
     console.log(file);
   };
@@ -1016,9 +1680,7 @@ function AddPatient() {
   const handleChangeTab53 = (file) => {
     // setImageTab53(file);
     // setPreviewUrlTab53(URL.createObjectURL(file));
-    setPvs({
-      models: file,
-    });
+    setModels(file);
     console.log(file);
   };
 
@@ -1406,7 +2068,9 @@ function AddPatient() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => navigate("/")}>
+                      <span className="px-3" onClick={() => {navigate("/")
+                    sessionStorage.clear();
+                    }}>
                         Logout
                       </span>
                     </Dropdown.Item>
@@ -5046,6 +5710,7 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload1}><FaUpload/></Button></span>
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -5067,7 +5732,7 @@ function AddPatient() {
                                             </Col> */}
                                             <Col md={6}>
                                               <Card
-                                                className="crd-up mb-3"
+                                                className="crd-up"
                                                 onDragOver={handleOndragOver}
                                                 onDrop={handleOndrop2}
                                                 onClick={() =>
@@ -5088,6 +5753,8 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload2}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           <Row className="mt-4 justify-content-center">
@@ -5161,6 +5828,8 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload3}><FaUpload/></Button></span>
+
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -5197,6 +5866,8 @@ function AddPatient() {
                                                   />
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload4}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           {/* {previewUrl ? (
@@ -5422,6 +6093,8 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload1}><FaUpload/></Button></span>
+
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -5478,6 +6151,8 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload2}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           <Row className="mt-3 justify-content-center">
@@ -5545,6 +6220,8 @@ function AddPatient() {
                                                   </p>
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload3}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           <Row className="mt-3">
@@ -5579,6 +6256,8 @@ function AddPatient() {
                                                   />
                                                 ):<p className="text-center mt-5">Upper Occulosal</p>} */}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload4}><FaUpload/></Button></span>
+
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -5629,6 +6308,8 @@ function AddPatient() {
                                                   />
                                                 ):<p className="text-center mt-5">Lower Occulosal</p>} */}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload5}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           {/* {previewUrl ? (
@@ -5703,6 +6384,7 @@ function AddPatient() {
                                               type="file"
                                               multiple
                                               className=""
+                                              id="uploadBox2"
                                               name="Name"
                                               onChange={(e) => {
                                                 handleChangeTab6Add(
@@ -5817,6 +6499,8 @@ function AddPatient() {
                                                   />
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload1}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
                                           <Row className="m-3">
@@ -5845,6 +6529,8 @@ function AddPatient() {
                                                   />
                                                 )}
                                               </Card>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload2}><FaUpload/></Button></span>
+
                                             </Col>
                                           </Row>
 
