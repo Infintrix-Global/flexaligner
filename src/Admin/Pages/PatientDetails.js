@@ -8,7 +8,7 @@ import {
   Dropdown,
   Card,
   Stack,
-  Form
+  Form,
 } from "react-bootstrap";
 import "../../Doctor/Styles/PatientList.css";
 import "../../Doctor/Styles/PatientDetails.css";
@@ -17,7 +17,7 @@ import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars,FaEdit } from "react-icons/fa";
+import { FaBars, FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Male from "../../Assets/Male.png";
 import React, { useEffect, useState } from "react";
@@ -28,24 +28,30 @@ import $ from "jquery";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
-
 function PatientList() {
-  const navigate = useNavigate(); 
+
+  const [Videos, setVideos] = useState({
+    PatientId: "",
+    CreateId: "",
+    VideoPath: []
+  });
+
+
+
+  const navigate = useNavigate();
   const [patient, setPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
-  const urlParams = useParams()
+ 
+  const urlParams = useParams();
   // console.log(urlParams);
-  const ID=urlParams.PatientId;
+  const ID = urlParams.PatientId;
+  const Role=sessionStorage.getItem("Role");
+  // const MAX_COUNT=5;
 
+  const [state, setState] = useState("");
 
-// const MAX_COUNT=5;
-  
-const [state, setState] = useState("") 
-
-// const [fileLimit, setFileLimit] = useState(false)
-
+  // const [fileLimit, setFileLimit] = useState(false)
 
   // const handleUploadFiles=files=>{
   //   const uploaded=[...state];
@@ -62,107 +68,161 @@ const [state, setState] = useState("")
   //         }
   //       }
   //     })
-  //     if (!limitExceeded) setState(uploaded)   
+  //     if (!limitExceeded) setState(uploaded)
 
   //     console.log(state);
   // }
 
-  
-  const onChange=(e)=>{
-  // const newFiles = []
-  // for(let i = 0; i < e.target.files.length; i++){
-  //    newFiles.push(e.target.files[i])
-  // }
-  // setState(e.target.files)
-  // console.log(state);
-  // const chosenFiles=Array.prototype.slice.call(e.target.files)
-  // setState(chosenFiles);
-  // console.log(chosenFiles);
+  const onChange = (e) => {
+    // const newFiles = []
+    // for(let i = 0; i < e.target.files.length; i++){
+    //    newFiles.push(e.target.files[i])
+    // }
+    // setState(e.target.files)
+    // console.log(state);
+    // const chosenFiles=Array.prototype.slice.call(e.target.files)
+    // setState(chosenFiles);
+    // console.log(chosenFiles);
 
-  setState(e.target.files);
-  console.log(state);
-}
+    setState(e.target.files);
+    console.log(state);
+  };
 
+  const uploadHandler = async (e) => {
+    e.preventDefault();
+    const fd = new FormData();
 
-
-const uploadHandler=(e)=>{
-  e.preventDefault();
-  const fd=new FormData();
-  // fd.append("Name",state.fileContent.name);
-  fd.append("PatientId",ID);
-  for(let i=0;i<state.length;i++){
-  fd.append("fileContent",state[i]);
-  }
-  console.log("ID is:"+ID);
-  console.log("Content of file:"+state);
-
-  axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultipleVideo",fd,{
-   
-     onUploadProgress:ProgressEvent=>{
-       console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
-     }
-    })
- .then(res=>{
-   console.log(res.data);
-
-     if(res.data.status==="1"){
-      Swal.fire({
-        title: "Uploaded Successfully!",
-        // text: 'Do you want to continue',
-        icon: "success",
-        // confirmButtonText: 'Cool'
-      });
-      
+    fd.append("PatientId", ID);
+    for (let i = 0; i < state.length; i++) {
+      fd.append("fileContent", state[i]);
     }
-  });
-  
-  
-}
+    console.log("ID is:" + ID);
+    console.log("Content of file:" + state);
 
+    await axios
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultipleVideo",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
 
-const [IPR, setIPR] = useState(null)
+        setVideos((pre) => {
+          return {
+            ...pre,
+            PatientId:ID,
+            CreateId:Role,
+            VideoPath: res.data
+          };
+        });
 
-const onChangeIpr=(e)=>{
-  setIPR(e.target.files[0])
-  console.log(e.target.files[0]);
-  }
-
-
-  
-const uploadHandlerIpr=(e)=>{
-e.preventDefault();
-  const fd=new FormData();
-  fd.append("Name",IPR.name);
-  fd.append("fileContent",IPR);
-  // fd.append("PatientId",patient.PatientId);
- axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",fd,{  
-     onUploadProgress:ProgressEvent=>{
-         console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
-     }
- })
- .then(res=>{
-     console.log(res.data);
-     if(res.data.status==="1"){
-      Swal.fire({
-        title: "Uploaded Successfully!",
-        // text: 'Do you want to continue',
-        icon: "success",
-        // confirmButtonText: 'Cool'
+        if (res.data.status === "1") {
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
+        }
+        console.log(Videos);
       });
 
-     }
- });
-
-
-}
 
 
 
+      await axios
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo",
+        Videos,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log(
+          "pid: " + Videos.PatientId,
+          "Role: " + Videos.CreateId,
+          "paths :" + Videos.VideoPath
+        );
+       
+        });
 
 
+//     const url =
+//       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo";
 
+//     await fetch(url, {
+//       method: "POST",
+//       headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(Videos),
+//     })
+//       // .then((res) => res.json())
+//       .then((res) => {
+// console.log(res);
+//         // console.log("result path:", result.message);
+//         // console.log(Videos.VideoPath[0]);
+       
+//       });
+  };
 
+  const [IPR, setIPR] = useState(null);
 
+  const onChangeIpr = (e) => {
+    setIPR(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
+
+  const uploadHandlerIpr = (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append("Name", IPR.name);
+    fd.append("fileContent", IPR);
+    // fd.append("PatientId",patient.PatientId);
+    axios
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",
+        fd,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status === "1") {
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
+        }
+      });
+  };
 
   //   const getPatient = async () => {
   //     try {
@@ -176,10 +236,12 @@ e.preventDefault();
   //       console.log(error);
   //     }
   //   };
-  const url ="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/"+ID;
+  const url =
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/" +
+    ID;
 
   useEffect(() => {
-  console.log(urlParams);
+    console.log(urlParams);
 
     fetch(url)
       .then((res) => res.json())
@@ -285,7 +347,7 @@ e.preventDefault();
         </Container>
       </Navbar>
       {/* <Container fluid> */}
-        {/* <Row className="menuTab">
+      {/* <Row className="menuTab">
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
@@ -300,18 +362,25 @@ e.preventDefault();
           </Col>
         </Row> */}
 
-        <Container fluid>
-          <Row className="justify-content-center">
-            <Col md={10}>
-              <Row className="mt-5 mb-5 p-5 pt-0" style={{ backgroundColor: "white",boxShadow: "0px 0px 15px  #C49358",borderRadius:"8px" }}>
-                <Col className="mt-5" md={10}>
-                  <Row className="mb-5">
-                    <Col>
+      <Container fluid>
+        <Row className="justify-content-center">
+          <Col md={10}>
+            <Row
+              className="mt-5 mb-5 p-5 pt-0"
+              style={{
+                backgroundColor: "white",
+                boxShadow: "0px 0px 15px  #C49358",
+                borderRadius: "8px",
+              }}
+            >
+              <Col className="mt-5" md={10}>
+                <Row className="mb-5">
+                  <Col>
                     <p className="pd-title">Patient Details</p>
-                    </Col>
-                  </Row>
-                  <Row className="mb-5">
-                    <Col md={3} lg={3} sm={12} xs={12}>
+                  </Col>
+                </Row>
+                <Row className="mb-5">
+                  <Col md={3} lg={3} sm={12} xs={12}>
                     <p className="mx-4 px-2 fs-5">
                       <b>Patient Potrait</b>
                     </p>
@@ -328,29 +397,125 @@ e.preventDefault();
                         ></img>
                       </Stack>
                     </Row>
-                    </Col>
-                    <Col md={9} lg={9} sm={12} xs={12}>
-                      <table style={{width: "45em"}} className="mt-5">
-                        <tr>
-                          <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>PatientId:</th>
-                          <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.PatientId}</td>
-                          <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Name:</th>
-                          <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Name}</td>
-                          <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>CaseNo:</th>
-                          <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.CaseNo}</td>
-                          <Button variant="" className="action-i edit editbtn mt-4">
+                  </Col>
+                  <Col md={9} lg={9} sm={12} xs={12}>
+                    <table style={{ width: "45em" }} className="mt-5">
+                      <tr>
+                        <th
+                          style={{
+                            width: "110px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          PatientId:
+                        </th>
+                        <td
+                          contentEditable="false"
+                          style={{
+                            width: "100px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {patient[0]?.PatientId}
+                        </td>
+                        <th
+                          style={{
+                            width: "110px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          Name:
+                        </th>
+                        <td
+                          contentEditable="false"
+                          style={{
+                            width: "100px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {patient[0]?.Name}
+                        </td>
+                        <th
+                          style={{
+                            width: "110px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          CaseNo:
+                        </th>
+                        <td
+                          contentEditable="false"
+                          style={{
+                            width: "100px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {patient[0]?.CaseNo}
+                        </td>
+                        <Button
+                          variant=""
+                          className="action-i edit editbtn mt-4"
+                        >
                           Edit
                         </Button>
-                          <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>Gender:</th>
-                          <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.Gender}</td>
-                          <th style={{width:"110px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>DOB:</th>
-                          <td contentEditable="false" style={{width:"100px", wordWrap:"break-word",display:"inline-block",marginTop:"10px"}}>{patient[0]?.DateofBirth}</td>
-              
-                        </tr>
-              
-                      </table>
-                    </Col>
-                    {/* <Col>
+                        <th
+                          style={{
+                            width: "110px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          Gender:
+                        </th>
+                        <td
+                          contentEditable="false"
+                          style={{
+                            width: "100px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {patient[0]?.Gender}
+                        </td>
+                        <th
+                          style={{
+                            width: "110px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          DOB:
+                        </th>
+                        <td
+                          contentEditable="false"
+                          style={{
+                            width: "100px",
+                            wordWrap: "break-word",
+                            display: "inline-block",
+                            marginTop: "10px",
+                          }}
+                        >
+                          {patient[0]?.DateofBirth}
+                        </td>
+                      </tr>
+                    </table>
+                  </Col>
+                  {/* <Col>
                       <p>
                         <b>PatientId:</b>&nbsp;{patient[0]?.PatientId}
                       </p>
@@ -377,10 +542,10 @@ e.preventDefault();
                         Edit
                       </Button>
                     </Col> */}
-                  </Row>
-                  <hr />
-                </Col>
-                {/* <Row className="mt-4 mb-5">
+                </Row>
+                <hr />
+              </Col>
+              {/* <Row className="mt-4 mb-5">
                   <Col md={{ span: 12 }}>
                     <p>
                       <b>View Patient Potrait</b>
@@ -400,121 +565,121 @@ e.preventDefault();
                     </Row>
                   </Col>
                 </Row> */}
-                <Row className="mt-4 mb-5 mt-5">
-                  <Col md={{ span: 12 }}>
-                    <p className="fs-4">
-                      <b>View Extraoral Photos</b>
-                    </p>
-                    <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={patient[0]?.FrontalRepose}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.FrontalSmiling}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.ProfileRepose}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.FrontOpImage}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                    </Stack>
-                  </Col>
-                </Row>
-                <Row className="mt-4 mb-5">
-                  <Col md={{ span: 12 }}>
-                    <p className="fs-4">
-                      <b>View Intraoral Photos</b>
-                    </p>
-                    <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={patient[0]?.BuccalRight}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.BuccalLeft}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.BuccalFront}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.OcclussalUpper}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.OcclussalLower}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                    </Stack>
-                  </Col>
-                </Row>
-                <Row className="mt-4 mb-5">
-                  <Col md={{ span: 12 }}>
-                    <p className="fs-4">
-                      <b>Radiographs</b>
-                    </p>
-                    <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      {/* <img
+              <Row className="mt-4 mb-5 mt-5">
+                <Col md={{ span: 12 }}>
+                  <p className="fs-4">
+                    <b>View Extraoral Photos</b>
+                  </p>
+                  <Stack direction="horizontal" gap={5}>
+                    <img
+                      src={patient[0]?.FrontalRepose}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.FrontalSmiling}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.ProfileRepose}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.FrontOpImage}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                  </Stack>
+                </Col>
+              </Row>
+              <Row className="mt-4 mb-5">
+                <Col md={{ span: 12 }}>
+                  <p className="fs-4">
+                    <b>View Intraoral Photos</b>
+                  </p>
+                  <Stack direction="horizontal" gap={5}>
+                    <img
+                      src={patient[0]?.BuccalRight}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.BuccalLeft}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.BuccalFront}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.OcclussalUpper}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    <img
+                      src={patient[0]?.OcclussalLower}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                  </Stack>
+                </Col>
+              </Row>
+              <Row className="mt-4 mb-5">
+                <Col md={{ span: 12 }}>
+                  <p className="fs-4">
+                    <b>Radiographs</b>
+                  </p>
+                  <Stack direction="horizontal" gap={5}>
+                    <img
+                      src={user}
+                      className="rounded"
+                      style={{
+                        boxShadow: "0px 5px 5px 5px #E8E8E8",
+                        height: "100px",
+                        width: "100px",
+                      }}
+                    ></img>
+                    {/* <img
                         src={user}
                         className="rounded"
                         style={{
@@ -523,29 +688,50 @@ e.preventDefault();
                           width: "100px",
                         }}
                       ></img> */}
-                    </Stack>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                  <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label className="pd-vid">Upload Videos</Form.Label>
-        <Form.Control type="file" multiple onChange={(e)=>onChange(e)} name="Name"/>
-      </Form.Group>
-      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandler}>Upload</Button>
-                  </Col>
-                  <Col>
-                  <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label className="pd-ipr">Upload IPR File</Form.Label>
-        <Form.Control type="file" onChange={onChangeIpr} name="Name"/>
-      </Form.Group>
-      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandlerIpr}>Upload</Button>
-                  </Col>
-                </Row>
+                  </Stack>
+                </Col>
               </Row>
-            </Col>
-          </Row>
-        </Container>
+              <Row>
+                <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="pd-vid">Upload Videos</Form.Label>
+                    <Form.Control
+                      type="file"
+                      multiple
+                      onChange={(e) => onChange(e)}
+                      name="Name"
+                    />
+                  </Form.Group>
+                  <Button
+                    variant=""
+                    className="btn btn-outline-dark"
+                    onClick={uploadHandler}
+                  >
+                    Upload
+                  </Button>
+                </Col>
+                <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="pd-ipr">Upload IPR File</Form.Label>
+                    <Form.Control
+                      type="file"
+                      onChange={onChangeIpr}
+                      name="Name"
+                    />
+                  </Form.Group>
+                  <Button
+                    variant=""
+                    className="btn btn-outline-dark"
+                    onClick={uploadHandlerIpr}
+                  >
+                    Upload
+                  </Button>
+                </Col>
+              </Row>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
       {/* </Container> */}
     </>
   );
