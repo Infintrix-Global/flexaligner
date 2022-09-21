@@ -30,11 +30,11 @@ import Swal from "sweetalert2";
 
 function PatientList() {
 
-  const [Videos, setVideos] = useState({
-    PatientId: "",
-    CreateId: "",
-    VideoPath: []
-  });
+  // const [Videos, setVideos] = useState({
+  //   PatientId: "",
+  //   CreateId: "",
+  //   VideoPath: []
+  // });
 
 
 
@@ -88,6 +88,41 @@ function PatientList() {
     console.log(state);
   };
 
+
+  const addUpload= async (newarr)=>{
+    await axios
+      .post(
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo",
+        newarr,
+        {
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              "Upload Progress:" +
+                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+                "%"
+            );
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        // console.log(
+        //   "pid: " + Videos.PatientId,
+        //   "Role: " + Videos.CreateId,
+        //   "paths :" + Videos.VideoPath
+        // );
+        if (res.data.status === true) {
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
+        }
+       
+        });
+  }
+
   const uploadHandler = async (e) => {
     e.preventDefault();
     const fd = new FormData();
@@ -114,54 +149,34 @@ function PatientList() {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.data);
+        // let [extData]=Object.values(res.data.data).map(s=>s.imageu)
+        // res.data.data.map(x => x.imageurl).join(",")
+        //Array.prototype.map.call(res.data.data, function(item) { return item.imageurl; }).join(",");
+        let arr=res.data.data;
+        let newarr = arr.map(({ imageurl }) => imageurl)
+        console.log(newarr);
+       let n={PatientId:ID,CreateId:Role, VideoPath: newarr}
+        addUpload(n)                       //call after first api call 
+       
 
-        setVideos((pre) => {
-          return {
-            ...pre,
-            PatientId:ID,
-            CreateId:Role,
-            VideoPath: res.data
-          };
-        });
+        // setVideos((pre) => {             it was being called synchronously
+        //   return {
+        //     ...pre,
+        //     PatientId:ID,                
+        //     CreateId:Role,
+        //     VideoPath: newarr
+        //   };
+        // });
 
-        if (res.data.status === "1") {
-          Swal.fire({
-            title: "Uploaded Successfully!",
-            // text: 'Do you want to continue',
-            icon: "success",
-            // confirmButtonText: 'Cool'
-          });
-        }
-        console.log(Videos);
+        
+        // console.log(Videos);
       });
 
 
 
 
-      await axios
-      .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo",
-        Videos,
-        {
-          onUploadProgress: (ProgressEvent) => {
-            console.log(
-              "Upload Progress:" +
-                Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
-                "%"
-            );
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(
-          "pid: " + Videos.PatientId,
-          "Role: " + Videos.CreateId,
-          "paths :" + Videos.VideoPath
-        );
-       
-        });
+      
 
 
 //     const url =
@@ -285,6 +300,58 @@ function PatientList() {
       $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
     });
   });
+
+  const [Reports, setReports] = useState(null)
+  const onChangeReports=(e)=>{
+
+    var fileInput = document.getElementById("files");
+
+    var filePath = fileInput.value;
+
+    // Allowing file type
+    var allowedExtensions = /(\.pdf|\.jpg|\.jpeg|\.png|\.html)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+      alert("Invalid file type \nUpload .pdf or image files Only!");
+      fileInput.value = "";
+      return false;
+    }
+
+    setReports(e.target.files[0])
+    console.log(e.target.files[0]);
+    }
+    
+
+    
+    const uploadHandlerReports=()=>{
+    
+      const fd=new FormData();
+      fd.append("Name",Reports.name);
+      fd.append("fileContent",Reports);
+      // fd.append("PatientId",patient.PatientId);
+     axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",fd,{
+      
+         onUploadProgress:ProgressEvent=>{
+             console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
+         }
+     })
+     .then(res=>{
+         console.log(res.data);
+
+         if(res.data.status==="1"){
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
+    
+         }
+     });
+    
+    }
+
+let DoctorName=sessionStorage.getItem("DocName");
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -324,7 +391,7 @@ function PatientList() {
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                   {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -718,7 +785,7 @@ function PatientList() {
                       onChange={onChangeIpr}
                       name="Name"
                     />
-                  </Form.Group>
+                  </Form.Group> <span><Button>Generate IPR</Button></span>
                   <Button
                     variant=""
                     className="btn btn-outline-dark"
@@ -728,6 +795,15 @@ function PatientList() {
                   </Button>
                 </Col>
               </Row>
+              <Row className="mt-5">
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label className="pd-ipr">Upload Reports</Form.Label>
+        <Form.Control type="file" id="files" onChange={onChangeReports} name="Name"/>
+      </Form.Group>
+      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandlerReports}>Upload</Button>
+                  </Col>
+                </Row>
             </Row>
           </Col>
         </Row>

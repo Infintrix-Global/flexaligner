@@ -96,6 +96,9 @@ function DoctorsList() {
   // $(this).parents("tr").find(".add, .edit").toggle();
   // $(".add-new").attr("disabled", "disabled");
   // });
+
+let DoctorName=sessionStorage.getItem("DocName");
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -140,7 +143,7 @@ function DoctorsList() {
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                    {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>

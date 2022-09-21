@@ -19,6 +19,7 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import user from "../../Assets/user.png";
 import { LinkContainer } from "react-router-bootstrap";
+import Swal from "sweetalert2";
 
 function AddDoctor() {
   // const [activePath, setActivePath] = useState();
@@ -29,6 +30,7 @@ function AddDoctor() {
   // }, []);
 
   const [data, setData] = useState({
+    // DoctorId:"",
     FirstName: "",
     LastName: "",
     PracticeName: "",
@@ -44,8 +46,6 @@ function AddDoctor() {
     Fax: "",
     PracticeEmail: "",
     PhoneNo: "",
-    Password: "",
-    ConfirmPassword: "",
     mode: "1",
     CountryId: "",
     StateId: "",
@@ -186,6 +186,9 @@ function AddDoctor() {
 
   const [validated, setValidated] = useState(false);
 
+
+let Role=sessionStorage.getItem("Role");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -208,14 +211,34 @@ function AddDoctor() {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         console.log(result.message);
-        if (result.message === "Added Successful" && form.checkValidity() === true) {
-          navigate("/view-doctors");
+        if(result.DoctorId==="-1"){
+          alert("Already exists!")
         }
+        if (result.message === "Added Successful" && form.checkValidity() === true) {
+          Swal.fire({
+            title: "Registered Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success"
+            // confirmButtonText: 'Cool'
+          })
+
+        }
+
+        if(Role==="1"){
+          navigate("/view-doctors");
+
+        }else{
+          navigate("/")
+        }
+        
       });
 
    
   };
+
+
 
   return (
     <>
@@ -639,7 +662,7 @@ function AddDoctor() {
                           </Form.Group>
                         </Col>
                       </Row>
-                      <Row className="mt-3">
+                      {/* <Row className="mt-3">
                         <Col md={6}>
                           <Form.Group controlId="validationCustom01">
                             <Form.Label>Password</Form.Label>
@@ -673,7 +696,7 @@ function AddDoctor() {
                             />
                           </Form.Group>
                         </Col>
-                      </Row>
+                      </Row> */}
 
                       <Row className="text-center mt-3">
                         <Col>

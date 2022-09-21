@@ -1,3 +1,4 @@
+import React,{useState,useEffect} from "react";
 import {
   Container,
   Row,
@@ -34,6 +35,27 @@ function Dashboard() {
 
   const navigate=useNavigate();
 
+  // const [data, setData] = useState([]);
+  // const url =
+  //   "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((list) => {
+  //       console.log(list.Data);
+  //       setData(list.Data);
+  //     });
+  // }, []);
+
+let DoctorName=sessionStorage.getItem("DocName");
+let DoctorPhone=sessionStorage.getItem("DocPhone");
+let DoctorEmail=sessionStorage.getItem("DocEmail");
+let DoctorPracticeName=sessionStorage.getItem("DocPracName");
+let DoctorRole=sessionStorage.getItem("DocRole");
+let DoctorUser=sessionStorage.getItem("DocUserId");
+let DoctorAddress=sessionStorage.getItem("DocAddress");
+let DoctorLicense=sessionStorage.getItem("DocLicense");
 
 
   return (
@@ -75,7 +97,7 @@ function Dashboard() {
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                   {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -86,7 +108,11 @@ function Dashboard() {
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
+                      <span className="px-3" onClick={()=>{
+                        navigate("/");
+                        // sessionStorage.clear();
+                      }
+                    }>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -102,7 +128,7 @@ function Dashboard() {
               <Nav className="justify-content-center">
                 <LinkContainer to={"/doctor-dashboard"}>
                   <Nav.Link className="doc-tab active">
-                    Doctor
+                  Dashboard
                   </Nav.Link>
                 </LinkContainer>
                 <Nav.Link href="#deets" className="prof-tab">
@@ -197,7 +223,7 @@ function Dashboard() {
                     className="p-3"
                   >
                     <img
-                      src={patientimg}
+                      src="https://media.istockphoto.com/vectors/no-image-available-sign-vector-id922962354?b=1&k=20&m=922962354&s=170667a&w=0&h=gpsD4Kn3xGxc_CMswNa_twx-Nxf9og_ipyV_2rjCWj4="
                       className="w-50 p-3"
                       style={{
                         marginLeft: "auto",
@@ -207,7 +233,7 @@ function Dashboard() {
                     ></img>
                     <p className="text-center">
                       <span style={{ fontWeight: "bold", color: "#077396" }}>
-                        Dr.Niddhi Mehta
+                      {DoctorName}
                       </span>
                       <br />
                       <span style={{ fontWeight: "bold" }}>Orthodontist</span>
@@ -222,14 +248,13 @@ function Dashboard() {
                     style={{ boxShadow: "0px 0px 5px 5px #dee2e6",backgroundColor:"#ebdbc6"}}
                     className="p-5"
                   >
-                    <p style={{ fontWeight: "bold" }}>Practice Name: 2004</p>
-                    <p style={{ fontWeight: "bold" }}>License # : kdsljkjd;n090-</p>
+                    <p style={{ fontWeight: "bold" }}>Practice Name: {DoctorPracticeName}</p>
+                    <p style={{ fontWeight: "bold" }}>License # : {DoctorLicense}</p>
                     <p style={{ fontWeight: "bold" }}>
-                      Address : B-103 RADHA GOVIND RADHA RESIDENCY SIDDHARTH
-                      NAGAR BORIVALI EAST, MUMBAI 400066
+                     Address: {DoctorAddress}
                     </p>
-                    <p style={{ fontWeight: "bold" }}>Phone no : +91 9619971989</p>
-                    <p style={{ fontWeight: "bold" }}>Email Id : nidhi.mehta@infintrixglobal.com</p>
+                    <p style={{ fontWeight: "bold" }}>Phone no : +91 {DoctorPhone}</p>
+                    <p style={{ fontWeight: "bold" }}>Email Id : {DoctorEmail}</p>
                   </Col>
                 </Row>
               </Col>

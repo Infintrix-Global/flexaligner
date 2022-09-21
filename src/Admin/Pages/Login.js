@@ -7,6 +7,7 @@ import {
   Stack,
   Card,
   Form,
+  Modal
 } from "react-bootstrap";
 import "../Styles/Login.css";
 import logo from "../../Assets/Logoremovebg.png";
@@ -19,6 +20,11 @@ const [data, setData] = useState({
 Username:"",
 Password:""
 })
+
+const [show, setShow] = useState(false);
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
 
 const handle=(e)=>{
@@ -53,11 +59,38 @@ const handleSubmit = (event) => {
       },
       body: JSON.stringify(data)
     }).then((res)=>res.json()).then((result)=>{
+      console.log(result);
+      if(result.message==="Login Success"){
+      sessionStorage.setItem("DocName",result.Data[0]?.Name)
+      sessionStorage.setItem("DocPhone",result.Data[0]?.PhoneNo)
+      sessionStorage.setItem("DocEmail",result.Data[0]?.PracticeEmail)
+      sessionStorage.setItem("DocPracName",result.Data[0]?.PracticeName)
+      sessionStorage.setItem("DocRole",result.Data[0]?.RoleId)
+      sessionStorage.setItem("DocUserId",result.Data[0]?.UserId)
+      sessionStorage.setItem("DocAddress",result.Data[0]?.Address)
+      sessionStorage.setItem("DocLicense",result.Data[0]?.License)
+      }
+      if(result.UserId===0 && result.message==="Login Not Created"){
+        alert("Password Expired!")
+
+        if(result.message==="Login Not Created"){
+          handleShow()
+        }
+        
+      }
+      if(result.UserId===-1){
+        alert("Incorrect Username or Password!");
+      }
+      if(result.UserId===-2){
+        alert(`${result.message} \nplease register!`)
+        window.location.pathname = "/add-doctor";
+      }
       console.log(result.Data[0].RoleId);
       sessionStorage.setItem("Role",result.Data[0].RoleId);
       if(result.Data[0].RoleId==="1"){
         navigate("/view-doctors")
-      }else if(result.Data[0].RoleId==="2"){
+      }
+       if(result.Data[0].RoleId==="2"){
         navigate("/doctor-dashboard")
       }
     })
@@ -67,6 +100,65 @@ const handleSubmit = (event) => {
     
 
   };
+
+  
+
+  const [docLog, setDocLog] = useState({
+    UserName:"",
+    Password:""
+  })
+
+  const handleRes=(e)=>{
+    const newcred={...docLog}
+    newcred[e.target.name]=e.target.value;
+    setDocLog(newcred);
+    console.log(newcred);
+  }
+
+  const urlDoc="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorLogin";
+
+  
+  const addDocLogin=(e)=>{
+    e.preventDefault();
+    let ConfirmPassword=document.getElementById("confP").value;
+    let Passwd=document.getElementById("pass").value;
+
+    if(Passwd!=ConfirmPassword){
+      alert("Password and Confirm Password doesn't match!")
+    }    
+
+    
+
+      fetch(urlDoc,{
+        method:"POST",
+      headers:{
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(docLog)
+      }).then((res)=>res.json()).then((resdoc)=>{
+        console.log(resdoc);
+
+        if(resdoc.DoctorId==="-1"){
+          alert("Please provide a valid Email Id!")
+        }
+
+        if(resdoc.message==="Added Successful"){
+          handleClose();
+          navigate("/");
+
+        }
+
+      })
+
+
+
+    
+    
+    
+
+
+  }
 
 
   // var details = {
@@ -93,7 +185,6 @@ const handleSubmit = (event) => {
 
   
   // };
-
  
 
 
@@ -136,7 +227,7 @@ const handleSubmit = (event) => {
                         name="Username"
                         // id="Email"
                         onChange={(e)=>handle(e)}
-                        value={data.Email}
+                        value={data.Username}
                         className="p-2"
                       />
                       <Form.Control.Feedback type="invalid">Enter Username!</Form.Control.Feedback>
@@ -166,12 +257,48 @@ const handleSubmit = (event) => {
                       <Col>
                         <Button type="submit" variant="" className="sup-btn">Sign in</Button>
                       </Col>
-                      <Col className="text-end">
+                      {/* <Col className="text-end">
                       <Button variant="link" className="ms-auto acc-btn action-i">
             Forgot Password?
           </Button>
-                      </Col>
+                      </Col> */}
                     </Row>
+                    <Modal show={show} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+          <Modal.Title>Set your Password!</Modal.Title>
+        </Modal.Header>
+                              <Modal.Body>
+                                
+                              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" name="UserName" onChange={(e)=>handleRes(e)} value={docLog.UserName} required/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" name="Password" id="pass" onChange={(e)=>handleRes(e)} value={docLog.Password}  required/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Confirm Password</Form.Label>
+        <Form.Control type="password" id="confP" placeholder="" required/>
+      </Form.Group>
+
+
+
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                type="submit"
+                                  variant=""
+                                  style={{
+                                    backgroundColor: "#C49358",
+                                    color: "white",
+                                  }}
+                                  onClick={addDocLogin}
+                                >
+                                  Submit
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
                   </Col>
                 </Row>
               </Form>

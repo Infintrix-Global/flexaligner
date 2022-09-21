@@ -46,7 +46,7 @@ function PatientList() {
 
   const columns = [
     {
-      name: "PatientId",
+      name: "Patient Code",
       selector: (row) => row.PatientId,
       sortable: true,
     },
@@ -56,13 +56,17 @@ function PatientList() {
       sortable: true,
     },
     {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+    {
       name: "DateOfBirth",
       selector: (row) => row.DateofBirth,
       sortable: true,
     },
     {
-      name: "DoctorID",
-      selector: (row) => row.DoctorID,
+      name: "Doctor Name",
+      selector: (row) => row.DoctorName,
       sortable: true,
     },
     {
@@ -75,10 +79,7 @@ function PatientList() {
       selector: (row) => row.Mi,
       sortable: true,
     },
-    {
-      name: "Name",
-      selector: (row) => row.Name,
-    },
+    
     {
       name: "Action",
       cell: row => <button className="edit-patient-btn"  onClick={() =>{ RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
@@ -106,6 +107,9 @@ function PatientList() {
       Menu.classList.add("collapsed");
     }
   };
+
+let DoctorName=sessionStorage.getItem("DocName");
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -137,7 +141,7 @@ function PatientList() {
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                    {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -149,8 +153,9 @@ function PatientList() {
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{navigate("/")
-                    sessionStorage.clear();
+                    // sessionStorage.clear();
                     }}>Logout</span>
+
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -166,7 +171,7 @@ function PatientList() {
             <Card body className="border-0">
               <Nav className="justify-content-center">
                 <Nav.Link href="#deets" className="doc-tab active">
-                  Doctor
+                  Dashboard
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
                   Profile

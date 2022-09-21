@@ -2019,6 +2019,9 @@ const RadioUpload2=async ()=>{
 
   const [currentTab, setCurrentTab] = useState(0);
 
+let DoctorName=sessionStorage.getItem("DocName");
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -2058,7 +2061,7 @@ const RadioUpload2=async ()=>{
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                    {DoctorName}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">
@@ -2069,7 +2072,7 @@ const RadioUpload2=async ()=>{
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => {navigate("/")
-                    sessionStorage.clear();
+                    // sessionStorage.clear();
                     }}>
                         Logout
                       </span>
@@ -2100,7 +2103,7 @@ const RadioUpload2=async ()=>{
                   className="doc-tab active"
                   onClick={() => navigate("/doctor-dashboard")}
                 >
-                  Doctor
+                  Dashboard
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
                   Profile

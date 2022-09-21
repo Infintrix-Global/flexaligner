@@ -15,6 +15,7 @@ import user from "../../Assets/user.png";
 // import user from "../../Assets/user.png";
 import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import "../Styles/PatientDetails.css"
 
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
@@ -48,6 +49,25 @@ useEffect(() => {
 }, []);
 
 
+const [pVids, setpVids] = useState([])
+
+const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideo/"+ID
+
+
+useEffect(() => {
+  console.log(urlParams);
+  fetch(url2)
+    .then((res) => res.json())
+    .then((vid) => {
+      console.log(vid.Data);
+      setpVids(vid.Data);
+      // console.log(patient);
+    });
+}, []);
+
+
+
+
 const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
@@ -76,56 +96,8 @@ const tglContent = () => {
     });
   });
 
-const [Reports, setReports] = useState(null)
-  const onChangeReports=(e)=>{
 
-    var fileInput = document.getElementById("files");
-
-    var filePath = fileInput.value;
-
-    // Allowing file type
-    var allowedExtensions = /(\.pdf|\.jpg|\.jpeg|\.png|\.html)$/i;
-
-    if (!allowedExtensions.exec(filePath)) {
-      alert("Invalid file type \nUpload .pdf or image files Only!");
-      fileInput.value = "";
-      return false;
-    }
-
-    setReports(e.target.files[0])
-    console.log(e.target.files[0]);
-    }
-    
-
-    
-    const uploadHandlerReports=()=>{
-    
-      const fd=new FormData();
-      fd.append("Name",Reports.name);
-      fd.append("fileContent",Reports);
-      // fd.append("PatientId",patient.PatientId);
-     axios.post("https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",fd,{
-      
-         onUploadProgress:ProgressEvent=>{
-             console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
-         }
-     })
-     .then(res=>{
-         console.log(res.data);
-
-         if(res.data.status==="1"){
-          Swal.fire({
-            title: "Uploaded Successfully!",
-            // text: 'Do you want to continue',
-            icon: "success",
-            // confirmButtonText: 'Cool'
-          });
-    
-         }
-     });
-    
-    }
-
+let DoctorName=sessionStorage.getItem("DocName");
     return(
         <>
 <Navbar collapseOnSelect expand="lg" className="navb">
@@ -165,7 +137,7 @@ const [Reports, setReports] = useState(null)
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                    {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -177,7 +149,7 @@ const [Reports, setReports] = useState(null)
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{navigate("/")
-                    sessionStorage.clear();
+                    // sessionStorage.clear();
                     }}>
                         Logout
                       </span>
@@ -195,7 +167,7 @@ const [Reports, setReports] = useState(null)
             <Card body className="border-0">
               <Nav className="justify-content-center">
                 <Nav.Link href="#deets" className="doc-tab active">
-                  Doctor
+                Dashboard
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">
                   Profile
@@ -439,8 +411,8 @@ const [Reports, setReports] = useState(null)
                   <p className="fs-4">
                       <b>Videos</b>
                     </p>
-                    <Stack direction="horizontal" gap={5}>
-                      <img
+                    <Stack direction="horizontal" gap={5} className="vid-row">
+                      {/* <img
                         src={user}
                         className="rounded"
                         style={{
@@ -448,7 +420,20 @@ const [Reports, setReports] = useState(null)
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img>
+                      ></img> */}
+                      {
+                        pVids?.map((item,index)=>{
+                          return(
+                            <>
+                            <video width="320" height="240" controls>
+  <source src={item?.PathVideo} type="video/mp4"/>
+  {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
+  
+</video>
+                            </>
+                          )
+                        })
+                      }
                       
                     </Stack>
                   </Col>
@@ -472,15 +457,7 @@ const [Reports, setReports] = useState(null)
                     </Stack>
                   </Col>
                 </Row>
-                <Row className="mt-5">
-                  <Col>
-                  <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label className="pd-ipr">Upload Reports</Form.Label>
-        <Form.Control type="file" id="files" onChange={onChangeReports} name="Name"/>
-      </Form.Group>
-      <Button variant="" className="btn btn-outline-dark" onClick={uploadHandlerReports}>Upload</Button>
-                  </Col>
-                </Row>
+               
                 </Row>
                
                 </Col></Row></Container>
