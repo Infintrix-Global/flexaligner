@@ -20,6 +20,8 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 
 function PatientList() {
   
@@ -27,10 +29,15 @@ function PatientList() {
   const [patient, setPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
+  const urlParams = useParams()
+  console.log(urlParams);
+const ID=urlParams.DoctorUserId;  
+
   const getPatient = async () => {
+    console.log(urlParams);
     try {
       const response = await axios.get(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/"+ID 
       );
       setPatient(response.data.Data);
       setFilteredNames(response.data.Data);
@@ -41,6 +48,7 @@ function PatientList() {
   };
 
   const RoleId = sessionStorage.getItem("Role");
+  let DoctorUserID=sessionStorage.getItem("DocUserId")
 
 // sessionStorage.setItem("PatientId",patient.PatientId)
 
@@ -170,7 +178,7 @@ let DoctorName=sessionStorage.getItem("DocName");
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active">
+                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                   Dashboard
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">

@@ -97,7 +97,10 @@ const tglContent = () => {
   });
 
 
-let DoctorName=sessionStorage.getItem("DocName");
+
+  let DoctorName=sessionStorage.getItem("DocName");
+  let DoctorUserID=sessionStorage.getItem("DocUserId")
+
     return(
         <>
 <Navbar collapseOnSelect expand="lg" className="navb">
@@ -166,7 +169,7 @@ let DoctorName=sessionStorage.getItem("DocName");
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active">
+                <Nav.Link href="#deets" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                 Dashboard
                 </Nav.Link>
                 <Nav.Link href="#deets" className="prof-tab">

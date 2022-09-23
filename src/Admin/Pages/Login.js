@@ -87,11 +87,13 @@ const handleSubmit = (event) => {
       }
       console.log(result.Data[0].RoleId);
       sessionStorage.setItem("Role",result.Data[0].RoleId);
+let DoctorUser=sessionStorage.getItem("DocUserId");
+console.log(DoctorUser);
       if(result.Data[0].RoleId==="1"){
-        navigate("/view-doctors")
+        navigate("/admin-dashboard")
       }
        if(result.Data[0].RoleId==="2"){
-        navigate("/doctor-dashboard")
+        navigate(`/doctor-dashboard/${DoctorUser}`)
       }
     })
 

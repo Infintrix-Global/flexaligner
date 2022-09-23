@@ -13,6 +13,8 @@ import PatientDetails from "./Admin/Pages/PatientDetails";
 // import PatientDetailsAd from "./Admin/Pages/patientDetailsDoc";
 import PatientDetailsDoc from "./Admin/Pages/patientDetailsDoc";
 import Ipr from "./Admin/Pages/Ipr";
+import AdminDashboard from "./Admin/Pages/AdminDashboard";
+import DoctorProfile from "./Admin/Pages/DoctorProfile";
 function App() {
   return (
     <div>
@@ -25,11 +27,13 @@ function App() {
           {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
           <Route path="/upload" element={<Upload />} />
           {/* <Route path="/file" element={<File/>}/> */}
-          <Route path="/doctor-dashboard" element={<Dashboard/>}/>
-          <Route path="/patient-list" element={<PatientList />} />
+          <Route path="/doctor-dashboard/:DoctorUserId" element={<Dashboard/>}/>
+          <Route path="/patient-list/:DoctorUserId" element={<PatientList />} />
           <Route path="/patient-details/:PatientId" element={<PatientDetails/>}/>
           <Route path="/patient-details-doc/:PatientId" element={<PatientDetailsDoc/>}/>
           <Route path="/ipr" element={<Ipr/>}/>
+          <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
+          <Route path="/doctor-profile/:DoctorId" element={<DoctorProfile/>}/>
 
         </Routes>
       </Router>

@@ -17,17 +17,20 @@ import { IoMdNotifications } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 
 import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars, FaEdit, FaPlus } from "react-icons/fa";
+import { FaBars, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import logo from "../../Assets/Logoremovebg.png";
 import user from "../../Assets/user.png";
 import ReactHTMLTableToExcel from "react-html-to-excel";
 import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams} from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
 
 function DoctorsList() {
   const [searchInput, setSearchInput] = useState("");
+
+
+
 
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
@@ -55,10 +58,15 @@ function DoctorsList() {
       }
 
       $(this).html($(this).html() == "Edit" ? "Save" : "Edit");
+      
     });
   });
 
   const navigate = useNavigate();
+//   const urlParams = useParams()
+//   console.log(urlParams);
+// const ID=urlParams.DoctorId;  
+
 
   const [data, setData] = useState([]);
   const url =
@@ -70,6 +78,11 @@ function DoctorsList() {
       .then((list) => {
         console.log(list.Data);
         setData(list.Data);
+        // setInactive({Doctorid:list.DoctorID})
+        // let status=document.getElementById("stat").innerText
+        // console.log(status);
+        
+       
       });
   }, []);
   const [filteredResults, setFilteredResults] = useState([]);
@@ -89,6 +102,43 @@ function DoctorsList() {
     }
   };
 
+  
+
+  // const [Inactive, setInactive] = useState({
+  //   Doctorid:""
+  // })
+
+  // const [Inactive, setInactive] = useState({
+  //   Doctorid:""
+  // })
+
+  // const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+    
+  //    console.log(Inactive);
+  //     fetch(url2,{
+  //       method:"POST",
+  //       headers:{
+  //         Accept: "application/json",
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(Inactive)
+  //     })
+  //     .then((res)=>res.json())
+  //     .then((result)=>{
+  //       console.log(result);
+   
+  //     })
+  
+  
+    
+      
+  
+  //   };
+
+
   // $(document).on("click", ".edit", function(){
   //   $(this).parents("tr").find("td:not(:last-child)").each(function(){
   // $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
@@ -98,6 +148,8 @@ function DoctorsList() {
   // });
 
 let DoctorName=sessionStorage.getItem("DocName");
+
+
 
   return (
     <>
@@ -147,11 +199,11 @@ let DoctorName=sessionStorage.getItem("DocName");
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => navigate("/")}>
@@ -165,50 +217,47 @@ let DoctorName=sessionStorage.getItem("DocName");
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <Container fluid>
-            <Row className="menuTab">
-              <Col>
-              <Card body className="border-0"> */}
-      {/* <Row>
-                  <Col>
-                  <Button variant="link" className="doc-tab">Doctor</Button>
-                  </Col>
-                  <Col>
-                  <Button variant="link" className="prof-tab">Profile</Button>
-                   
-                  </Col>
-                </Row> */}
-      {/* <Nav className="justify-content-center">
-                 <LinkContainer to="/doctor-dashboard"><Nav.Link className="doc-tab active">Doctor</Nav.Link></LinkContainer>
-                 <Nav.Link className="prof-tab">Profile</Nav.Link>
-            
-          </Nav>
-              </Card>
-              </Col>
-            </Row>
-        </Container> */}
+      <Container fluid>
+        <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <LinkContainer to={`/admin-dashboard`}>
+
+                  <Nav.Link className="doc-tab active" onClick={()=>navigate("/admin-dashboard")}>
+                  Dashboard
+                  </Nav.Link>
+                </LinkContainer>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
+              </Nav>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
       <Container fluid>
         <Row className="justify-content-center mt-5">
           <Col md={10}>
             <Card>
-              <Row className="text-end mt-3 me-2">
-                <Col>
-                  <Button
+              {/* <Row className="text-end mt-3 me-2">
+                <Col> */}
+                  {/* <Button
                     variant=""
                     className="add-doc-btn"
                     onClick={() => navigate("/add-doctor")}
                   >
                     Add Doctor
-                  </Button>
-                  <Button
+                  </Button> */}
+                  {/* <Button
                     variant=""
                     className="add-doc-btn mx-2"
                     onClick={() => navigate("/patient-list")}
                   >
                     View Patient
-                  </Button>
-                </Col>
-              </Row>
+                  </Button> */}
+                {/* </Col>
+              </Row> */}
               <Row>
                 <Col>
                   <Card className="mt-2 m-3">
@@ -288,12 +337,15 @@ let DoctorName=sessionStorage.getItem("DocName");
                                         <td contenteditable="false">
                                           {docList.PhoneNo}
                                         </td>
-                                        <td contenteditable="false">Active</td>
+                                        <td contenteditable="false" className={`${docList.isActive==="True"?"stat-green":"stat-red"}`} id="stat">{docList.isActive==="True"?"Active":"Inactive"}</td>
                                         <th>
                                           <span>
                                             <Button
                                               variant=""
                                               className="action-i"
+                                              onClick={()=>navigate(`/doctor-profile/${docList.DoctorID}`)}
+                                              
+
                                             >
                                               <IoEyeOutline color="black" />
                                             </Button>
@@ -305,6 +357,40 @@ let DoctorName=sessionStorage.getItem("DocName");
                                               className="action-i edit editbtn"
                                             >
                                               Edit
+                                            </Button>
+                                          </span>
+                                          <span>
+                                            <Button
+                                              variant=""
+                                              className=""
+                                              onClick={(e)=>{
+                                                e.preventDefault();
+                                                const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+
+                                                const n={
+                                                  Doctorid:docList.DoctorID
+                                                 }
+  
+                                                  console.log(n);
+                                                fetch(url2,{
+                                                        method:"POST",
+                                                        headers:{
+                                                          Accept: "application/json",
+                                                          'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify(n)
+                                                      })
+                                                      .then((res)=>res.json())
+                                                      .then((result)=>{
+                                                        console.log(result);
+                                                   
+                                                      })
+
+                                                      window.location.reload();
+
+                                              }}
+                                            >
+                                              <FaTrash/>
                                             </Button>
                                           </span>
                                         </th>
@@ -333,12 +419,13 @@ let DoctorName=sessionStorage.getItem("DocName");
                                         <td contenteditable="false">
                                           {docList.PhoneNo}
                                         </td>
-                                        <td contenteditable="false">Active</td>
+                                        <td contenteditable="false" id="stat" className={`${docList.isActive==="True"?"stat-green":"stat-red"}`}>{docList.isActive==="True"?"Active":"Inactive"}</td>
                                         <th>
                                           <span>
                                             <Button
                                               variant=""
                                               className="action-i"
+                                              onClick={()=>navigate(`/doctor-profile/${docList.DoctorID}`)}
                                             >
                                               <IoEyeOutline color="black" />
                                             </Button>
@@ -350,6 +437,41 @@ let DoctorName=sessionStorage.getItem("DocName");
                                               className="action-i edit editbtn"
                                             >
                                               Edit
+                                            </Button>
+                                          </span>
+                                          <span>
+                                            <Button
+                                              variant=""
+                                              className=""
+                                              onClick={(e)=>{
+                                               
+                                                e.preventDefault();
+                                                const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+
+                                               const n={
+                                                Doctorid:docList.DoctorID
+                                               }
+
+                                                console.log(n);
+
+                                                fetch(url2,{
+                                                        method:"POST",
+                                                        headers:{
+                                                          Accept: "application/json",
+                                                          'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify(n)
+                                                      })
+                                                      .then((res)=>res.json())
+                                                      .then((result)=>{
+                                                        console.log(result);
+                                                   
+                                                      })
+                                                      window.location.reload();
+
+                                              }}
+                                            >
+                                              <FaTrash/>
                                             </Button>
                                           </span>
                                         </th>

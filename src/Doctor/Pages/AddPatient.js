@@ -32,7 +32,7 @@ function AddPatient() {
 
 
   const [values, setValues] = useState({
-    DoctorId: 0,
+    DoctorId: "",
     FirstName: "",
     LastName: "",
     Mi: "",
@@ -750,6 +750,8 @@ const RadioUpload2=async ()=>{
 
 
 
+let DoctorName=sessionStorage.getItem("DocName");
+let DoctorUserID=sessionStorage.getItem("DocUserId")
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -800,25 +802,27 @@ const RadioUpload2=async ()=>{
     const url =
       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
 
-    // var obj={};
-    // obj.vals=values;
-    // obj.dont=dmt;
-    // obj.engaging=eng;
-    // obj.extract=ext;
-    // obj.leave=leavespaces;
-
+   
+    setValues((pre)=>{
+      return{...pre,DoctorId:DoctorUserID}
+    })
+console.log(values.DoctorId);
     let n = {
       ...values,
+      // DoctorId:values.DoctorId,
       ClinicalConditions: values.ClinicalConditions.toString(),
       DoNotMoveTheseTeeth: values.DoNotMoveTheseTeeth.toString(),
       Engagers: values.Engagers.toString(),
       IWillExtractTheseTeethBeforeTreatment:
         values.IWillExtractTheseTeethBeforeTreatment.toString(),
       LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
+      
     };
 
    
     console.log("n :", n);
+
+    
 
     await fetch(url, {
       method: "POST",
@@ -845,7 +849,7 @@ const RadioUpload2=async ()=>{
             icon: "success",
             // confirmButtonText: 'Cool'
           });
-          navigate("/patient-list");
+          navigate(`/patient-list/${DoctorUserID}`);
         }
       })
       .catch((err) => console.log(err));
@@ -966,6 +970,10 @@ const RadioUpload2=async ()=>{
       })
       
     }
+    setValues((pre)=>{
+      return{...pre,DoctorId:DoctorUserID}
+    })
+    console.log(values);
 
     // fd.append("Name",pvs.pvsScan.name);
     // fd.append("fileContent",pvs.pvsScan)
@@ -1046,6 +1054,9 @@ const RadioUpload2=async ()=>{
     //   .then(response => response.text())
     //   .then(result => console.log(result))
     //   .catch(error => console.log('error', error));
+    // setValues((pre)=>{
+    //   return{...pre,DoctorId:DoctorUserID}
+    // })
 
     setCurrentTab((prev) => prev + 1);
   };
@@ -2019,7 +2030,6 @@ const RadioUpload2=async ()=>{
 
   const [currentTab, setCurrentTab] = useState(0);
 
-let DoctorName=sessionStorage.getItem("DocName");
 
 
   return (
@@ -2101,7 +2111,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                 <Nav.Link
                   href="#deets"
                   className="doc-tab active"
-                  onClick={() => navigate("/doctor-dashboard")}
+                  onClick={() => navigate(`/doctor-dashboard/${DoctorUserID}`)}
                 >
                   Dashboard
                 </Nav.Link>
@@ -5226,9 +5236,13 @@ let DoctorName=sessionStorage.getItem("DocName");
                                       </Button>
                                       <Button
                                         className="nextbtn"
-                                        onClick={() =>
+                                        onClick={() =>{
+                                          setValues((pre)=>{
+                                            return{...pre,DoctorId:DoctorUserID}
+                                          })
+                                          console.log(values);
                                           setCurrentTab((prev) => prev + 1)
-                                        }
+                                        }}
                                       >
                                         Next
                                       </Button>
