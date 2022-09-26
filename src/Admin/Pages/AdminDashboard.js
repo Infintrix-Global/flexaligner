@@ -110,7 +110,7 @@ let AdminName=sessionStorage.getItem("DocName")
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{
                         navigate("/");
-                        // sessionStorage.clear();
+                        sessionStorage.removeItem("Role");
                       }
                     }>Logout</span>
                     </Dropdown.Item>
@@ -149,8 +149,9 @@ let AdminName=sessionStorage.getItem("DocName")
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer" }}
                     className="mb-1"
+                    onClick={()=>navigate(`/view-doctors`)}
                   >
                     <p className="mt-4">
                       Total Doctors <span style={{ float: "right" }}>{Admin[0]?.TotalDoctors}</span>
@@ -160,8 +161,9 @@ let AdminName=sessionStorage.getItem("DocName")
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"}}
                     className="mb-1"
+                    onClick={()=>navigate(`/patient-list/${0}`)}
                   >
                     <p className="mt-4">
                       Total Patients{" "}
@@ -206,7 +208,7 @@ let AdminName=sessionStorage.getItem("DocName")
                   Add Doctors
                 </Button>
 
-                <Button
+                {/* <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}
                   onClick={()=>navigate(`/view-doctors`)}
@@ -214,7 +216,7 @@ let AdminName=sessionStorage.getItem("DocName")
 
                 >
                   View Doctors
-                </Button>
+                </Button> */}
               </Col>
             </Row>
             {/* <Row className="mb-5"> */}
