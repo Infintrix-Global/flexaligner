@@ -15,6 +15,7 @@ import PatientDetailsDoc from "./Admin/Pages/patientDetailsDoc";
 import Ipr from "./Admin/Pages/Ipr";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import DoctorProfile from "./Admin/Pages/DoctorProfile";
+import EditPatient from "./Admin/Pages/EditPatient";
 function App() {
   return (
     <div>
@@ -34,6 +35,7 @@ function App() {
           <Route path="/ipr" element={<Ipr/>}/>
           <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
           <Route path="/doctor-profile/:DoctorId" element={<DoctorProfile/>}/>
+          <Route path="/edit-patient/:PatientId" element={<EditPatient/>}/>
 
         </Routes>
       </Router>
