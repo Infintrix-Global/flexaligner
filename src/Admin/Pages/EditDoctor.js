@@ -1,36 +1,57 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  Nav,
-  Navbar,
-  Row,
-  Dropdown,
-  Card,
-  Form,
-} from "react-bootstrap";
+import React,{useState,useEffect,useRef} from "react";
+import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
-import "../../Admin/Styles/AddDoctor.css";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaEdit,FaUpload,FaCalendarAlt } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
-import user from "../../Assets/user.png";
-import { LinkContainer } from "react-router-bootstrap";
+import { TbUser } from "react-icons/tb";
+
+import {
+    Container,
+    Row,
+    Col,
+    Nav,
+    Button,
+    Navbar,
+    Dropdown,
+    Tab,
+    InputGroup,
+    Card,
+    Stack,
+    Form,
+    ProgressBar,
+    Tabs
+  } from "react-bootstrap";
+import { useNavigate,useParams } from "react-router-dom";
+import {LinkContainer} from 'react-router-bootstrap';
+import $ from "jquery";
+import axios from "axios";
 import Swal from "sweetalert2";
 
-function AddDoctor() {
-  // const [activePath, setActivePath] = useState();
+function EditDoctor(){
+    const tglContent = () => {
+        let Menu = document.querySelector(".menuTab");
+    
+        if (Menu.classList.contains("collapsed")) {
+          Menu.classList.remove("collapsed");
+        } else {
+          Menu.classList.add("collapsed");
+        }
+      };
+    
+      const navigate=useNavigate();
+  let AdminName=sessionStorage.getItem("DocName")
 
-  // useEffect(() => {
-  //   let path = window.location.pathname.split("/")[1];
-  //   setActivePath(path);
-  // }, []);
+
+
+
+
+
+
 
   const [data, setData] = useState({
-    DoctorId:"0",
+    DoctorId:"",
     FirstName: "",
     LastName: "",
     PracticeName: "",
@@ -46,11 +67,38 @@ function AddDoctor() {
     Fax: "",
     PracticeEmail: "",
     PhoneNo: "",
-    mode: "1",
+    mode: "2",
     CountryId: "",
     StateId: "",
     CityID: "",
   });
+
+
+  const urlParams = useParams()
+  console.log(urlParams);
+const ID=urlParams.DoctorId;  
+
+
+
+  const [ddet, setDDet] = useState([]);
+      const url2 =
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorSelect/"+ID;
+    
+      useEffect(() => {
+        fetch(url2)
+          .then((res) => res.json())
+          .then((list) => {
+            console.log(list.Data);
+            setDDet(list.Data);
+            setData(pre=>{
+              return{...pre,DoctorId:list.Data[0]?.DoctorID}
+            })
+            console.log(data.DoctorId);
+          });
+  }, []);
+
+
+
 
   const [checked, setChecked] = useState({
     isSelCCountry: false,
@@ -169,7 +217,7 @@ function AddDoctor() {
   useEffect(() => {
     getCountries();
   }, []);
-  const navigate = useNavigate();
+  
 
   // const tglContent = () => {
   //   let Menu = document.querySelector(".menuTab");
@@ -213,13 +261,12 @@ let Role=sessionStorage.getItem("Role");
       .then((result) => {
         console.log(result);
         console.log(result.message);
-        console.log(data);
-        // if(result.DoctorId==="-1"){
-        //   alert("Already exists!")
-        // }
-        if (result.status === true && form.checkValidity() === true) {
+        if(result.DoctorId==="-1"){
+          alert("Already exists!")
+        }
+        if (result.status === "1" && form.checkValidity() === true) {
           Swal.fire({
-            title: "Updated Successfully!",
+            title: "Registered Successfully!",
             // text: 'Do you want to continue',
             icon: "success"
             // confirmButtonText: 'Cool'
@@ -231,7 +278,7 @@ let Role=sessionStorage.getItem("Role");
           navigate("/view-doctors");
 
         }else{
-          navigate("/")
+          alert("Something went wrong!")
         }
         
       });
@@ -241,9 +288,14 @@ let Role=sessionStorage.getItem("Role");
 
 
 
-  return (
-    <>
-      {/* <Navbar collapseOnSelect expand="lg" className="navb">
+
+  
+
+
+
+    return(
+        <>
+         <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="" width={120} />
@@ -257,22 +309,30 @@ let Role=sessionStorage.getItem("Role");
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
+                <IoMdNotifications
+                  fontSize={30}
+                  color="#C49358"
+                  className="notification"
+                />
               </Nav.Link>
               <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
+                <FiMessageSquare
+                  fontSize={30}
+                  color="#C49358"
+                  className="me-2 notification"
+                />
               </Nav.Link>
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
               <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-                <Dropdown>
+                <Dropdown className="out-dd">
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
                     className="user"
                   >
-                    admin@gmail.com
+                   {AdminName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -283,7 +343,11 @@ let Role=sessionStorage.getItem("Role");
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
+                      <span className="px-3" onClick={()=>{
+                        navigate("/");
+                        // sessionStorage.clear();
+                      }
+                    }>Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -291,34 +355,26 @@ let Role=sessionStorage.getItem("Role");
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar> */}
-      {/* <Container fluid>
-        
+      </Navbar>
+      <Container fluid>
         <Row className="menuTab">
           <Col>
-            <Card body className="border-0"> */}
-              {/* <Row>
-                  <Col>
-                  <Button variant="link" className="doc-tab">Doctor</Button>
-                  </Col>
-                  <Col>
-                  <Button variant="link" className="prof-tab">Profile</Button>
-                  
-                  </Col>
-                </Row> */}
-              {/* <Nav className="justify-content-center">
-                <LinkContainer to="/add-doctor">
-                  <Nav.Link className="doc-tab active">Doctor</Nav.Link>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <LinkContainer to={`/admin-dashboard`}>
+
+                  <Nav.Link className="doc-tab active" onClick={()=>navigate("/admin-dashboard")}>
+                  Dashboard
+                  </Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/doctor-profile">
-                  <Nav.Link className="prof-tab">Profile</Nav.Link>
-                </LinkContainer>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
               </Nav>
             </Card>
           </Col>
         </Row>
-      </Container> */}
-
+      </Container>
       <Container fluid>
         <Row style={{height:"30px"}}></Row>
         <Row className="justify-content-center mt-3">
@@ -341,8 +397,9 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="FirstName"
+                              defaultValue={ddet[0]?.Name.split(' ')[0]}
                               // pattern="[A-Za-z]"
-                              value={data.FirstName}
+                            //   value={data.FirstName}
                               placeholder="Enter First Name"
                               className="p-3"
                             />
@@ -358,7 +415,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="LastName"
-                              value={data.LastName}
+                            //   value={data.LastName}
+                            defaultValue={ddet[0]?.Name.split(' ')[1]}
                               type="text"
                               placeholder="Enter Last Name"
                               className="p-3"
@@ -378,7 +436,8 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="PracticeName"
-                              value={data.PracticeName}
+                            //   value={data.PracticeName}
+                            defaultValue={ddet[0]?.PracticeName}
                               placeholder="Enter Practice Name"
                               className="p-3"
                             />
@@ -393,7 +452,8 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="PracticeName1"
-                              value={data.PracticeName1}
+                            //   value={data.PracticeName1}
+                            defaultValue={ddet[0]?.PracticeName1}
                               placeholder="Enter Practice Name1"
                               className="p-3"
                             />
@@ -409,7 +469,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="TaxID"
-                              value={data.TaxID}
+                            //   value={data.TaxID}
+                            defaultValue={ddet[0]?.TaxID}
                               type="text"
                               placeholder="Enter Tax ID"
                               className="p-3"
@@ -433,7 +494,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Street1"
-                              value={data.Street1}
+                            //   value={data.Street1}
+                            defaultValue={ddet[0]?.Address.split(',')[0]}
                               type="text"
                               placeholder="Enter Street"
                               className="p-3"
@@ -448,7 +510,9 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Street2"
-                              value={data.Street2}
+                            //   value={data.Street2}
+                            defaultValue={ddet[0]?.Address.split(',')[1]}
+
                               type="text"
                               placeholder="Enter Practice Name1"
                               className="p-3"
@@ -468,7 +532,9 @@ let Role=sessionStorage.getItem("Role");
                                 name="CountryId"
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
-                                value={data.country}
+                                // value={data.country}
+                            defaultValue={ddet[0]?.Address.split(',')[2]}
+
                               >
                                 <option value="" disabled>
                                   Select Current Country
@@ -504,7 +570,9 @@ let Role=sessionStorage.getItem("Role");
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
                                 disabled={!checked.isSelCCountry}
-                                value={data.state}
+                                // value={data.state}
+                            defaultValue={ddet[0]?.Address.split(',')[3]}
+
                               >
                                 <option value="" disabled>
                                   Select Current State
@@ -542,13 +610,15 @@ let Role=sessionStorage.getItem("Role");
                                 name="CityID"
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
-                                value={data.city}
+                                // value={data.city}
+                            defaultValue={ddet[0]?.Address.split(',')[4]}
+
                                 disabled={
                                   !checked.isSelCCountry || !checked.isSelCState
                                 }
                               >
                                 <option value="" disabled>
-                                  Select Current City
+                                {ddet[0]?.Address.split(',')[4]}
                                 </option>
                                 {cities.currentCities &&
                                   cities.currentCities.map((city) => {
@@ -563,7 +633,7 @@ let Role=sessionStorage.getItem("Role");
                                   })}
                               </Form.Select>
                               <Form.Control.Feedback type="invalid">
-                                Enter Postal Code!
+                                Enter City!
                               </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
@@ -576,7 +646,9 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PostalCode"
-                              value={data.PostalCode}
+                            //   value={data.PostalCode}
+                            defaultValue={ddet[0]?.Address.split(',')[5]}
+
                               type="text"
                               placeholder="Enter Postal Code"
                               className="p-3"
@@ -597,7 +669,9 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="PracticeWebsite"
-                              value={data.PracticeWebsite}
+                            //   value={data.PracticeWebsite}
+                            defaultValue={ddet[0]?.PracticeWebsite}
+
                               type="text"
                               placeholder="Enter Practice Website"
                               className="p-3"
@@ -613,7 +687,9 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Fax"
-                              value={data.Fax}
+                            //   value={data.Fax}
+                            defaultValue={ddet[0]?.Fax}
+                            
                               type="text"
                               placeholder="Enter Fax"
                               className="p-3"
@@ -634,7 +710,9 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PracticeEmail"
-                              value={data.PracticeEmail}
+                            //   value={data.PracticeEmail}
+                            defaultValue={ddet[0]?.PracticeEmail}
+
                               type="email"
                               placeholder="Enter Practice Email"
                               className="p-3"
@@ -652,7 +730,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PhoneNo"
-                              value={data.PhoneNo}
+                            //   value={data.PhoneNo}
+                            defaultValue={ddet[0]?.PhoneNo}
                               type="number"
                               placeholder="Enter Phone No."
                               className="p-3"
@@ -706,7 +785,7 @@ let Role=sessionStorage.getItem("Role");
                             type="submit"
                             className="doc-signup"
                           >
-                            Sign up
+                            Update
                           </Button>
                         </Col>
                       </Row>
@@ -719,8 +798,9 @@ let Role=sessionStorage.getItem("Role");
         </Row>
         <Row style={{height:"30px"}}></Row>
       </Container>
-    </>
-  );
+        </>
+    );
 }
 
-export default AddDoctor;
+
+export default EditDoctor;

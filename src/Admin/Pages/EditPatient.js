@@ -5359,7 +5359,7 @@ useEffect(() => {
                                               </Button>
                                               <p> {image.name} </p>
                                             </div>
-                                          ):<img src={patient[0]?.PortraitPath} className="" width={1000} height={500}></img>  }
+                                          ):<Row className="text-center"><Col><img src={patient[0]?.PortraitPath} className="" width={400} height={400}></img></Col></Row>  }
                                           <input
                                             type="file"
                                             accept="image/*"
@@ -5765,9 +5765,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Front: Rest
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.FrontalRepose}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload1}><FaUpload/></Button></span>
@@ -5808,9 +5810,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Front: Smile
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.FrontalSmiling}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload2}><FaUpload/></Button></span>
@@ -5883,9 +5887,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Profile
-                                                  </p>
+                                                   <img
+                                                      src={patient[0]?.ProfileRepose}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload3}><FaUpload/></Button></span>
@@ -5918,13 +5924,17 @@ useEffect(() => {
                                                   fileInput7.current.click()
                                                 }
                                               >
-                                                {previewUrl7 && (
+                                                {previewUrl7?previewUrl7 && (
                                                   <img
                                                     src={previewUrl7}
                                                     alt="image"
                                                     className="img-s"
                                                   />
-                                                )}
+                                                ):<img
+                                                src={patient[0]?.FrontOpImage}
+                                                alt="image"
+                                                className="img-s"
+                                              />}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload4}><FaUpload/></Button></span>
 
@@ -6148,9 +6158,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Right Buccal
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.BuccalRight}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload1}><FaUpload/></Button></span>
@@ -6206,9 +6218,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Left Buccal
-                                                  </p>
+                                                  <img
+                                                  src={patient[0]?.BuccalLeft}
+                                                  alt="image"
+                                                  className="img-s"
+                                                />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload2}><FaUpload/></Button></span>
@@ -6275,9 +6289,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Front Buccal
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.BuccalFront}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload3}><FaUpload/></Button></span>
@@ -6303,9 +6319,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Upper Occulosal
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.OcclussalUpper}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
 
                                                 {/* {previewUrl23?previewUrl23 && (
@@ -6355,9 +6373,11 @@ useEffect(() => {
                                                     />
                                                   )
                                                 ) : (
-                                                  <p className="text-center mt-5">
-                                                    Lower Occulosal
-                                                  </p>
+                                                  <img
+                                                      src={patient[0]?.OcclussalLower}
+                                                      alt="image"
+                                                      className="img-s"
+                                                    />
                                                 )}
 
                                                 {/* {previewUrl24?previewUrl24 && (
@@ -6547,9 +6567,11 @@ useEffect(() => {
                                                 {previewUrlTab71 ? (
                                                   ""
                                                 ) : (
-                                                  <p className="text-center mt-5 pt-5">
-                                                    OBJ
-                                                  </p>
+                                                  <img
+                                                    src={patient[0]?.XrayLeft}
+                                                    alt="image"
+                                                    className="img-s m-3"
+                                                  />
                                                 )}
                                                 {previewUrlTab71 && (
                                                   <img
@@ -6576,10 +6598,11 @@ useEffect(() => {
                                                 {previewUrlTab72 ? (
                                                   ""
                                                 ) : (
-                                                  <p className="text-center mt-5 pt-5">
-                                                    Drag Image or click to
-                                                    browse
-                                                  </p>
+                                                  <img
+                                                    src={patient[0]?.XrayRight}
+                                                    alt="image"
+                                                    className="img-s2 m-3"
+                                                  />
                                                 )}
                                                 {previewUrlTab72 && (
                                                   <img

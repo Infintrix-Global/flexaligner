@@ -4,7 +4,7 @@ import user from "../../Assets/user.png";
   import logo from "../../Assets/Logoremovebg.png";
   import { IoMdNotifications } from "react-icons/io";
   import { FiMessageSquare, FiPower } from "react-icons/fi";
-  import { FaBars } from "react-icons/fa";
+  import { FaBars, FaEdit } from "react-icons/fa";
   import { CgProfile } from "react-icons/cg";
   import ProgressBar from "react-bootstrap/ProgressBar";
   import advertisement from "../../Assets/advertisement.png";
@@ -132,6 +132,9 @@ function DoctorProfile(){
                   <Row className="pt-2 mx-3">
                     <Col>
                     <p style={{fontSize:"1.4em",fontWeight:"bold"}}>{data[0]?.Name}'s Profile</p>
+                    </Col>
+                    <Col className="text-end">
+                    <Button variant="" className=""><FaEdit fontSize={20} onClick={()=>navigate(`/edit-doctor/${data[0]?.DoctorID}`)}/></Button>
                     </Col>
                   </Row>
                   <hr />

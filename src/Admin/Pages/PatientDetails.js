@@ -577,12 +577,15 @@ function PatientList() {
                         </td>
                       </tr>
                     </table> */}
-                    <Row className="mb-0 text-end">
+                    {/* <Row className="mb-0 text-end">
                       <Col>
                       
                     <Button variant="" onClick={()=>navigate(`/edit-patient/${patient[0].PatientId}`)}><FaEdit fontSize={20}/></Button>
                       </Col>
-                    </Row>
+                    </Row> */}
+
+
+                    
                     <Row className="mt-3">
                       <Col>
                       <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Name : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.Name}</span></p>
@@ -677,7 +680,7 @@ function PatientList() {
                     </Col>
                     <Col>
                     
-                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Product Type : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.ProductType}</span></p>
+                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Product Type : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.ProductType==="1"?"Classic":"Premium"}</span></p>
                     </Col>
                   </Row>
                   <Row>
