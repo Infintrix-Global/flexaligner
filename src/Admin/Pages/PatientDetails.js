@@ -83,12 +83,15 @@ function PatientList() {
     // console.log(chosenFiles);
 
     setState(e.target.files);
+
     console.log(state);
+    
   };
 
   const [Progress, setProgress] = useState(null);
 
   const addUpload = async (newarr) => {
+    
     await axios
       .post(
         "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo",
@@ -120,6 +123,7 @@ function PatientList() {
           });
         }
       });
+      
   };
 
   const uploadHandler = async (e) => {
@@ -257,6 +261,7 @@ function PatientList() {
       .then((details) => {
         console.log(details.Data);
         setPatient(details.Data);
+        
         // console.log(patient);
       });
   }, []);
@@ -347,9 +352,56 @@ function PatientList() {
       });
   };
 
+
+  const [sets, setSets] = useState({
+    PatientId:"",
+    NoOfSets:""
+  });
+
+  const onChangeSets=(e)=>{
+    setSets({PatientId:patient[0]?.PatientId,
+    NoOfSets:e.target.value
+    })
+    
+  }
+
+  const handleSets=(e)=>{
+    e.preventDefault();
+    const SetsUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSets";
+    
+
+    // setSets(pre=>{
+    //   return{...pre,PatientId:patient[0]?.PatientId}
+    // })
+    
+    fetch(SetsUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sets),
+    })
+      .then((res) => res.json())
+      .then((result)=>{
+        console.log(result);
+        if(result.status===true){
+          Swal.fire({
+            title: "Uploaded Successfully!",
+            // text: 'Do you want to continue',
+            icon: "success",
+            // confirmButtonText: 'Cool'
+          });
+        }
+      })
+  }
+
+
+
   let DoctorName = sessionStorage.getItem("DocName");
   return (
     <>
+    
       <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
@@ -577,12 +629,12 @@ function PatientList() {
                         </td>
                       </tr>
                     </table> */}
-                    {/* <Row className="mb-0 text-end">
+                    <Row className="mb-0 text-end">
                       <Col>
                       
                     <Button variant="" onClick={()=>navigate(`/edit-patient/${patient[0].PatientId}`)}><FaEdit fontSize={20}/></Button>
                       </Col>
-                    </Row> */}
+                    </Row>
 
 
                     
@@ -956,6 +1008,24 @@ function PatientList() {
                     onClick={uploadHandlerReports}
                   >
                     Upload
+                  </Button>
+                </Col>
+                <Col>
+                <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="pd-ipr">Total no. of sets</Form.Label>
+                    <Form.Control
+                      type="number"
+                      value={sets.NoOfSets}
+                      onChange={onChangeSets}
+                      name="NoOfSets"
+                    />
+                  </Form.Group>
+                  <Button
+                    variant=""
+                    className="btn btn-outline-dark"
+                    onClick={handleSets}
+                  >
+                    Submit
                   </Button>
                 </Col>
               </Row>

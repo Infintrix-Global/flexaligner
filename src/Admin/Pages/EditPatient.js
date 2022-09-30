@@ -93,7 +93,9 @@ function EditPatient(){
         XrayLeft:"",
         XrayRight:"",
         ExtraOralMoreImages:"",
-        IntraOralMoreImages:""
+        IntraOralMoreImages:"",
+        PatientId:"",
+        Mode:"2"
         // XrayLeft: sessionStorage.getItem("XrayLeft"),
         // UploadVideo: "",
       });
@@ -782,6 +784,9 @@ let DoctorUserID=sessionStorage.getItem("DocUserId")
     setValues((pre)=>{
       return{...pre,DoctorId:DoctorUserID}
     })
+    setValues(pre=>{
+      return{...pre,PatientId:patient[0]?.PatientId}
+    })
 console.log(values.DoctorId);
     let n = {
       ...values,
@@ -1373,6 +1378,10 @@ console.log(values.DoctorId);
   // };
 
   const submitTab1 = (event) => {
+    setValues(pre=>{
+      return{...pre,PatientId:patient[0]?.PatientId}
+    })
+    console.log(values);
     setCurrentTab((prev) => prev + 1);
   };
 
@@ -2063,6 +2072,11 @@ useEffect(() => {
       console.log(details.Data);
       setPatient(details.Data);
       // console.log(patient);
+      setValues(pre=>{
+        return{...pre,PatientId:patient[0]?.PatientId}
+      })
+      
+      console.log(values.PatientId);
     });
 }, []);
 
@@ -2576,9 +2590,13 @@ useEffect(() => {
                                       </Button>
                                       <Button
                                         className="success nextbtn"
-                                        onClick={() =>
+                                        onClick={() =>{
+                                          setValues(pre=>{
+                                            return{...pre,PatientId:patient[0]?.PatientId}
+                                          })
+                                          console.log(values); 
                                           setCurrentTab((prev) => prev + 1)
-                                        }
+                                        }}
                                       >
                                         Next
                                       </Button>
@@ -6692,7 +6710,7 @@ useEffect(() => {
                                         //   onClick={handleSubmit}
                                         // onClick={handleSubmit}
                                       >
-                                        Submit
+                                        Update
                                       </Button>
                                     </Col>
                                   </Row>

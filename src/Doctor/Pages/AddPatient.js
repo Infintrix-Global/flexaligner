@@ -92,7 +92,9 @@ function AddPatient() {
     XrayLeft:"",
     XrayRight:"",
     ExtraOralMoreImages:"",
-    IntraOralMoreImages:""
+    IntraOralMoreImages:"",
+    PatientId:"0",
+    Mode:"1"
     // XrayLeft: sessionStorage.getItem("XrayLeft"),
     // UploadVideo: "",
   });

@@ -59,9 +59,9 @@ function EditDoctor(){
     TaxID: "",
     Street1: "",
     Street2: "",
-    City: "",
-    Country: "",
-    State: "",
+    // City: "",
+    // Country: "",
+    // State: "",
     PostalCode: "",
     PracticeWebsite: "",
     Fax: "",
@@ -69,7 +69,7 @@ function EditDoctor(){
     PhoneNo: "",
     mode: "2",
     CountryId: "",
-    StateId: "",
+    StateID: "",
     CityID: "",
   });
 
@@ -91,7 +91,23 @@ const ID=urlParams.DoctorId;
             console.log(list.Data);
             setDDet(list.Data);
             setData(pre=>{
-              return{...pre,DoctorId:list.Data[0]?.DoctorID}
+              return{...pre,DoctorId:list.Data[0]?.DoctorID,
+              FirstName:list.Data[0]?.Name.split(' ')[0],
+              LastName:list.Data[0]?.Name.split(' ')[1],
+              PracticeName:list.Data[0]?.PracticeName,
+              PracticeName1:list.Data[0]?.PracticeName1,
+              TaxID:list.Data[0]?.TaxID,
+              Street1:list.Data[0]?.Address.split(',')[0],
+              Street2:list.Data[0]?.Address.split(',')[1],
+              CountryId:list.Data[0]?.Address.split(',')[2],
+              StateID:list.Data[0]?.Address.split(',')[3],
+              CityID:list.Data[0]?.Address.split(',')[4],
+              PostalCode:list.Data[0]?.Address.split(',')[5],
+              PracticeWebsite:list.Data[0]?.PracticeWebsite,
+              Fax:list.Data[0]?.Fax,
+              PracticeEmail:list.Data[0]?.PracticeEmail,
+              PhoneNo:list.Data[0]?.PhoneNo
+              }
             })
             console.log(data.DoctorId);
           });
@@ -397,9 +413,9 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="FirstName"
-                              defaultValue={ddet[0]?.Name.split(' ')[0]}
+                              // defaultValue={ddet[0]?.Name.split(' ')[0]}
                               // pattern="[A-Za-z]"
-                            //   value={data.FirstName}
+                              value={data.FirstName}
                               placeholder="Enter First Name"
                               className="p-3"
                             />
@@ -415,8 +431,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="LastName"
-                            //   value={data.LastName}
-                            defaultValue={ddet[0]?.Name.split(' ')[1]}
+                              value={data.LastName}
+                            // defaultValue={ddet[0]?.Name.split(' ')[1]}
                               type="text"
                               placeholder="Enter Last Name"
                               className="p-3"
@@ -436,8 +452,8 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="PracticeName"
-                            //   value={data.PracticeName}
-                            defaultValue={ddet[0]?.PracticeName}
+                              value={data.PracticeName}
+                            // defaultValue={ddet[0]?.PracticeName}
                               placeholder="Enter Practice Name"
                               className="p-3"
                             />
@@ -452,8 +468,8 @@ let Role=sessionStorage.getItem("Role");
                               type="text"
                               onChange={(e) => handle(e)}
                               name="PracticeName1"
-                            //   value={data.PracticeName1}
-                            defaultValue={ddet[0]?.PracticeName1}
+                              value={data.PracticeName1}
+                            // defaultValue={ddet[0]?.PracticeName1}
                               placeholder="Enter Practice Name1"
                               className="p-3"
                             />
@@ -469,8 +485,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="TaxID"
-                            //   value={data.TaxID}
-                            defaultValue={ddet[0]?.TaxID}
+                              value={data.TaxID}
+                            // defaultValue={ddet[0]?.TaxID}
                               type="text"
                               placeholder="Enter Tax ID"
                               className="p-3"
@@ -494,8 +510,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Street1"
-                            //   value={data.Street1}
-                            defaultValue={ddet[0]?.Address.split(',')[0]}
+                              value={data.Street1}
+                            // defaultValue={ddet[0]?.Address.split(',')[0]}
                               type="text"
                               placeholder="Enter Street"
                               className="p-3"
@@ -510,8 +526,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Street2"
-                            //   value={data.Street2}
-                            defaultValue={ddet[0]?.Address.split(',')[1]}
+                              value={data.Street2}
+                            // defaultValue={ddet[0]?.Address.split(',')[1]}
 
                               type="text"
                               placeholder="Enter Practice Name1"
@@ -532,8 +548,8 @@ let Role=sessionStorage.getItem("Role");
                                 name="CountryId"
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
-                                // value={data.country}
-                            defaultValue={ddet[0]?.Address.split(',')[2]}
+                                value={data.CountryId}
+                            // defaultValue={ddet[0]?.Address.split(',')[2]}
 
                               >
                                 <option value="" disabled>
@@ -570,8 +586,8 @@ let Role=sessionStorage.getItem("Role");
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
                                 disabled={!checked.isSelCCountry}
-                                // value={data.state}
-                            defaultValue={ddet[0]?.Address.split(',')[3]}
+                                value={data.StateID}
+                            // defaultValue={ddet[0]?.Address.split(',')[3]}
 
                               >
                                 <option value="" disabled>
@@ -610,15 +626,15 @@ let Role=sessionStorage.getItem("Role");
                                 name="CityID"
                                 onChange={(e) => handle(e)}
                                 // className="p-3"
-                                // value={data.city}
-                            defaultValue={ddet[0]?.Address.split(',')[4]}
+                                value={data.CityID}
+                            // defaultValue={ddet[0]?.Address.split(',')[4]}
 
                                 disabled={
                                   !checked.isSelCCountry || !checked.isSelCState
                                 }
                               >
                                 <option value="" disabled>
-                                {ddet[0]?.Address.split(',')[4]}
+                                Select Your City!
                                 </option>
                                 {cities.currentCities &&
                                   cities.currentCities.map((city) => {
@@ -646,8 +662,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PostalCode"
-                            //   value={data.PostalCode}
-                            defaultValue={ddet[0]?.Address.split(',')[5]}
+                              value={data.PostalCode}
+                            // defaultValue={ddet[0]?.Address.split(',')[5]}
 
                               type="text"
                               placeholder="Enter Postal Code"
@@ -669,8 +685,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="PracticeWebsite"
-                            //   value={data.PracticeWebsite}
-                            defaultValue={ddet[0]?.PracticeWebsite}
+                              value={data.PracticeWebsite}
+                            // defaultValue={ddet[0]?.PracticeWebsite}
 
                               type="text"
                               placeholder="Enter Practice Website"
@@ -687,8 +703,8 @@ let Role=sessionStorage.getItem("Role");
                               // required
                               onChange={(e) => handle(e)}
                               name="Fax"
-                            //   value={data.Fax}
-                            defaultValue={ddet[0]?.Fax}
+                              value={data.Fax}
+                            // defaultValue={ddet[0]?.Fax}
                             
                               type="text"
                               placeholder="Enter Fax"
@@ -710,8 +726,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PracticeEmail"
-                            //   value={data.PracticeEmail}
-                            defaultValue={ddet[0]?.PracticeEmail}
+                              value={data.PracticeEmail}
+                            // defaultValue={ddet[0]?.PracticeEmail}
 
                               type="email"
                               placeholder="Enter Practice Email"
@@ -730,8 +746,8 @@ let Role=sessionStorage.getItem("Role");
                               required
                               onChange={(e) => handle(e)}
                               name="PhoneNo"
-                            //   value={data.PhoneNo}
-                            defaultValue={ddet[0]?.PhoneNo}
+                              value={data.PhoneNo}
+                            // defaultValue={ddet[0]?.PhoneNo}
                               type="number"
                               placeholder="Enter Phone No."
                               className="p-3"
