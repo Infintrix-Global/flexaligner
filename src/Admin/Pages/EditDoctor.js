@@ -552,8 +552,8 @@ let Role=sessionStorage.getItem("Role");
                             // defaultValue={ddet[0]?.Address.split(',')[2]}
 
                               >
-                                <option value="" disabled>
-                                  Select Current Country
+                                <option value="" selected>
+                                  {data.CountryId}
                                 </option>
                                 {countries.currentCountries &&
                                   countries.currentCountries.map((country) => {
@@ -590,8 +590,8 @@ let Role=sessionStorage.getItem("Role");
                             // defaultValue={ddet[0]?.Address.split(',')[3]}
 
                               >
-                                <option value="" disabled>
-                                  Select Current State
+                                <option value="" selected>
+                                  {data.StateID}
                                 </option>
                                 {states.currentStates &&
                                   states.currentStates.map((state) => {
@@ -633,8 +633,8 @@ let Role=sessionStorage.getItem("Role");
                                   !checked.isSelCCountry || !checked.isSelCState
                                 }
                               >
-                                <option value="" disabled>
-                                Select Your City!
+                                <option value="" selected>
+                                {data.CityID}
                                 </option>
                                 {cities.currentCities &&
                                   cities.currentCities.map((city) => {

@@ -233,6 +233,13 @@ const tglContent = () => {
               
                       </table> */}
 
+<Row className="mb-0 text-end">
+                      <Col>
+                      
+                    <Button variant="" onClick={()=>navigate(`/edit-patient/${patient[0].PatientId}`)}><FaEdit fontSize={20}/></Button>
+                      </Col>
+                    </Row>
+
 
 <Row className="mt-5">
                       <Col>

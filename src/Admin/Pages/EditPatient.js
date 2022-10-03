@@ -730,6 +730,7 @@ const RadioUpload2=async ()=>{
 
 let DoctorName=sessionStorage.getItem("DocName");
 let DoctorUserID=sessionStorage.getItem("DocUserId")
+let Role=sessionStorage.getItem("Role")
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -787,7 +788,7 @@ let DoctorUserID=sessionStorage.getItem("DocUserId")
     setValues(pre=>{
       return{...pre,PatientId:patient[0]?.PatientId}
     })
-console.log(values.DoctorId);
+// console.log(values.DoctorId);
     let n = {
       ...values,
       // DoctorId:values.DoctorId,
@@ -830,7 +831,11 @@ console.log(values.DoctorId);
             icon: "success",
             // confirmButtonText: 'Cool'
           });
-          navigate(`/patient-list/${DoctorUserID}`);
+          if(Role==="1"){
+          navigate(`/patient-list/0`);
+          }else{
+            navigate(`/patient-list/${DoctorUserID}`)
+          }
         }
       })
       .catch((err) => console.log(err));
@@ -951,10 +956,10 @@ console.log(values.DoctorId);
       })
       
     }
-    setValues((pre)=>{
-      return{...pre,DoctorId:DoctorUserID}
-    })
-    console.log(values);
+    // setValues((pre)=>{
+    //   return{...pre,DoctorId:DoctorUserID}
+    // })
+    // console.log(values);
 
     // fd.append("Name",pvs.pvsScan.name);
     // fd.append("fileContent",pvs.pvsScan)
@@ -2070,13 +2075,74 @@ useEffect(() => {
     .then((res) => res.json())
     .then((details) => {
       console.log(details.Data);
+      // console.log(details.Data[0]?.DoctorID);
       setPatient(details.Data);
       // console.log(patient);
       setValues(pre=>{
-        return{...pre,PatientId:patient[0]?.PatientId}
+        return{...pre,PatientId:ID,
+          DoctorId:details.Data[0]?.DoctorID,
+        FirstName:details.Data[0]?.Name.split(' ')[0],
+        LastName:details.Data[0]?.Name.split(' ')[1],
+        Mi:details.Data[0]?.Mi,
+        Gender:details.Data[0]?.Gender,
+        DateofBirth:details.Data[0]?.DateofBirth,
+        DoctorName:details.Data[0]?.DoctorName,
+        ClinicAddress:details.Data[0]?.ClinicAddress,
+        CaseNo:details.Data[0]?.CaseNo,
+        // ClinicalConditions:details.
+        GeneralNotes:details.Data[0]?.GeneralNotes,
+        ChiefComplaint:details.Data[0]?.ChiefComplaint,
+        Quotation:details.Data[0]?.Quotation,
+        ExpectedNoOfAligners:details.Data[0]?.ExpectedNoOfAligners,
+        ProductType:details.Data[0]?.ProductType,
+        AmountPaid:details.Data[0]?.AmountPaid,
+        PrescriptionDate:details.Data[0]?.PrescriptionDate,
+        // UpperMidline:details.Data[0]?.
+        // LowerMidline:
+        CanineRelationshipLeftClass:details.Data[0]?.CanineRelationshipLeftClass,
+        CanineRelationshipRightClass:details.Data[0]?.CanineRelationshipRightClass,
+        MolarRelationshipLeftClass:details.Data[0]?.MolarRelationshipLeftClass,
+        MolarRelationshipRightClass:details.Data[0]?.MolarRelationshipRightClass,
+        Endon:details.Data[0]?.Endon,
+        Overbite:details.Data[0]?.Overbite,
+        Overjet:details.Data[0]?.Overjet,
+        InstructionUpperMidline:details.Data[0]?.InstructionUpperMidline,
+        InstructionLowerMidline:details.Data[0]?.InstructionLowerMidline,
+        InstructionOverjet:details.Data[0]?.InstructionOverjet,
+        InstructionOverbite:details.Data[0]?.InstructionOverbite,
+        InstructionArchForm:details.Data[0]?.InstructionArchForm,
+        InstructionCanineRelationship:details.Data[0]?.InstructionCanineRelationship,
+        InstructionMolarRelationship:details.Data[0]?.InstructionMolarRelationship,
+        InstructionPosteriorCrossbite:details.Data[0]?.InstructionPosteriorCrossbite,
+        InstructionIPR:details.Data[0]?.InstructionIPR,
+        InstructionEngagersAttachments:details.Data[0]?.InstructionEngagersAttachments,
+        InstructionProcline:details.Data[0]?.InstructionProcline,
+        InstructionExpand:details.Data[0]?.InstructionExpand,
+        InstructionDistalize:details.Data[0]?.InstructionDistalize,
+        // DoNotMoveTheseTeeth:
+        // Engagers:
+        // IWillExtractTheseTeethBeforeTreatment:
+        // LeaveTheseSpacesOpen:
+        AdditionalInstruction:details.Data[0]?.AdditionalInstruction,
+        PortraitPath:details.Data[0]?.PortraitPath,
+        PathOfDoc:details.Data[0]?.PathOfDoc,
+        FrontalRepose:details.Data[0]?.FrontalRepose,
+        FrontalSmiling:details.Data[0]?.FrontalSmiling,
+        ProfileRepose:details.Data[0]?.ProfileRepose,
+        FrontOpImage:details.Data[0].FrontOpImage,
+        OcclussalUpper:details.Data[0]?.OcclussalUpper,
+        OcclussalLower:details.Data[0]?.OcclussalLower,
+        BuccalFront:details.Data[0]?.BuccalFront,
+        // BuccalLeft:details.data[0]?.BuccalLeft,
+        BuccalRight:details.Data[0]?.BuccalRight,
+        // ExtraOralMoreImages:
+        // IntraOralMoreImages:
+        XrayLeft:details.Data[0]?.XrayLeft,
+        XrayRight:details.Data[0]?.XrayRight
+        }
       })
       
-      console.log(values.PatientId);
+      // console.log(values.PatientId);
     });
 }, []);
 
@@ -2203,7 +2269,8 @@ useEffect(() => {
                                           <Form.Control
                                             type="text"
                                             placeholder="First Name *"
-                                            defaultValue={patient[0]?.Name.split(' ')[0]}
+                                            // defaultValue={patient[0]?.Name.split(' ')[0]}
+                                           value={values.FirstName}
                                             name="FirstName"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -2226,7 +2293,8 @@ useEffect(() => {
                                             type="text"
                                             placeholder="Last Name *"
                                             name="LastName"
-                                            defaultValue={patient[0]?.Name.split(' ')[1]}
+                                            // defaultValue={patient[0]?.Name.split(' ')[1]}
+                                            value={values.LastName}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                             required
@@ -2247,6 +2315,7 @@ useEffect(() => {
                                           <Form.Control
                                             type="text"
                                             placeholder="MI"
+                                            value={values.Mi}
                                             name="Mi"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -2260,6 +2329,8 @@ useEffect(() => {
                                           type="radio"
                                           aria-label="radio 1"
                                           label="Male"
+                                          
+                                          defaultChecked={`${values.Gender==="Male"?true:false}`}
                                           value="Male"
                                         //   checked={`${patient[0]?.Gender==="Male"?true:false}`}
                                           className="pt-2"
@@ -2272,6 +2343,9 @@ useEffect(() => {
                                         <Form.Check
                                           type="radio"
                                           aria-label="radio 1"
+                                          // defaultChecked={values.Gender}
+                                          defaultChecked={`${values.Gender==="Female"?true:""}`}
+
                                           label="Female"
                                           value="Female"
                                         //   checked={`${patient[0]?.Gender==="Female"?true:false}`}
@@ -2297,7 +2371,8 @@ useEffect(() => {
                                             type="date"
                                             placeholder="Date *"
                                             name="DateofBirth"
-                                            defaultValue={patient[0]?.DateofBirth}
+                                            // defaultValue={patient[0]?.DateofBirth}
+                                            value={values.DateofBirth}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                             required
@@ -2319,7 +2394,8 @@ useEffect(() => {
                                             type="text"
                                             placeholder="Doctor's Name"
                                             name="DoctorName"
-                                            defaultValue={patient[0]?.DoctorName}
+                                            // defaultValue={patient[0]?.DoctorName}
+                                            value={values.DoctorName}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -2341,7 +2417,8 @@ useEffect(() => {
                                             rows={2}
                                             placeholder="ClinicAddress"
                                             name="ClinicAddress"
-                                            defaultValue={patient[0]?.ClinicAddress}
+                                            // defaultValue={patient[0]?.ClinicAddress}
+                                            value={values.ClinicAddress}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -2359,7 +2436,8 @@ useEffect(() => {
                                             type="text"
                                             placeholder="Case No."
                                             name="CaseNo"
-                                            defaultValue={patient[0]?.CaseNo}
+                                            // defaultValue={patient[0]?.CaseNo}
+                                            value={values.CaseNo}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -2371,6 +2449,7 @@ useEffect(() => {
                                         Ship to Office
                                         <Form.Check
                                           type="radio"
+                                          // defaultChecked={val}
                                           value="2004,
                                           B-103 RADHA GOVIND RADHA RESIDENCY
                                            SIDDHARTH NAGAR BORIVALI EAST,
@@ -2616,7 +2695,8 @@ useEffect(() => {
                                             as="textarea"
                                             rows={6}
                                             name="ChiefComplaint"
-                                            defaultValue={patient[0]?.ChiefComplaint}
+                                            // defaultValue={patient[0]?.ChiefComplaint}
+                                            value={values.ChiefComplaint}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -2633,7 +2713,8 @@ useEffect(() => {
                                           <Form.Control
                                             type="text"
                                             name="Quotation"
-                                            defaultValue={patient[0]?.Quotation}
+                                            // defaultValue={patient[0]?.Quotation}
+                                            value={values.Quotation}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                             required
@@ -2657,7 +2738,8 @@ useEffect(() => {
                                               <Form.Control
                                                 type="text"
                                                 name="ExpectedNoOfAligners"
-                                                defaultValue={patient[0]?.ExpectedNoOfAligners}
+                                                // defaultValue={patient[0]?.ExpectedNoOfAligners}
+                                                value={values.ExpectedNoOfAligners}
                                                 onChange={handleChange}
                                                 aria-describedby="inputGroupPrepend"
                                                 required
@@ -2680,7 +2762,8 @@ useEffect(() => {
                                               <Form.Select
                                                 aria-label="Default select example"
                                                 name="ProductType"
-                                                defaultValue={patient[0]?.ProductType}
+                                                // defaultValue={patient[0]?.ProductType}
+                                                value={values.ProductType}
                                                 onChange={handleChange}
                                               >
                                                 <option>
@@ -2708,7 +2791,8 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="AmountPaid"
-                                                defaultValue={patient[0]?.AmountPaid}
+                                                // defaultValue={patient[0]?.AmountPaid}
+                                                value={values.AmountPaid}
                                                 onChange={handleChange}
                                                 aria-describedby="inputGroupPrepend"
                                               />
@@ -2728,7 +2812,8 @@ useEffect(() => {
                                               <Form.Control
                                                 type="date"
                                                 name="PrescriptionDate"
-                                                defaultValue={patient[0]?.DateOfPayment}
+                                                // defaultValue={patient[0]?.PrescriptionDate}
+                                                value={values.PrescriptionDate}
                                                 onChange={handleChange}
                                                 aria-describedby="inputGroupPrepend"
                                               />
@@ -2850,6 +2935,7 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="CanineRelationshipRightClass"
+                                                value={values.CanineRelationshipRightClass}
                                                 onChange={handleChange}
                                               />
                                             </Col>
@@ -2866,6 +2952,7 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="CanineRelationshipLeftClass"
+                                                value={values.CanineRelationshipLeftClass}
                                                 onChange={handleChange}
                                               />
                                             </Col>
@@ -2882,6 +2969,7 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="MolarRelationshipRightClass"
+                                                value={values.MolarRelationshipRightClass}
                                                 onChange={handleChange}
                                               />
                                             </Col>
@@ -2898,6 +2986,7 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="MolarRelationshipLeftClass"
+                                                value={values.MolarRelationshipLeftClass}
                                                 onChange={handleChange}
                                               />
                                             </Col>
@@ -2914,6 +3003,7 @@ useEffect(() => {
                                               <Form.Select
                                                 size="sm"
                                                 name="Endon"
+                                                value={values.Endon}
                                                 onChange={handleChange}
                                               >
                                                 <option>Select</option>
@@ -2937,7 +3027,7 @@ useEffect(() => {
                                               Overbite
                                             </Form.Label>
                                             <Col sm="5">
-                                              <Form.Select size="sm">
+                                              <Form.Select size="sm" value={values.Overbite}>
                                                 <option>Select</option>
                                                 <option>25%</option>
                                                 <option>50%</option>
@@ -2958,6 +3048,7 @@ useEffect(() => {
                                               <Form.Control
                                                 type="number"
                                                 name="Overjet"
+                                                value={values.Overjet}
                                                 onChange={handleChange}
                                               />
                                             </Col>
@@ -2981,6 +3072,7 @@ useEffect(() => {
                                             aria-label="radio 1"
                                             label="Maintain"
                                             value="Maintain"
+                                            defaultChecked={values.InstructionUpperMidline}
                                             name="InstructionUpperMidline"
                                             onChange={
                                               handleInstructionUpperMidline
@@ -2994,6 +3086,7 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionUpperMidline"
+                                            defaultChecked={values.InstructionUpperMidline}
                                             onChange={
                                               handleInstructionUpperMidline
                                             }
@@ -3006,6 +3099,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionUpperMidline"
+                                            defaultChecked={values.InstructionUpperMidline}
+
                                             onChange={
                                               handleInstructionUpperMidline
                                             }
@@ -3023,6 +3118,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionLowerMidline"
+                                            defaultChecked={values.InstructionLowerMidline}
+
                                             onChange={
                                               handleInstructionLowerMidline
                                             }
@@ -3035,6 +3132,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionLowerMidline"
+                                            defaultChecked={values.InstructionLowerMidline}
+
                                             onChange={
                                               handleInstructionLowerMidline
                                             }
@@ -3047,6 +3146,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionLowerMidline"
+                                            defaultChecked={values.InstructionLowerMidline}
+
                                             onChange={
                                               handleInstructionLowerMidline
                                             }
@@ -3064,6 +3165,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionOverjet"
+                                            defaultChecked={values.InstructionOverjet}
+
                                             onChange={handleInstructionOverjet}
                                           />
                                         </Col>
@@ -3074,6 +3177,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionOverjet"
+                                            defaultChecked={values.InstructionOverjet}
+
                                             onChange={handleInstructionOverjet}
                                           />
                                         </Col>
@@ -3084,6 +3189,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionOverjet"
+                                            defaultChecked={values.InstructionOverjet}
+
                                             onChange={handleInstructionOverjet}
                                           />
                                         </Col>
@@ -3099,6 +3206,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionOverbite"
+                                            defaultChecked={values.InstructionOverbite}
+
                                             onChange={handleInstructionOverbite}
                                           />
                                         </Col>
@@ -3109,6 +3218,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionOverbite"
+                                            defaultChecked={values.InstructionOverbite}
+
                                             onChange={handleInstructionOverbite}
                                           />
                                         </Col>
@@ -3119,6 +3230,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionOverbite"
+                                            defaultChecked={values.InstructionOverbite}
+
                                             onChange={handleInstructionOverbite}
                                           />
                                         </Col>
@@ -3134,6 +3247,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionArchForm"
+                                            defaultChecked={values.InstructionArchForm}
+
                                             onChange={handleInstructionArchForm}
                                           />
                                         </Col>
@@ -3144,6 +3259,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionArchForm"
+                                            defaultChecked={values.InstructionArchForm}
+
                                             onChange={handleInstructionArchForm}
                                           />
                                         </Col>
@@ -3154,6 +3271,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionArchForm"
+                                            defaultChecked={values.InstructionArchForm}
+
                                             onChange={handleInstructionArchForm}
                                           />
                                         </Col>
@@ -3169,6 +3288,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionCanineRelationship"
+                                            defaultChecked={values.InstructionCanineRelationship}
+
                                             onChange={
                                               handleInstructionCanineRelationship
                                             }
@@ -3181,6 +3302,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionCanineRelationship"
+                                            defaultChecked={values.InstructionCanineRelationship}
+
                                             onChange={
                                               handleInstructionCanineRelationship
                                             }
@@ -3193,6 +3316,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionCanineRelationship"
+                                            defaultChecked={values.InstructionCanineRelationship}
+
                                             onChange={
                                               handleInstructionCanineRelationship
                                             }
@@ -3210,6 +3335,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionMolarRelationship"
+                                            defaultChecked={values.InstructionMolarRelationship}
+
                                             onChange={
                                               handleInstructionMolarRelationship
                                             }
@@ -3222,6 +3349,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionMolarRelationship"
+                                            defaultChecked={values.InstructionMolarRelationship}
+
                                             onChange={
                                               handleInstructionMolarRelationship
                                             }
@@ -3234,6 +3363,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionMolarRelationship"
+                                            defaultChecked={values.InstructionMolarRelationship}
+
                                             onChange={
                                               handleInstructionMolarRelationship
                                             }
@@ -3251,6 +3382,8 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionPosteriorCrossbite"
+                                            defaultChecked={values.InstructionPosteriorCrossbite}
+
                                             onChange={
                                               handleInstructionPosteriorCrossbite
                                             }
@@ -3263,6 +3396,8 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionPosteriorCrossbite"
+                                            defaultChecked={values.InstructionPosteriorCrossbite}
+
                                             onChange={
                                               handleInstructionPosteriorCrossbite
                                             }
@@ -3275,6 +3410,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionPosteriorCrossbite"
+                                            defaultChecked={values.InstructionPosteriorCrossbite}
+
                                             onChange={
                                               handleInstructionPosteriorCrossbite
                                             }
@@ -3292,6 +3429,8 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionIPR"
+                                            defaultChecked={values.InstructionIPR}
+
                                             onChange={handleInstructionIPR}
                                           />
                                         </Col>
@@ -3302,6 +3441,8 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionIPR"
+                                            defaultChecked={values.InstructionIPR}
+
                                             onChange={handleInstructionIPR}
                                           />
                                         </Col>
@@ -3312,6 +3453,8 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionIPR"
+                                            defaultChecked={values.InstructionIPR}
+
                                             onChange={handleInstructionIPR}
                                           />
                                         </Col>
@@ -3327,6 +3470,8 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionEngagersAttachments"
+                                            defaultChecked={values.InstructionEngagersAttachments}
+
                                             onChange={
                                               handleInstructionEngagersAttachments
                                             }
@@ -3339,6 +3484,8 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionEngagersAttachments"
+                                            defaultChecked={values.InstructionEngagersAttachments}
+
                                             onChange={
                                               handleInstructionEngagersAttachments
                                             }
@@ -3351,6 +3498,8 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionEngagersAttachments"
+                                            defaultChecked={values.InstructionEngagersAttachments}
+
                                             onChange={
                                               handleInstructionEngagersAttachments
                                             }
@@ -3368,6 +3517,8 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionProcline"
+                                            defaultChecked={values.InstructionProcline}
+
                                             onChange={handleInstructionProcline}
                                           />
                                         </Col>
@@ -3378,6 +3529,8 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionProcline"
+                                            defaultChecked={values.InstructionProcline}
+
                                             onChange={handleInstructionProcline}
                                           />
                                         </Col>
@@ -3388,6 +3541,8 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionProcline"
+                                            defaultChecked={values.InstructionProcline}
+
                                             onChange={handleInstructionProcline}
                                           />
                                         </Col>
@@ -3403,6 +3558,8 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionExpand"
+                                            defaultChecked={values.InstructionExpand}
+
                                             onChange={handleInstructionExpand}
                                           />
                                         </Col>
@@ -3413,6 +3570,8 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionExpand"
+                                            defaultChecked={values.InstructionExpand}
+
                                             onChange={handleInstructionExpand}
                                           />
                                         </Col>
@@ -3423,6 +3582,8 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionExpand"
+                                            defaultChecked={values.InstructionExpand}
+                                            
                                             onChange={handleInstructionExpand}
                                           />
                                         </Col>
@@ -3438,6 +3599,8 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionDistalize"
+                                            defaultChecked={values.InstructionDistalize}
+
                                             onChange={
                                               handleInstructionDistalize
                                             }
@@ -3450,6 +3613,8 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionDistalize"
+                                            defaultChecked={values.InstructionDistalize}
+
                                             onChange={
                                               handleInstructionDistalize
                                             }
@@ -3462,6 +3627,8 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionDistalize"
+                                            defaultChecked={values.InstructionDistalize}
+                                            
                                             onChange={
                                               handleInstructionDistalize
                                             }
@@ -5298,10 +5465,10 @@ useEffect(() => {
                                       <Button
                                         className="nextbtn"
                                         onClick={() =>{
-                                          setValues((pre)=>{
-                                            return{...pre,DoctorId:DoctorUserID}
-                                          })
-                                          console.log(values);
+                                          // setValues((pre)=>{
+                                          //   return{...pre,DoctorId:DoctorUserID}
+                                          // })
+                                          // console.log(values);
                                           setCurrentTab((prev) => prev + 1)
                                         }}
                                       >
