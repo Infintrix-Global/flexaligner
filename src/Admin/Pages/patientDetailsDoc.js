@@ -415,7 +415,7 @@ const tglContent = () => {
                 <Row>
                   <Col>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Do Not Move These Teeth : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.DoNotMoveTheseTeeth}</span></p>
-                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Avoid Engagers & Attachments On These Teeths : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.AvoidEngagersAttachments}</span></p>
+                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Avoid Engagers & Attachments On These Teeths : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.AvidEngagersAttachmentsOnTheseTeeth}</span></p>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>I Will Extract These Teeth Before Treatment : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.IWillExtractTheseTeethBeforeTreatment}</span></p>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Leave These Spaces Open : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.LeaveTheseSpacesOpen}</span></p>
                   
@@ -434,7 +434,7 @@ const tglContent = () => {
                       <b>View Extraoral Photos</b>
                     </p>
                     <Stack direction="horizontal" gap={5}>
-                    <img
+                    {patient[0]?.FrontalRepose?<img
                         src={patient[0]?.FrontalRepose}
                         className="rounded"
                         style={{
@@ -442,7 +442,7 @@ const tglContent = () => {
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img>
+                      ></img>:""}
                       <img
                         src={patient[0]?.FrontalSmiling}
                         className="rounded"
@@ -534,7 +534,7 @@ const tglContent = () => {
                     </p>
                     <Stack direction="horizontal" gap={5}>
                       <img
-                        src={user}
+                        src={patient[0]?.XrayLeft}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -542,15 +542,15 @@ const tglContent = () => {
                           width: "100px",
                         }}
                       ></img>
-                      {/* <img
-                        src={user}
+                      <img
+                        src={patient[0]?.XrayRight}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
                     </Stack>
                   </Col>
                 </Row>

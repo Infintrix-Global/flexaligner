@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef} from "react";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
+import "../Styles/EditPatient.css";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars, FaEdit,FaUpload,FaCalendarAlt } from "react-icons/fa";
@@ -73,7 +74,7 @@ function EditPatient(){
         InstructionExpand: "",
         InstructionDistalize: "",
         DoNotMoveTheseTeeth: [],
-        Engagers: [],
+        AvidEngagersAttachmentsOnTheseTeeth: [],
         IWillExtractTheseTeethBeforeTreatment: [],
         LeaveTheseSpacesOpen: [],
         AdditionalInstruction: "",
@@ -794,7 +795,7 @@ let Role=sessionStorage.getItem("Role")
       // DoctorId:values.DoctorId,
       ClinicalConditions: values.ClinicalConditions.toString(),
       DoNotMoveTheseTeeth: values.DoNotMoveTheseTeeth.toString(),
-      Engagers: values.Engagers.toString(),
+      AvidEngagersAttachmentsOnTheseTeeth: values.AvidEngagersAttachmentsOnTheseTeeth.toString(),
       IWillExtractTheseTeethBeforeTreatment:
         values.IWillExtractTheseTeethBeforeTreatment.toString(),
       LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
@@ -1938,21 +1939,21 @@ let Role=sessionStorage.getItem("Role")
 
   const handleEngagers = (e) => {
     const { value, checked } = e.target;
-    const { Engagers } = values;
+    const { AvidEngagersAttachmentsOnTheseTeeth } = values;
 
     // console.log(`${value} is ${checked}`);
 
     // Case 1 : The user checks the box
     if (checked) {
       setValues((pre) => {
-        return { ...pre, Engagers: [...pre.Engagers, value] };
+        return { ...pre, AvidEngagersAttachmentsOnTheseTeeth: [...pre.AvidEngagersAttachmentsOnTheseTeeth, value] };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
       setValues((pre) => {
-        return { ...pre, Engagers: pre.Engagers.filter((e) => e !== value) };
+        return { ...pre, AvidEngagersAttachmentsOnTheseTeeth: pre.AvidEngagersAttachmentsOnTheseTeeth.filter((e) => e !== value) };
       });
     }
     console.log(values);
@@ -2077,7 +2078,22 @@ useEffect(() => {
       console.log(details.Data);
       // console.log(details.Data[0]?.DoctorID);
       setPatient(details.Data);
+      console.log(details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]);
+      let arryr=details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]
+      let arr=[details.Data[0]?.DateofBirth.split('-')[0],details.Data[0]?.DateofBirth.split('-')[1],arryr].join('/')
+      // console.log(arr);
+      // console.log(details.Data[0]?.ClinicalConditions.split(',').includes("Crowding")?"true":"false");
+      let cliCon=details.Data[0]?.ClinicalConditions.split(',')
+      // console.log(cliCon);
       // console.log(patient);
+      let doNot=details.Data[0]?.DoNotMoveTheseTeeth.split(',')
+      // console.log(doNot);
+      let extLater=details.Data[0]?.IWillExtractTheseTeethBeforeTreatment.split(',')
+      // console.log(extLater);
+      let leaveSpace=details.Data[0]?.LeaveTheseSpacesOpen.split(',')
+      // console.log(leaveSpace);
+      let engager=details.Data[0]?.AvidEngagersAttachmentsOnTheseTeeth.split(',')
+      console.log(engager);
       setValues(pre=>{
         return{...pre,PatientId:ID,
           DoctorId:details.Data[0]?.DoctorID,
@@ -2085,11 +2101,11 @@ useEffect(() => {
         LastName:details.Data[0]?.Name.split(' ')[1],
         Mi:details.Data[0]?.Mi,
         Gender:details.Data[0]?.Gender,
-        DateofBirth:details.Data[0]?.DateofBirth,
+        DateofBirth:arr,
         DoctorName:details.Data[0]?.DoctorName,
         ClinicAddress:details.Data[0]?.ClinicAddress,
         CaseNo:details.Data[0]?.CaseNo,
-        // ClinicalConditions:details.
+        ClinicalConditions:cliCon,
         GeneralNotes:details.Data[0]?.GeneralNotes,
         ChiefComplaint:details.Data[0]?.ChiefComplaint,
         Quotation:details.Data[0]?.Quotation,
@@ -2119,10 +2135,10 @@ useEffect(() => {
         InstructionProcline:details.Data[0]?.InstructionProcline,
         InstructionExpand:details.Data[0]?.InstructionExpand,
         InstructionDistalize:details.Data[0]?.InstructionDistalize,
-        // DoNotMoveTheseTeeth:
-        // Engagers:
-        // IWillExtractTheseTeethBeforeTreatment:
-        // LeaveTheseSpacesOpen:
+        DoNotMoveTheseTeeth:doNot,
+        AvidEngagersAttachmentsOnTheseTeeth:engager,
+        IWillExtractTheseTeethBeforeTreatment:extLater,
+        LeaveTheseSpacesOpen:leaveSpace,
         AdditionalInstruction:details.Data[0]?.AdditionalInstruction,
         PortraitPath:details.Data[0]?.PortraitPath,
         PathOfDoc:details.Data[0]?.PathOfDoc,
@@ -2145,6 +2161,20 @@ useEffect(() => {
       // console.log(values.PatientId);
     });
 }, []);
+
+
+
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+    date.getFullYear(),
+  ].join('/');
+}
 
 
 
@@ -2268,6 +2298,7 @@ useEffect(() => {
                                           </InputGroup.Text>
                                           <Form.Control
                                             type="text"
+                                            // className="fna"
                                             placeholder="First Name *"
                                             // defaultValue={patient[0]?.Name.split(' ')[0]}
                                            value={values.FirstName}
@@ -2330,9 +2361,9 @@ useEffect(() => {
                                           aria-label="radio 1"
                                           label="Male"
                                           
-                                          defaultChecked={`${values.Gender==="Male"?true:false}`}
+                                          // defaultChecked={`${values.Gender==="Male"?true:false}`}
                                           value="Male"
-                                        //   checked={`${patient[0]?.Gender==="Male"?true:false}`}
+                                          checked={`${values.Gender==="Male"?"checked":""}`}
                                           className="pt-2"
                                           onChange={handleChange}
                                           name="Gender"
@@ -2344,7 +2375,8 @@ useEffect(() => {
                                           type="radio"
                                           aria-label="radio 1"
                                           // defaultChecked={values.Gender}
-                                          defaultChecked={`${values.Gender==="Female"?true:""}`}
+                                          // defaultChecked={`${values.Gender==="Female"?true:""}`}
+                                          checked={`${values.Gender==="Female"?"checked":""}`}
 
                                           label="Female"
                                           value="Female"
@@ -2373,6 +2405,9 @@ useEffect(() => {
                                             name="DateofBirth"
                                             // defaultValue={patient[0]?.DateofBirth}
                                             value={values.DateofBirth}
+                                            // value={`${formatDate(new Date(values.DateofBirth.split(' ')[0]))}`}
+                                            // pattern="\d{1,2}-\d{1,2}-\d{4}"
+                                            // defaultValue={values.DateofBirth.split(' ')[0]}
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                             required
@@ -2521,6 +2556,7 @@ useEffect(() => {
                                             label="Crowding"
                                             value="Crowding"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Crowding")?"checked":""}`}
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2528,6 +2564,8 @@ useEffect(() => {
                                             label="Spacing"
                                             value="Spacing"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Spacing")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2535,6 +2573,8 @@ useEffect(() => {
                                             label="Class II div 1"
                                             value="Class II div 1"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Class II div 1")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2542,6 +2582,8 @@ useEffect(() => {
                                             label="Class II div 2"
                                             value="Class II div 2"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Class II div 2")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2549,6 +2591,8 @@ useEffect(() => {
                                             label="CClass III"
                                             value="CClass III"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("CClass III")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2556,6 +2600,8 @@ useEffect(() => {
                                             label="Open bite"
                                             value="Open bite"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Open bite")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2563,6 +2609,8 @@ useEffect(() => {
                                             label="Anterior crossbite"
                                             value="Anterior crossbite"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Anterior crossbite")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2570,6 +2618,8 @@ useEffect(() => {
                                             label="Posterior crossbite"
                                             value="Posterior crossbite"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Posterior crossbite")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                         </Col>
@@ -2579,6 +2629,8 @@ useEffect(() => {
                                             label="Deep Bite"
                                             value="Deep Bite"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Deep Bite")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2586,6 +2638,8 @@ useEffect(() => {
                                             label="Narrow Arch"
                                             value="Narrow Arch"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Narrow Arch")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2593,6 +2647,8 @@ useEffect(() => {
                                             label="Flared Teeth"
                                             value="Flared Teeth"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Flared Teeth")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2600,6 +2656,8 @@ useEffect(() => {
                                             label="Overjet"
                                             value="Overjet"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Overjet")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2607,6 +2665,8 @@ useEffect(() => {
                                             label="Uneven smile"
                                             value="Uneven smile"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Uneven smile")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2614,6 +2674,8 @@ useEffect(() => {
                                             label="Misshapen teeth"
                                             value="Misshapen teeth"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Misshapen teeth")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                           <Form.Check
@@ -2621,6 +2683,8 @@ useEffect(() => {
                                             label="Other"
                                             value="Other"
                                             name="ClinicalConditions"
+                                            checked={`${values.ClinicalConditions.includes("Other")?"checked":""}`}
+
                                             onChange={handlecheck}
                                           />
                                         </Col>
@@ -2837,6 +2901,8 @@ useEffect(() => {
                                               id="um1"
                                               name="UpperMidline"
                                               value="Centered"
+                                            checked={`${values.UpperMidline==="Centered"?"checked":""}`}
+
                                               onChange={handleRadio3}
                                             />
                                           </Form.Group>
@@ -2848,6 +2914,8 @@ useEffect(() => {
                                               value="Shifted Right"
                                               id="um2"
                                               name="UpperMidline"
+                                            checked={`${values.UpperMidline==="Shifted Right"?"checked":""}`}
+
                                               onChange={handleRadio3}
                                             />
                                             <InputGroup hasValidation>
@@ -2866,6 +2934,8 @@ useEffect(() => {
                                               id="um3"
                                               value="Shifted Left"
                                               name="UpperMidline"
+                                            checked={`${values.UpperMidline==="Shifted Left"?"checked":""}`}
+
                                               onChange={handleRadio3}
                                             />
                                             <InputGroup hasValidation>
@@ -2884,6 +2954,8 @@ useEffect(() => {
                                               label="Centered"
                                               value="Centered"
                                               name="LowerMidline"
+                                            checked={`${values.LowerMidline==="Centered"?"checked":""}`}
+
                                               onChange={handleRadio31}
                                             />
                                           </Form.Group>
@@ -2894,6 +2966,8 @@ useEffect(() => {
                                               label="Shifted Right"
                                               value="Shifted Right"
                                               name="LowerMidline"
+                                            checked={`${values.LowerMidline==="Shifted Right"?"checked":""}`}
+                                              
                                               onChange={handleRadio31}
                                             />
                                             <InputGroup hasValidation>
@@ -2911,6 +2985,8 @@ useEffect(() => {
                                               label="Shifted Left"
                                               value="Shifted Left"
                                               name="LowerMidline"
+                                            checked={`${values.LowerMidline==="Shifted Left"?"checked":""}`}
+
                                               onChange={handleRadio31}
                                             />
                                             <InputGroup hasValidation>
@@ -3006,7 +3082,7 @@ useEffect(() => {
                                                 value={values.Endon}
                                                 onChange={handleChange}
                                               >
-                                                <option>Select</option>
+                                                <option selected>{values.Endon}</option>
                                                 <option>Right</option>
                                                 <option>Left</option>
                                                 <option>Both</option>
@@ -3028,7 +3104,7 @@ useEffect(() => {
                                             </Form.Label>
                                             <Col sm="5">
                                               <Form.Select size="sm" value={values.Overbite}>
-                                                <option>Select</option>
+                                                <option selected>{values.Overbite}</option>
                                                 <option>25%</option>
                                                 <option>50%</option>
                                                 <option>75%</option>
@@ -3072,7 +3148,8 @@ useEffect(() => {
                                             aria-label="radio 1"
                                             label="Maintain"
                                             value="Maintain"
-                                            defaultChecked={values.InstructionUpperMidline}
+                                            // defaultChecked={values.InstructionUpperMidline}
+                                            checked={`${values.InstructionUpperMidline==="Maintain"?"checked":""}`}
                                             name="InstructionUpperMidline"
                                             onChange={
                                               handleInstructionUpperMidline
@@ -3086,7 +3163,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionUpperMidline"
-                                            defaultChecked={values.InstructionUpperMidline}
+                                            // defaultChecked={values.InstructionUpperMidline}
+                                            checked={`${values.InstructionUpperMidline==="Improve"?"checked":""}`}
+
                                             onChange={
                                               handleInstructionUpperMidline
                                             }
@@ -3099,7 +3178,8 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionUpperMidline"
-                                            defaultChecked={values.InstructionUpperMidline}
+                                            // defaultChecked={values.InstructionUpperMidline}
+                                            checked={`${values.InstructionUpperMidline==="Idealize"?"checked":""}`}
 
                                             onChange={
                                               handleInstructionUpperMidline
@@ -3118,7 +3198,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionLowerMidline"
-                                            defaultChecked={values.InstructionLowerMidline}
+                                            // defaultChecked={values.InstructionLowerMidline}
+                                            checked={`${values.InstructionLowerMidline==="Maintain"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionLowerMidline
@@ -3132,7 +3214,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionLowerMidline"
-                                            defaultChecked={values.InstructionLowerMidline}
+                                            // defaultChecked={values.InstructionLowerMidline}
+                                            checked={`${values.InstructionLowerMidline==="Improve"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionLowerMidline
@@ -3146,7 +3230,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionLowerMidline"
-                                            defaultChecked={values.InstructionLowerMidline}
+                                            // defaultChecked={values.InstructionLowerMidline}
+                                            checked={`${values.InstructionLowerMidline==="Idealize"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionLowerMidline
@@ -3165,7 +3251,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionOverjet"
-                                            defaultChecked={values.InstructionOverjet}
+                                            // defaultChecked={values.InstructionOverjet}
+                                            checked={`${values.InstructionOverjet==="Maintain"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverjet}
                                           />
@@ -3177,7 +3265,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionOverjet"
-                                            defaultChecked={values.InstructionOverjet}
+                                            // defaultChecked={values.InstructionOverjet}
+                                            checked={`${values.InstructionOverjet==="Improve"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverjet}
                                           />
@@ -3189,7 +3279,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionOverjet"
-                                            defaultChecked={values.InstructionOverjet}
+                                            // defaultChecked={values.InstructionOverjet}
+                                            checked={`${values.InstructionOverjet==="Idealize"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverjet}
                                           />
@@ -3206,7 +3298,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionOverbite"
-                                            defaultChecked={values.InstructionOverbite}
+                                            // defaultChecked={values.InstructionOverbite}
+                                            checked={`${values.InstructionOverbite==="Maintain"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverbite}
                                           />
@@ -3218,7 +3312,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionOverbite"
-                                            defaultChecked={values.InstructionOverbite}
+                                            // defaultChecked={values.InstructionOverbite}
+                                            checked={`${values.InstructionOverbite==="Improve"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverbite}
                                           />
@@ -3230,7 +3326,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionOverbite"
-                                            defaultChecked={values.InstructionOverbite}
+                                            // defaultChecked={values.InstructionOverbite}
+                                            checked={`${values.InstructionOverbite==="Idealize"?"checked":""}`}
+
 
                                             onChange={handleInstructionOverbite}
                                           />
@@ -3247,7 +3345,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionArchForm"
-                                            defaultChecked={values.InstructionArchForm}
+                                            // defaultChecked={values.InstructionArchForm}
+                                            checked={`${values.InstructionArchForm==="Maintain"?"checked":""}`}
+
 
                                             onChange={handleInstructionArchForm}
                                           />
@@ -3259,7 +3359,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionArchForm"
-                                            defaultChecked={values.InstructionArchForm}
+                                            // defaultChecked={values.InstructionArchForm}
+                                            checked={`${values.InstructionArchForm==="Improve"?"checked":""}`}
+
 
                                             onChange={handleInstructionArchForm}
                                           />
@@ -3271,7 +3373,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionArchForm"
-                                            defaultChecked={values.InstructionArchForm}
+                                            // defaultChecked={values.InstructionArchForm}
+                                            checked={`${values.InstructionArchForm==="Idealize"?"checked":""}`}
+
 
                                             onChange={handleInstructionArchForm}
                                           />
@@ -3288,7 +3392,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionCanineRelationship"
-                                            defaultChecked={values.InstructionCanineRelationship}
+                                            // defaultChecked={values.InstructionCanineRelationship}
+                                            checked={`${values.InstructionCanineRelationship==="Maintain"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionCanineRelationship
@@ -3302,7 +3408,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionCanineRelationship"
-                                            defaultChecked={values.InstructionCanineRelationship}
+                                            // defaultChecked={values.InstructionCanineRelationship}
+                                            checked={`${values.InstructionCanineRelationship==="Improve"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionCanineRelationship
@@ -3316,7 +3424,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionCanineRelationship"
-                                            defaultChecked={values.InstructionCanineRelationship}
+                                            // defaultChecked={values.InstructionCanineRelationship}
+                                            checked={`${values.InstructionCanineRelationship==="Idealize"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionCanineRelationship
@@ -3335,7 +3445,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionMolarRelationship"
-                                            defaultChecked={values.InstructionMolarRelationship}
+                                            // defaultChecked={values.InstructionMolarRelationship}
+                                            checked={`${values.InstructionMolarRelationship==="Maintain"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionMolarRelationship
@@ -3349,7 +3461,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionMolarRelationship"
-                                            defaultChecked={values.InstructionMolarRelationship}
+                                            // defaultChecked={values.InstructionMolarRelationship}
+                                            checked={`${values.InstructionMolarRelationship==="Improve"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionMolarRelationship
@@ -3363,7 +3477,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionMolarRelationship"
-                                            defaultChecked={values.InstructionMolarRelationship}
+                                            // defaultChecked={values.InstructionMolarRelationship}
+                                            checked={`${values.InstructionMolarRelationship==="Idealize"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionMolarRelationship
@@ -3382,7 +3498,9 @@ useEffect(() => {
                                             label="Maintain"
                                             value="Maintain"
                                             name="InstructionPosteriorCrossbite"
-                                            defaultChecked={values.InstructionPosteriorCrossbite}
+                                            // defaultChecked={values.InstructionPosteriorCrossbite}
+                                            checked={`${values.InstructionPosteriorCrossbite==="Maintain"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionPosteriorCrossbite
@@ -3396,7 +3514,9 @@ useEffect(() => {
                                             label="Improve"
                                             value="Improve"
                                             name="InstructionPosteriorCrossbite"
-                                            defaultChecked={values.InstructionPosteriorCrossbite}
+                                            // defaultChecked={values.InstructionPosteriorCrossbite}
+                                            checked={`${values.InstructionPosteriorCrossbite==="Improve"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionPosteriorCrossbite
@@ -3410,7 +3530,9 @@ useEffect(() => {
                                             label="Idealize"
                                             value="Idealize"
                                             name="InstructionPosteriorCrossbite"
-                                            defaultChecked={values.InstructionPosteriorCrossbite}
+                                            // defaultChecked={values.InstructionPosteriorCrossbite}
+                                            checked={`${values.InstructionPosteriorCrossbite==="Idealize"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionPosteriorCrossbite
@@ -3429,7 +3551,9 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionIPR"
-                                            defaultChecked={values.InstructionIPR}
+                                            // defaultChecked={values.InstructionIPR}
+                                            checked={`${values.InstructionIPR==="Yes"?"checked":""}`}
+
 
                                             onChange={handleInstructionIPR}
                                           />
@@ -3441,7 +3565,9 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionIPR"
-                                            defaultChecked={values.InstructionIPR}
+                                            // defaultChecked={values.InstructionIPR}
+                                            checked={`${values.InstructionIPR==="No"?"checked":""}`}
+
 
                                             onChange={handleInstructionIPR}
                                           />
@@ -3453,7 +3579,9 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionIPR"
-                                            defaultChecked={values.InstructionIPR}
+                                            // defaultChecked={values.InstructionIPR}
+                                            checked={`${values.InstructionIPR==="Only If Needed"?"checked":""}`}
+
 
                                             onChange={handleInstructionIPR}
                                           />
@@ -3470,7 +3598,9 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionEngagersAttachments"
-                                            defaultChecked={values.InstructionEngagersAttachments}
+                                            // defaultChecked={values.InstructionEngagersAttachments}
+                                            checked={`${values.InstructionEngagersAttachments==="Yes"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionEngagersAttachments
@@ -3484,7 +3614,9 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionEngagersAttachments"
-                                            defaultChecked={values.InstructionEngagersAttachments}
+                                            // defaultChecked={values.InstructionEngagersAttachments}
+                                            checked={`${values.InstructionEngagersAttachments==="No"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionEngagersAttachments
@@ -3498,7 +3630,9 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionEngagersAttachments"
-                                            defaultChecked={values.InstructionEngagersAttachments}
+                                            // defaultChecked={values.InstructionEngagersAttachments}
+                                            checked={`${values.InstructionEngagersAttachments==="Only If Needed"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionEngagersAttachments
@@ -3517,7 +3651,9 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionProcline"
-                                            defaultChecked={values.InstructionProcline}
+                                            // defaultChecked={values.InstructionProcline}
+                                            checked={`${values.InstructionProcline==="Yes"?"checked":""}`}
+
 
                                             onChange={handleInstructionProcline}
                                           />
@@ -3529,7 +3665,9 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionProcline"
-                                            defaultChecked={values.InstructionProcline}
+                                            // defaultChecked={values.InstructionProcline}
+                                            checked={`${values.InstructionProcline==="No"?"checked":""}`}
+
 
                                             onChange={handleInstructionProcline}
                                           />
@@ -3541,7 +3679,9 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionProcline"
-                                            defaultChecked={values.InstructionProcline}
+                                            // defaultChecked={values.InstructionProcline}
+                                            checked={`${values.InstructionProcline==="Only If Needed"?"checked":""}`}
+
 
                                             onChange={handleInstructionProcline}
                                           />
@@ -3558,7 +3698,9 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionExpand"
-                                            defaultChecked={values.InstructionExpand}
+                                            // defaultChecked={values.InstructionExpand}
+                                            checked={`${values.InstructionExpand==="Yes"?"checked":""}`}
+
 
                                             onChange={handleInstructionExpand}
                                           />
@@ -3570,7 +3712,9 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionExpand"
-                                            defaultChecked={values.InstructionExpand}
+                                            // defaultChecked={values.InstructionExpand}
+                                            checked={`${values.InstructionExpand==="No"?"checked":""}`}
+
 
                                             onChange={handleInstructionExpand}
                                           />
@@ -3582,7 +3726,9 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionExpand"
-                                            defaultChecked={values.InstructionExpand}
+                                            // defaultChecked={values.InstructionExpand}
+                                            checked={`${values.InstructionExpand==="Only If Needed"?"checked":""}`}
+
                                             
                                             onChange={handleInstructionExpand}
                                           />
@@ -3599,7 +3745,9 @@ useEffect(() => {
                                             label="Yes"
                                             value="Yes"
                                             name="InstructionDistalize"
-                                            defaultChecked={values.InstructionDistalize}
+                                            // defaultChecked={values.InstructionDistalize}
+                                            checked={`${values.InstructionDistalize==="Yes"?"checked":""}`}
+
 
                                             onChange={
                                               handleInstructionDistalize
@@ -3613,7 +3761,9 @@ useEffect(() => {
                                             label="No"
                                             value="No"
                                             name="InstructionDistalize"
-                                            defaultChecked={values.InstructionDistalize}
+                                            // defaultChecked={values.InstructionDistalize}
+                                            checked={`${values.InstructionDistalize==="No"?"checked":""}`}
+                                            
 
                                             onChange={
                                               handleInstructionDistalize
@@ -3627,7 +3777,9 @@ useEffect(() => {
                                             label="Only If Needed"
                                             value="Only If Needed"
                                             name="InstructionDistalize"
-                                            defaultChecked={values.InstructionDistalize}
+                                            // defaultChecked={values.InstructionDistalize}
+                                            checked={`${values.InstructionDistalize==="Only If Needed"?"checked":""}`}
+
                                             
                                             onChange={
                                               handleInstructionDistalize
@@ -3657,6 +3809,7 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="18"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("18")?"checked":""}`}
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3671,6 +3824,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="17"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("17")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3685,6 +3840,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="16"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("16")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3699,6 +3856,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="15"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("15")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3713,6 +3872,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="14"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("14")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3727,6 +3888,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="13"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("13")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3741,6 +3904,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="12"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("12")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3755,6 +3920,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="11"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("11")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3769,6 +3936,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="21"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("21")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3783,6 +3952,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="22"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("22")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3797,6 +3968,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="23"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("23")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3811,6 +3984,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="24"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("24")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3825,6 +4000,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="25"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("25")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3839,6 +4016,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="26"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("26")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3853,6 +4032,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="27"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("27")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3867,6 +4048,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="28"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("28")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3899,6 +4082,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="48"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("48")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3912,6 +4097,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="47"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("47")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3925,6 +4112,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="46"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("46")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3938,6 +4127,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="45"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("45")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3951,6 +4142,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="44"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("44")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3964,6 +4157,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="43"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("43")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3977,6 +4172,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="42"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("42")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -3990,6 +4187,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="41"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("41")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4003,6 +4202,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="31"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("31")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4016,6 +4217,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="32"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("32")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4029,6 +4232,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="33"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("33")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4042,6 +4247,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="34"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("34")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4055,6 +4262,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="35"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("35")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4068,6 +4277,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="36"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("36")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4081,6 +4292,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="37"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("37")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4094,6 +4307,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="38"
                                                   name="DoNotMoveTheseTeeth"
+                                                  checked={`${values.DoNotMoveTheseTeeth.includes("38")?"checked":""}`}
+
                                                   onChange={
                                                     handleDoNotMoveTheseTeeth
                                                   }
@@ -4119,7 +4334,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="18"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("18")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4131,7 +4348,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="17"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("17")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4143,7 +4362,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="16"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("16")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4155,7 +4376,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="15"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("15")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4167,7 +4390,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="14"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("14")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4179,7 +4404,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="13"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("13")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4191,7 +4418,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="12"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("12")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4203,7 +4432,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="11"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("11")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4215,7 +4446,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="21"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("21")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4227,7 +4460,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="22"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("22")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4239,7 +4474,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="23"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("23")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4251,7 +4488,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="24"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("24")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4263,7 +4502,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="25"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("25")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4275,7 +4516,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="26"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("26")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4287,7 +4530,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="27"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("27")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4299,7 +4544,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="28"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("28")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4329,7 +4576,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="48"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("48")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 48
@@ -4340,7 +4589,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="47"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("47")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 47
@@ -4351,7 +4602,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="46"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("46")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 46
@@ -4362,7 +4615,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="45"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("45")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 45
@@ -4373,7 +4628,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="44"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("44")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 44
@@ -4384,7 +4641,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="43"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("43")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 43
@@ -4395,7 +4654,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="42"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("42")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 42
@@ -4406,7 +4667,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="41"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("41")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 41
@@ -4417,7 +4680,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="31"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("31")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 31
@@ -4428,7 +4693,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="32"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("32")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 32
@@ -4439,7 +4706,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="33"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("33")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 33
@@ -4450,7 +4719,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="34"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("34")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 34
@@ -4461,7 +4732,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="35"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("35")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 35
@@ -4472,7 +4745,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="36"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("36")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 36
@@ -4483,7 +4758,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="37"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("37")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 37
@@ -4494,7 +4771,9 @@ useEffect(() => {
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="38"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
+                                                  checked={`${values.AvidEngagersAttachmentsOnTheseTeeth.includes("38")?"checked":""}`}
+
                                                   onChange={handleEngagers}
                                                 />
                                                 38
@@ -4519,6 +4798,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="18"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("18")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4533,6 +4814,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="17"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("17")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4547,6 +4830,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="16"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("16")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4561,6 +4846,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="15"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("15")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4575,6 +4862,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="14"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("14")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4589,6 +4878,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="13"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("13")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4603,6 +4894,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="12"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("12")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4617,6 +4910,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="11"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("11")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4631,6 +4926,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="21"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("21")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4645,6 +4942,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="22"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("22")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4659,6 +4958,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="23"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("23")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4673,6 +4974,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="24"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("24")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4687,6 +4990,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="25"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("25")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4701,6 +5006,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="26"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("26")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4715,6 +5022,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="27"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("27")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4729,6 +5038,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="28"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("28")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4761,6 +5072,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="48"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("48")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4774,6 +5087,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="47"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("47")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4787,6 +5102,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="46"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("46")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4800,6 +5117,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="45"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("45")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4813,6 +5132,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="44"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("44")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4826,6 +5147,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="43"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("43")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4839,6 +5162,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="42"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("42")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4852,6 +5177,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="41"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("41")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4865,6 +5192,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="31"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("31")?"checked":""}`}
+                                                  
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4878,6 +5207,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="32"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("32")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4891,6 +5222,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="33"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("33")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4904,6 +5237,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="34"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("34")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4917,6 +5252,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="35"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("35")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4930,6 +5267,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="36"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("36")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4943,6 +5282,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="37"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("37")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4956,6 +5297,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="38"
                                                   name="IWillExtractTheseTeethBeforeTreatment"
+                                                  checked={`${values.IWillExtractTheseTeethBeforeTreatment.includes("38")?"checked":""}`}
+
                                                   onChange={
                                                     handleIWillExtractTheseTeethBeforeTreatment
                                                   }
@@ -4981,6 +5324,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="18"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("18")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -4995,6 +5340,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="17"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("17")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5009,6 +5356,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="16"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("16")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5023,6 +5372,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="15"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("15")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5037,6 +5388,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="14"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("14")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5051,6 +5404,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="13"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("13")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5065,6 +5420,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="12"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("12")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5079,6 +5436,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="11"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("11")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5093,6 +5452,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="21"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("21")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5107,6 +5468,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="22"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("22")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5121,6 +5484,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="23"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("23")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5135,6 +5500,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="24"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("24")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5149,6 +5516,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="25"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("25")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5163,6 +5532,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="26"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("26")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5177,6 +5548,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="27"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("27")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5191,6 +5564,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="28"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("28")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5223,6 +5598,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="48"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("48")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5236,6 +5613,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="47"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("47")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5249,6 +5628,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="46"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("46")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5262,6 +5643,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="45"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("45")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5275,6 +5658,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="44"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("44")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5288,6 +5673,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="43"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("43")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5301,6 +5688,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="42"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("42")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5314,6 +5703,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="41"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("41")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5327,6 +5718,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="31"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("31")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5340,6 +5733,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="32"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("32")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5353,6 +5748,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="33"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("33")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5366,6 +5763,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="34"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("34")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5379,6 +5778,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="35"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("35")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5392,6 +5793,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="36"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("36")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5405,6 +5808,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="37"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("37")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }
@@ -5418,6 +5823,8 @@ useEffect(() => {
                                                   aria-label="option 1"
                                                   value="38"
                                                   name="LeaveTheseSpacesOpen"
+                                                  checked={`${values.LeaveTheseSpacesOpen.includes("38")?"checked":""}`}
+
                                                   onChange={
                                                     handleLeaveTheseSpacesOpen
                                                   }

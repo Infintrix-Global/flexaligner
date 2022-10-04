@@ -131,8 +131,15 @@ function PatientList() {
     const fd = new FormData();
 
     fd.append("PatientId", ID);
+    // for(let)
+    // for(let n=0;n<state.length;n++){
+    //   fd.append("Name",state.name[n])
+    // }
     for (let i = 0; i < state.length; i++) {
+      fd.append("Name",state[i].name)
+      // console.log(state[i].name);
       fd.append("fileContent", state[i]);
+
     }
     console.log("ID is:" + ID);
     console.log("Content of file:" + state);
@@ -811,7 +818,7 @@ function PatientList() {
                 <Row>
                   <Col>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Do Not Move These Teeth : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.DoNotMoveTheseTeeth}</span></p>
-                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Avoid Engagers & Attachments On These Teeths : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.AvoidEngagersAttachments}</span></p>
+                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Avoid Engagers & Attachments On These Teeths : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.AvidEngagersAttachmentsOnTheseTeeth}</span></p>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>I Will Extract These Teeth Before Treatment : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.IWillExtractTheseTeethBeforeTreatment}</span></p>
                   <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Leave These Spaces Open : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.LeaveTheseSpacesOpen}</span></p>
                   
@@ -927,7 +934,7 @@ function PatientList() {
                   </p>
                   <Stack direction="horizontal" gap={5}>
                     <img
-                      src={user}
+                      src={patient[0]?.XrayLeft}
                       className="rounded"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -935,15 +942,15 @@ function PatientList() {
                         width: "100px",
                       }}
                     ></img>
-                    {/* <img
-                        src={user}
+                    <img
+                        src={patient[0]?.XrayRight}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
                           height: "100px",
                           width: "100px",
                         }}
-                      ></img> */}
+                      ></img>
                   </Stack>
                 </Col>
               </Row>

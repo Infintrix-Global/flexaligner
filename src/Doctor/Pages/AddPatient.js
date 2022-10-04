@@ -72,7 +72,7 @@ function AddPatient() {
     InstructionExpand: "",
     InstructionDistalize: "",
     DoNotMoveTheseTeeth: [],
-    Engagers: [],
+    AvidEngagersAttachmentsOnTheseTeeth: [],
     IWillExtractTheseTeethBeforeTreatment: [],
     LeaveTheseSpacesOpen: [],
     AdditionalInstruction: "",
@@ -814,7 +814,7 @@ console.log(values.DoctorId);
       // DoctorId:values.DoctorId,
       ClinicalConditions: values.ClinicalConditions.toString(),
       DoNotMoveTheseTeeth: values.DoNotMoveTheseTeeth.toString(),
-      Engagers: values.Engagers.toString(),
+      AvidEngagersAttachmentsOnTheseTeeth: values.AvidEngagersAttachmentsOnTheseTeeth.toString(),
       IWillExtractTheseTeethBeforeTreatment:
         values.IWillExtractTheseTeethBeforeTreatment.toString(),
       LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
@@ -1950,21 +1950,21 @@ console.log(values.DoctorId);
 
   const handleEngagers = (e) => {
     const { value, checked } = e.target;
-    const { Engagers } = values;
+    const { AvidEngagersAttachmentsOnTheseTeeth } = values;
 
     // console.log(`${value} is ${checked}`);
 
     // Case 1 : The user checks the box
     if (checked) {
       setValues((pre) => {
-        return { ...pre, Engagers: [...pre.Engagers, value] };
+        return { ...pre, AvidEngagersAttachmentsOnTheseTeeth: [...pre.AvidEngagersAttachmentsOnTheseTeeth, value] };
       });
     }
 
     // Case 2 : The user unchecks the box
     else {
       setValues((pre) => {
-        return { ...pre, Engagers: pre.Engagers.filter((e) => e !== value) };
+        return { ...pre, AvidEngagersAttachmentsOnTheseTeeth: pre.AvidEngagersAttachmentsOnTheseTeeth.filter((e) => e !== value) };
       });
     }
     console.log(values);
@@ -3893,7 +3893,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="18"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3905,7 +3905,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="17"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3917,7 +3917,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="16"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3929,7 +3929,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="15"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3941,7 +3941,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="14"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3953,7 +3953,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="13"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3965,7 +3965,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="12"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3977,7 +3977,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="11"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -3989,7 +3989,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="21"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4001,7 +4001,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="22"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4013,7 +4013,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="23"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4025,7 +4025,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="24"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4037,7 +4037,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="25"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4049,7 +4049,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="26"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4073,7 +4073,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="28"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                               </div>
@@ -4103,7 +4103,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="48"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 48
@@ -4114,7 +4114,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="47"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 47
@@ -4125,7 +4125,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="46"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 46
@@ -4147,7 +4147,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="44"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 44
@@ -4158,7 +4158,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="43"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 43
@@ -4169,7 +4169,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="42"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 42
@@ -4180,7 +4180,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="41"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 41
@@ -4191,7 +4191,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="31"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 31
@@ -4202,7 +4202,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="32"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 32
@@ -4213,7 +4213,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="33"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 33
@@ -4224,7 +4224,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="34"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 34
@@ -4235,7 +4235,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="35"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 35
@@ -4246,7 +4246,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="36"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 36
@@ -4257,7 +4257,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="37"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 37
@@ -4268,7 +4268,7 @@ console.log(values.DoctorId);
                                                 <Form.Check
                                                   aria-label="option 1"
                                                   value="38"
-                                                  name="Engagers"
+                                                  name="AvidEngagersAttachmentsOnTheseTeeth"
                                                   onChange={handleEngagers}
                                                 />
                                                 38
