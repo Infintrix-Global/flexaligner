@@ -827,7 +827,7 @@ let Role=sessionStorage.getItem("Role")
         ) {
           
           Swal.fire({
-            title: "Added Successfully!",
+            title: "Updated Successfully!",
             // text: 'Do you want to continue',
             icon: "success",
             // confirmButtonText: 'Cool'
@@ -2081,7 +2081,8 @@ useEffect(() => {
       console.log(details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]);
       let arryr=details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]
       let arr=[details.Data[0]?.DateofBirth.split('-')[0],details.Data[0]?.DateofBirth.split('-')[1],arryr].join('/')
-      // console.log(arr);
+      console.log(arr);
+
       // console.log(details.Data[0]?.ClinicalConditions.split(',').includes("Crowding")?"true":"false");
       let cliCon=details.Data[0]?.ClinicalConditions.split(',')
       // console.log(cliCon);
@@ -2157,7 +2158,7 @@ useEffect(() => {
         XrayRight:details.Data[0]?.XrayRight
         }
       })
-      
+      console.log("Date "+values.DateofBirth);
       // console.log(values.PatientId);
     });
 }, []);
@@ -2400,8 +2401,8 @@ function formatDate(date) {
                                             ></FaCalendarAlt>
                                           </InputGroup.Text>
                                           <Form.Control
-                                            type="date"
-                                            placeholder="Date *"
+                                            type={`${values.DateofBirth?"text":"date"}`}
+                                            placeholder=" "
                                             name="DateofBirth"
                                             // defaultValue={patient[0]?.DateofBirth}
                                             value={values.DateofBirth}

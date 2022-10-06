@@ -9,7 +9,8 @@ import {
     Dropdown,
     Card,
     Stack,
-    Form
+    Form,
+    Accordion
   } from "react-bootstrap";
 import user from "../../Assets/user.png";
 // import user from "../../Assets/user.png";
@@ -100,6 +101,23 @@ const tglContent = () => {
 
   let DoctorName=sessionStorage.getItem("DocName");
   let DoctorUserID=sessionStorage.getItem("DocUserId")
+
+
+  const [reports, setReports] = useState([]);
+
+  const repurl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDocuments/"+ID;
+
+  useEffect(() => {
+    console.log(urlParams);
+    fetch(repurl)
+      .then((res) => res.json())
+      .then((reports) => {
+        console.log(reports.Data);
+        setReports(reports.Data);
+        // console.log(patient);
+      });
+  }, []);
+  
 
     return(
         <>
@@ -592,18 +610,38 @@ const tglContent = () => {
                   <p className="fs-4">
                       <b>IPR</b>
                     </p>
-                    <Stack direction="horizontal" gap={5}>
-                      <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
+                    {/* <Stack direction="horizontal" gap={5}> */}
+                      <Accordion>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>View IPR</Accordion.Header>
+        <Accordion.Body>
+                      <object data={reports[0]?.PathDocuments} className="obj-size"></object>
+         
+        </Accordion.Body>
+      </Accordion.Item>
+      </Accordion>
                       
-                    </Stack>
+                    {/* </Stack> */}
+                  </Col>
+                </Row>
+
+                <Row className="mt-5">
+                  <Col>
+                  <p className="fs-4">
+                      <b>Reports</b>
+                    </p>
+                    {/* <Stack direction="horizontal" gap={5}> */}
+                      <Accordion>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>View Report</Accordion.Header>
+        <Accordion.Body>
+                      <object data={reports[1]?.PathDocuments} className="obj-size"></object>
+         
+        </Accordion.Body>
+      </Accordion.Item>
+      </Accordion>
+                      
+                    {/* </Stack> */}
                   </Col>
                 </Row>
                

@@ -84,7 +84,7 @@ function PatientList() {
 
     setState(e.target.files);
 
-    console.log(state);
+    console.log(e.target.files);
     
   };
 
@@ -135,12 +135,16 @@ function PatientList() {
     // for(let n=0;n<state.length;n++){
     //   fd.append("Name",state.name[n])
     // }
+
+
     for (let i = 0; i < state.length; i++) {
       fd.append("Name",state[i].name)
       // console.log(state[i].name);
       fd.append("fileContent", state[i]);
 
+
     }
+   
     console.log("ID is:" + ID);
     console.log("Content of file:" + state);
 
@@ -214,6 +218,7 @@ function PatientList() {
   const uploadHandlerIpr = (e) => {
     e.preventDefault();
     const fd = new FormData();
+    fd.append("PatientId",ID);
     fd.append("Name", IPR.name);
     fd.append("fileContent", IPR);
     // fd.append("PatientId",patient.PatientId);
@@ -328,6 +333,7 @@ function PatientList() {
 
   const uploadHandlerReports = () => {
     const fd = new FormData();
+    fd.append("PatientId",ID);
     fd.append("Name", Reports.name);
     fd.append("fileContent", Reports);
     // fd.append("PatientId",patient.PatientId);
