@@ -130,7 +130,7 @@ const tglContent = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Button variant="" onClick={tglContent} className="navhide">
-                <FaBars fontSize={28} color="#C49358" />
+                <FaBars fontSize={28} color="#C49358"/>
               </Button>
             </Nav>
             <Nav>

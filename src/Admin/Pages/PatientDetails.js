@@ -410,6 +410,24 @@ function PatientList() {
   }
 
 
+  const [pVids, setpVids] = useState([])
+
+const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideo/"+ID
+
+
+useEffect(() => {
+  console.log(urlParams);
+  fetch(url2)
+    .then((res) => res.json())
+    .then((vid) => {
+      console.log(vid.Data);
+      setpVids(vid.Data);
+      // console.log(patient);
+    });
+}, []);
+
+
+
 
   let DoctorName = sessionStorage.getItem("DocName");
   return (
@@ -960,6 +978,39 @@ function PatientList() {
                   </Stack>
                 </Col>
               </Row>
+              <Row className="mb-5">
+                  <Col>
+                  <p className="fs-4">
+                      <b>Videos</b>
+                    </p>
+                    <Stack direction="horizontal" gap={5} className="vid-row">
+                      {/* <img
+                        src={user}
+                        className="rounded"
+                        style={{
+                          boxShadow: "0px 5px 5px 5px #E8E8E8",
+                          height: "100px",
+                          width: "100px",
+                        }}
+                      ></img> */}
+                      {
+                        pVids?.map((item,index)=>{
+                          return(
+                            <>
+                            
+                            <video width="320" height="240" controls>
+  <source src={item?.PathVideo} type="video/mp4"/>
+  {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
+  
+</video>
+                            </>
+                          )
+                        })
+                      }
+                      
+                    </Stack>
+                  </Col>
+                </Row>
               <Row>
                 <Col>
                   <Form.Group controlId="formFile" className="mb-3">
