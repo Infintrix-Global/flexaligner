@@ -1,6 +1,13 @@
 import React,{useState} from "react";
 import {Form,Button} from "react-bootstrap";
 import axios from "axios";
+import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg"
+import { useEffect } from "react";
+
+
+const ffmpeg=createFFmpeg({log:true});
+
+
 
 function Upload(){
 
@@ -32,10 +39,54 @@ const uploadHandler=()=>{
    
 
 }
+
+const [ready, setReady] = useState(false);
+const [video, setvideo] = useState();
+const [mp4, setmp4] = useState();
+
+const load=async()=>{
+    await ffmpeg.load();
+    setReady(true);
+
+}
+
+useEffect(()=>{
+    load();
+},[])
+
+
+const convertToMp4=async()=>{
+    ffmpeg.FS('writeFile','aviVid.avi',await fetchFile(video));
+
+    await ffmpeg.run('-i','aviVid.avi','-t','2.5','-ss','2.0','-f','mp4','out.mp4');
+
+    
+
+    const data=ffmpeg.FS('readFile','out.mp4');
+
+    const url=URL.createObjectURL(new Blob([data.buffer],{type:'video/mp4'}))
+    setmp4(url);
+
+}
     return(
         <>
-        <input type="file" onChange={onChange} name="Name"/>
-        <Button onClick={uploadHandler}>upload</Button>
+        {/* <input type="file" onChange={onChange} name="Name"/>
+        <Button onClick={uploadHandler}>upload</Button> */}
+
+{
+    video && <video controls width="250" src={URL.createObjectURL(video)}>
+
+    </video>
+}
+
+{/* item(0) for first file */}
+        <input type="file" onChange={(e)=>setvideo(e.target.files?.item(0))}/>   
+
+
+        <Button variant="primary" className="btn" onClick={convertToMp4}>to mp4</Button>
+        {
+            mp4 && <video src={mp4} width="250"></video>
+        }
         </>
     );
 }

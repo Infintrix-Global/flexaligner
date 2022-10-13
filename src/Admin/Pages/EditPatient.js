@@ -2401,7 +2401,8 @@ function formatDate(date) {
                                             ></FaCalendarAlt>
                                           </InputGroup.Text>
                                           <Form.Control
-                                            type={`${values.DateofBirth?"text":"date"}`}
+                                            // type={`${values.DateofBirth?"text":"date"}`}
+                                            type="date"
                                             placeholder=" "
                                             name="DateofBirth"
                                             // defaultValue={patient[0]?.DateofBirth}
