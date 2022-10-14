@@ -28,6 +28,12 @@ import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg"
+
+
+const ffmpeg=createFFmpeg({log:true});
+
+
 
 function PatientList() {
   // const [Videos, setVideos] = useState({
@@ -47,7 +53,7 @@ function PatientList() {
   const Role = sessionStorage.getItem("Role");
   // const MAX_COUNT=5;
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState();
 
   // const [fileLimit, setFileLimit] = useState(false)
 
@@ -70,6 +76,21 @@ function PatientList() {
 
   //     console.log(state);
   // }
+  const [ready, setReady] = useState(false);
+const [mp4, setmp4] = useState();
+
+
+  const load=async()=>{
+    await ffmpeg.load()
+    setReady(true);
+
+}
+
+useEffect(()=>{
+    load();
+    // console.log("load");
+},[])
+
 
   const onChange = (e) => {
     // const newFiles = []
@@ -126,8 +147,40 @@ function PatientList() {
       
   };
 
+//   const convertToMp4=async()=>{
+//     ffmpeg.FS('writeFile','aviVid.avi',await fetchFile(state));
+
+//     await ffmpeg.run('-i',`${state.name}`,'-f','mp4','out.mp4');
+
+//     const data=ffmpeg.FS('readFile','out.mp4');
+// console.log(data);
+
+// const url=URL.createObjectURL(new Blob([data.buffer],{type:'video/mp4'}))
+//     setmp4(url);
+
+//   }
+
   const uploadHandler = async (e) => {
+    
+    
+    // await convertToMp4();
+    
     e.preventDefault();
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
     const fd = new FormData();
 
     fd.append("PatientId", ID);
@@ -146,7 +199,7 @@ function PatientList() {
     }
    
     console.log("ID is:" + ID);
-    console.log("Content of file:" + state);
+    console.log(state);
 
     await axios
       .post(

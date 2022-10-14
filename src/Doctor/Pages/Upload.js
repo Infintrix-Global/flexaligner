@@ -3,6 +3,7 @@ import {Form,Button} from "react-bootstrap";
 import axios from "axios";
 import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg"
 import { useEffect } from "react";
+import avi from "../../Assets/aviVid.avi";
 
 
 const ffmpeg=createFFmpeg({log:true});
@@ -45,25 +46,27 @@ const [video, setvideo] = useState();
 const [mp4, setmp4] = useState();
 
 const load=async()=>{
-    await ffmpeg.load();
+    await ffmpeg.load()
     setReady(true);
 
 }
 
 useEffect(()=>{
     load();
+    // console.log("load");
 },[])
 
 
 const convertToMp4=async()=>{
+    // ffmpeg.load();
     ffmpeg.FS('writeFile','aviVid.avi',await fetchFile(video));
 
-    await ffmpeg.run('-i','aviVid.avi','-t','2.5','-ss','2.0','-f','mp4','out.mp4');
+    await ffmpeg.run('-i','aviVid.avi','-f','mp4','out.mp4');
 
     
 
     const data=ffmpeg.FS('readFile','out.mp4');
-
+console.log(data);
     const url=URL.createObjectURL(new Blob([data.buffer],{type:'video/mp4'}))
     setmp4(url);
 
@@ -79,14 +82,18 @@ const convertToMp4=async()=>{
     </video>
 }
 
-{/* item(0) for first file */}
+{/* item(0) for first file like [0]*/}
         <input type="file" onChange={(e)=>setvideo(e.target.files?.item(0))}/>   
 
 
         <Button variant="primary" className="btn" onClick={convertToMp4}>to mp4</Button>
         {
-            mp4 && <video src={mp4} width="250"></video>
+            mp4 && <video src={mp4} width="250" controls className="mt-5"></video>
         }
+
+
+
+        {/* <video src={avi} width="250" controls></video> */}
         </>
     );
 }
