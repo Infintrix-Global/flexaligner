@@ -29,6 +29,9 @@ import $ from "jquery";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg"
+import ReactPlayer from 'react-player'
+
+import avi from "../../Assets/aviVid.avi";
 
 
 const ffmpeg=createFFmpeg({log:true});
@@ -1144,6 +1147,10 @@ useEffect(() => {
                   >
                     Submit
                   </Button>
+                  {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
+
+                  {/* <embed src={avi}/> */}
+
                 </Col>
               </Row>
             </Row>
