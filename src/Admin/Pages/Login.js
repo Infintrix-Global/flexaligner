@@ -34,7 +34,7 @@ const handle=(e)=>{
   console.log(newdata);
 }
 
-const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/VerifyLogin";
+const url=`${process.env.REACT_APP_ORTHOSQUARE_API_URL}VerifyLogin`;
 
 // const url="http://infintrix.in/FlexAlignApi/FlexAlign.svc/VerifyLogin";
 

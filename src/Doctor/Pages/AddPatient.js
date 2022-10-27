@@ -844,7 +844,7 @@ console.log(values.DoctorId);
           result.message === "Added Successful" &&
           form.checkValidity() === true
         ) {
-          
+
           Swal.fire({
             title: "Added Successfully!",
             // text: 'Do you want to continue',
@@ -2157,6 +2157,7 @@ console.log(values.DoctorId);
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <TbUser fontSize={28}></TbUser>
@@ -2178,6 +2179,8 @@ console.log(values.DoctorId);
                                         controlId="validationLastname"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <TbUser fontSize={28}></TbUser>
@@ -2197,7 +2200,7 @@ console.log(values.DoctorId);
                                       </Form.Group>
                                       <Form.Group
                                         controlId="validationMI"
-                                        className="mt-3"
+                                        className="mt-4"
                                       >
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
@@ -2212,8 +2215,9 @@ console.log(values.DoctorId);
                                           />
                                         </InputGroup>
                                       </Form.Group>
-                                      <Form.Group>
-                                        Gender *
+                                      <Form.Group className="mt-3">
+                                        Gender 
+                                                 <span style={{color:"red"}} className="mx-2 p-0">*</span>
                                         <br></br>
                                         <Form.Check
                                           type="radio"
@@ -2243,6 +2247,8 @@ console.log(values.DoctorId);
                                         controlId="validationDate"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <FaCalendarAlt
@@ -2573,7 +2579,10 @@ console.log(values.DoctorId);
                                         className="mt-3"
                                       >
                                         <Form.Label>
-                                          Quotation * (Only Numbers Eg:20000)
+                                          Quotation 
+                                          <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
+                                           (Only Numbers Eg:20000)
                                         </Form.Label>
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -2596,7 +2605,9 @@ console.log(values.DoctorId);
                                             className="mt-3"
                                           >
                                             <Form.Label>
-                                              Expected No. of Aligners *
+                                              Expected No. of Aligners 
+                                              <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
                                             </Form.Label>
                                             <InputGroup>
                                               <Form.Control
@@ -2618,7 +2629,9 @@ console.log(values.DoctorId);
                                             className="mt-3"
                                           >
                                             <Form.Label>
-                                              Product Type *
+                                              Product Type 
+                                              <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
                                             </Form.Label>
                                             <InputGroup hasValidation>
                                               <Form.Select

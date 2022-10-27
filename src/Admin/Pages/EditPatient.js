@@ -2293,6 +2293,8 @@ function formatDate(date) {
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
                                       <Form.Group controlId="validationFirstname">
+                                      <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <TbUser fontSize={28}></TbUser>
@@ -2317,6 +2319,8 @@ function formatDate(date) {
                                         controlId="validationLastname"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <TbUser fontSize={28}></TbUser>
@@ -2338,7 +2342,7 @@ function formatDate(date) {
                                       </Form.Group>
                                       <Form.Group
                                         controlId="validationMI"
-                                        className="mt-3"
+                                        className="mt-4"
                                       >
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
@@ -2354,8 +2358,10 @@ function formatDate(date) {
                                           />
                                         </InputGroup>
                                       </Form.Group>
-                                      <Form.Group>
-                                        Gender *
+                                      <Form.Group className="mt-3">
+                                        Gender 
+                                        <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
                                         <br></br>
                                         <Form.Check
                                           type="radio"
@@ -2394,6 +2400,8 @@ function formatDate(date) {
                                         controlId="validationDate"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <FaCalendarAlt
@@ -2773,7 +2781,10 @@ function formatDate(date) {
                                         className="mt-3"
                                       >
                                         <Form.Label>
-                                          Quotation * (Only Numbers Eg:20000)
+                                          Quotation 
+                                          <span style={{color:"red"}} className="mx-2 p-0">*</span>
+                                          
+                                           (Only Numbers Eg:20000)
                                         </Form.Label>
                                         <InputGroup hasValidation>
                                           <Form.Control
@@ -2798,7 +2809,9 @@ function formatDate(date) {
                                             className="mt-3"
                                           >
                                             <Form.Label>
-                                              Expected No. of Aligners *
+                                              Expected No. of Aligners 
+                                              <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
                                             </Form.Label>
                                             <InputGroup>
                                               <Form.Control
@@ -2822,7 +2835,9 @@ function formatDate(date) {
                                             className="mt-3"
                                           >
                                             <Form.Label>
-                                              Product Type *
+                                              Product Type 
+                                              <span style={{color:"red"}} className="mx-2 p-0">*</span>
+
                                             </Form.Label>
                                             <InputGroup hasValidation>
                                               <Form.Select
