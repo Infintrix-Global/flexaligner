@@ -10,6 +10,7 @@ import {
   Stack,
   Form,
   ProgressBar,
+  Spinner,
 } from "react-bootstrap";
 import "../../Doctor/Styles/PatientList.css";
 import "../../Doctor/Styles/PatientDetails.css";
@@ -138,7 +139,14 @@ useEffect(()=>{
         //   "Role: " + Videos.CreateId,
         //   "paths :" + Videos.VideoPath
         // );
+        // while(res.data.data===undefined || res.data.data===null){
+        //   <Spinner animation="border"/>
+        // }
         if (res.data.status === true) {
+          var spinhide=document.getElementById("spin");
+
+          spinhide.style.display="none";
+          
           Swal.fire({
             title: "Uploaded Successfully!",
             // text: 'Do you want to continue',
@@ -146,6 +154,7 @@ useEffect(()=>{
             // confirmButtonText: 'Cool'
           });
         }
+       
       });
       
   };
@@ -482,7 +491,9 @@ useEffect(() => {
     });
 }, []);
 
-
+// useEffect(()=>{
+//   console.log("p "+ Progress);
+//   },[])
 
 
   let DoctorName = sessionStorage.getItem("DocName");
@@ -509,13 +520,13 @@ useEffect(() => {
                   className="notification"
                 />
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
                   color="#C49358"
                   className="me-2 notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
@@ -1079,7 +1090,9 @@ useEffect(() => {
                     />
                   </Form.Group>
                     {Progress &&
-                      <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>}
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border" id="spin"/>
+                      }
                   <Button
                     variant=""
                     className="btn btn-outline-dark"
@@ -1134,7 +1147,7 @@ useEffect(() => {
                 <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label className="pd-ipr">Total no. of sets</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       value={sets.NoOfSets}
                       onChange={onChangeSets}
                       name="NoOfSets"

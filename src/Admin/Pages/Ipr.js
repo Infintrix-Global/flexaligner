@@ -27,13 +27,13 @@ function Ipr(){
                     <Col>
                         <p className="fs-3">Please Do This Striping Before Giving The First Aligner</p>
                         <Row style={{backgroundColor:"white"}}>
-                            <Col>
+                            <Col className="pt-4 pb-5">
                             <table className="mt-3">
                                                         <tbody>
                                                           <tr>
                                                             <td></td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 18
                                                                 <br />
                                                                 <Form.Control
@@ -41,12 +41,12 @@ function Ipr(){
                                                                   aria-label="option 1"
                         
                                                                   name="DoNotMoveTheseTeeth"
-                        
+                                                                  style={{transform: "translate(29px, -55px)"}}
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 17
                                                                 <br />
                                                                 <Form.Control
@@ -54,12 +54,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 16
                                                                 <br />
                                                                 <Form.Control
@@ -67,12 +68,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 15
                                                                 <br />
                                                                 <Form.Control
@@ -80,12 +82,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 14
                                                                 <br />
                                                                 <Form.Control
@@ -93,12 +96,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 13
                                                                 <br />
                                                                 <Form.Control
@@ -106,12 +110,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 12
                                                                 <br />
                                                                 <Form.Control
@@ -119,12 +124,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 11
                                                                 <br />
                                                                 <Form.Control
@@ -132,12 +138,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 21
                                                                 <br />
                                                                 <Form.Control
@@ -145,12 +152,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 22
                                                                 <br />
                                                                 <Form.Control
@@ -158,12 +166,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 23
                                                                 <br />
                                                                 <Form.Control
@@ -171,12 +180,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 24
                                                                 <br />
                                                                 <Form.Control
@@ -185,11 +195,13 @@ function Ipr(){
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
                         
+                                                                  style={{transform: "translate(29px, -55px)"}}
+                        
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 25
                                                                 <br />
                                                                 <Form.Control
@@ -197,12 +209,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 26
                                                                 <br />
                                                                 <Form.Control
@@ -210,12 +223,13 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 27
                                                                 <br />
                                                                 <Form.Control
@@ -223,26 +237,28 @@ function Ipr(){
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, -55px)"}}
+
                         
                                                                 />
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div className="" style={{transform:"translateY(-1.2em)",color:"#C49358",fontWeight:"bold"}}>
                                                                 28
                                                                 <br />
-                                                                <Form.Control
+                                                                {/* <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
                         
-                                                                />
+                                                                /> */}
                                                               </div>
                                                             </td>
                                                           </tr>
                                                           <tr>
-                                                            <td style={{ padding: "0px 8px" }}>
+                                                            <td style={{ padding: "0px 8px",fontWeight:"bold" }}>
                                                               R
                                                             </td>
                                                             <td colspan="16">
@@ -254,201 +270,216 @@ function Ipr(){
                                                                 }}
                                                               />
                                                             </td>
-                                                            <td style={{ padding: "0px 8px" }}>
+                                                            <td style={{ padding: "0px 8px",fontWeight:"bold" }}>
                                                               L
                                                             </td>
                                                           </tr>
                                                           <tr>
                                                             <td></td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
-                        
+                                                                  style={{transform: "translate(29px, 55px)"}}
+                                                                
                                                                 />
                                                                 48
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 47
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 46
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 45
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 44
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 43
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 42
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 41
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 31
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 32
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 33
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 34
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 35
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 36
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
+                                                              <div style={{color:"#C49358",fontWeight:"bold"}}>
                                                                 <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                   
                                                                   name="DoNotMoveTheseTeeth"
+                                                                  style={{transform: "translate(29px, 55px)"}}
                         
                                                                 />
                                                                 37
                                                               </div>
                                                             </td>
                                                             <td>
-                                                              <div>
-                                                                <Form.Control
+                                                              <div style={{transform:"translateY(1.2em)",color:"#C49358",fontWeight:"bold"}}>
+                                                                {/* <Form.Control
                                                                 type="text"
                                                                   aria-label="option 1"
                                                                  
                                                                   name="DoNotMoveTheseTeeth"
                         
-                                                                />
+                                                                /> */}
                                                                 38
                                                               </div>
                                                             </td>

@@ -93,6 +93,11 @@ const ID=urlParams.DoctorUserId;
       cell: row => <button className="edit-patient-btn"  onClick={() =>{ RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
     console.log(patient);
     }}>Edit</button>
+    },
+
+    {
+      // name: `${RoleId==="1"?"Action":""}`,
+      cell: row => RoleId==="1"? <button className="edit-patient-btn" onClick={()=>{navigate(`/payment/${row?.PatientId}`)}}>Payment</button>:""
     }
   ];
 
@@ -136,9 +141,9 @@ let DoctorName=sessionStorage.getItem("DocName");
               <Nav.Link href="#deets">
                 <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
-              </Nav.Link>
+              </Nav.Link> */}
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>

@@ -17,6 +17,7 @@ import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import DoctorProfile from "./Admin/Pages/DoctorProfile";
 import EditPatient from "./Admin/Pages/EditPatient";
 import EditDoctor from "./Admin/Pages/EditDoctor";
+import Payment from "./Admin/Pages/Payment";
 function App() {
   return (
     <div>
@@ -38,6 +39,7 @@ function App() {
           <Route path="/doctor-profile/:DoctorId" element={<DoctorProfile/>}/>
           <Route path="/edit-patient/:PatientId" element={<EditPatient/>}/>
           <Route path="/edit-doctor/:DoctorId" element={<EditDoctor/>}/>
+          <Route path="/payment/:PatientId" element={<Payment/>}/>
 
         </Routes>
       </Router>

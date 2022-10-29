@@ -2056,13 +2056,13 @@ console.log(values.DoctorId);
                   className="notification"
                 />
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
                   color="#C49358"
                   className="me-2 notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
@@ -2586,7 +2586,7 @@ console.log(values.DoctorId);
                                         </Form.Label>
                                         <InputGroup hasValidation>
                                           <Form.Control
-                                            type="text"
+                                            type="number"
                                             name="Quotation"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
