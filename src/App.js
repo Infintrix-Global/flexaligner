@@ -41,6 +41,8 @@ function App() {
           <Route path="/edit-doctor/:DoctorId" element={<EditDoctor/>}/>
           <Route path="/payment/:PatientId" element={<Payment/>}/>
 
+
+
         </Routes>
       </Router>
     </div>
