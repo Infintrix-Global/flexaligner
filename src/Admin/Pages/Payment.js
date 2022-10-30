@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
     Container,
     Row,
@@ -21,9 +21,12 @@ import { FaBars, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
+// import { useEffect } from "react";
 
 function Payment(){
   const navigate = useNavigate();
+
+  const PId=sessionStorage.getItem("Pid")
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
@@ -43,6 +46,89 @@ function Payment(){
       $("#pay" + test).show();
     });
   });
+
+
+
+  const [Pmode, setPmode] = useState([])
+  const modeUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetElectronicTransfersModeList";
+
+  useEffect(()=>{
+    fetch(modeUrl).then((res)=>res.json())
+    .then((mode)=>{
+      console.log(mode.Data);
+      setPmode(mode.Data)
+    })
+  },[])
+
+
+
+
+
+  const [payDetails, setpayDetails] = useState({
+    PatientId:PId,
+    DocotrId:0,
+    PaymentDate:"",
+    PaymentMode:"",
+    ElectronicTransfersId:"",
+    TransactionNo:"",
+    NameOfBank:"",
+    ChequeNo:"",
+    DepositDate:"",
+    BranchName:"",
+    PayAmount:"",
+    CreateBy:1,
+    
+  })
+
+  const handle=(e)=>{
+    const newdata={...payDetails}
+    newdata[e.target.name]=e.target.value;
+    
+    setpayDetails(newdata);
+    console.log(newdata);
+
+    var mode_select = document.querySelector("#selMode");
+    var mode_id = mode_select.options[mode_select.selectedIndex].getAttribute('code');
+
+    console.log(mode_id);
+
+    setpayDetails((pre)=>{
+      return{...pre,ElectronicTransfersId:mode_id}
+    })
+
+    console.log(payDetails);
+  }
+
+
+ 
+
+
+
+
+  const ETSubmit=(e)=>{
+    e.preventDefault();
+
+   const subUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+   
+  //  setpayDetails((pre)=>{
+  //   return{...pre,PatientId:PId}
+  //  })
+
+   console.log(payDetails);
+   fetch(subUrl,{
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payDetails),
+  }).then((res)=>res.json())
+  .then((result)=>{
+    console.log(result);
+    console.log(payDetails);
+  })
+
+  }
 
     return(
         <>
@@ -140,13 +226,13 @@ function Payment(){
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Amount</Form.Label>
-                            <Form.Control type="text" placeholder="" />
+                            <Form.Control type="text" placeholder="" name="PayAmount" value={payDetails.PayAmount} onChange={(e)=>handle(e)}/>
                           </Form.Group>
                         </Col>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Transaction Id</Form.Label>
-                            <Form.Control type="text" placeholder="" />
+                            <Form.Control type="text" placeholder="" name="TransactionNo" value={payDetails.TransactionNo} onChange={(e)=>handle(e)}/>
                           </Form.Group>
                         </Col>
                     </Row>
@@ -155,18 +241,24 @@ function Payment(){
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Mode</Form.Label>
-                            <Form.Select aria-label="Default select example">
-                          <option>Open this select menu</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                            <Form.Select aria-label="Default select example" name="PaymentMode" id="selMode" value={payDetails.PaymentMode} onChange={(e)=>handle(e)}>
+                              
+                          <option selected>Select Payment Mode</option>
+
+                          {Pmode.map((m)=>{
+                           
+                            return(
+
+                            <option code={m.ElectronicTransfersId} >{m?.ModeName}</option>
+                          )})
+}
                         </Form.Select>
                           </Form.Group>
                         </Col>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control type="date" placeholder="" />
+                            <Form.Control type="date" placeholder="" name="PaymentDate" value={payDetails.PaymentDate} onChange={(e)=>handle(e)} />
                           </Form.Group>
                         </Col>
                     </Row>
@@ -176,7 +268,7 @@ function Payment(){
                 </Col>
                 <Row className="text-center mt-4">
                 <Col>
-                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}}>Submit</Button>
+                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}} onClick={(e)=>ETSubmit(e)}>Submit</Button>
                 </Col>
               </Row>
             </Row>

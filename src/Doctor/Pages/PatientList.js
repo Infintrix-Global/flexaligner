@@ -97,7 +97,9 @@ const ID=urlParams.DoctorUserId;
 
     {
       // name: `${RoleId==="1"?"Action":""}`,
-      cell: row => RoleId==="1"? <button className="edit-patient-btn" onClick={()=>{navigate(`/payment/${row?.PatientId}`)}}>Payment</button>:""
+      cell: row => RoleId==="1"? <button className="edit-patient-btn" onClick={()=>{navigate(`/payment/${row?.PatientId}`)
+    sessionStorage.setItem("Pid",row.PatientId)
+    }}>Payment</button>:""
     }
   ];
 
