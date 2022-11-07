@@ -18,6 +18,9 @@ import DoctorProfile from "./Admin/Pages/DoctorProfile";
 import EditPatient from "./Admin/Pages/EditPatient";
 import EditDoctor from "./Admin/Pages/EditDoctor";
 import Payment from "./Admin/Pages/Payment";
+import PatientsListForSets from "./Admin/Pages/PatientsListForSets";
+import AlloactedSetsList from "./Admin/Pages/AllocatedSetsList";
+import ShowPaymentDetails from "./Admin/Pages/ShowPaymentDetails";
 function App() {
   return (
     <div>
@@ -40,6 +43,9 @@ function App() {
           <Route path="/edit-patient/:PatientId" element={<EditPatient/>}/>
           <Route path="/edit-doctor/:DoctorId" element={<EditDoctor/>}/>
           <Route path="/payment/:PatientId" element={<Payment/>}/>
+          <Route path="/patient-list-for-sets/:DoctorUserId" element={<PatientsListForSets/>} />
+          <Route path="/allocated-sets" element={<AlloactedSetsList/>} />
+          <Route path="/payment-details" element={<ShowPaymentDetails/>} />
 
 
 

@@ -118,7 +118,7 @@ useEffect(()=>{
                         <>
                         <Row className="m-1">
                           <Col>
-                           <BsDot fontSize={40} color="green"/><span>New Patient <b>{noti?.Name}</b> is added by <b>Dr. {noti?.DoctorName}!</b></span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+                           <BsDot fontSize={40} color="green"/><span>New Patient <b>{noti?.Name}</b> is added by <b>{noti?.DoctorName}!</b></span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
                             const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
@@ -293,6 +293,10 @@ useEffect(()=>{
                 >
                   View Doctors
                 </Button> */}
+
+                <Button variant="" className="mt-5 w-100"
+                  style={{ backgroundColor: "#C49358",color:"white" }}
+                  onClick={()=>navigate(`/patient-list-for-sets/${0}`)}>Aligner's set Allocation</Button>
               </Col>
             </Row>
             {/* <Row className="mb-5"> */}

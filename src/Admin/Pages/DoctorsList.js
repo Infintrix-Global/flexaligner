@@ -17,6 +17,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
 
 import { FiMessageSquare, FiPower } from "react-icons/fi";
+import {HiCurrencyRupee} from "react-icons/hi";
 import { FaBars, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import logo from "../../Assets/Logoremovebg.png";
 import user from "../../Assets/user.png";
@@ -28,7 +29,6 @@ import $ from "jquery";
 
 function DoctorsList() {
   const [searchInput, setSearchInput] = useState("");
-
 
 
 
@@ -434,9 +434,12 @@ let DoctorName=sessionStorage.getItem("DocName");
                                           <span>
                                             <Button
                                               variant=""
-                                              className="action-i edit editbtn"
+                                              className=""
+                                              onClick={()=>{navigate(`/payment/${docList.DoctorID}`)
+                                              sessionStorage.setItem("DocID",docList.DoctorID)
+                                              }}
                                             >
-                                              Edit
+                                              <HiCurrencyRupee fontSize={20}/>
                                             </Button>
                                           </span>
                                           <span>

@@ -21,12 +21,21 @@ import { FaBars, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
+import Swal from "sweetalert2";
 // import { useEffect } from "react";
 
 function Payment(){
+
+
+
+  
+
+
   const navigate = useNavigate();
 
-  const PId=sessionStorage.getItem("Pid")
+  // const PId=sessionStorage.getItem("Pid")
+const DocID=sessionStorage.getItem("DocID");
+
   const tglContent = () => {
     let Menu = document.querySelector(".menuTab");
 
@@ -65,8 +74,8 @@ function Payment(){
 
 
   const [payDetails, setpayDetails] = useState({
-    PatientId:PId,
-    DocotrId:0,
+    PatientId:0,
+    DocotrId:DocID,
     PaymentDate:"",
     PaymentMode:"",
     ElectronicTransfersId:"",
@@ -115,6 +124,12 @@ function Payment(){
   //  })
 
    console.log(payDetails);
+
+
+   if(payDetails.PayAmount==="" || payDetails.TransactionNo==="" || payDetails.PaymentMode==="" || payDetails.PaymentDate===""){
+    alert("Please fill all the details!")
+   }
+
    fetch(subUrl,{
     method: "POST",
     headers: {
@@ -126,8 +141,73 @@ function Payment(){
   .then((result)=>{
     console.log(result);
     console.log(payDetails);
+    if(result.status===true){
+      Swal.fire({
+        title:"Payment Added Successfully!",
+        icon:"success"
+      })
+     }
   })
 
+  }
+
+
+
+  const [chequeDetails, setChequeDetails] = useState({
+    PatientId:0,
+    DocotrId:DocID,
+    PaymentDate:"",
+    PaymentMode:0,
+    ElectronicTransfersId:0,
+    TransactionNo:0,
+    NameOfBank:"",
+    ChequeNo:"",
+    DepositDate:"",
+    BranchName:"",
+    PayAmount:"",
+    CreateBy:1,
+  })
+
+
+
+  const handleCheque=(e)=>{
+    const newdata={...chequeDetails}
+    newdata[e.target.name]=e.target.value;
+    
+    setChequeDetails(newdata);
+    console.log(newdata);
+  }
+
+  const chequeSubmit=(e)=>{
+    e.preventDefault();
+
+    const subCUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+
+
+
+    if(chequeDetails.NameOfBank==="" || chequeDetails.BranchName==="" || chequeDetails.ChequeNo==="" || chequeDetails.PaymentDate==="" || chequeDetails.PayAmount==="" || chequeDetails.DepositDate===""){
+      alert("Please fill all the details!")
+    }else{    
+   
+    fetch(subCUrl,{
+     method: "POST",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(chequeDetails),
+   }).then((res)=>res.json())
+   .then((result)=>{
+     console.log(result);
+     console.log(chequeDetails);
+     if(result.status===true){
+      Swal.fire({
+        title:"Payment Added Successfully!",
+        icon:"success"
+      })
+     }
+   })
+  }
   }
 
     return(
@@ -220,18 +300,28 @@ function Payment(){
              </Col> 
             <hr className="mt-3"/>
 
+
+
+
+
+
+
+
+
+
+
             <Row className="justify-content-center desc" id="pay1" style={{display:"none"}}>
                 <Col md={10}>
                     <Row>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Amount</Form.Label>
+                            <Form.Label>Amount</Form.Label> <span style={{color:"red"}}>*</span>
                             <Form.Control type="text" placeholder="" name="PayAmount" value={payDetails.PayAmount} onChange={(e)=>handle(e)}/>
                           </Form.Group>
                         </Col>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Transaction Id</Form.Label>
+                            <Form.Label>Transaction Id</Form.Label> <span style={{color:"red"}}>*</span>
                             <Form.Control type="text" placeholder="" name="TransactionNo" value={payDetails.TransactionNo} onChange={(e)=>handle(e)}/>
                           </Form.Group>
                         </Col>
@@ -240,7 +330,7 @@ function Payment(){
                     <Row>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Mode</Form.Label>
+                            <Form.Label>Mode</Form.Label> <span style={{color:"red"}}>*</span>
                             <Form.Select aria-label="Default select example" name="PaymentMode" id="selMode" value={payDetails.PaymentMode} onChange={(e)=>handle(e)}>
                               
                           <option selected>Select Payment Mode</option>
@@ -257,7 +347,7 @@ function Payment(){
                         </Col>
                         <Col>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Date</Form.Label>
+                            <Form.Label>Date</Form.Label> <span style={{color:"red"}}>*</span>
                             <Form.Control type="date" placeholder="" name="PaymentDate" value={payDetails.PaymentDate} onChange={(e)=>handle(e)} />
                           </Form.Group>
                         </Col>
@@ -280,47 +370,51 @@ function Payment(){
 
 
 
+
+
+
+
             <Row className="justify-content-center desc" id="pay2" style={{display:"none"}}>
                 <Col md={10}>
                    <Row>
                     <Col>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Name of Bank</Form.Label>
-                            <Form.Control type="text" placeholder="" />
+                            <Form.Label>Name of Bank</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="text" placeholder="" name="NameOfBank" value={chequeDetails.NameOfBank} onChange={(e)=>handleCheque(e)}/>
                           </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Branch</Form.Label>
-                            <Form.Control type="text" placeholder="" />
-                          </Form.Group>
-                    </Col>
-                   </Row>
-                   <Row>
-                    <Col>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Cheque No.</Form.Label>
-                            <Form.Control type="text" placeholder="" />
-                          </Form.Group>
-                    </Col>
-                    <Col>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Dated</Form.Label>
-                            <Form.Control type="date" placeholder="" />
+                            <Form.Label>Branch</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="text" placeholder="" name="BranchName" value={chequeDetails.BranchName} onChange={(e)=>handleCheque(e)}/>
                           </Form.Group>
                     </Col>
                    </Row>
                    <Row>
                     <Col>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Amount</Form.Label>
-                            <Form.Control type="text" placeholder="" />
+                            <Form.Label>Cheque No.</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="text" placeholder="" name="ChequeNo" value={chequeDetails.ChequeNo} onChange={(e)=>handleCheque(e)}/>
                           </Form.Group>
                     </Col>
                     <Col>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Deposit Date</Form.Label>
-                            <Form.Control type="date" placeholder="" />
+                            <Form.Label>Dated</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="date" placeholder="" name="PaymentDate" value={chequeDetails.PaymentDate} onChange={(e)=>handleCheque(e)}/>
+                          </Form.Group>
+                    </Col>
+                   </Row>
+                   <Row>
+                    <Col>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Amount</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="text" placeholder="" name="PayAmount" value={chequeDetails.PayAmount} onChange={(e)=>handleCheque(e)}/>
+                          </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Deposit Date</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="date" placeholder="" name="DepositDate" value={chequeDetails.DepositDate} onChange={(e)=>handleCheque(e)}/>
                           </Form.Group>
                     </Col>
                    </Row>
@@ -330,7 +424,7 @@ function Payment(){
                 </Col>
                 <Row className="text-center mt-4">
                 <Col>
-                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}}>Submit</Button>
+                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}} onClick={(e)=>chequeSubmit(e)}>Submit</Button>
                 </Col>
               </Row>
             </Row>

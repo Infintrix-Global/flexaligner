@@ -825,7 +825,9 @@ console.log(values.DoctorId);
     console.log("n :", n);
 
     
-
+    if(form.checkValidity() === false){
+      alert("Please go back and fill required fields marked with "*"")
+    }else{
     await fetch(url, {
       method: "POST",
       headers: {
@@ -837,9 +839,7 @@ console.log(values.DoctorId);
       .then((res) => res.json())
       .then((result) => {
         console.log("result :", result.message);
-        if(form.checkValidity() === false){
-          alert("Please go back and fill required fields marked with "*"")
-        }
+        
         if (
           result.message === "Added Successful" &&
           form.checkValidity() === true
@@ -855,6 +855,8 @@ console.log(values.DoctorId);
         }
       })
       .catch((err) => console.log(err));
+
+    }
     console.log(values);
     // sessionStorage.removeItem("path");
     // console.log(pPath);

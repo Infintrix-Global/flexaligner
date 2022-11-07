@@ -132,7 +132,7 @@ border: 1px solid black;
 
 
 .img-s2{
-    max-height: -webkit-fill-available;
+    max-width: -webkit-fill-available;
     background-size: contain;
 }
 

@@ -440,7 +440,7 @@ useEffect(()=>{
     setSets({PatientId:patient[0]?.PatientId,
     NoOfSets:e.target.value
     })
-    
+    // console.log(sets);
   }
 
   const handleSets=(e)=>{
@@ -451,6 +451,9 @@ useEffect(()=>{
     // setSets(pre=>{
     //   return{...pre,PatientId:patient[0]?.PatientId}
     // })
+
+    let colid=document.getElementById("totalSet");
+
     
     fetch(SetsUrl, {
       method: "POST",
@@ -470,8 +473,10 @@ useEffect(()=>{
             icon: "success",
             // confirmButtonText: 'Cool'
           });
+          // colid.style.display="none"
         }
       })
+      console.log(sets);
   }
 
 
@@ -1143,7 +1148,7 @@ useEffect(() => {
                     Upload
                   </Button>
                 </Col>
-                <Col>
+                <Col id="totalSet">
                 <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label className="pd-ipr">Total no. of sets</Form.Label>
                     <Form.Control

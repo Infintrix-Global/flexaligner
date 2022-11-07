@@ -189,8 +189,9 @@ let DoctorLicense=sessionStorage.getItem("DocLicense");
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white",cursor:"pointer" }}
                     className="mb-1"
+                    onClick={()=>navigate(`/patient-list/${DoctorUser}`)}
                   >
                     <p className="mt-4">
                       Total No of Patients
@@ -224,9 +225,9 @@ let DoctorLicense=sessionStorage.getItem("DocLicense");
                 <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}
-                  onClick={()=>navigate(`/patient-list/${DoctorUser}`)}
+                  onClick={()=>navigate("/allocated-sets")}
                 >
-                  View Patients
+                  Aligner's Allocation
                 </Button>
               </Col>
             </Row>

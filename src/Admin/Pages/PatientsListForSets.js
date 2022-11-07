@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -7,37 +8,38 @@ import {
   Navbar,
   Dropdown,
   Card,
+  Modal,
+  Form,
 } from "react-bootstrap";
 import "../../Doctor/Styles/PatientList.css";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaEye } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import Male from "../../Assets/Male.png";
-import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-
-function PatientList() {
-  
-  const navigate=useNavigate();
+function PatientsListForSets() {
+  const navigate = useNavigate();
   const [patient, setPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
-  const urlParams = useParams()
+  const urlParams = useParams();
   console.log(urlParams);
-const ID=urlParams.DoctorUserId;  
+  const ID = urlParams.DoctorUserId;
 
   const getPatient = async () => {
     console.log(urlParams);
     try {
       const response = await axios.get(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/"+ID 
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/" +
+          ID
       );
       setPatient(response.data.Data);
       setFilteredNames(response.data.Data);
@@ -48,9 +50,24 @@ const ID=urlParams.DoctorUserId;
   };
 
   const RoleId = sessionStorage.getItem("Role");
-  let DoctorUserID=sessionStorage.getItem("DocUserId")
+  let DoctorUserID = sessionStorage.getItem("DocUserId");
 
-// sessionStorage.setItem("PatientId",patient.PatientId)
+  const [sets, setSets] = useState({
+    PatientSetsId:"",
+    PatientId:"",
+    DoctorId:"",
+    NoOfSets:"",
+    DateOn:""
+  })
+
+  const onChangeSet=(e)=>{
+    const newdata={...sets}
+    newdata[e.target.name]=e.target.value;
+    
+    setSets(newdata);
+    console.log(newdata);
+  }
+
 
   const columns = [
     {
@@ -67,32 +84,39 @@ const ID=urlParams.DoctorUserId;
       name: "Name",
       selector: (row) => row.Name,
     },
-    {
-      name: "DateOfBirth",
-      selector: (row) => row.DateofBirth,
-      sortable: true,
-    },
+
     {
       name: "Doctor Name",
       selector: (row) => row.DoctorName,
       sortable: true,
     },
     {
-      name: "Gender",
-      selector: (row) => row.Gender,
+      name: "No. of Sets",
+      selector: (row) => row.NoOfSets,
       sortable: true,
     },
-    {
-      name: "MI",
-      selector: (row) => row.Mi,
-      sortable: true,
-    },
-    
+
     {
       name: "Action",
-      cell: row => <button className="edit-patient-btn"  onClick={() =>{ RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
-    console.log(patient);
-    }}>Edit</button>
+      cell: (row) => (
+        <button
+          className="edit-patient-btn"
+          onClick={() => {
+            // RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
+            // console.log(patient);
+            handleShow();
+            setSets((pre)=>{
+              return{...pre,PatientSetsId:row.PatientSetsId,
+              PatientId:row.PatientId,
+              DoctorId:row.DoctorId
+              }
+            })
+            // console.log(sets);
+          }}
+        >
+          Allocate sets
+        </button>
+      ),
     },
 
     // {
@@ -102,6 +126,40 @@ const ID=urlParams.DoctorUserId;
     // }}>Payment</button>:""
     // }
   ];
+
+
+  
+
+
+  const submitSets=(e)=>{
+    e.preventDefault();
+
+   const setsallocUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
+    
+   
+
+   fetch(setsallocUrl,{
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sets),
+   })
+   .then((res)=>res.json())
+   .then((result)=>{
+    console.log(result);
+    console.log(sets);
+    if(result.status===true){
+      Swal.fire({
+        title:"Submitted Successfully!",
+        icon:"success"
+      })
+    }
+    window.location.reload();
+   })
+
+  }
 
   useEffect(() => {
     getPatient();
@@ -123,7 +181,14 @@ const ID=urlParams.DoctorUserId;
     }
   };
 
-let DoctorName=sessionStorage.getItem("DocName");
+  let DoctorName = sessionStorage.getItem("DocName");
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
 
   return (
     <>
@@ -141,7 +206,11 @@ let DoctorName=sessionStorage.getItem("DocName");
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
+                <IoMdNotifications
+                  fontSize={30}
+                  color="#C49358"
+                  className="notification"
+                />
               </Nav.Link>
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
@@ -167,10 +236,15 @@ let DoctorName=sessionStorage.getItem("DocName");
                     <hr />
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{navigate("/")
-                    // sessionStorage.clear();
-                    }}>Logout</span>
-
+                      <span
+                        className="px-3"
+                        onClick={() => {
+                          navigate("/");
+                          // sessionStorage.clear();
+                        }}
+                      >
+                        Logout
+                      </span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -180,22 +254,30 @@ let DoctorName=sessionStorage.getItem("DocName");
         </Container>
       </Navbar>
       <Container fluid>
-        {RoleId==="1"?"":
-        <Row className="menuTab">
-          <Col>
-            <Card body className="border-0">
-              <Nav className="justify-content-center">
-                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
-                  Dashboard
-                </Nav.Link>
-                <Nav.Link href="#deets" className="prof-tab">
-                  Profile
-                </Nav.Link>
-              </Nav>
-            </Card>
-          </Col>
-        </Row>
-}
+        {RoleId === "1" ? (
+          ""
+        ) : (
+          <Row className="menuTab">
+            <Col>
+              <Card body className="border-0">
+                <Nav className="justify-content-center">
+                  <Nav.Link
+                    href=""
+                    className="doc-tab active"
+                    onClick={() =>
+                      navigate(`/doctor-dashboard/${DoctorUserID}`)
+                    }
+                  >
+                    Dashboard
+                  </Nav.Link>
+                  <Nav.Link href="#deets" className="prof-tab">
+                    Profile
+                  </Nav.Link>
+                </Nav>
+              </Card>
+            </Col>
+          </Row>
+        )}
         <Container>
           <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
             <Col>
@@ -223,6 +305,53 @@ let DoctorName=sessionStorage.getItem("DocName");
                   />
                 </Col>
               </Row>
+              <Modal show={show} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Sets</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="NoOfSets"
+                      onChange={(e) => onChangeSet(e)}
+                      value={sets.NoOfSets}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="DateOn"
+                      id="pass"
+                      onChange={(e) => onChangeSet(e)}
+                      value={sets.DateOn}
+                      required
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+                    onClick={(e)=>submitSets(e)}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </Col>
           </Row>
         </Container>
@@ -230,4 +359,5 @@ let DoctorName=sessionStorage.getItem("DocName");
     </>
   );
 }
-export default PatientList;
+
+export default PatientsListForSets;
