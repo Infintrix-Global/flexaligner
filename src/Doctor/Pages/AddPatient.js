@@ -191,12 +191,21 @@ const IndividualUpload1=async ()=>{
       return{...pre,FrontalRepose:res.data.path}
     })
     
-    if(res.data.status==="1"){Swal.fire({
+    let confid=document.getElementById("extim1");
+    if(res.data.status==="1"){
+      Swal.fire({
       title: `${state6.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+
+    confid.style.display="none"
+  
+  }
+
+
+    
   });
 
 
@@ -242,13 +251,16 @@ const IndividualUpload2=async ()=>{
     setValues(pre=>{
       return{...pre,FrontalSmiling:res.data.path}
     })
+    let confim2= document.getElementById("extim2");
 
     if(res.data.status==="1"){Swal.fire({
       title: `${state62.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confim2.style.display="none"
+  }
   });
 
 
@@ -295,12 +307,15 @@ const IndividualUpload3=async ()=>{
       return{...pre,ProfileRepose:res.data.path}
     })
 
+    let confim3=document.getElementById("extim3")
     if(res.data.status==="1"){Swal.fire({
       title: `${state65.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confim3.style.display="none"
+  }
   });
 
 
@@ -353,12 +368,16 @@ const IndividualUpload4=async ()=>{
       return{...pre,FrontImage:res.data.path}
     })
 
+    let confim4=document.getElementById("extim4");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${state67.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confim4.style.display="none"
+  }
   });
 
 
@@ -416,12 +435,17 @@ const IntraUpload1=async ()=>{
       return{...pre,BuccalRight:res.data.path}
     })
 
+
+    let confint1=document.getElementById("intim1");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${state662.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confint1.style.display="none"
+  }
   });
 
 
@@ -468,13 +492,15 @@ const IntraUpload2=async ()=>{
     setValues(pre=>{
       return{...pre,BuccalLeft:res.data.path}
     })
-
+let confint2=document.getElementById("intim2");
     if(res.data.status==="1"){Swal.fire({
       title: `${state6621.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confint2.style.display="none"
+  }
   });
 
 
@@ -521,12 +547,16 @@ const IntraUpload3=async ()=>{
             return{...pre,BuccalFront:res.data.path}
           })
 
+          let confint3=document.getElementById("intim3");
+
           if(res.data.status==="1"){Swal.fire({
             title: `${state6622.name} \nUploaded Successfully!`,
             // text: 'Do you want to continue',
             icon: "success"
             // confirmButtonText: 'Cool'
-          })}
+          })
+        confint3.style.display="none"
+        }
   });
 
 
@@ -572,13 +602,15 @@ const IntraUpload4=async ()=>{
     setValues(pre=>{
       return{...pre,OcclussalUpper:res.data.path}
     })
-
+let confint4=document.getElementById("intim4");
     if(res.data.status==="1"){Swal.fire({
       title: `${state6623.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+confint4.style.display="none"
+  }
   });
 
 
@@ -625,13 +657,17 @@ const IntraUpload5=async ()=>{
     setValues(pre=>{
       return{...pre,OcclussalLower:res.data.path}
     })
+    
+    let confint5=document.getElementById("intim5");
 
     if(res.data.status==="1"){Swal.fire({
       title: `${state6624.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confint5.style.display="none"
+  }
   });
 
 
@@ -2312,17 +2348,22 @@ console.log(values.DoctorId);
                                         controlId="validationCaseNo"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text id="inputGroupPrepend">
                                             <TbUser fontSize={28}></TbUser>
                                           </InputGroup.Text>
                                           <Form.Control
                                             type="text"
-                                            placeholder="Case No."
+                                            placeholder="Case Paper No."
                                             name="CaseNo"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
+                                          <Form.Control.Feedback type="invalid">
+                                          Please Enter case paper No.
+                                        </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
                                     </Col>
@@ -5744,7 +5785,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload1}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload1}>Confirm</Button> {previewUrlTab61?<span id="extim1">Confirm to upload!</span>:""} </span>
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -5787,7 +5828,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload2}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload2}>Confirm</Button>{previewUrl2?<span id="extim2">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -5862,7 +5903,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload3}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload3}>Confirm</Button>{previewUrl5?<span id="extim3">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                             {/* <Col md={4}>
@@ -5900,7 +5941,7 @@ console.log(values.DoctorId);
                                                   />
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload4}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload4}>Confirm</Button>{previewUrl7?<span id="extim4">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -6127,7 +6168,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload1}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload1}>Confirm</Button>{previewUrl62?<span id="intim1">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                             {/* <Col md={4}>
@@ -6185,7 +6226,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload2}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload2}>Confirm</Button>{previewUrl21?<span id="intim2">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -6254,7 +6295,7 @@ console.log(values.DoctorId);
                                                   </p>
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload3}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload3}>Confirm</Button>{previewUrl22?<span id="intim3">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -6290,7 +6331,7 @@ console.log(values.DoctorId);
                                                   />
                                                 ):<p className="text-center mt-5">Upper Occulosal</p>} */}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload4}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload4}>Confirm</Button>{previewUrl23?<span id="intim4">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                             {/* <Col md={4}>
@@ -6342,7 +6383,7 @@ console.log(values.DoctorId);
                                                   />
                                                 ):<p className="text-center mt-5">Lower Occulosal</p>} */}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload5}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload5}>Confirm</Button>{previewUrl24?<span id="intim5">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>

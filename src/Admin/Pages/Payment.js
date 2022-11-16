@@ -210,6 +210,32 @@ const DocID=sessionStorage.getItem("DocID");
   }
   }
 
+
+  const [cashDetails, setCashDetails] = useState({
+    PatientId:0,
+    DocotrId:DocID,
+    PaymentDate:"",
+    PaymentMode:0,
+    ElectronicTransfersId:0,
+    TransactionNo:0,
+    NameOfBank:0,
+    ChequeNo:0,
+    DepositDate:0,
+    BranchName:0,
+    PayAmount:"",
+    currency:"",
+    CreateBy:1,
+  })
+
+
+  const handleCash=(e)=>{
+    const newdata={...cashDetails}
+    newdata[e.target.name]=e.target.value;
+    
+    setCashDetails(newdata);
+    console.log(newdata);
+  }
+
     return(
         <>
         
@@ -285,19 +311,26 @@ const DocID=sessionStorage.getItem("DocID");
                 </Col>
             </Row>
             <Row
-              className="mt-3 mb-5 p-5 pt-5"
+              className="mt-3 mb-5 p-5 pt-5 justify-content-center"
               style={{
                 backgroundColor: "white",
                 boxShadow: "0px 0px 15px  #C49358",
                 borderRadius: "8px",
               }}
             >
-             <Col>
-             <Form.Check type="radio" aria-label="radio 1" name="payment" label="Electronic Transfers" value="1" style={{float:"right"}}/>
+             <Col md={8}>
+               <Row className="ms-5">
+                 <Col>
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Electronic Transfers" value="1" />
+                 </Col>
+                 <Col>
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cheque" value="2"/>
+                 </Col>
+                 <Col>
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cash" value="3"/>
+                 </Col>
+               </Row>
              </Col>
-             <Col>
-             <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cheque" value="2"/>
-             </Col> 
             <hr className="mt-3"/>
 
 
@@ -419,6 +452,51 @@ const DocID=sessionStorage.getItem("DocID");
                     </Col>
                    </Row>
 
+                    
+              
+                </Col>
+                <Row className="text-center mt-4">
+                <Col>
+                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}} onClick={(e)=>chequeSubmit(e)}>Submit</Button>
+                </Col>
+              </Row>
+            </Row>
+
+
+
+
+
+            <Row className="justify-content-center desc" id="pay3" style={{display:"none"}}>
+                <Col md={10}>
+                 <Row>
+                  <Col>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Currency</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Select aria-label="Default select example" name="PaymentMode" id="selMode" value={cashDetails.currency} onChange={(e)=>handle(e)}>
+                              
+                          <option selected>Select Currency</option>
+                          <option>INR</option>
+
+                          <option>USD</option>
+
+                          </Form.Select>
+                          </Form.Group>
+                  </Col>
+                  <Col>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Amount</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="text" placeholder="" name="PayAmount" value={cashDetails.PayAmount} onChange={(e)=>handleCash(e)}/>
+                          </Form.Group>
+                  </Col>
+                 </Row>
+<Row>
+  <Col md={6}>
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Date</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="date" placeholder="" name="PayAmount" value={cashDetails.PaymentDate} onChange={(e)=>handleCash(e)}/>
+                          </Form.Group>
+  </Col>
+</Row>
                     
               
                 </Col>

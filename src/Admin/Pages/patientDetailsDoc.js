@@ -597,6 +597,31 @@ const tglContent = () => {
   {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
   
 </video>
+{item?.IsConfirm===""?<Button variant="" className="btn-primary" onClick={()=>{
+  const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
+
+  let obj={
+    PatientVideoId:item?.PatientVideoId,
+    DoctorId:DoctorUserID
+  }
+  console.log(obj);
+  fetch(confUrl,{
+    method: "POST",
+headers: {
+Accept: "application/json",
+"Content-Type": "application/json",
+},
+body: JSON.stringify(obj),
+  })
+  .then((res)=>res.json())
+  .then((conf)=>{
+    console.log("below is conf");
+    console.log(conf);
+  })
+}}>Confirm</Button>:""}
+
+  
+ 
                             </>
                           )
                         })

@@ -8,6 +8,7 @@ import {
   Navbar,
   Dropdown,
   Card,
+  Badge
 } from "react-bootstrap";
 import "../../Doctor/Styles/Dashboard.css";
 import user from "../../Assets/user.png";
@@ -15,6 +16,8 @@ import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
+import { BsDot,BsTrash } from "react-icons/bs";
+
 import { CgProfile } from "react-icons/cg";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import advertisement from "../../Assets/advertisement.png";
@@ -74,6 +77,20 @@ let DoctorAddress=sessionStorage.getItem("DocAddress");
 let DoctorLicense=sessionStorage.getItem("DocLicense");
 
 
+
+const [notifyData, setNotifyData] = useState([]);
+
+const notifyUrl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetNotification/${DoctorUser}/2`;
+useEffect(()=>{
+  fetch(notifyUrl).then((res)=>res.json())
+  .then((notData)=>{
+    console.log(notData);
+    setNotifyData(notData);
+// console.log(notifyData);
+  })
+},[notifyData])
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -90,11 +107,67 @@ let DoctorLicense=sessionStorage.getItem("DocLicense");
             </Nav>
             <Nav>
               <Nav.Link href="#deets">
-                <IoMdNotifications
-                  fontSize={30}
+      <Dropdown>
+      <Dropdown.Toggle
+                    variant=""
+                    id="dropdown-basic"
+                    className="user noti-d"
+                  >
+                   <IoMdNotifications
+                  fontSize={35}
                   color="#C49358"
                   className="notification"
-                />
+                /><Badge bg="secondary" className="badge-p">{notifyData?.TotalNotification}</Badge>
+
+                  </Dropdown.Toggle>
+
+
+                  <Dropdown.Menu className="noti-menu">
+                  
+                   {
+                   
+                    notifyData.Data?.map((noti)=>{
+                      return(
+                        <>
+                        <Row className="m-1">
+                          <Col>
+                           <BsDot fontSize={40} color="green"/><span>New video is added by Admin for <b>{noti?.Name}</b> !</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+
+                            // console.log(noti.NotificationId);
+                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+
+                            let notifId={
+                              NotificationId:noti.NotificationId
+                            };
+                            fetch(notifUrl,{
+                              method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(notifId),
+                            })
+                            .then((res)=>res.json())
+                            .then((result)=>{
+                              console.log(result);
+                              console.log("Id sent");
+                            })
+                           }}><BsTrash color="red"/></Button></span>
+                          </Col>
+                        </Row>
+                        {notifyData?.TotalNotification>1?<Dropdown.Divider/>:""}
+                        </>
+                      );
+                    })
+                   }
+
+
+
+
+                  </Dropdown.Menu>
+      </Dropdown>
+                
+
               </Nav.Link>
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
@@ -103,30 +176,30 @@ let DoctorLicense=sessionStorage.getItem("DocLicense");
                   className="me-2 notification"
                 />
               </Nav.Link> */}
-              <span className="address">
-                <img src={user} alt="" width={35} className="mt-1" />
+              <span className="address mx-3 m-0">
+                <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-                <Dropdown className="out-dd">
+              <Nav.Link href="#deets" className="p-0 mt-1">
+                <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
                     className="user"
                   >
-                   {DocDetails[0]?.Name}
+                   {DoctorName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{
                         navigate("/");
-                        // sessionStorage.clear();
+                        sessionStorage.removeItem("Role");
                       }
                     }>Logout</span>
                     </Dropdown.Item>

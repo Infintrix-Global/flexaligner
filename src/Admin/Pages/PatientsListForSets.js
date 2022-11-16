@@ -95,7 +95,11 @@ function PatientsListForSets() {
       selector: (row) => row.NoOfSets,
       sortable: true,
     },
-
+    {
+      name: "Sets allocated",
+      // selector: (row) => row.NoOfSets,
+      sortable: true,
+    },
     {
       name: "Action",
       cell: (row) => (
@@ -114,7 +118,23 @@ function PatientsListForSets() {
             // console.log(sets);
           }}
         >
-          Allocate sets
+          Printing due
+        </button>
+      ),
+    },
+    {
+      // name: "Action",
+      cell: (row) => (
+        <button
+          className="edit-patient-btn"
+          onClick={() => {
+            // RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
+            // console.log(patient);
+           
+            // console.log(sets);
+          }}
+        >
+          Dispatch due
         </button>
       ),
     },

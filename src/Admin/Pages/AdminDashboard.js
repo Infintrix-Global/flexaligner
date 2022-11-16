@@ -65,7 +65,7 @@ let AdminName=sessionStorage.getItem("DocName")
 
 const [notifyData, setNotifyData] = useState([]);
 
-const notifyUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetNotification";
+const notifyUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetNotification/1/1";
 useEffect(()=>{
   fetch(notifyUrl).then((res)=>res.json())
   .then((notData)=>{
