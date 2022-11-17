@@ -131,7 +131,7 @@ useEffect(()=>{
                         <>
                         <Row className="m-1">
                           <Col>
-                           <BsDot fontSize={40} color="green"/><span>New video is added by Admin for <b>{noti?.Name}</b> !</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+                           <BsDot fontSize={40} color="green"/><span>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
                             const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
@@ -220,9 +220,9 @@ useEffect(()=>{
                   Dashboard
                   </Nav.Link>
                 </LinkContainer>
-                <Nav.Link href="#deets" className="prof-tab">
+                {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
             </Card>
           </Col>
@@ -295,13 +295,13 @@ useEffect(()=>{
                   Add Patient
                 </Button>
 
-                <Button
+                {/* <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}
                   onClick={()=>navigate("/allocated-sets")}
                 >
                   Aligner's Allocation
-                </Button>
+                </Button> */}
               </Col>
             </Row>
             <Row className="mb-5">

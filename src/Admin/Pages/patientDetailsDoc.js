@@ -190,9 +190,9 @@ const tglContent = () => {
                 <Nav.Link href="#deets" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                 Dashboard
                 </Nav.Link>
-                <Nav.Link href="#deets" className="prof-tab">
+                {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
             </Card>
           </Col>
@@ -579,25 +579,18 @@ const tglContent = () => {
                       <b>Videos</b>
                     </p>
                     <Stack direction="horizontal" gap={5} className="vid-row">
-                      {/* <img
-                        src={user}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img> */}
+                     
                       {
                         pVids?.map((item,index)=>{
                           return(
                             <>
                             <video width="320" height="240" controls>
-  <source src={item?.PathVideo} type="video/mp4"/>
+  <source src={item?.PathVideo} type="video/mp4"/> 
   {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
   
 </video>
-{item?.IsConfirm===""?<Button variant="" className="btn-primary" onClick={()=>{
+  
+{item?.IsConfirm===""?<Button variant="" className="btn approval-btn" onClick={()=>{
   const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
 
   let obj={
@@ -617,11 +610,17 @@ body: JSON.stringify(obj),
   .then((conf)=>{
     console.log("below is conf");
     console.log(conf);
+    if(conf.status===true){
+      Swal.fire({
+        title:"Aprroved!",
+        icon:"success"
+      })
+    }
   })
-}}>Confirm</Button>:""}
+  window.location.reload();
+}}>Approve</Button>:""}
 
-  
- 
+
                             </>
                           )
                         })

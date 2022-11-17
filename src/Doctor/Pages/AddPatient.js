@@ -2155,9 +2155,9 @@ console.log(values.DoctorId);
                 >
                   Dashboard
                 </Nav.Link>
-                <Nav.Link href="#deets" className="prof-tab">
+                {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
             </Card>
           </Col>

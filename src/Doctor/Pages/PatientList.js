@@ -188,9 +188,9 @@ let DoctorName=sessionStorage.getItem("DocName");
                 <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                   Dashboard
                 </Nav.Link>
-                <Nav.Link href="#deets" className="prof-tab">
+                {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
             </Card>
           </Col>
