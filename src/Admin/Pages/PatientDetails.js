@@ -746,7 +746,7 @@ useEffect(() => {
                       <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Name : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.Name}</span></p>
                       </Col>
                       <Col>
-                      <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Case No : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.CaseNo}</span></p>
+                      <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Case Paper No : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.CaseNo}</span></p>
                       </Col>
                       <Col>
                       <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Gender : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.Gender}</span></p>

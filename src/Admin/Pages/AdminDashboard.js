@@ -118,7 +118,12 @@ useEffect(()=>{
                         <>
                         <Row className="m-1">
                           <Col>
-                           <BsDot fontSize={40} color="green"/><span>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+                           <BsDot fontSize={40} color="green"/><span onClick={()=>{
+                            if(noti?.NotificationType==="Add New Patient"){
+
+                              navigate(`/patient-list/${0}`)
+                            }
+                           }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
                             const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
@@ -275,7 +280,7 @@ useEffect(()=>{
                 </Row>
               </Col>
               <Col md={{ span: 4, offset: 1 }} className="mt-5">
-                <img src={advertisement} className="w-100"></img>
+                <img src={advertisement} className="w-100 mb-3"></img>
                 <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}

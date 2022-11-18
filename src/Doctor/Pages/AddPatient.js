@@ -716,12 +716,16 @@ const RadioUpload1=async ()=>{
       return{...pre,XrayLeft:res.data.path}
     })
 
+    let confrim1=document.getElementById("rim1");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${radio.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confrim1.style.display="none"
+  }
   });
 
 
@@ -770,12 +774,16 @@ const RadioUpload2=async ()=>{
       return{...pre,XrayRight:res.data.path}
     })
 
+    let confrim2=document.getElementById("rim2");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${radio1.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confrim2.style.display="none"
+  }
   });
 
 
@@ -1437,7 +1445,11 @@ console.log(values.DoctorId);
   // };
 
   const submitTab1 = (event) => {
+   if(values?.FirstName==="" || values?.LastName==="" || values?.Gender==="" || values?.ClinicAddress==="" || values.CaseNo===""){
+    alert("please fill all fields marked with red *")
+   }else{
     setCurrentTab((prev) => prev + 1);
+   }
   };
 
   // const handleUpload3=(e)=>{
@@ -2194,6 +2206,11 @@ console.log(values.DoctorId);
                                 <Tab eventKey={0} title="1. Patient Data">
                                   <Row className="pt-4 pb-3">
                                     <Col md={{ span: 6 }}>
+
+
+
+
+
                                       <Form.Group controlId="validationFirstname">
                                           <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
                                         <InputGroup hasValidation>
@@ -2209,10 +2226,15 @@ console.log(values.DoctorId);
                                             required
                                           />
                                           <Form.Control.Feedback type="invalid">
-                                            Please Enter a First Name.
+                                            Please Enter First Name.
                                           </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
+
+
+
+
+
                                       <Form.Group
                                         controlId="validationLastname"
                                         className="mt-3"
@@ -2232,7 +2254,7 @@ console.log(values.DoctorId);
                                             required
                                           />
                                           <Form.Control.Feedback type="invalid">
-                                            Please Enter a Last Name.
+                                            Please Enter Last Name.
                                           </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
@@ -2327,6 +2349,8 @@ console.log(values.DoctorId);
                                         controlId="validationClinicAddress"
                                         className="mt-3"
                                       >
+                                          <span style={{color:"red",float:"right"}} className="m-0 p-0">*</span>
+
                                         <InputGroup hasValidation>
                                           <InputGroup.Text
                                             id="basic-addon1"
@@ -2342,6 +2366,9 @@ console.log(values.DoctorId);
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
+                                           <Form.Control.Feedback type="invalid">
+                                          Please Enter Clinic Address.
+                                        </Form.Control.Feedback>
                                         </InputGroup>
                                       </Form.Group>
                                       <Form.Group
@@ -5299,7 +5326,12 @@ console.log(values.DoctorId);
                                             return{...pre,DoctorId:DoctorUserID}
                                           })
                                           console.log(values);
+
+                                          if(values?.Quotation==="" || values?.ExpectedNoOfAligners==="" || values?.ProductType===""){
+                                            alert("please fill all fields marked with red *")
+                                          }else{
                                           setCurrentTab((prev) => prev + 1)
+                                          }
                                         }}
                                       >
                                         Next
@@ -6574,7 +6606,7 @@ console.log(values.DoctorId);
                                                   />
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload1}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload1}>Confirm</Button>{previewUrlTab71?<span id="rim1">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -6604,7 +6636,7 @@ console.log(values.DoctorId);
                                                   />
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload2}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload2}>Confirm</Button>{previewUrlTab72?<span id="rim2">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>

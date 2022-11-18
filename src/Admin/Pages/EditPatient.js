@@ -689,12 +689,16 @@ const RadioUpload1=async ()=>{
       return{...pre,XrayLeft:res.data.path}
     })
 
+    let confrim1=document.getElementById("rim1");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${radio.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confrim1.style.display="none"
+  }
   });
 
 
@@ -743,12 +747,16 @@ const RadioUpload2=async ()=>{
       return{...pre,XrayRight:res.data.path}
     })
 
+    let confrim2=document.getElementById("rim2");
+
     if(res.data.status==="1"){Swal.fire({
       title: `${radio1.name} \nUploaded Successfully!`,
       // text: 'Do you want to continue',
       icon: "success"
       // confirmButtonText: 'Cool'
-    })}
+    })
+  confrim2.style.display="none"
+  }
   });
 
 
@@ -7227,7 +7235,7 @@ function formatDate(date) {
                                                   />
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload1}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload1}>Confirm</Button>{previewUrlTab71?<span id="rim1">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
@@ -7258,7 +7266,7 @@ function formatDate(date) {
                                                   />
                                                 )}
                                               </Card>
-                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload2}><FaUpload/></Button></span>
+                                              <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={RadioUpload2}>Confirm</Button>{previewUrlTab72?<span id="rim2">Confirm to upload!</span>:""}</span>
 
                                             </Col>
                                           </Row>
