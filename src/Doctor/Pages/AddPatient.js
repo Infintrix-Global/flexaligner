@@ -41,6 +41,8 @@ function AddPatient() {
     DoctorName: "",
     ClinicAddress: "",
     CaseNo: "",
+    ShipToOffice:"",
+    BillToOffice:"",
     ClinicalConditions: [],
     GeneralNotes: "",
     ChiefComplaint: "",
@@ -2396,8 +2398,8 @@ console.log(values.DoctorId);
                                     </Col>
                                     <Col md={{ span: 6 }}>
                                       <Form.Group>
-                                        Ship to Office
-                                        <Form.Check
+                                        
+                                        {/* <Form.Check
                                           type="radio"
                                           value="2004,
                                           B-103 RADHA GOVIND RADHA RESIDENCY
@@ -2409,29 +2411,41 @@ console.log(values.DoctorId);
                                             MUMBAI 400066"
                                           className="pt-2"
                                           onChange={handleChange}
-                                        />
+                                        /> */}
+                                         <Form.Label>Ship to Office</Form.Label>
+        <Form.Control as="textarea" row={4} placeholder="Enter Address" name="ShipToOffice" onChange={handleChange}/>
                                         <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                                       </Form.Group>
                                       <br></br>
-                                      Bill to Office
-                                      <Form.Check
+                                     
+                                      {/* <Form.Check
                                         type="radio"
                                         aria-label="radio 1"
                                         label="2004, B-103 RADHA GOVIND RADHA RESIDENCY
                                          SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
                                         className="pt-2"
                                         defaultChecked
-                                      />
+                                      /> */}
+                                      <Form.Group>
+
+                                      <Form.Label>Bill to Office</Form.Label>
+        <Form.Control as="textarea" row={4} placeholder="Enter Address" name="BillToOffice" onChange={handleChange}/>
+                                        <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                      </Form.Group>
                                       <br></br>
                                       Payer?
-                                      <Form.Check
+                                      {/* <Form.Check
                                         type="radio"
                                         aria-label="radio 1"
                                         label="2004, B-103 RADHA GOVIND RADHA RESIDENCY
                  SIDDHARTH NAGAR BORIVALI EAST, MUMBAI 400066"
                                         className="pt-2"
                                         disabled
-                                      />
+                                      /> */}
+                                       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        {/* <Form.Label>Email address</Form.Label> */}
+        <Form.Control as="textarea" row={4} placeholder="" disabled/>
+      </Form.Group>
                                     </Col>
                                   </Row>
                                   {/* <Button type="submit"
@@ -5458,7 +5472,7 @@ console.log(values.DoctorId);
                                     </Col>
                                   </Row>
                                 </Tab>
-                                <Tab eventKey={4} title="5. PVS/Scan">
+                                {/* <Tab eventKey={4} title="5. PVS/Scan">
                                   <Row className="p-3">
                                     <Col md={8}>
                                       <Card className="p-3 check-crd">
@@ -5625,9 +5639,9 @@ console.log(values.DoctorId);
                                       </Button>
                                     </Col>
                                   </Row>
-                                </Tab>
+                                </Tab> */}
 
-                                <Tab eventKey={5} title="6. Photos">
+                                <Tab eventKey={4} title="5. Photos">
                                   {/* <section>
                 <label>
                 + Add Images
@@ -6537,7 +6551,7 @@ console.log(values.DoctorId);
                                   </Row>
                                 </Tab>
 
-                                <Tab eventKey={6} title="7. Radiographs">
+                                <Tab eventKey={5} title="6. Radiographs">
                                   <Row className="m-2">
                                     <Col md={8}>
                                       <Card className="img-crd">

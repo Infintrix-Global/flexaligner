@@ -92,16 +92,22 @@ function AlloactedSetsList() {
     },
     {
       name: "Total No. of Sets",
-      selector: (row) => row.TotalNoOfSets,
+      selector: (row) => row.NoOfSets,
     },
 
     {
       name: "Sets Allocated",
-      selector: (row) => row.NoOfSets,
+      selector: (row) => row.TotalNoOfSets,
       sortable: true,
     },
     {
-      name: "Actions",
+      name: "Recieved Aligners",
+      
+      // selector: (row) => row.NoOfSets,
+      // sortable: true,
+    },
+    {
+      name:"Allocate to patient",
       cell: (row) => (
         <Button variant="" className="edit-patient-btn" onClick={()=>{handleShow()
           setSendSets((pre)=>{
@@ -114,9 +120,7 @@ function AlloactedSetsList() {
           Send
         </Button>
       ),
-      // selector: (row) => row.NoOfSets,
-      // sortable: true,
-    },
+    }
 
     // {
     //   name: "Action",

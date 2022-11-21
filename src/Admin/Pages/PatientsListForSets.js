@@ -101,7 +101,7 @@ function PatientsListForSets() {
       sortable: true,
     },
     {
-      name: "Action",
+      name: "Dispatch Aligners",
       cell: (row) => (
         <button
           className="edit-patient-btn"
@@ -117,13 +117,12 @@ function PatientsListForSets() {
             })
             // console.log(sets);
           }}
-        >
-          Printing due
+        > send
         </button>
       ),
     },
     {
-      // name: "Action",
+      name: "Status",
       cell: (row) => (
         <button
           className="edit-patient-btn"
@@ -134,7 +133,7 @@ function PatientsListForSets() {
             // console.log(sets);
           }}
         >
-          Dispatch due
+          Dispatched
         </button>
       ),
     },
