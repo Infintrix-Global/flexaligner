@@ -38,8 +38,10 @@ function PatientsListForSets() {
     console.log(urlParams);
     try {
       const response = await axios.get(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/" +
-          ID
+        // "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/" +
+        //   ID
+        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientSetDetails/0/0/" +
+        ID
       );
       setPatient(response.data.Data);
       setFilteredNames(response.data.Data);
@@ -84,7 +86,6 @@ function PatientsListForSets() {
       name: "Name",
       selector: (row) => row.Name,
     },
-
     {
       name: "Doctor Name",
       selector: (row) => row.DoctorName,
@@ -97,7 +98,7 @@ function PatientsListForSets() {
     },
     {
       name: "Sets allocated",
-      // selector: (row) => row.NoOfSets,
+      selector: (row) => row.SendTotalSets,
       sortable: true,
     },
     {
@@ -123,19 +124,8 @@ function PatientsListForSets() {
     },
     {
       name: "Status",
-      cell: (row) => (
-        <button
-          className="edit-patient-btn"
-          onClick={() => {
-            // RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
-            // console.log(patient);
-           
-            // console.log(sets);
-          }}
-        >
-          Dispatched
-        </button>
-      ),
+      selector: (row) => row.StatusSets,
+
     },
 
     // {

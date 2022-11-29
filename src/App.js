@@ -21,6 +21,7 @@ import Payment from "./Admin/Pages/Payment";
 import PatientsListForSets from "./Admin/Pages/PatientsListForSets";
 import AlloactedSetsList from "./Admin/Pages/AllocatedSetsList";
 import ShowPaymentDetails from "./Admin/Pages/ShowPaymentDetails";
+import VideoRejectionReason from "./Admin/Pages/VideoRejectionReason";
 function App() {
   return (
     <div>
@@ -46,6 +47,8 @@ function App() {
           <Route path="/patient-list-for-sets/:DoctorUserId" element={<PatientsListForSets/>} />
           <Route path="/allocated-sets" element={<AlloactedSetsList/>} />
           <Route path="/payment-details" element={<ShowPaymentDetails/>} />
+          <Route path="/video-reject" element={<VideoRejectionReason/>} />
+
 
 
 

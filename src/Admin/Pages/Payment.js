@@ -70,6 +70,8 @@ const DocID=sessionStorage.getItem("DocID");
   },[])
 
 
+  
+
 
 
 
@@ -85,9 +87,31 @@ const DocID=sessionStorage.getItem("DocID");
     DepositDate:"",
     BranchName:"",
     PayAmount:"",
+    currency:"",
     CreateBy:1,
     
   })
+
+  useEffect(()=>{
+    let etlbl=document.querySelector("#etbtn");
+
+    if(etlbl.checked){
+      let valget=etlbl.getAttribute('value');
+
+      console.log(valget);
+      setpayDetails((pre)=>{
+        return{...pre,
+        ElectronicTransfersId:valget
+        }
+      })
+    }
+   
+   
+     // console.log("label is");
+
+     
+   
+   },)
 
   const handle=(e)=>{
     const newdata={...payDetails}
@@ -96,14 +120,14 @@ const DocID=sessionStorage.getItem("DocID");
     setpayDetails(newdata);
     console.log(newdata);
 
-    var mode_select = document.querySelector("#selMode");
-    var mode_id = mode_select.options[mode_select.selectedIndex].getAttribute('code');
+    // var mode_select = document.querySelector("#selMode");
+    // var mode_id = mode_select.options[mode_select.selectedIndex].getAttribute('code');
 
-    console.log(mode_id);
+    // console.log(mode_id);
 
-    setpayDetails((pre)=>{
-      return{...pre,ElectronicTransfersId:mode_id}
-    })
+    // setpayDetails((pre)=>{
+    //   return{...pre,ElectronicTransfersId:mode_id}
+    // })
 
     console.log(payDetails);
   }
@@ -153,20 +177,46 @@ const DocID=sessionStorage.getItem("DocID");
 
 
 
+
+  
   const [chequeDetails, setChequeDetails] = useState({
     PatientId:0,
     DocotrId:DocID,
     PaymentDate:"",
     PaymentMode:0,
-    ElectronicTransfersId:0,
+    ElectronicTransfersId:"",
     TransactionNo:0,
     NameOfBank:"",
     ChequeNo:"",
     DepositDate:"",
     BranchName:"",
     PayAmount:"",
+    currency:"",
     CreateBy:1,
   })
+
+
+  useEffect(()=>{
+    let etlbl=document.querySelector("#chqbtn");
+
+    if(etlbl.checked){
+      let valget=etlbl.getAttribute('value');
+
+      console.log(valget);
+      setChequeDetails((pre)=>{
+        return{...pre,
+        ElectronicTransfersId:valget
+        }
+      })
+    }
+   
+   
+     // console.log("label is");
+
+     
+   
+   },)
+
 
 
 
@@ -211,12 +261,16 @@ const DocID=sessionStorage.getItem("DocID");
   }
 
 
+
+  
+
+
   const [cashDetails, setCashDetails] = useState({
     PatientId:0,
     DocotrId:DocID,
     PaymentDate:"",
     PaymentMode:0,
-    ElectronicTransfersId:0,
+    ElectronicTransfersId:"",
     TransactionNo:0,
     NameOfBank:0,
     ChequeNo:0,
@@ -228,6 +282,27 @@ const DocID=sessionStorage.getItem("DocID");
   })
 
 
+  useEffect(()=>{
+    let etlbl=document.querySelector("#cashbtn");
+
+    if(etlbl.checked){
+      let valget=etlbl.getAttribute('value');
+
+      console.log(valget);
+      setCashDetails((pre)=>{
+        return{...pre,
+        ElectronicTransfersId:valget
+        }
+      })
+    }
+   
+   
+     // console.log("label is");
+
+     
+   
+   },)
+
   const handleCash=(e)=>{
     const newdata={...cashDetails}
     newdata[e.target.name]=e.target.value;
@@ -236,6 +311,40 @@ const DocID=sessionStorage.getItem("DocID");
     console.log(newdata);
   }
 
+
+  const submitCash=(e)=>{
+    e.preventDefault();
+
+    const cashUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+
+
+
+    if(cashDetails.currency==="" || cashDetails.PayAmount==="" || cashDetails.PaymentDate===""){
+      alert("Please fill all the details!")
+    }else{    
+    fetch(cashUrl,{
+     method: "POST",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(cashDetails),
+   }).then((res)=>res.json())
+   .then((result)=>{
+     console.log(result);
+     console.log(cashDetails);
+     if(result.status===true){
+      Swal.fire({
+        title:"Payment Added Successfully!",
+        icon:"success"
+      })
+     }
+   })
+  }
+  }
+
+
+ 
     return(
         <>
         
@@ -321,22 +430,17 @@ const DocID=sessionStorage.getItem("DocID");
              <Col md={8}>
                <Row className="ms-5">
                  <Col>
-                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Electronic Transfers" value="1" />
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Electronic Transfers" lbl="Electronic Transfers" id="etbtn" value="1" />
                  </Col>
                  <Col>
-                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cheque" value="2"/>
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cheque" lbl="Cheque" id="chqbtn" value="2"/>
                  </Col>
                  <Col>
-                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cash" value="3"/>
+                 <Form.Check type="radio" aria-label="radio 1" name="payment" label="Cash" lbl="Cash" id="cashbtn" value="3"/>
                  </Col>
                </Row>
              </Col>
             <hr className="mt-3"/>
-
-
-
-
-
 
 
 
@@ -472,9 +576,9 @@ const DocID=sessionStorage.getItem("DocID");
                   <Col>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Currency</Form.Label> <span style={{color:"red"}}>*</span>
-                            <Form.Select aria-label="Default select example" name="PaymentMode" id="selMode" value={cashDetails.currency} onChange={(e)=>handle(e)}>
+                            <Form.Select aria-label="Default select example" name="currency" id="selMode" value={cashDetails.currency} onChange={(e)=>handleCash(e)}>
                               
-                          <option selected>Select Currency</option>
+                          <option>Select Currency</option>
                           <option>INR</option>
 
                           <option>USD</option>
@@ -493,7 +597,7 @@ const DocID=sessionStorage.getItem("DocID");
   <Col md={6}>
   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Date</Form.Label> <span style={{color:"red"}}>*</span>
-                            <Form.Control type="date" placeholder="" name="PayAmount" value={cashDetails.PaymentDate} onChange={(e)=>handleCash(e)}/>
+                            <Form.Control type="date" placeholder="" name="PaymentDate" value={cashDetails.PaymentDate} onChange={(e)=>handleCash(e)}/>
                           </Form.Group>
   </Col>
 </Row>
@@ -502,7 +606,7 @@ const DocID=sessionStorage.getItem("DocID");
                 </Col>
                 <Row className="text-center mt-4">
                 <Col>
-                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}} onClick={(e)=>chequeSubmit(e)}>Submit</Button>
+                <Button variant="" type="submit" style={{backgroundColor:"rgb(196, 147, 88)",color:"White"}} onClick={(e)=>submitCash(e)}>Submit</Button>
                 </Col>
               </Row>
             </Row>

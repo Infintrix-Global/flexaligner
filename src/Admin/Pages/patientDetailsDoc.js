@@ -8,9 +8,10 @@ import {
     Navbar,
     Dropdown,
     Card,
-    Stack,
+    Modal,
     Form,
-    Accordion
+    Accordion,
+    Stack
   } from "react-bootstrap";
 import user from "../../Assets/user.png";
 // import user from "../../Assets/user.png";
@@ -117,7 +118,31 @@ const tglContent = () => {
         // console.log(patient);
       });
   }, []);
+
+
+  const [vidChange, setVidChange] = useState({
+    PatientVideoId:"",
+    DoctorId:"",
+    ConfirmNotes:""
+  })
+
+  const handleVidChange=(e)=>{
+    setVidChange((pre)=>{
+      return{
+        ...pre,
+        ConfirmNotes:e.target.value
+      }
+    });
+
+    
+    console.log(vidChange);
+  }
   
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
     return(
         <>
@@ -217,7 +242,7 @@ const tglContent = () => {
                       <b>Patient Potrait</b>
                     </p>
                     <Row>
-                      <Stack direction="horizontal" gap={5}>
+                      <Row direction="horizontal" gap={5}>
                         <img
                           src={patient[0]?.ProfileImagePath}
                           className="rounded"
@@ -227,7 +252,7 @@ const tglContent = () => {
                             width: "200px",
                           }}
                         ></img>
-                      </Stack>
+                      </Row>
                     </Row>
                     </Col>
                     <Col md={9}>
@@ -578,55 +603,155 @@ const tglContent = () => {
                   <p className="fs-4">
                       <b>Videos</b>
                     </p>
-                    <Stack direction="horizontal" gap={5} className="vid-row">
+                    <Row className="vid-row2">
                      
-                      {
-                        pVids?.map((item,index)=>{
-                          return(
-                            <>
-                            <video width="320" height="240" controls>
-  <source src={item?.PathVideo} type="video/mp4"/> 
-  {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
-  
-</video>
-  
-{item?.IsConfirm===""?<Button variant="" className="btn approval-btn" onClick={()=>{
-  const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
+                      <Col>
+                        {
+                          pVids?.map((item,index)=>{
+                            return(
+                              <>
+                              
+                              {item?.PathVideo===""?<p>Currently there are no videos!</p>:<video width="320" height="240" controls className="vid-items">
+                          <source src={item?.PathVideo} type="video/mp4"/> 
+                          {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
+                          
+                        </video>}
+                        <br />
 
-  let obj={
-    PatientVideoId:item?.PatientVideoId,
-    DoctorId:DoctorUserID
-  }
-  console.log(obj);
-  fetch(confUrl,{
-    method: "POST",
-headers: {
-Accept: "application/json",
-"Content-Type": "application/json",
-},
-body: JSON.stringify(obj),
-  })
-  .then((res)=>res.json())
-  .then((conf)=>{
-    console.log("below is conf");
-    console.log(conf);
-    if(conf.status===true){
-      Swal.fire({
-        title:"Aprroved!",
-        icon:"success"
-      })
-    }
-  })
-  window.location.reload();
-}}>Approve</Button>:""}
+                          {item?.IsConfirm==="YES"?<p className="vid-status mx-5 px-5">Video Approved!</p>:""}
+
+                          {item?.IsConfirm==="No"?<p className="mx-5 px-5 vid-status2">Video Rejected!</p>:""}
+                          
+                        <Row>
+                          <Col md={2}>
+                            {item?.IsConfirm===""?<Button variant="" className="btn approval-btn mx-0 mt-3 mb-3" onClick={()=>{
+                              const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
+                            
+                              let obj={
+                                PatientVideoId:item?.PatientVideoId,
+                                DoctorId:DoctorUserID
+                              }
+                              console.log(obj);
+                              fetch(confUrl,{
+                                method: "POST",
+                            headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(obj),
+                              })
+                              .then((res)=>res.json())
+                              .then((conf)=>{
+                                console.log("below is conf");
+                                console.log(conf);
+                                if(conf.status===true){
+                                  Swal.fire({
+                                    title:"Aprroved!",
+                                    icon:"success"
+                                  })
+                                }
+                              })
+                              window.location.reload();
+                            }}>Approve</Button>:""
+                            
+                            }
+                          </Col>
+                          <Col md={2}>
+                         {item?.IsConfirm===""?<Button variant="" className="mx-0 mt-3 mb-3 rej-btn px-4" onClick={()=>{
+                            handleShow();
+
+                            setVidChange((pre)=>{
+                              return{...pre,PatientVideoId:item?.PatientVideoId,
+                              DoctorId:DoctorUserID
+                              }
+                            })
+
+                            console.log(vidChange);
+                           
+
+                          }}>Reject</Button>:""}
 
 
-                            </>
-                          )
-                        })
-                      }
+<Modal show={show} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Changes Needed</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      row={4}
+                      placeholder="mention here...."
+                      name="ConfirmNotes"
+                      onChange={(e) => handleVidChange(e)}
+                      value={vidChange.ConfirmNotes}
+                      required
+                    />
+                  </Form.Group>
+                 
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+                    onClick={(e)=>{
                       
-                    </Stack>
+                      e.preventDefault();
+                      const rejUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmRejectedByDoctor";
+
+                      fetch(rejUrl,{
+                        method: "POST",
+                    headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(vidChange),
+                      })
+                      .then((res)=>res.json())
+                      .then((rej)=>{
+                        console.log(rej);
+
+                        if(rej.status===true){
+                          Swal.fire({
+                            title:"Video Rejected!",
+                            icon:"success"
+                          })
+                        }
+                      })
+                      
+                      // window.location.reload();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+                          </Col>
+                        </Row>
+                        {/* {item?.IsConfirm==="YES"?"":<Form>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                  <Form.Label className="vid-reason">Changes Needed</Form.Label>
+                                  <Form.Control as="textarea" name="changes" row={4} onChange={handleVidChange} placeholder="mention here...." />
+                                </Form.Group>
+                                <Button variant="" className="sub-reason">Submit</Button>
+                                
+                        </Form>} */}
+
+                              </>
+                            )
+                          })
+                        }
+                      </Col>
+                      
+                    </Row>
                   </Col>
                 </Row>
                 <Row className="mt-5">

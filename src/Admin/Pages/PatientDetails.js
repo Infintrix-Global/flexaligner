@@ -110,6 +110,7 @@ useEffect(()=>{
     setState(e.target.files);
 
     console.log(e.target.files);
+    // console.log(e.target.files[0].lastModifiedDate);
     
   };
 
@@ -337,6 +338,7 @@ useEffect(()=>{
       .then((res) => res.json())
       .then((details) => {
         console.log(details.Data);
+        
         setPatient(details.Data);
         
         // console.log(patient);
@@ -1089,7 +1091,7 @@ useEffect(() => {
                     <Form.Label className="pd-vid">Upload Videos</Form.Label>
                     <Form.Control
                       type="file"
-                      multiple
+                      // multiple
                       onChange={(e) => onChange(e)}
                       name="Name"
                     />

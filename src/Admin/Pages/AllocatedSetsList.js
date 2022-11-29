@@ -16,7 +16,7 @@ import {
   Modal
 } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-
+import "../Styles/AllocatedSetsList.css";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
@@ -62,6 +62,12 @@ function AlloactedSetsList() {
   const handleShow = () => setShow(true);
 
 
+  const [show2, setShow2] = useState(false);
+
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+
+
 
   const [sendSets, setSendSets] = useState({
     PatientSetsId:"",
@@ -79,34 +85,68 @@ function AlloactedSetsList() {
       console.log(newdata);
     }
 
+
+    const [received, setReceived] = useState({
+      PatientSetsId:"",
+      PatientId:"",
+      DoctorId:"",
+      NoOfSets:"",
+      DateOn:""
+    })
+
+    const onChangeReceived=(e)=>{
+      const newdata={...received}
+      newdata[e.target.name]=e.target.value;
+      
+      setReceived(newdata);
+      console.log(newdata);
+    }
+
   const columns = [
     {
-      name: "Case No.",
+      name: "Case Paper No.",
       selector: (row) => row.CaseNo,
       sortable: true,
+      // center:true,
     },
     {
+      id:"center",
       name: "Patient Name",
       selector: (row) => row.Name,
       sortable: true,
     },
     {
+      id:"center",
       name: "Total No. of Sets",
       selector: (row) => row.NoOfSets,
     },
 
     {
-      name: "Sets Allocated",
+      id:"center",
+      name: "Total Sets Allocated",
       selector: (row) => row.TotalNoOfSets,
       sortable: true,
     },
     {
+      id:"center",
       name: "Recieved Aligners",
-      
-      // selector: (row) => row.NoOfSets,
-      // sortable: true,
+      cell: (row) => (
+        <Button variant="" className="edit-patient-btn" onClick={()=>{handleShow2()
+          setReceived((pre)=>{
+            return{...pre,
+            PatientSetsId:row.PatientSetsId,
+            PatientId:row.PatientId,
+            DoctorId:DoctorUId
+            }
+          })
+        }}>
+          Make Entry
+        </Button>
+      ),
+     
     },
     {
+      id:"center",
       name:"Allocate to patient",
       cell: (row) => (
         <Button variant="" className="edit-patient-btn" onClick={()=>{handleShow()
@@ -349,6 +389,92 @@ function AlloactedSetsList() {
                       color: "white",
                     }}
                     onClick={(e)=>submitSendSets(e)}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+
+
+
+
+
+
+{/* -------------------------------------------------------------------------------------------- */}
+
+
+
+
+
+
+
+              <Modal show={show2} onHide={handleClose2} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Sets Recieved</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="NoOfSets"
+                      onChange={(e) => onChangeReceived(e)}
+                      value={received.NoOfSets}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="DateOn"
+                      id="pass"
+                      onChange={(e) => onChangeReceived(e)}
+                      value={received.DateOn}
+                      required
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+                    onClick={(e)=>{
+                      const receiveUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsDoctorReceived";
+
+          fetch(receiveUrl,{
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(received),
+           })
+           .then((res)=>res.json())
+           .then((receive)=>{
+            console.log(receive);
+            console.log(received);
+            if(receive.status===true){
+              Swal.fire({
+                title:"Submitted Successfully!",
+                icon:"success"
+              })
+            }
+            // window.location.reload();
+       
+           })
+                    }}
                   >
                     Submit
                   </Button>

@@ -12,7 +12,9 @@ import {
   Form,
   ProgressBar,
   Spinner,
+  Table
 } from "react-bootstrap";
+import DataTable from "react-data-table-component";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
 import { IoMdNotifications } from "react-icons/io";
@@ -47,6 +49,37 @@ function ShowPaymentDetails() {
       $("#pay" + test).show();
     });
   });
+
+  const [paymentDetails, setPaymentDetails] = useState([]);
+
+  
+  const [search, setSearch] = useState("");
+  
+  const [filteredNames, setFilteredNames] = useState([]);
+  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment";
+
+
+  useEffect(()=>{
+    fetch(url)
+    .then((res)=>res.json())
+    .then((payment)=>{
+      console.log(payment.Data);
+      setPaymentDetails(payment.Data);
+      setFilteredNames(payment.Data)
+    })
+  },[])
+
+  const columns=[
+    {
+      name:"Doctor Name",
+      selector: (row) => row.DoctorName,
+      sortable: true,
+    },
+    {name:"",
+      selector: (row) => row.CaseNo,
+      sortable: true,
+    }
+  ]
 
   return (
     <>
@@ -115,7 +148,7 @@ function ShowPaymentDetails() {
           <Col md={10}>
           
             <Row
-              className="mt-5 mb-5 p-5 pt-3"
+              className="mt-5 mb-5 p-5 pt-3 justify-content-center"
               style={{
                 backgroundColor: "white",
                 boxShadow: "0px 0px 15px  #C49358",
@@ -123,23 +156,32 @@ function ShowPaymentDetails() {
               }}
             >
                 <p style={{fontSize:"1.4em",fontWeight:"500"}}>Payment Details</p>
-              <Col>
+              <Col md={2}>
                 <Form.Check
                   type="radio"
                   aria-label="radio 1"
                   name="payment"
                   label="Electronic Transfers"
                   value="1"
-                  style={{ float: "right" }}
+                  // style={{ float: "right" }}
                 />
               </Col>
-              <Col>
+              <Col md={2}>
                 <Form.Check
                   type="radio"
                   aria-label="radio 1"
                   name="payment"
                   label="Cheque"
                   value="2"
+                />
+              </Col>
+              <Col md={2}>
+                <Form.Check
+                  type="radio"
+                  aria-label="radio 1"
+                  name="payment"
+                  label="Cash"
+                  value="3"
                 />
               </Col>
               <hr className="mt-3" />
@@ -150,7 +192,22 @@ function ShowPaymentDetails() {
                 style={{ display: "none" }}
               >
                 <Col>
-                <p>ET</p>
+                <DataTable
+                  columns={columns}
+                  data={filteredNames}
+                  pagination
+                  fixedHeader
+                  highlightOnHover
+                  subHeader
+                  subHeaderComponent={
+                    <input
+                      type="text"
+                      className="w-25 form-control mt-4 mb-4"
+                      placeholder="Search by Name"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    ></input>
+                  }/>
                 </Col>
               </Row>
 
@@ -160,7 +217,57 @@ function ShowPaymentDetails() {
                 style={{ display: "none" }}
               >
                 <Col>
-                <p>Cheque</p>
+                <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Doctor Name</th>
+          <th>Payment Type</th>
+          <th>Cheque No.</th>
+          <th>Bank Name</th>
+          <th>Branch Name</th>
+
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+
+        </tr>
+
+        <tr>
+          
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        
+          <td>@mdo</td>
+          <td>@mdo</td>
+          <td>@mdo</td>
+
+        </tr>
+        
+      </tbody>
+    </Table>
+                </Col>
+               
+              </Row>
+
+              <Row
+                className="justify-content-center desc"
+                id="pay3"
+                style={{ display: "none" }}
+              >
+                <Col>
+                <p>Cash</p>
                 </Col>
                
               </Row>

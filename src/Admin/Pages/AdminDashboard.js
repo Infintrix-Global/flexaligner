@@ -93,7 +93,7 @@ useEffect(()=>{
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              <Nav.Link href="">
       <Dropdown>
       <Dropdown.Toggle
                     variant=""
@@ -122,6 +122,10 @@ useEffect(()=>{
                             if(noti?.NotificationType==="Add New Patient"){
 
                               navigate(`/patient-list/${0}`)
+                            }
+
+                            if(noti?.NotificationType==="Video rejected"){
+                              navigate("video-reject")
                             }
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
@@ -271,6 +275,7 @@ useEffect(()=>{
                     xs={{ span: 10, offset: 1 }}
                     style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
+                    onClick={()=>navigate("/payment-details")}
                   >
                     <p className="mt-4">
                      Collection <span style={{ float: "right" }}><BiRupee className="mb-1" fontSize={20}/> {Admin[0]?.Collection}</span>

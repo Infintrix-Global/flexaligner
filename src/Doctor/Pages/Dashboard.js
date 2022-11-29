@@ -330,7 +330,7 @@ useEffect(()=>{
                       {DocDetails[0]?.Name}
                       </span>
                       <br />
-                      <span style={{ fontWeight: "bold" }}>Orthodontist</span>
+                      <span style={{ fontWeight: "bold" }}>Orthodentist</span>
                     </p>
                   </Col>
                 </Row>
