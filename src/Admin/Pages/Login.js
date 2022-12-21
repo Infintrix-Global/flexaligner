@@ -12,7 +12,7 @@ import {
 import "../Styles/Login.css";
 import logo from "../../Assets/Logoremovebg.png";
 import {useNavigate} from "react-router-dom";
-
+import gif from "../../Assets/giphy-unscreen.gif"
 function Login() {
   const [validated, setValidated] = useState(false);
 
@@ -26,7 +26,7 @@ const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
-
+const [loading, setLoading] = useState(false)
 const handle=(e)=>{
   const newdata={...data}
   newdata[e.target.name]=e.target.value;
@@ -51,6 +51,7 @@ const handleSubmit = (event) => {
 
     setValidated(true);
    
+    setLoading(true)
     fetch(url,{
       method:"POST",
       headers:{
@@ -60,6 +61,7 @@ const handleSubmit = (event) => {
       body: JSON.stringify(data)
     }).then((res)=>res.json()).then((result)=>{
       console.log(result);
+      setLoading(false)
       if(result.message==="Login Success"){
       sessionStorage.setItem("DocName",result.Data[0]?.Name)
       sessionStorage.setItem("DocPhone",result.Data[0]?.PhoneNo)
@@ -257,7 +259,9 @@ console.log(DoctorUser);
                     </Row>
                     <Row className="mt-3">
                       <Col>
-                        <Button type="submit" variant="" className="sup-btn">Sign in</Button>
+                        <Button type="submit" variant="" className="sup-btn">Sign in 
+                        </Button><span>{loading && <img src="https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif" alt="" srcset="" width={180} /> }</span>
+
                       </Col>
                       {/* <Col className="text-end">
                       <Button variant="link" className="ms-auto acc-btn action-i">

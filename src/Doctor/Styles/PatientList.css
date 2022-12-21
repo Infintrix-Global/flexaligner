@@ -308,3 +308,25 @@ and (max-device-width : 991px) {
 }
 
 .kgEPYv:nth-child(odd) {background: rgb(238, 235, 235)}
+
+
+.eUeqdG{
+  overflow: initial !important;
+}
+
+.red-text{
+  color: rgb(255, 166, 0) !important;
+  font-weight: 500;
+
+}
+
+.green-text{
+  color: green !important;
+  font-weight: 500;
+}
+
+
+.cell-green{
+  color: green;
+  font-weight: 500;
+}

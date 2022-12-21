@@ -171,13 +171,13 @@ let DoctorName=sessionStorage.getItem("DocName");
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -292,7 +292,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                     </Row>
 
                     <Row className="m-2">
-                      <Col>
+                      <Col className="dList">
                         <Table
                           striped
                           bordered
@@ -303,9 +303,9 @@ let DoctorName=sessionStorage.getItem("DocName");
                           <thead>
                             <tr>
                               {/* <th>SR.NO</th> */}
-                              <th>DOCTOR ID</th>
+                              <th style={{whiteSpace:"nowrap"}}>DOCTOR ID</th>
                               <th>DOCTOR NAME</th>
-                              <th>PATIENT COUNT</th>
+                              <th style={{whiteSpace:"nowrap"}}>PATIENT COUNT</th>
                               <th>PRACTICE NAME</th>
                               <th>EMAIL</th>
                               <th>PHONE</th>

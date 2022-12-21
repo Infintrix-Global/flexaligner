@@ -995,6 +995,7 @@ let Role=sessionStorage.getItem("Role")
         title: "Select the Upload patient portrait now button!",
         // text: 'Do you want to continue',
         icon: "warning"
+        
         // confirmButtonText: 'Cool'
       })
       
@@ -2289,12 +2290,11 @@ function formatDate(date) {
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
-
-                  <Nav.Link className="doc-tab active" onClick={()=>navigate("/admin-dashboard")}>
+               
+                  <Nav.Link className="doc-tab active" onClick={()=>Role==="1"?navigate("/admin-dashboard"):navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                   Dashboard
                   </Nav.Link>
-                </LinkContainer>
+               
                 {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
                 </Nav.Link> */}

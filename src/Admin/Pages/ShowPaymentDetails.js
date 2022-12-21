@@ -24,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
 import Swal from "sweetalert2";
+import {LinkContainer} from 'react-router-bootstrap';
+
 
 function ShowPaymentDetails() {
   const navigate = useNavigate();
@@ -56,11 +58,14 @@ function ShowPaymentDetails() {
   const [search, setSearch] = useState("");
   
   const [filteredNames, setFilteredNames] = useState([]);
-  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment";
+
+
+  // ------------------------------------------------ET-----------------------------------------------------
+  const getEtUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/1";
 
 
   useEffect(()=>{
-    fetch(url)
+    fetch(getEtUrl)
     .then((res)=>res.json())
     .then((payment)=>{
       console.log(payment.Data);
@@ -69,17 +74,182 @@ function ShowPaymentDetails() {
     })
   },[])
 
+
+  // ---------------------------------------------------------------------------------------------------------
+  const [search2, setSearch2] = useState("");
+  
+  const [filteredNames2, setFilteredNames2] = useState([]);
+
+  const [ChequePaymentDetails, setChequePaymentDetails] = useState([]);
+
+
+  // ------------------------------------------------Cheque-----------------------------------------------------
+
+  const getChequeUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/2";
+
+  useEffect(()=>{
+    fetch(getChequeUrl)
+    .then((res)=>res.json())
+    .then((paymentCheque)=>{
+      console.log(paymentCheque.Data);
+      setChequePaymentDetails(paymentCheque.Data);
+      setFilteredNames2(paymentCheque.Data)
+    })
+  },[])
+
+  // ---------------------------------------------------------------------------------------------------------
+
+  const [search3, setSearch3] = useState("");
+  
+  const [filteredNames3, setFilteredNames3] = useState([]);
+
+
+  const [CashPaymentDetails, setCashPaymentDetails] = useState([])
+
+
+  // ------------------------------------------------Cash-----------------------------------------------------
+  const getCashUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/3";
+
+
+
+  useEffect(()=>{
+    fetch(getCashUrl)
+    .then((res)=>res.json())
+    .then((paymentCash)=>{
+      console.log(paymentCash.Data);
+      setCashPaymentDetails(paymentCash.Data);
+      setFilteredNames3(paymentCash.Data)
+    })
+  },[])
+
+  // ---------------------------------------------------------------------------------------------------------
+
   const columns=[
     {
       name:"Doctor Name",
       selector: (row) => row.DoctorName,
       sortable: true,
     },
-    {name:"",
-      selector: (row) => row.CaseNo,
+    {name:"Payment Mode",
+      selector: (row) => row.PaymentMode,
       sortable: true,
+    },
+    {
+      name:"Transaction No.",
+      selector:(row)=>row.TransactionNo,
+      sortable:true,
+    },
+    {
+      name:"Amount",
+      selector:(row)=>row.PayAmount,
+      sortable:true,
+    },
+    {
+      name:"Date",
+      selector:(row)=>row.PaymentDate,
+      sortable:true,
     }
   ]
+
+
+  const columns2=[
+    {
+      name:"Doctor Name",
+      selector: (row) => row.DoctorName,
+      sortable: true,
+    },
+    {name:"Bank Name",
+      selector: (row) => row.NameOfBank,
+      sortable: true,
+    },
+    {
+      name:"Branch",
+      selector:(row)=>row.BranchName,
+      sortable:true,
+    },
+    {
+      name:"Cheque No.",
+      selector:(row)=>row.ChequeNo,
+      sortable:true,
+    },
+    {
+      name:"Amount",
+      selector:(row)=>row.PayAmount,
+      sortable:true,
+    },
+    {
+      name:"Payment Date",
+      selector:(row)=>row.PaymentDate,
+      sortable:true,
+    },
+    {
+      name:"Deposit Date",
+      selector:(row)=>row.DepositDate,
+      sortable:true,
+    },
+    {
+      name:"Clearence Date",
+      selector:(row)=>row.ClearenceDate,
+      sortable:true,
+    },
+    {
+      name:"Cheque Status",
+      selector:(row)=>row.ChequeStatus,
+      sortable:true,
+    },
+  ]
+
+
+  const columns3=[
+    {
+      name:"Doctor Name",
+      selector: (row) => row.DoctorName,
+      sortable: true,
+    },
+    {name:"Amount",
+      selector: (row) => row.PayAmount,
+      sortable: true,
+    },
+    {
+      name:"Currency",
+      selector:(row)=>row.Currency,
+      sortable:true,
+    },
+    {
+      name:"Date",
+      selector:(row)=>row.PaymentDate,
+      sortable:true,
+    },
+   
+  ]
+
+  useEffect(() => {
+    const result = paymentDetails.filter((patientname) => {
+      return patientname.DoctorName.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredNames(result);
+
+
+
+    
+  }, [search]);
+
+
+  useEffect(()=>{
+    const result2 = ChequePaymentDetails.filter((patientname) => {
+      return patientname.DoctorName.toLowerCase().match(search2.toLowerCase());
+    });
+    setFilteredNames2(result2);
+  },[search2])
+
+
+
+  useEffect(()=>{
+    const result3 = CashPaymentDetails.filter((patientname) => {
+      return patientname.DoctorName.toLowerCase().match(search3.toLowerCase());
+    });
+    setFilteredNames3(result3);
+  },[search3])
 
   return (
     <>
@@ -96,13 +266,13 @@ function ShowPaymentDetails() {
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -142,6 +312,25 @@ function ShowPaymentDetails() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Container fluid>
+        <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <LinkContainer to={`/admin-dashboard`}>
+
+                  <Nav.Link className="doc-tab active">
+                  Dashboard
+                  </Nav.Link>
+                </LinkContainer>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
+              </Nav>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
 
       <Container fluid>
         <Row className="justify-content-center">
@@ -208,6 +397,44 @@ function ShowPaymentDetails() {
                       onChange={(e) => setSearch(e.target.value)}
                     ></input>
                   }/>
+
+{/* 
+<Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Doctor Name</th>
+          <th>Payment Mode</th>
+          <th>Transaction No.</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {paymentDetails?.map((et,i)=>{
+          return(
+            <>
+            <tr>
+<td>{et.DoctorName}</td>
+<td>{et.PaymentMode}</td>
+<td>{et.TransactionNo}</td>
+<td>{et.PayAmount}</td>
+<td>{et.PaymentDate}</td>
+
+
+</tr>
+            </>
+          )
+        })
+
+
+
+        }
+       
+       
+        
+      </tbody>
+    </Table> */}
                 </Col>
               </Row>
 
@@ -217,7 +444,7 @@ function ShowPaymentDetails() {
                 style={{ display: "none" }}
               >
                 <Col>
-                <Table striped bordered hover>
+                {/* <Table striped bordered hover>
       <thead>
         <tr>
           <th>Doctor Name</th>
@@ -256,7 +483,24 @@ function ShowPaymentDetails() {
         </tr>
         
       </tbody>
-    </Table>
+    </Table> */}
+
+<DataTable
+                  columns={columns2}
+                  data={filteredNames2}
+                  pagination
+                  fixedHeader
+                  highlightOnHover
+                  subHeader
+                  subHeaderComponent={
+                    <input
+                      type="text"
+                      className="w-25 form-control mt-4 mb-4"
+                      placeholder="Search by Name"
+                      value={search2}
+                      onChange={(e) => setSearch2(e.target.value)}
+                    ></input>
+                  }/>
                 </Col>
                
               </Row>
@@ -267,7 +511,22 @@ function ShowPaymentDetails() {
                 style={{ display: "none" }}
               >
                 <Col>
-                <p>Cash</p>
+                <DataTable
+                  columns={columns3}
+                  data={filteredNames3}
+                  pagination
+                  fixedHeader
+                  highlightOnHover
+                  subHeader
+                  subHeaderComponent={
+                    <input
+                      type="text"
+                      className="w-25 form-control mt-4 mb-4"
+                      placeholder="Search by Name"
+                      value={search3}
+                      onChange={(e) => setSearch3(e.target.value)}
+                    ></input>
+                  }/>
                 </Col>
                
               </Row>

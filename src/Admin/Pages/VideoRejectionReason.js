@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
     Container,
     Row,
@@ -10,6 +10,7 @@ import {
     Card,
   } from "react-bootstrap";
   import "../../Doctor/Styles/PatientList.css";
+  import "../Styles/VideoRejectionReason.css";
   import user from "../../Assets/user.png";
   import logo from "../../Assets/Logoremovebg.png";
   import { IoMdNotifications } from "react-icons/io";
@@ -37,6 +38,93 @@ function VideoRejectionReason(){
   };
 
 let DoctorName=sessionStorage.getItem("DocName");
+
+
+
+const [reasons, setReasons] = useState([]);
+
+  
+const [search, setSearch] = useState("");
+
+const [filteredNames, setFilteredNames] = useState([]);
+
+
+// ------------------------------------------------ET-----------------------------------------------------
+const getReasonUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideoRejected/0";
+
+
+useEffect(()=>{
+  fetch(getReasonUrl)
+  .then((res)=>res.json())
+  .then((reasons)=>{
+    console.log(reasons.Data);
+    setReasons(reasons.Data);
+    setFilteredNames(reasons.Data)
+  })
+},[])
+
+
+
+
+
+const columns=[
+
+  // {
+  //   name:"#",
+  //   cell:(row,i)=>i+1
+  // },     
+
+  
+  {
+    id:"dtCells",
+    name:"Patient Name",
+    selector: (row) => row.Name,
+    sortable: true,
+  },
+  {
+    id:"dtCells",
+
+    name:"Rejected Video",
+    cell: (row) =>(
+      <video src={row.PathVideo} width={300} controls className="m-2"></video>
+    ),
+    // sortable: true,
+  },
+  {
+    id:"dtCells",
+
+    name:"Rejection Reason",
+    cell:(row)=>(
+      <p>{row.ConfirmNotes}</p>
+    ),
+    // sortable:true,
+  },
+  // {
+  //   name:"Amount",
+  //   selector:(row)=>row.PayAmount,
+  //   sortable:true,
+  // },
+  // {
+  //   name:"Date",
+  //   selector:(row)=>row.PaymentDate,
+  //   sortable:true,
+  // }
+]
+
+
+useEffect(() => {
+  const result = reasons.filter((patientname) => {
+    return patientname.Name.toLowerCase().match(search.toLowerCase());
+  });
+  setFilteredNames(result);
+
+
+
+  
+}, [search]);
+
+
+
 
     return(
         <>
@@ -94,8 +182,39 @@ let DoctorName=sessionStorage.getItem("DocName");
       </Navbar>
 
 
-      <Container fluid>
-                    
+      <Container fluid className="Reasons">
+      <Row className="justify-content-center">
+          <Col md={10}>
+          
+            <Row
+              className="mt-5 mb-5 p-5 pt-3 justify-content-center"
+              style={{
+                backgroundColor: "white",
+                boxShadow: "0px 0px 15px  #C49358",
+                borderRadius: "8px",
+              }}
+            >
+              <p className="fs-3">Video Rejection Reasons</p>
+                      <DataTable
+                  columns={columns}
+                  data={filteredNames}
+                  pagination
+                  fixedHeader
+                  highlightOnHover
+                  subHeader
+                  subHeaderComponent={
+                    <input
+                      type="text"
+                      className="w-25 form-control mt-4 mb-4"
+                      placeholder="Search by Name"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    ></input>
+                  }/>
+                  </Row>
+                      </Col>
+                    </Row>
+
       </Container>
         </>
     );

@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import "../../Doctor/Styles/PatientList.css";
 import "../../Doctor/Styles/PatientDetails.css";
+import {LinkContainer} from 'react-router-bootstrap';
 
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
@@ -45,6 +46,7 @@ function PatientList() {
   //   CreateId: "",
   //   VideoPath: []
   // });
+  let AdminName=sessionStorage.getItem("DocName")
 
   const navigate = useNavigate();
   const [patient, setPatient] = useState([]);
@@ -435,13 +437,20 @@ useEffect(()=>{
 
   const [sets, setSets] = useState({
     PatientId:"",
-    NoOfSets:""
+    TotalNoOfUpperSets:"",
+    TotalNoOfLowerSets:""
   });
 
   const onChangeSets=(e)=>{
-    setSets({PatientId:patient[0]?.PatientId,
-    NoOfSets:e.target.value
-    })
+    setSets((pre)=>{return{...pre,PatientId:patient[0]?.PatientId}})
+
+    const newdata={...sets}
+    newdata[e.target.name]=e.target.value;
+    
+    setSets(newdata);
+    setSets((pre)=>{return{...pre,PatientId:patient[0]?.PatientId}})
+
+    console.log(newdata);
     // console.log(sets);
   }
 
@@ -454,7 +463,7 @@ useEffect(()=>{
     //   return{...pre,PatientId:patient[0]?.PatientId}
     // })
 
-    let colid=document.getElementById("totalSet");
+    // let colid=document.getElementById("totalSet");
 
     
     fetch(SetsUrl, {
@@ -497,7 +506,7 @@ useEffect(() => {
       // console.log(patient);
     });
 }, []);
-
+     
 // useEffect(()=>{
 //   console.log("p "+ Progress);
 //   },[])
@@ -507,80 +516,168 @@ useEffect(() => {
   return (
     <>
     
-      <Navbar collapseOnSelect expand="lg" className="navb">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img src={logo} alt="" className="" width={120} />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Button variant="" onClick={tglContent} className="navhide">
-                <FaBars fontSize={28} color="#C49358" />
-              </Button>
-            </Nav>
-            <Nav>
-              <Nav.Link href="#deets">
-                <IoMdNotifications
-                  fontSize={30}
-                  color="#C49358"
-                  className="notification"
-                />
-              </Nav.Link>
-              {/* <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare
-                  fontSize={30}
-                  color="#C49358"
-                  className="me-2 notification"
-                />
-              </Nav.Link> */}
-              <span className="address">
-                <img src={user} alt="" width={35} className="mt-1" />
-              </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant=""
-                    id="dropdown-basic"
-                    className="user"
-                  >
-                    {DoctorName}
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
-                      <CgProfile fontSize={25} />
-                      <span className="px-3">Profile</span>
-                    </Dropdown.Item>
-                    <hr />
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => navigate("/")}>
-                        Logout
-                      </span>
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      {/* <Container fluid> */}
-      {/* <Row className="menuTab">
-          <Col>
-            <Card body className="border-0">
-              <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active">
-                  Doctor
-                </Nav.Link>
-                <Nav.Link href="#deets" className="prof-tab">
-                  Profile
-                </Nav.Link>
-              </Nav>
-            </Card>
-          </Col>
-        </Row> */}
+    {Role==="1"?<Row>
+         <Col>
+           <Navbar collapseOnSelect expand="lg" className="navb">
+            <Container>
+              <Navbar.Brand href="#home">
+                <img src={logo} alt="" className="" width={120} />
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
+                  <Button variant="" onClick={tglContent} className="navhide">
+                    <FaBars fontSize={28} color="#C49358" />
+                  </Button>
+                </Nav>
+                <Nav>
+                  {/* <Nav.Link href="">
+                 <Dropdown>
+                 <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        className="user noti-d"
+                      >
+                       <IoMdNotifications
+                      fontSize={35}
+                      color="#C49358"
+                      className="notification"
+                    /><Badge bg="secondary" className="badge-p">{notifyData?.TotalNotification}</Badge>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="noti-menu">
+         
+                       {
+         
+                        notifyData.Data?.map((noti)=>{
+                          return(
+                            <>
+                            <Row className="m-1">
+                              <Col>
+                               <BsDot fontSize={40} color="green"/><span onClick={()=>{
+                                if(noti?.NotificationType==="Add New Patient"){
+                                  navigate(`/patient-list/${0}`)
+                                }
+                                if(noti?.NotificationType==="Video rejected"){
+                                  navigate("/video-reject")
+                                }
+                               }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+                                // console.log(noti.NotificationId);
+                                const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                                let notifId={
+                                  NotificationId:noti.NotificationId
+                                };
+                                fetch(notifUrl,{
+                                  method: "POST",
+                 headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+                 },
+                 body: JSON.stringify(notifId),
+                                })
+                                .then((res)=>res.json())
+                                .then((result)=>{
+                                  console.log(result);
+                                  console.log("Id sent");
+                                })
+                               }}><BsTrash color="red"/></Button></span>
+                              </Col>
+                            </Row>
+                            {notifyData?.TotalNotification>1?<Dropdown.Divider/>:""}
+                            </>
+                          );
+                        })
+                       }
+                      </Dropdown.Menu>
+                 </Dropdown>
+         
+                  </Nav.Link> */}
+                  {/* <Nav.Link eventKey={2} href="#memes">
+                    <FiMessageSquare
+                      fontSize={30}
+                      color="#C49358"
+                      className="me-2 notification"
+                    />
+                  </Nav.Link> */}
+                  <span className="address mx-3 m-0">
+                    <img src={user} alt="" width={35} className="mt-2" />
+                  </span>
+                  <Nav.Link href="#deets" className="p-0 mt-1">
+                    <Dropdown className="out-dd mt-2">
+                      <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        className="user"
+                      >
+                       {AdminName}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {/* <Dropdown.Item href="#/action-1">
+                          <CgProfile fontSize={25} />
+                          <span className="px-3">Profile</span>
+                        </Dropdown.Item>
+                        <hr /> */}
+                        <Dropdown.Item href="#/action-2">
+                          <FiPower fontSize={25} />
+                          <span className="px-3" onClick={()=>{
+                            navigate("/");
+                            sessionStorage.removeItem("Role");
+                          }
+                        }>Logout</span>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+                 </Navbar>
+                {/* <Container fluid>
+         
+            <Row className="menuTab">
+              <Col>
+                <Card body className="border-0">
+                  <Row>
+                      <Col>
+                      <Button variant="link" className="doc-tab">Doctor</Button>
+                      </Col>
+                      <Col>
+                      <Button variant="link" className="prof-tab">Profile</Button>
+         
+                      </Col>
+                    </Row>
+                   <Nav className="justify-content-center">
+                    <LinkContainer to="/add-doctor">
+                      <Nav.Link className="doc-tab active">Doctor</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/doctor-profile">
+                      <Nav.Link className="prof-tab">Profile</Nav.Link>
+                    </LinkContainer>
+                  </Nav>
+                </Card>
+              </Col>
+            </Row>
+                 </Container> */}
+         
+           <Container fluid>
+            <Row className="menuTab">
+              <Col>
+                <Card body className="border-0">
+                  <Nav className="justify-content-center">
+                    <LinkContainer to={`/admin-dashboard`}>
+                      <Nav.Link className="doc-tab active">
+                      Dashboard
+                      </Nav.Link>
+                    </LinkContainer>
+                    {/* <Nav.Link href="#deets" className="prof-tab">
+                      Profile
+                    </Nav.Link> */}
+                  </Nav>
+                </Card>
+              </Col>
+            </Row>
+                 </Container>
+         </Col>
+       </Row>:""}
 
       <Container fluid>
         <Row className="justify-content-center">
@@ -926,49 +1023,65 @@ useEffect(() => {
                   </Col>
                 </Row>
 <hr />
-              <Row className="mt-4 mb-5 mt-5">
+              <Row className="mt-5 mb-5">
                 <Col md={{ span: 12 }}>
                   <p className="fs-4">
                     <b>View Extraoral Photos</b>
                   </p>
-                  <Stack direction="horizontal" gap={5}>
-                    <img
+                 <Row><Col md={2}>
+                 <img
                       src={patient[0]?.FrontalRepose}
-                      className="rounded"
+                      className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
                         height: "100px",
                         width: "100px",
                       }}
                     ></img>
-                    <img
+                 </Col>
+                 
+                 
+                 <Col md={2}>
+                 <img
                       src={patient[0]?.FrontalSmiling}
-                      className="rounded"
+                      className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
                         height: "100px",
                         width: "100px",
                       }}
                     ></img>
-                    <img
+                 </Col>
+
+                 <Col md={2}>
+                 <img
                       src={patient[0]?.ProfileRepose}
-                      className="rounded"
+                      className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
                         height: "100px",
                         width: "100px",
                       }}
                     ></img>
-                    <img
+                 </Col>
+
+                 <Col md={2}>
+                 <img
                       src={patient[0]?.FrontOpImage}
-                      className="rounded"
+                      className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
                         height: "100px",
                         width: "100px",
                       }}
                     ></img>
-                  </Stack>
+                 </Col>
+                 </Row>
+                   
+                   
+                    
+                    
+                  {/* </Stack> */}
                 </Col>
               </Row>
               <Row className="mt-4 mb-5">
@@ -976,53 +1089,65 @@ useEffect(() => {
                   <p className="fs-4">
                     <b>View Intraoral Photos</b>
                   </p>
-                  <Stack direction="horizontal" gap={5}>
-                    <img
-                      src={patient[0]?.BuccalRight}
-                      className="rounded"
-                      style={{
-                        boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
-                      }}
-                    ></img>
-                    <img
-                      src={patient[0]?.BuccalLeft}
-                      className="rounded"
-                      style={{
-                        boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
-                      }}
-                    ></img>
-                    <img
-                      src={patient[0]?.BuccalFront}
-                      className="rounded"
-                      style={{
-                        boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
-                      }}
-                    ></img>
-                    <img
-                      src={patient[0]?.OcclussalUpper}
-                      className="rounded"
-                      style={{
-                        boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
-                      }}
-                    ></img>
-                    <img
-                      src={patient[0]?.OcclussalLower}
-                      className="rounded"
-                      style={{
-                        boxShadow: "0px 5px 5px 5px #E8E8E8",
-                        height: "100px",
-                        width: "100px",
-                      }}
-                    ></img>
-                  </Stack>
+                  {/* <Stack direction="horizontal" gap={5}> */}
+                    <Row>
+                      <Col md={2}>
+                        <img
+                          src={patient[0]?.BuccalRight}
+                          className="rounded m-2"
+                          style={{
+                            boxShadow: "0px 5px 5px 5px #E8E8E8",
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        ></img>
+                      </Col>
+                      <Col md={2}>
+                        <img
+                          src={patient[0]?.BuccalLeft}
+                          className="rounded m-2"
+                          style={{
+                            boxShadow: "0px 5px 5px 5px #E8E8E8",
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        ></img>
+                      </Col>
+                      <Col md={2}>
+                        <img
+                          src={patient[0]?.BuccalFront}
+                          className="rounded m-2"
+                          style={{
+                            boxShadow: "0px 5px 5px 5px #E8E8E8",
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        ></img>
+                      </Col>
+                      <Col md={2}>
+                        <img
+                          src={patient[0]?.OcclussalUpper}
+                          className="rounded m-2"
+                          style={{
+                            boxShadow: "0px 5px 5px 5px #E8E8E8",
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        ></img>
+                      </Col>
+                      <Col md={2}>
+                        <img
+                          src={patient[0]?.OcclussalLower}
+                          className="rounded m-2"
+                          style={{
+                            boxShadow: "0px 5px 5px 5px #E8E8E8",
+                            height: "100px",
+                            width: "100px",
+                          }}
+                        ></img>
+                      </Col>
+                    </Row>
+                  {/* </Stack> */}
                 </Col>
               </Row>
               <Row className="mt-4 mb-5">
@@ -1150,28 +1275,56 @@ useEffect(() => {
                     Upload
                   </Button>
                 </Col>
-                <Col id="totalSet">
-                <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Label className="pd-ipr">Total no. of sets</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={sets.NoOfSets}
-                      onChange={onChangeSets}
-                      name="NoOfSets"
-                    />
-                  </Form.Group>
-                  <Button
-                    variant=""
-                    className="btn btn-outline-dark"
-                    onClick={handleSets}
-                  >
-                    Submit
-                  </Button>
-                  {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
+               <Col>
+               <Row>
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                      <Form.Label className="pd-ipr">Total no. of Upper Sets</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={sets.TotalNoOfUpperSets}
+                        onChange={onChangeSets}
+                        name="TotalNoOfUpperSets"
+                      />
+                    </Form.Group>
+                    {/* <Button
+                      variant=""
+                      className="btn btn-outline-dark"
+                      onClick={handleSets}
+                    >
+                      Submit
+                    </Button> */}
+                    {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
+                    {/* <embed src={avi}/> */}
+                  </Col>
 
-                  {/* <embed src={avi}/> */}
-
-                </Col>
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                      <Form.Label className="pd-ipr">Total no. of Lower Sets</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={sets.TotalNoOfLowerSets}
+                        onChange={onChangeSets}
+                        name="TotalNoOfLowerSets"
+                      />
+                    </Form.Group>
+                   
+                    {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
+                    {/* <embed src={avi}/> */}
+                  </Col>
+                  <Row className="text-center">
+                    <Col>
+                      <Button
+                          variant=""
+                          className="btn btn-outline-dark w-lg-50"
+                          onClick={handleSets}
+                        >
+                          Submit
+                        </Button>
+                    </Col>
+                  </Row>
+                </Row>
+               </Col>
               </Row>
             </Row>
           </Col>

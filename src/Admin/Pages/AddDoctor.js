@@ -29,6 +29,9 @@ function AddDoctor() {
   //   setActivePath(path);
   // }, []);
 
+let AdminName=sessionStorage.getItem("DocName")
+
+
   const [data, setData] = useState({
     DoctorId:"0",
     FirstName: "",
@@ -240,84 +243,181 @@ let Role=sessionStorage.getItem("Role");
   };
 
 
+  const tglContent = () => {
+    let Menu = document.querySelector(".menuTab");
+
+    if (Menu.classList.contains("collapsed")) {
+      Menu.classList.remove("collapsed");
+    } else {
+      Menu.classList.add("collapsed");
+    }
+  };
+
 
   return (
     <>
-      {/* <Navbar collapseOnSelect expand="lg" className="navb">
-        <Container>
-          <Navbar.Brand href="#home">
-            <img src={logo} alt="" className="" width={120} />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Button variant="" onClick={tglContent} className="navhide">
-                <FaBars fontSize={28} color="#C49358" />
-              </Button>
-            </Nav>
-            <Nav>
-              <Nav.Link href="#deets">
-                <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
-              </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
-              </Nav.Link>
-              <span className="address">
-                <img src={user} alt="" width={35} className="mt-1" />
-              </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
-                <Dropdown>
-                  <Dropdown.Toggle
-                    variant=""
-                    id="dropdown-basic"
-                    className="user"
-                  >
-                    admin@gmail.com
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
-                      <CgProfile fontSize={25} />
-                      <span className="px-3">Profile</span>
-                    </Dropdown.Item>
-                    <hr />
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>navigate("/")}>Logout</span>
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar> */}
-      {/* <Container fluid>
-        
-        <Row className="menuTab">
-          <Col>
-            <Card body className="border-0"> */}
-              {/* <Row>
-                  <Col>
-                  <Button variant="link" className="doc-tab">Doctor</Button>
-                  </Col>
-                  <Col>
-                  <Button variant="link" className="prof-tab">Profile</Button>
-                  
-                  </Col>
-                </Row> */}
-              {/* <Nav className="justify-content-center">
-                <LinkContainer to="/add-doctor">
-                  <Nav.Link className="doc-tab active">Doctor</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/doctor-profile">
-                  <Nav.Link className="prof-tab">Profile</Nav.Link>
-                </LinkContainer>
-              </Nav>
-            </Card>
-          </Col>
-        </Row>
-      </Container> */}
+      {Role==="1"?<Row>
+         <Col>
+           <Navbar collapseOnSelect expand="lg" className="navb">
+            <Container>
+              <Navbar.Brand href="#home">
+                <img src={logo} alt="" className="" width={120} />
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
+                  <Button variant="" onClick={tglContent} className="navhide">
+                    <FaBars fontSize={28} color="#C49358" />
+                  </Button>
+                </Nav>
+                <Nav>
+                  {/* <Nav.Link href="">
+                 <Dropdown>
+                 <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        className="user noti-d"
+                      >
+                       <IoMdNotifications
+                      fontSize={35}
+                      color="#C49358"
+                      className="notification"
+                    /><Badge bg="secondary" className="badge-p">{notifyData?.TotalNotification}</Badge>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="noti-menu">
+         
+                       {
+         
+                        notifyData.Data?.map((noti)=>{
+                          return(
+                            <>
+                            <Row className="m-1">
+                              <Col>
+                               <BsDot fontSize={40} color="green"/><span onClick={()=>{
+                                if(noti?.NotificationType==="Add New Patient"){
+                                  navigate(`/patient-list/${0}`)
+                                }
+                                if(noti?.NotificationType==="Video rejected"){
+                                  navigate("/video-reject")
+                                }
+                               }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
+                                // console.log(noti.NotificationId);
+                                const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                                let notifId={
+                                  NotificationId:noti.NotificationId
+                                };
+                                fetch(notifUrl,{
+                                  method: "POST",
+                 headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+                 },
+                 body: JSON.stringify(notifId),
+                                })
+                                .then((res)=>res.json())
+                                .then((result)=>{
+                                  console.log(result);
+                                  console.log("Id sent");
+                                })
+                               }}><BsTrash color="red"/></Button></span>
+                              </Col>
+                            </Row>
+                            {notifyData?.TotalNotification>1?<Dropdown.Divider/>:""}
+                            </>
+                          );
+                        })
+                       }
+                      </Dropdown.Menu>
+                 </Dropdown>
+         
+                  </Nav.Link> */}
+                  {/* <Nav.Link eventKey={2} href="#memes">
+                    <FiMessageSquare
+                      fontSize={30}
+                      color="#C49358"
+                      className="me-2 notification"
+                    />
+                  </Nav.Link> */}
+                  <span className="address mx-3 m-0">
+                    <img src={user} alt="" width={35} className="mt-2" />
+                  </span>
+                  <Nav.Link href="#deets" className="p-0 mt-1">
+                    <Dropdown className="out-dd mt-2">
+                      <Dropdown.Toggle
+                        variant=""
+                        id="dropdown-basic"
+                        className="user"
+                      >
+                       {AdminName}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {/* <Dropdown.Item href="#/action-1">
+                          <CgProfile fontSize={25} />
+                          <span className="px-3">Profile</span>
+                        </Dropdown.Item>
+                        <hr /> */}
+                        <Dropdown.Item href="#/action-2">
+                          <FiPower fontSize={25} />
+                          <span className="px-3" onClick={()=>{
+                            navigate("/");
+                            sessionStorage.removeItem("Role");
+                          }
+                        }>Logout</span>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+                 </Navbar>
+                {/* <Container fluid>
+         
+            <Row className="menuTab">
+              <Col>
+                <Card body className="border-0">
+                  <Row>
+                      <Col>
+                      <Button variant="link" className="doc-tab">Doctor</Button>
+                      </Col>
+                      <Col>
+                      <Button variant="link" className="prof-tab">Profile</Button>
+         
+                      </Col>
+                    </Row>
+                   <Nav className="justify-content-center">
+                    <LinkContainer to="/add-doctor">
+                      <Nav.Link className="doc-tab active">Doctor</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/doctor-profile">
+                      <Nav.Link className="prof-tab">Profile</Nav.Link>
+                    </LinkContainer>
+                  </Nav>
+                </Card>
+              </Col>
+            </Row>
+                 </Container> */}
+         
+           <Container fluid>
+            <Row className="menuTab">
+              <Col>
+                <Card body className="border-0">
+                  <Nav className="justify-content-center">
+                    <LinkContainer to={`/admin-dashboard`}>
+                      <Nav.Link className="doc-tab active">
+                      Dashboard
+                      </Nav.Link>
+                    </LinkContainer>
+                    {/* <Nav.Link href="#deets" className="prof-tab">
+                      Profile
+                    </Nav.Link> */}
+                  </Nav>
+                </Card>
+              </Col>
+            </Row>
+                 </Container>
+         </Col>
+       </Row>:""}
 
       <Container fluid>
         <Row style={{height:"30px"}}></Row>

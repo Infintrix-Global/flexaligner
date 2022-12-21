@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
 import Swal from "sweetalert2";
+import {LinkContainer} from 'react-router-bootstrap';
+
 // import { useEffect } from "react";
 
 function Payment(){
@@ -88,6 +90,8 @@ const DocID=sessionStorage.getItem("DocID");
     BranchName:"",
     PayAmount:"",
     currency:"",
+    ClearenceDate:"",
+    ChequeStatus:"",
     CreateBy:1,
     
   })
@@ -192,6 +196,8 @@ const DocID=sessionStorage.getItem("DocID");
     BranchName:"",
     PayAmount:"",
     currency:"",
+    ClearenceDate:"",
+    ChequeStatus:"",
     CreateBy:1,
   })
 
@@ -235,7 +241,7 @@ const DocID=sessionStorage.getItem("DocID");
 
 
 
-    if(chequeDetails.NameOfBank==="" || chequeDetails.BranchName==="" || chequeDetails.ChequeNo==="" || chequeDetails.PaymentDate==="" || chequeDetails.PayAmount==="" || chequeDetails.DepositDate===""){
+    if(chequeDetails.NameOfBank==="" || chequeDetails.BranchName==="" || chequeDetails.ChequeNo==="" || chequeDetails.PaymentDate==="" || chequeDetails.PayAmount==="" || chequeDetails.DepositDate==="" || chequeDetails.ClearenceDate==="" || chequeDetails.ChequeStatus===""){
       alert("Please fill all the details!")
     }else{    
    
@@ -274,10 +280,12 @@ const DocID=sessionStorage.getItem("DocID");
     TransactionNo:0,
     NameOfBank:0,
     ChequeNo:0,
-    DepositDate:0,
+    DepositDate:"",
     BranchName:0,
     PayAmount:"",
     currency:"",
+    ClearenceDate:"",
+    ChequeStatus:"",
     CreateBy:1,
   })
 
@@ -361,13 +369,13 @@ const DocID=sessionStorage.getItem("DocID");
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -407,6 +415,25 @@ const DocID=sessionStorage.getItem("DocID");
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Container fluid>
+        <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <LinkContainer to={`/admin-dashboard`}>
+
+                  <Nav.Link className="doc-tab active">
+                  Dashboard
+                  </Nav.Link>
+                </LinkContainer>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
+              </Nav>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
 
       <Container fluid>
         <Row className="justify-content-center">
@@ -552,6 +579,29 @@ const DocID=sessionStorage.getItem("DocID");
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Deposit Date</Form.Label> <span style={{color:"red"}}>*</span>
                             <Form.Control type="date" placeholder="" name="DepositDate" value={chequeDetails.DepositDate} onChange={(e)=>handleCheque(e)}/>
+                          </Form.Group>
+                    </Col>
+                   </Row>
+
+                   <Row>
+                    <Col>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Clearence Date</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Control type="date" placeholder="" name="ClearenceDate" value={chequeDetails.ClearenceDate} onChange={(e)=>handleCheque(e)}/>
+                          </Form.Group>
+                    </Col>
+                    <Col>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Cheque Status</Form.Label> <span style={{color:"red"}}>*</span>
+                            <Form.Select aria-label="Default select example" name="ChequeStatus" id="selMode" value={chequeDetails.ChequeStatus} onChange={(e)=>handleCheque(e)}>
+                              
+                              <option selected>Select Cheque Status</option>
+                              <option selected>Cleared</option>
+                              <option selected>Bounced</option>
+                              <option selected>Pending</option>
+    
+                             
+                            </Form.Select>
                           </Form.Group>
                     </Col>
                    </Row>

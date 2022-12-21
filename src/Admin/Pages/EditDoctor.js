@@ -324,13 +324,13 @@ let Role=sessionStorage.getItem("Role");
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}

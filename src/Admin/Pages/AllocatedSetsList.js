@@ -73,8 +73,10 @@ function AlloactedSetsList() {
     PatientSetsId:"",
       PatientId:"",
       DoctorId:"",
-      NoOfSets:"",
-      DateOn:""
+      TotalNoOfUpperSets:"",
+      TotalNoOfLowerSets:"",
+      DateOn:"",
+      PatientTotalSetsId:""
   })
   
     const onChangeSet=(e)=>{
@@ -90,7 +92,8 @@ function AlloactedSetsList() {
       PatientSetsId:"",
       PatientId:"",
       DoctorId:"",
-      NoOfSets:"",
+      TotalNoOfUpperSets:"",
+      TotalNoOfLowerSets:"",
       DateOn:""
     })
 
@@ -153,7 +156,8 @@ function AlloactedSetsList() {
           setSendSets((pre)=>{
             return{...pre,PatientSetsId:row.PatientSetsId,
             PatientId:row.PatientId,
-            DoctorId:DoctorUId
+            DoctorId:DoctorUId,
+            PatientTotalSetsId:row.PatientTotalSetsId
             }
           })
         }}>
@@ -218,8 +222,8 @@ function AlloactedSetsList() {
         title:"Submitted Successfully!",
         icon:"success"
       })
+      window.location.reload();
     }
-    window.location.reload();
    })
   }
   useEffect(() => {
@@ -243,13 +247,13 @@ function AlloactedSetsList() {
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -356,12 +360,26 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Sets</Form.Label>
+                    <Form.Label>Upper Sets</Form.Label>
                     <Form.Control
                       type="text"
-                      name="NoOfSets"
+                      name="TotalNoOfUpperSets"
                       onChange={(e) => onChangeSet(e)}
-                      value={sendSets.NoOfSets}
+                      value={sendSets.TotalNoOfUpperSets}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Lower Sets</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TotalNoOfLowerSets"
+                      onChange={(e) => onChangeSet(e)}
+                      value={sendSets.TotalNoOfLowerSets}
                       required
                     />
                   </Form.Group>
@@ -418,12 +436,26 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Sets Recieved</Form.Label>
+                    <Form.Label>Recieved Upper Sets</Form.Label>
                     <Form.Control
                       type="text"
-                      name="NoOfSets"
+                      name="TotalNoOfUpperSets"
                       onChange={(e) => onChangeReceived(e)}
-                      value={received.NoOfSets}
+                      value={received.TotalNoOfUpperSets}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Recieved Lower Sets</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TotalNoOfLowerSets"
+                      onChange={(e) => onChangeReceived(e)}
+                      value={received.TotalNoOfLowerSets}
                       required
                     />
                   </Form.Group>

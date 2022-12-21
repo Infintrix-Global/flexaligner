@@ -22,6 +22,11 @@ import PatientsListForSets from "./Admin/Pages/PatientsListForSets";
 import AlloactedSetsList from "./Admin/Pages/AllocatedSetsList";
 import ShowPaymentDetails from "./Admin/Pages/ShowPaymentDetails";
 import VideoRejectionReason from "./Admin/Pages/VideoRejectionReason";
+import ReportOfSets from "./Admin/Pages/ReportOfSets";
+import OngoingTreatmentsReport from "./Admin/Pages/OngoingTreatmentsReport";
+import Test from "./Admin/Pages/Test";
+import { Grid } from "ag-grid-community";
+import SetsAllocationReport from "./Admin/Pages/SetsAllocationReport";
 function App() {
   return (
     <div>
@@ -48,6 +53,11 @@ function App() {
           <Route path="/allocated-sets" element={<AlloactedSetsList/>} />
           <Route path="/payment-details" element={<ShowPaymentDetails/>} />
           <Route path="/video-reject" element={<VideoRejectionReason/>} />
+          <Route path="/sets-report" element={<ReportOfSets/>} />
+          <Route path="/ongoing-report" element={<OngoingTreatmentsReport/>} />
+          <Route path="/ag" element={<Test/>} />
+          <Route path="/gridAg" element={<Grid/>} />
+          <Route path="/alloc-report/:PatientId" element={<SetsAllocationReport/>} />
 
 
 

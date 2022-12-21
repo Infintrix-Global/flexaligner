@@ -125,7 +125,7 @@ useEffect(()=>{
                             }
 
                             if(noti?.NotificationType==="Video rejected"){
-                              navigate("video-reject")
+                              navigate("/video-reject")
                             }
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
@@ -263,9 +263,10 @@ useEffect(()=>{
                     xs={{ span: 10, offset: 1 }}
                     style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
+                    onClick={()=>navigate("/ongoing-report")}
                   >
                     <p className="mt-4">
-                      Ongoing Treatments
+                      Ongoing Treatments Report
                       <span style={{ float: "right" }}>{Admin[0]?.Ongoingtreatments}</span>
                     </p>
                     <ProgressBar now={Admin[0]?.Ongoingtreatments} className="mt-5 mb-4" />
@@ -279,6 +280,21 @@ useEffect(()=>{
                   >
                     <p className="mt-4">
                      Collection <span style={{ float: "right" }}><BiRupee className="mb-1" fontSize={20}/> {Admin[0]?.Collection}</span>
+                    </p>
+                    <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" />
+                  </Col>
+                </Row>
+
+                <Row className="mt-5">
+                <Col
+                    md={{ span: 5, offset: 1 }}
+                    xs={{ span: 10, offset: 1 }}
+                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    className="mb-1"
+                    onClick={()=>navigate("/sets-report")}
+                  >
+                    <p className="mt-4">
+                     Aligner's Sets Report <span style={{ float: "right" }}> {Admin[0]?.Collection}</span>
                     </p>
                     <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" />
                   </Col>
@@ -309,6 +325,8 @@ useEffect(()=>{
                   onClick={()=>navigate(`/patient-list-for-sets/${0}`)}>Aligner's set Allocation</Button>
               </Col>
             </Row>
+
+           
             {/* <Row className="mb-5"> */}
               {/* <Col md={{ span: 6 }}>
                 <Row className="mt-5">

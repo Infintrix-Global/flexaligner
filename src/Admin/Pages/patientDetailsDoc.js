@@ -159,13 +159,13 @@ const tglContent = () => {
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -476,44 +476,54 @@ const tglContent = () => {
                     <p className="fs-4">
                       <b>View Extraoral Photos</b>
                     </p>
-                    <Stack direction="horizontal" gap={5}>
-                    {patient[0]?.FrontalRepose?<img
-                        src={patient[0]?.FrontalRepose}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>:""}
-                      <img
-                        src={patient[0]?.FrontalSmiling}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.ProfileRepose}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.FrontOpImage}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                    </Stack>
+                    {/* <Stack direction="horizontal" gap={5}> */}
+                    <Row>
+                      <Col md={2}>
+                        {patient[0]?.FrontalRepose?<img
+                            src={patient[0]?.FrontalRepose}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>:""}
+                      </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.FrontalSmiling}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.ProfileRepose}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.FrontOpImage}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                    </Row>
+                    {/* </Stack> */}
                   </Col>
                 </Row>
                 <Row className="mt-4 mb-5">
@@ -521,53 +531,65 @@ const tglContent = () => {
                     <p className="fs-4">
                       <b>View Intraoral Photos</b>
                     </p>
-                    <Stack direction="horizontal" gap={5}>
-                    <img
-                        src={patient[0]?.BuccalRight}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.BuccalLeft}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.BuccalFront}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.OcclussalUpper}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                      <img
-                        src={patient[0]?.OcclussalLower}
-                        className="rounded"
-                        style={{
-                          boxShadow: "0px 5px 5px 5px #E8E8E8",
-                          height: "100px",
-                          width: "100px",
-                        }}
-                      ></img>
-                    </Stack>
+                    {/* <Stack direction="horizontal" gap={5}> */}
+                    <Row>
+                      <Col md={2}>
+                        <img
+                            src={patient[0]?.BuccalRight}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                      </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.BuccalLeft}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.BuccalFront}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.OcclussalUpper}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                        <Col md={2}>
+                          <img
+                            src={patient[0]?.OcclussalLower}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+                        </Col>
+                    </Row>
+                    {/* </Stack> */}
                   </Col>
                 </Row>
                 <Row className="mt-4 mb-5">

@@ -68,12 +68,12 @@ const ID=urlParams.DoctorUserId;
       selector: (row) => row.Name,
     },
     {
-      name: "DateOfBirth",
+      name: "D.O.B",
       selector: (row) => row.DateofBirth,
       sortable: true,
     },
     {
-      name: "Doctor Name",
+      name: "Dr. Name",
       selector: (row) => row.DoctorName,
       sortable: true,
     },
@@ -140,9 +140,9 @@ let DoctorName=sessionStorage.getItem("DocName");
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications fontSize={30} color="#C49358" className="notification" />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare fontSize={30} color="#C49358" className="me-2 notification" />
               </Nav.Link> */}
@@ -160,11 +160,11 @@ let DoctorName=sessionStorage.getItem("DocName");
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{navigate("/")
@@ -180,7 +180,20 @@ let DoctorName=sessionStorage.getItem("DocName");
         </Container>
       </Navbar>
       <Container fluid>
-        {RoleId==="1"?"":
+        {RoleId==="1"? <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate("/admin-dashboard")}>
+                  Dashboard
+                </Nav.Link>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
+              </Nav>
+            </Card>
+          </Col>
+        </Row>:
         <Row className="menuTab">
           <Col>
             <Card body className="border-0">
@@ -196,12 +209,16 @@ let DoctorName=sessionStorage.getItem("DocName");
           </Col>
         </Row>
 }
-        <Container>
-          <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
-            <Col>
+        <Container fluid>
+          <Row className="justify-content-center mt-5 mb-5 m-5"  style={{
+                backgroundColor: "white",
+                boxShadow: "0px 0px 15px  #C49358",
+                borderRadius: "8px",
+              }}>
+            <Col md={10}>
               <Row>
                 <Col
-                  className="m-5"
+                  className="mt-5 mb-5"
                   style={{ border: "solid 0.1em lightgray" }}
                 >
                   <DataTable
