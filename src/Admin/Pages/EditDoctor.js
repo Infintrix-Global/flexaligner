@@ -352,11 +352,11 @@ let Role=sessionStorage.getItem("Role");
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{

@@ -241,8 +241,9 @@ useEffect(()=>{
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white",cursor:"pointer"  }}
                     className="mb-1"
+                    onClick={()=>navigate("/in-treatment")}
                   >
                     <p className="mt-4">
                       In Treatment <span style={{ float: "right" }}>0</span>
@@ -279,11 +280,12 @@ useEffect(()=>{
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white",cursor:"pointer" }}
                     className="mb-1"
+                    onClick={()=>navigate(`/aligners-report-doc`)}
                   >
                     <p className="mt-4">
-                      Success Story <span style={{ float: "right" }}>0</span>
+                      Aligner's Sets Report <span style={{ float: "right" }}>0</span>
                     </p>
                     <ProgressBar now={0} className="mt-5 mb-4" />
                   </Col>
@@ -330,7 +332,7 @@ useEffect(()=>{
                       {DocDetails[0]?.Name}
                       </span>
                       <br />
-                      <span style={{ fontWeight: "bold" }}>Orthodentist</span>
+                      <span style={{ fontWeight: "bold" }}>Orthodontist</span>
                     </p>
                   </Col>
                 </Row>

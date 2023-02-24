@@ -157,9 +157,6 @@ useEffect(()=>{
                     })
                    }
 
-
-
-
                   </Dropdown.Menu>
       </Dropdown>
                 
@@ -261,7 +258,7 @@ useEffect(()=>{
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
                     className="mb-1"
                     onClick={()=>navigate("/ongoing-report")}
                   >
@@ -274,7 +271,7 @@ useEffect(()=>{
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
                     className="mb-1"
                     onClick={()=>navigate("/payment-details")}
                   >
@@ -289,14 +286,15 @@ useEffect(()=>{
                 <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white" }}
-                    className="mb-1"
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
+                    className="mb-1 p-4 pt-0"
                     onClick={()=>navigate("/sets-report")}
                   >
                     <p className="mt-4">
-                     Aligner's Sets Report <span style={{ float: "right" }}> {Admin[0]?.Collection}</span>
+                     Aligner's Sets Report 
+                     {/* <span style={{ float: "right" }}> {Admin[0]?.Collection}</span> */}
                     </p>
-                    <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" />
+                    {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}
                   </Col>
                 </Row>
               </Col>

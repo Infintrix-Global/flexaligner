@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import "../Styles/OngoingTreatmentReport.css";
 import {
     Container,
@@ -40,10 +40,25 @@ const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
 
 
+  const [reports, setReports] = useState([])
+
+  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientOngoingTreatmentReport/0/0/0";
+
+
+  useEffect(()=>{
+    fetch(url).then((res)=>res.json())
+    .then((report)=>{
+      console.log(report.Data);
+      setReports(report.Data);
+      setFilteredNames(report.Data);
+    }) 
+  },[])
+
+
 const columns = [
     {
       name: "Patient Name",
-      selector: (row) => row,
+      selector: (row) => row.PatientName,
       sortable: true,
     },
     // {
@@ -55,30 +70,30 @@ const columns = [
     //   name: "Name",
     //   selector: (row) => row.Name,
     // },
-    // {
-    //   name: "Doctor Name",
-    //   selector: (row) => row.DoctorName,
-    //   sortable: true,
-    // },
+    {
+      name: "Doctor Name",
+      selector: (row) => row.DoctorName,
+      sortable: true,
+    },
     {
       name: "Total No. of Sets",
-      selector: (row) => row,
+      selector: (row) => row.TotalSets,
       sortable: true,
     },
     {
       name: "Dispatched Sets",
-      selector: (row) => row,
+      selector: (row) => row.DispatchedSets,
       sortable: true,
     },
     
     {
       name: "Delivered Sets",
-      selector: (row) => row,
+      selector: (row) => row.DeliveredSets,
 
     },
     {
         name: "Pending Sets",
-        selector: (row) => row,
+        selector: (row) => row.PendingSets,
   
       },
    
@@ -91,12 +106,12 @@ const columns = [
   ];
 
 
-  //   useEffect(() => {
-//     const result = setsDetails.filter((patientname) => {
-//       return patientname.Name.toLowerCase().match(search.toLowerCase());
-//     });
-//     setFilteredNames(result);
-//   }, [search]);
+    useEffect(() => {
+    const result = reports.filter((patientname) => {
+      return patientname.DoctorName.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredNames(result);
+  }, [search]);
     return(
         <>
          <Navbar collapseOnSelect expand="lg" className="navb">
@@ -264,7 +279,7 @@ const columns = [
                       <input
                         type="text"
                         className="w-25 form-control mt-4 mb-4"
-                        placeholder="Search by Name"
+                        placeholder="Search by Doctor"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>

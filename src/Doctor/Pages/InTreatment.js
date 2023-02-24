@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from "react";
-import "../Styles/ReportOfSets.css";
 import {
     Container,
     Row,
@@ -20,8 +19,7 @@ import { FaBars } from "react-icons/fa";
   import DataTable from "react-data-table-component";
 
 
-
-function ReportOfSets(){
+function InTreatment(){
     const tglContent = () => {
         let Menu = document.querySelector(".menuTab");
     
@@ -35,13 +33,16 @@ function ReportOfSets(){
       const navigate=useNavigate();
 
 let AdminName=sessionStorage.getItem("DocName")
+let doctorId=sessionStorage.getItem("DocUserId")
+
+
 const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
 
 
   const [reports, setReports] = useState([])
 
-  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetAllPatientSetReport/0/0/0";
+  const url=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientOngoingTreatmentReport/0/0/${doctorId}`;
 
 
   useEffect(()=>{
@@ -52,6 +53,7 @@ const [search, setSearch] = useState("");
       setFilteredNames(report.Data);
     }) 
   },[])
+
 
 const columns = [
     {
@@ -102,23 +104,21 @@ const columns = [
     // }}>Payment</button>:""
     // }
   ];
-  
 
 
-
-  useEffect(() => {
+    useEffect(() => {
     const result = reports.filter((patientname) => {
-      return patientname.PatientName.toLowerCase().match(search.toLowerCase());
+      return patientname.DoctorName.toLowerCase().match(search.toLowerCase());
     });
     setFilteredNames(result);
   }, [search]);
-
     return(
+
         <>
-        <Navbar collapseOnSelect expand="lg" className="navb">
+          <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
-            <img src={logo} alt="" className="" width={120} />
+            <img src={logo} alt="" className="hover:scale-110" width={120} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -246,7 +246,7 @@ const columns = [
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
+                <LinkContainer to={`/doctor-dashboard/${doctorId}`}>
 
                   <Nav.Link className="doc-tab active">
                   Dashboard
@@ -260,16 +260,16 @@ const columns = [
           </Col>
         </Row>
       </Container>
+      
+
 
       <Container>
-          <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
-            <Col>
-              <Row>
-                <Col
-                  className="m-5"
-                  style={{ border: "solid 0.1em lightgray" }}
-                >
-                  <DataTable
+        <Row style={{ backgroundColor: "white" }} className="mt-5 mb-5 pb-5">
+          <Col md={{ span: 12 }} xs={{ span: 12 }}>
+            <Row>
+              <Col>
+
+              <DataTable
                     columns={columns}
                     data={filteredNames}
                     pagination
@@ -280,21 +280,21 @@ const columns = [
                       <input
                         type="text"
                         className="w-25 form-control mt-4 mb-4"
-                        placeholder="Search by Name"
+                        placeholder="Search by Doctor"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>
                     }
                   />
-                </Col>
-              </Row>
-            
-            </Col>
-          </Row>
-        </Container>
+               </Col>
+               </Row>
+           
+          </Col>
+        </Row>
+      </Container>
         </>
     );
 }
 
 
-export default ReportOfSets;
+export default InTreatment;

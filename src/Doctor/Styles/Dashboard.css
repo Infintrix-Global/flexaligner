@@ -115,7 +115,7 @@ display: none;
 .noti-menu{
     /* min-width: max-content; */
     width: 30em;
-    height: 12em;
+    height: 22em;
     overflow-x: hidden;
     overflow-y: scroll;
 }

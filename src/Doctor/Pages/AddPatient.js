@@ -367,7 +367,7 @@ const IndividualUpload4=async ()=>{
     var arr = res.data;
     console.log(arr);
     setValues(pre=>{
-      return{...pre,FrontImage:res.data.path}
+      return{...pre,FrontOpImage:res.data.path}
     })
 
     let confim4=document.getElementById("extim4");
@@ -803,7 +803,12 @@ let DoctorUserID=sessionStorage.getItem("DocUserId")
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+document.getElementById("submitCase").onclick = function() {
+      //disable
+      this.disabled = true;
+  
+      //do some validation stuff
+  }
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -846,6 +851,7 @@ let DoctorUserID=sessionStorage.getItem("DocUserId")
     //     });
     // }
     // console.log(vid);
+    
 
     const url =
       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
@@ -2101,13 +2107,13 @@ console.log(values.DoctorId);
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -2128,11 +2134,11 @@ console.log(values.DoctorId);
                     {DoctorName}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => {navigate("/")
@@ -2202,6 +2208,7 @@ console.log(values.DoctorId);
                             >
                               <Tabs
                                 activeKey={currentTab}
+                                tabIndex={currentTab}
                                 justify
                                 className="mt-3"
                               >
@@ -6726,6 +6733,7 @@ console.log(values.DoctorId);
                                       </Button>
                                       <Button
                                         className="nextbtn"
+                                        id="submitCase"
                                         type="submit"
                                         //   onClick={handleSubmit}
                                         // onClick={handleSubmit}

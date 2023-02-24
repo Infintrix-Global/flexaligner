@@ -27,6 +27,7 @@ import OngoingTreatmentsReport from "./Admin/Pages/OngoingTreatmentsReport";
 import Test from "./Admin/Pages/Test";
 import { Grid } from "ag-grid-community";
 import SetsAllocationReport from "./Admin/Pages/SetsAllocationReport";
+import InTreatment from "./Doctor/Pages/InTreatment";
 function App() {
   return (
     <div>
@@ -58,6 +59,9 @@ function App() {
           <Route path="/ag" element={<Test/>} />
           <Route path="/gridAg" element={<Grid/>} />
           <Route path="/alloc-report/:PatientId" element={<SetsAllocationReport/>} />
+          <Route path="/in-treatment" element={<InTreatment/>} />
+          <Route path="/aligners-report-doc" element={<InTreatment/>} />
+
 
 
 

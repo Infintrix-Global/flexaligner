@@ -704,7 +704,7 @@ useEffect(() => {
                     <Row>
                       <Stack direction="horizontal" gap={5}>
                         <img
-                          src={patient[0]?.ProfileImagePath}
+                          src={patient[0]?.ProfileImagePath?patient[0]?.ProfileImagePath:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1030,7 +1030,7 @@ useEffect(() => {
                   </p>
                  <Row><Col md={2}>
                  <img
-                      src={patient[0]?.FrontalRepose}
+                      src={patient[0]?.FrontalRepose?patient[0]?.FrontalRepose:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                       className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1043,7 +1043,7 @@ useEffect(() => {
                  
                  <Col md={2}>
                  <img
-                      src={patient[0]?.FrontalSmiling}
+                      src={patient[0]?.FrontalSmiling?patient[0]?.FrontalSmiling:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                       className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1055,7 +1055,7 @@ useEffect(() => {
 
                  <Col md={2}>
                  <img
-                      src={patient[0]?.ProfileRepose}
+                      src={patient[0]?.ProfileRepose?patient[0]?.ProfileRepose:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                       className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1067,7 +1067,7 @@ useEffect(() => {
 
                  <Col md={2}>
                  <img
-                      src={patient[0]?.FrontOpImage}
+                      src={patient[0]?.FrontOpImage?patient[0]?.FrontOpImage:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                       className="rounded m-2"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1093,7 +1093,7 @@ useEffect(() => {
                     <Row>
                       <Col md={2}>
                         <img
-                          src={patient[0]?.BuccalRight}
+                          src={patient[0]?.BuccalRight?patient[0]?.BuccalRight:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded m-2"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1104,7 +1104,7 @@ useEffect(() => {
                       </Col>
                       <Col md={2}>
                         <img
-                          src={patient[0]?.BuccalLeft}
+                          src={patient[0]?.BuccalLeft?patient[0]?.BuccalLeft:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded m-2"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1115,7 +1115,7 @@ useEffect(() => {
                       </Col>
                       <Col md={2}>
                         <img
-                          src={patient[0]?.BuccalFront}
+                          src={patient[0]?.BuccalFront?patient[0]?.BuccalFront:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded m-2"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1126,7 +1126,7 @@ useEffect(() => {
                       </Col>
                       <Col md={2}>
                         <img
-                          src={patient[0]?.OcclussalUpper}
+                          src={patient[0]?.OcclussalUpper?patient[0]?.OcclussalUpper:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded m-2"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1137,7 +1137,7 @@ useEffect(() => {
                       </Col>
                       <Col md={2}>
                         <img
-                          src={patient[0]?.OcclussalLower}
+                          src={patient[0]?.OcclussalLower?patient[0]?.OcclussalLower:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded m-2"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1157,7 +1157,7 @@ useEffect(() => {
                   </p>
                   <Stack direction="horizontal" gap={5}>
                     <img
-                      src={patient[0]?.XrayLeft}
+                      src={patient[0]?.XrayLeft?patient[0]?.XrayLeft:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                       className="rounded"
                       style={{
                         boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -1166,7 +1166,7 @@ useEffect(() => {
                       }}
                     ></img>
                     <img
-                        src={patient[0]?.XrayRight}
+                        src={patient[0]?.XrayRight?patient[0]?.XrayRight:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",

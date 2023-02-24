@@ -55,6 +55,7 @@ const ID=urlParams.DoctorUserId;
   const columns = [
     {
       name: "Patient Code",
+      
       selector: (row) => row.PatientId,
       sortable: true,
     },
@@ -224,8 +225,11 @@ let DoctorName=sessionStorage.getItem("DocName");
                   <DataTable
                     columns={columns}
                     data={filteredNames}
+                    // expandableRows
+                    // expandOnRowClicked
                     pagination
                     fixedHeader
+                    
                     highlightOnHover
                     subHeader
                     subHeaderComponent={

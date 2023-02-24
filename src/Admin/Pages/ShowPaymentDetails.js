@@ -12,7 +12,8 @@ import {
   Form,
   ProgressBar,
   Spinner,
-  Table
+  Table,
+  Tab
 } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import user from "../../Assets/user.png";
@@ -25,6 +26,7 @@ import { CgProfile } from "react-icons/cg";
 import $ from "jquery";
 import Swal from "sweetalert2";
 import {LinkContainer} from 'react-router-bootstrap';
+import Tabs from 'react-bootstrap/Tabs';
 
 
 function ShowPaymentDetails() {
@@ -251,6 +253,157 @@ function ShowPaymentDetails() {
     setFilteredNames3(result3);
   },[search3])
 
+
+// --------------------------------------------------------------------------------------------
+
+const [monthPay, setMonthPay] = useState([]);
+
+const [searchMon, setSearchMon] = useState("");
+  
+  const [filteredNamesMon, setFilteredNamesMon] = useState([]);
+
+const monthUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPaymentMonthReport";
+
+
+useEffect(()=>{
+  fetch(monthUrl)
+  .then((res)=>res.json())
+  .then((monthP)=>{
+    console.log(monthP.Data);
+    setMonthPay(monthP.Data);
+    setFilteredNamesMon(monthP.Data)
+  })
+},[])
+
+
+
+  const columnsMonth=[
+    {
+      name:"Month",
+      selector: (row) => row.MonthPay,
+      sortable: true,
+    },
+    // {
+    //   name:"Year",
+    //   selector: (row) => row.YearNo,
+    //   sortable: true,
+    // },
+    {
+      name:"GPay",
+    selector: (row) => row.GPay,
+    sortable: true,
+  },
+  {
+    name:"Paytm",
+  selector: (row) => row.Paytm,
+  sortable: true,
+},
+{
+  name:"Cheque",
+selector: (row) => row.Cheque,
+sortable: true,
+},
+{
+  name:"Cash",
+selector: (row) => row.Cash,
+sortable: true,
+},
+{
+  name:"Total",
+selector: (row) => row.GPay+row.Paytm+row.Cheque+row.Cash,
+sortable: true,
+},
+    // {
+    //   name:"Total Amount",
+    //   selector:(row)=>row.Currency,
+    //   sortable:true,
+    // },
+   
+   
+  ]
+
+  useEffect(()=>{
+    const resultMon = monthPay.filter((patientname) => {
+      return patientname.YearNo.toLowerCase().match(searchMon.toLowerCase());
+    });
+    setFilteredNamesMon(resultMon);
+  },[searchMon])
+
+// -------------------------------------------------------------------------------
+
+
+
+
+const [monthPayDocWise, setMonthPayDocWise] = useState([]);
+
+const [searchMonDoc, setSearchMonDoc] = useState("");
+  
+  const [filteredNamesMonDoc, setFilteredNamesMonDoc] = useState([]);
+
+
+ let yrNo=sessionStorage.getItem("yearNo");
+ let mNo=sessionStorage.getItem("monthNo");
+  const monthDocUrl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPaymentDoctorReport/${yrNo}/${mNo}/0`;
+
+
+  useEffect(()=>{
+    fetch(monthDocUrl)
+    .then((res)=>res.json())
+    .then((monthDocP)=>{
+      console.log(monthDocP.Data);
+      setMonthPayDocWise(monthDocP.Data);
+      setFilteredNamesMonDoc(monthDocP.Data)
+    })
+  },)
+
+  const columnsMonthDoctor=[
+    {
+      name:"Doctor Name",
+      selector: (row) => row.DoctorName,
+      sortable: true,
+    },
+    {name:"GPay",
+      selector: (row) => row.GPay,
+      sortable: true,
+    },
+    {name:"Paytm",
+      selector: (row) => row.Paytm,
+      sortable: true,
+    },
+    {name:"Cheque",
+      selector: (row) => row.Cheque,
+      sortable: true,
+    },
+    {name:"Cash",
+      selector: (row) => row.Cash,
+      sortable: true,
+    },
+    {
+      name:"Total",
+      selector: (row) => row.GPay+row.Paytm+row.Cheque+row.Cash,
+      sortable: true,
+    },
+    // {
+    //   name:"Total Amount",
+    //   selector:(row)=>row.Currency,
+    //   sortable:true,
+    // },
+   
+   
+  ]
+
+
+
+  useEffect(()=>{
+    const resultMonDoc = monthPayDocWise.filter((patientname) => {
+      return patientname.DoctorName.toLowerCase().match(searchMonDoc.toLowerCase());
+    });
+    setFilteredNamesMon(resultMonDoc);
+  },[searchMonDoc])
+
+
+
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -335,202 +488,269 @@ function ShowPaymentDetails() {
       <Container fluid>
         <Row className="justify-content-center">
           <Col md={10}>
-          
-            <Row
-              className="mt-5 mb-5 p-5 pt-3 justify-content-center"
-              style={{
-                backgroundColor: "white",
-                boxShadow: "0px 0px 15px  #C49358",
-                borderRadius: "8px",
-              }}
-            >
-                <p style={{fontSize:"1.4em",fontWeight:"500"}}>Payment Details</p>
-              <Col md={2}>
-                <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  name="payment"
-                  label="Electronic Transfers"
-                  value="1"
-                  // style={{ float: "right" }}
-                />
-              </Col>
-              <Col md={2}>
-                <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  name="payment"
-                  label="Cheque"
-                  value="2"
-                />
-              </Col>
-              <Col md={2}>
-                <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  name="payment"
-                  label="Cash"
-                  value="3"
-                />
-              </Col>
-              <hr className="mt-3" />
-
-              <Row
-                className="justify-content-center desc"
-                id="pay1"
-                style={{ display: "none" }}
-              >
-                <Col>
-                <DataTable
-                  columns={columns}
-                  data={filteredNames}
-                  pagination
-                  fixedHeader
-                  highlightOnHover
-                  subHeader
-                  subHeaderComponent={
-                    <input
-                      type="text"
-                      className="w-25 form-control mt-4 mb-4"
-                      placeholder="Search by Name"
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    ></input>
-                  }/>
-
-{/* 
-<Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Doctor Name</th>
-          <th>Payment Mode</th>
-          <th>Transaction No.</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        {paymentDetails?.map((et,i)=>{
-          return(
-            <>
-            <tr>
-<td>{et.DoctorName}</td>
-<td>{et.PaymentMode}</td>
-<td>{et.TransactionNo}</td>
-<td>{et.PayAmount}</td>
-<td>{et.PaymentDate}</td>
 
 
-</tr>
-            </>
-          )
-        })
+          <Row className="mt-5">
+            <Col>
+              <Tabs
+                    defaultActiveKey="ap"
+                    id="fill-tab-example"
+                    className="mb-3"
+                    fill
+                  >
+              <Tab eventKey="ap" title="All Payments">
+                <Row
+                  className="mt-5 mb-5 p-5 pt-3 justify-content-center"
+                  style={{
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 15px  #C49358",
+                    borderRadius: "8px",
+                  }}
+                >
+                    <p style={{fontSize:"1.4em",fontWeight:"500"}}>Payment Details</p>
+                  <Col md={2}>
+                    <Form.Check
+                      type="radio"
+                      aria-label="radio 1"
+                      name="payment"
+                      label="Electronic Transfers"
+                      value="1"
+                      // style={{ float: "right" }}
+                    />
+                  </Col>
+                  <Col md={2}>
+                    <Form.Check
+                      type="radio"
+                      aria-label="radio 1"
+                      name="payment"
+                      label="Cheque"
+                      value="2"
+                    />
+                  </Col>
+                  <Col md={2}>
+                    <Form.Check
+                      type="radio"
+                      aria-label="radio 1"
+                      name="payment"
+                      label="Cash"
+                      value="3"
+                    />
+                  </Col>
+                  <hr className="mt-3" />
+                  <Row
+                    className="justify-content-center desc"
+                    id="pay1"
+                    style={{ display: "none" }}
+                  >
+                    <Col>
+                    <DataTable
+                      columns={columns}
+                      data={filteredNames}
+                      pagination
+                      fixedHeader
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input
+                          type="text"
+                          className="w-25 form-control mt-4 mb-4"
+                          placeholder="Search by Name"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                        ></input>
+                      }/>
+              
+              {/*
+              <Table striped bordered hover>
+                    <thead>
+                      <tr>
+              <th>Doctor Name</th>
+              <th>Payment Mode</th>
+              <th>Transaction No.</th>
+              <th>Amount</th>
+              <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+              
+                      {paymentDetails?.map((et,i)=>{
+              return(
+                <>
+                <tr>
+              <td>{et.DoctorName}</td>
+              <td>{et.PaymentMode}</td>
+              <td>{et.TransactionNo}</td>
+              <td>{et.PayAmount}</td>
+              <td>{et.PaymentDate}</td>
+              
+              
+              </tr>
+                </>
+              )
+                      })
+              
+              
+              
+                      }
+              
+              
+              
+                    </tbody>
+                  </Table> */}
+                    </Col>
+                  </Row>
+                  <Row
+                    className="justify-content-center desc"
+                    id="pay2"
+                    style={{ display: "none" }}
+                  >
+                    <Col>
+                    {/* <Table striped bordered hover>
+                    <thead>
+                      <tr>
+              <th>Doctor Name</th>
+              <th>Payment Type</th>
+              <th>Cheque No.</th>
+              <th>Bank Name</th>
+              <th>Branch Name</th>
+              <th>Amount</th>
+              <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              
+                      </tr>
+              
+                      <tr>
+              
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              
+                      </tr>
+              
+                    </tbody>
+                  </Table> */}
+              
+              <DataTable
+                      columns={columns2}
+                      data={filteredNames2}
+                      pagination
+                      fixedHeader
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input
+                          type="text"
+                          className="w-25 form-control mt-4 mb-4"
+                          placeholder="Search by Name"
+                          value={search2}
+                          onChange={(e) => setSearch2(e.target.value)}
+                        ></input>
+                      }/>
+                    </Col>
+              
+                  </Row>
+                  <Row
+                    className="justify-content-center desc"
+                    id="pay3"
+                    style={{ display: "none" }}
+                  >
+                    <Col>
+                    <DataTable
+                      columns={columns3}
+                      data={filteredNames3}
+                      pagination
+                      fixedHeader
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input
+                          type="text"
+                          className="w-25 form-control mt-4 mb-4"
+                          placeholder="Search by Name"
+                          value={search3}
+                          onChange={(e) => setSearch3(e.target.value)}
+                        ></input>
+                      }/>
+                    </Col>
+              
+                  </Row>
+                </Row>
+                </Tab>
+                <Tab eventKey="mp" title="Monthly Payment">
+                  <Row>
+                    <Col>
+                    <DataTable
+                      columns={columnsMonth}
+                      data={filteredNamesMon}
+                      pagination
+                      fixedHeader
+                      highlightOnHover
+                    expandableRows
+                    expandOnRowClicked
+                    onRowClicked={(rw)=>{
+                      console.log(rw.MonthNo);
 
+                      sessionStorage.setItem("yearNo",rw.YearNo);
+                      sessionStorage.setItem("monthNo",rw.MonthNo);
+                    }}
+                    expandableRowsComponent={()=>{
 
-
-        }
-       
-       
-        
-      </tbody>
-    </Table> */}
-                </Col>
-              </Row>
-
-              <Row
-                className="justify-content-center desc"
-                id="pay2"
-                style={{ display: "none" }}
-              >
-                <Col>
-                {/* <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Doctor Name</th>
-          <th>Payment Type</th>
-          <th>Cheque No.</th>
-          <th>Bank Name</th>
-          <th>Branch Name</th>
-
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-
-        </tr>
-
-        <tr>
-          
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-
-        </tr>
-        
-      </tbody>
-    </Table> */}
-
-<DataTable
-                  columns={columns2}
-                  data={filteredNames2}
-                  pagination
-                  fixedHeader
-                  highlightOnHover
-                  subHeader
-                  subHeaderComponent={
-                    <input
-                      type="text"
-                      className="w-25 form-control mt-4 mb-4"
-                      placeholder="Search by Name"
-                      value={search2}
-                      onChange={(e) => setSearch2(e.target.value)}
-                    ></input>
-                  }/>
-                </Col>
-               
-              </Row>
-
-              <Row
-                className="justify-content-center desc"
-                id="pay3"
-                style={{ display: "none" }}
-              >
-                <Col>
-                <DataTable
-                  columns={columns3}
-                  data={filteredNames3}
-                  pagination
-                  fixedHeader
-                  highlightOnHover
-                  subHeader
-                  subHeaderComponent={
-                    <input
-                      type="text"
-                      className="w-25 form-control mt-4 mb-4"
-                      placeholder="Search by Name"
-                      value={search3}
-                      onChange={(e) => setSearch3(e.target.value)}
-                    ></input>
-                  }/>
-                </Col>
-               
-              </Row>
-            </Row>
+                      return(
+                        <>
+                        <Row className="justify-content-center">
+                          <Col md={10}>
+                         <DataTable
+                      columns={columnsMonthDoctor}
+                      data={filteredNamesMonDoc}
+                      pagination
+                      // fixedHeader
+                      highlightOnHover
+                      // subHeader
+                      // subHeaderComponent={
+                      //   <input
+                      //     type="text"
+                      //     className="w-25 form-control mt-4 mb-4"
+                      //     placeholder="Search by Name"
+                      //     value={searchMonDoc}
+                      //     onChange={(e) => setSearchMonDoc(e.target.value)}
+                      //   ></input>
+                      // }
+                      />
+                      </Col>
+                      </Row>
+                        </>
+                      );
+                    }}
+                      subHeader
+                      subHeaderComponent={
+                        <input
+                          type="text"
+                          className="w-25 form-control mt-4 mb-4"
+                          placeholder="Search by Year"
+                          value={searchMon}
+                          onChange={(e) => setSearchMon(e.target.value)}
+                        ></input>
+                      }/>
+                    </Col>
+                  </Row>
+                </Tab>
+                </Tabs>
+            </Col>
+          </Row>
           </Col>
         </Row>
       </Container>

@@ -29,6 +29,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 import $ from "jquery";
 import axios from "axios";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 
 function EditPatient(){
@@ -339,7 +340,7 @@ const IndividualUpload4=async ()=>{
     var arr = res.data;
     console.log(arr);
     setValues(pre=>{
-      return{...pre,FrontImage:res.data.path}
+      return{...pre,FrontOpImage:res.data.path}
     })
 
     let conf4=document.getElementById("extim4")
@@ -1431,7 +1432,13 @@ let Role=sessionStorage.getItem("Role")
       return{...pre,PatientId:patient[0]?.PatientId}
     })
     console.log(values);
+
+    if(values?.DateofBirth===""){
+      alert("Please fill Date of Birth Field!");
+    }
+    else{
     setCurrentTab((prev) => prev + 1);
+    }
   };
 
   // const handleUpload3=(e)=>{
@@ -2189,7 +2196,7 @@ useEffect(() => {
         FrontalRepose:details.Data[0]?.FrontalRepose,
         FrontalSmiling:details.Data[0]?.FrontalSmiling,
         ProfileRepose:details.Data[0]?.ProfileRepose,
-        FrontOpImage:details.Data[0].FrontOpImage,
+        FrontOpImage:details.Data[0]?.FrontOpImage,
         OcclussalUpper:details.Data[0]?.OcclussalUpper,
         OcclussalLower:details.Data[0]?.OcclussalLower,
         BuccalFront:details.Data[0]?.BuccalFront,
@@ -2239,13 +2246,13 @@ function formatDate(date) {
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              {/* <Nav.Link href="#deets">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
                   className="notification"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link eventKey={2} href="#memes">
                 <FiMessageSquare
                   fontSize={30}
@@ -2267,11 +2274,11 @@ function formatDate(date) {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => navigate("/")}>
@@ -2456,7 +2463,7 @@ function formatDate(date) {
                                             placeholder=" "
                                             name="DateofBirth"
                                             // defaultValue={patient[0]?.DateofBirth}
-                                            value={values.DateofBirth}
+                                            value={moment((values.DateofBirth)).format("YYYY-MM-DD")}
                                             // value={`${formatDate(new Date(values.DateofBirth.split(' ')[0]))}`}
                                             // pattern="\d{1,2}-\d{1,2}-\d{4}"
                                             // defaultValue={values.DateofBirth.split(' ')[0]}
@@ -6450,8 +6457,10 @@ function formatDate(date) {
                                             ref={fileInput7}
                                             hidden
                                             name="Name"
-                                            onChange={(e) =>
+                                            onChange={(e) =>{
                                               handleFile7(e.target.files[0])
+                                              console.log(values);
+                                            }
                                             }
                                           />
                                           <Row>
@@ -6843,8 +6852,10 @@ function formatDate(date) {
                                             ref={fileInput24}
                                             hidden
                                             name="Name"
-                                            onChange={(e) =>
+                                            onChange={(e) =>{
                                               handleFile6624(e.target.files[0])
+                                            console.log(values);
+                                            }
                                             }
                                           />
                                           <Row>

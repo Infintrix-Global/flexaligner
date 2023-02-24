@@ -144,6 +144,15 @@ const tglContent = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
+
+
+  
+
+  // if(pVids.length<1){
+  //   document.getElementById("vid-rId").style.height="100px"
+  // }
+
     return(
         <>
 <Navbar collapseOnSelect expand="lg" className="navb">
@@ -187,11 +196,11 @@ const tglContent = () => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={()=>{navigate("/")
@@ -244,7 +253,7 @@ const tglContent = () => {
                     <Row>
                       <Row direction="horizontal" gap={5}>
                         <img
-                          src={patient[0]?.ProfileImagePath}
+                          src={patient[0]?.ProfileImagePath?patient[0]?.ProfileImagePath:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                           className="rounded"
                           style={{
                             boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -469,8 +478,13 @@ const tglContent = () => {
                 </Row>
 <hr />
 
-
-
+                <Row>
+                  <Col>
+                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Total No. Of Upper Sets : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.TotalNoOfUpperSets}</span></p>
+                  <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Total No. Of Lower Sets : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.TotalNoOfLowerSets}</span></p>
+                  </Col>
+                </Row>
+<hr />
                 <Row className="mt-4 mb-5 mt-5">
                   <Col md={{ span: 12 }}>
                     <p className="fs-4">
@@ -479,19 +493,19 @@ const tglContent = () => {
                     {/* <Stack direction="horizontal" gap={5}> */}
                     <Row>
                       <Col md={2}>
-                        {patient[0]?.FrontalRepose?<img
-                            src={patient[0]?.FrontalRepose}
+                       <img
+                            src={patient[0]?.FrontalRepose?patient[0]?.FrontalRepose:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
                               height: "100px",
                               width: "100px",
                             }}
-                          ></img>:""}
+                          ></img>
                       </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.FrontalSmiling}
+                            src={patient[0]?.FrontalSmiling?patient[0]?.FrontalSmiling:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -502,7 +516,7 @@ const tglContent = () => {
                         </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.ProfileRepose}
+                            src={patient[0]?.ProfileRepose?patient[0]?.ProfileRepose:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -513,7 +527,7 @@ const tglContent = () => {
                         </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.FrontOpImage}
+                            src={patient[0]?.FrontOpImage?patient[0]?.FrontOpImage:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -535,7 +549,7 @@ const tglContent = () => {
                     <Row>
                       <Col md={2}>
                         <img
-                            src={patient[0]?.BuccalRight}
+                            src={patient[0]?.BuccalRight?patient[0]?.BuccalRight:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -546,7 +560,7 @@ const tglContent = () => {
                       </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.BuccalLeft}
+                            src={patient[0]?.BuccalLeft?patient[0]?.BuccalLeft:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -557,7 +571,7 @@ const tglContent = () => {
                         </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.BuccalFront}
+                            src={patient[0]?.BuccalFront?patient[0]?.BuccalFront:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -568,7 +582,7 @@ const tglContent = () => {
                         </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.OcclussalUpper}
+                            src={patient[0]?.OcclussalUpper?patient[0]?.OcclussalUpper:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -579,7 +593,7 @@ const tglContent = () => {
                         </Col>
                         <Col md={2}>
                           <img
-                            src={patient[0]?.OcclussalLower}
+                            src={patient[0]?.OcclussalLower?patient[0]?.OcclussalLower:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                             className="rounded m-2"
                             style={{
                               boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -599,7 +613,7 @@ const tglContent = () => {
                     </p>
                     <Stack direction="horizontal" gap={5}>
                       <img
-                        src={patient[0]?.XrayLeft}
+                        src={patient[0]?.XrayLeft?patient[0]?.XrayLeft:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -608,7 +622,7 @@ const tglContent = () => {
                         }}
                       ></img>
                       <img
-                        src={patient[0]?.XrayRight}
+                        src={patient[0]?.XrayRight?patient[0]?.XrayRight:"http://swargworld.com/wp-content/uploads/2017/01/No_image_available.jpg"}
                         className="rounded"
                         style={{
                           boxShadow: "0px 5px 5px 5px #E8E8E8",
@@ -625,11 +639,12 @@ const tglContent = () => {
                   <p className="fs-4">
                       <b>Videos</b>
                     </p>
-                    <Row className="vid-row2">
+                    <Row className="vid-row2" id="vid-rId">
                      
                       <Col>
                         {
                           pVids?.map((item,index)=>{
+                            
                             return(
                               <>
                               

@@ -25,6 +25,8 @@ import { FaBars, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import Swal from "sweetalert2";
+import {LinkContainer} from 'react-router-bootstrap';
+
 
 function AlloactedSetsList() {
   const navigate = useNavigate();
@@ -69,6 +71,31 @@ function AlloactedSetsList() {
 
 
 
+
+
+
+
+
+
+
+  const [showRequest, setShowRequest] = useState(false);
+
+  const handleCloseRequest = () => setShowRequest(false);
+  const handleShowRequest = () => setShowRequest(true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [sendSets, setSendSets] = useState({
     PatientSetsId:"",
       PatientId:"",
@@ -89,6 +116,7 @@ function AlloactedSetsList() {
 
 
     const [received, setReceived] = useState({
+      PatientTotalSetsId:"",
       PatientSetsId:"",
       PatientId:"",
       DoctorId:"",
@@ -137,6 +165,7 @@ function AlloactedSetsList() {
         <Button variant="" className="edit-patient-btn" onClick={()=>{handleShow2()
           setReceived((pre)=>{
             return{...pre,
+            PatientTotalSetsId:row.PatientTotalSetsId,
             PatientSetsId:row.PatientSetsId,
             PatientId:row.PatientId,
             DoctorId:DoctorUId
@@ -162,6 +191,25 @@ function AlloactedSetsList() {
           })
         }}>
           Send
+        </Button>
+      ),
+    },
+
+    {
+      id:"center",
+      name:"Request for Aligners",
+      cell: (row) => (
+        <Button variant="" className="edit-patient-btn" onClick={()=>{
+          handleShowRequest();
+          // setSendSets((pre)=>{
+          //   return{...pre,PatientSetsId:row.PatientSetsId,
+          //   PatientId:row.PatientId,
+          //   DoctorId:DoctorUId,
+          //   PatientTotalSetsId:row.PatientTotalSetsId
+          //   }
+          // })
+        }}>
+          Request
         </Button>
       ),
     }
@@ -275,11 +323,11 @@ function AlloactedSetsList() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
+                    {/* <Dropdown.Item href="#/action-1">
                       <CgProfile fontSize={25} />
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
-                    <hr />
+                    <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => navigate("/")}>
@@ -293,6 +341,26 @@ function AlloactedSetsList() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Container fluid>
+        <Row className="menuTab">
+          <Col>
+            <Card body className="border-0">
+              <Nav className="justify-content-center">
+                <LinkContainer to={`/doctor-dashboard/${DoctorUId}`}>
+
+                  <Nav.Link className="doc-tab active">
+                  Dashboard
+                  </Nav.Link>
+                </LinkContainer>
+                {/* <Nav.Link href="#deets" className="prof-tab">
+                  Profile
+                </Nav.Link> */}
+              </Nav>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
 
       <Container fluid>
         <Row className="justify-content-center">
@@ -507,6 +575,102 @@ function AlloactedSetsList() {
        
            })
                     }}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+
+
+
+
+
+
+
+
+
+
+              <Modal show={showRequest} onHide={handleCloseRequest} centered>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Request Upper Sets</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TotalNoOfUpperSets"
+                      // onChange={(e) => onChangeReceived(e)}
+                      // value={received.TotalNoOfUpperSets}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Request Lower Sets</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TotalNoOfLowerSets"
+                      // onChange={(e) => onChangeReceived(e)}
+                      // value={received.TotalNoOfLowerSets}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="DateOn"
+                      id="pass"
+                      // onChange={(e) => onChangeReceived(e)}
+                      // value={received.DateOn}
+                      required
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+          //           onClick={(e)=>{
+          //             const receiveUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsDoctorReceived";
+
+          // fetch(receiveUrl,{
+          //   method: "POST",
+          //   headers: {
+          //     Accept: "application/json",
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(received),
+          //  })
+          //  .then((res)=>res.json())
+          //  .then((receive)=>{
+          //   console.log(receive);
+          //   console.log(received);
+          //   if(receive.status===true){
+          //     Swal.fire({
+          //       title:"Submitted Successfully!",
+          //       icon:"success"
+          //     })
+          //   }
+          //   // window.location.reload();
+       
+          //  })
+          //           }}
                   >
                     Submit
                   </Button>

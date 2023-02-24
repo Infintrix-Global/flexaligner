@@ -82,6 +82,8 @@ const cellClickedListener = useCallback((event) => {
   sessionStorage.setItem("pID",event.data.PatientId);
   sessionStorage.setItem("PSID",event.data.PatientSetsId);
   sessionStorage.setItem("SDID",event.data.DoctorId);
+  sessionStorage.setItem("PNAME",event.data.Name);
+
   console.log(event.data.PatientId);
   console.log(event.data.PatientSetsId);
  
@@ -93,6 +95,7 @@ const cellClickedListener = useCallback((event) => {
 let id1=sessionStorage.getItem("pID");
 let id2=sessionStorage.getItem("PSID");
 let id3=sessionStorage.getItem("SDID");
+let pname=sessionStorage.getItem("PNAME");
 
 
 const [columnDefs, setColumnDefs] = useState([
@@ -101,37 +104,37 @@ const [columnDefs, setColumnDefs] = useState([
     field: "CaseNo",
     floatingFilter:true,
     filter: "agTextColumnFilter",
-    filterParams: {
-      buttons: ["reset", "apply"],
-    },
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
   },
   { headerName:"Patient Name",field: "Name", filter: "agTextColumnFilter",
-  filterParams: {
-    buttons: ["reset", "apply"],
-  },
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
   floatingFilter:true,
 
 },
   { field: "PatientId", filter: "agNumberColumnFilter",
-  filterParams: {
-    buttons: ["reset", "apply"],
-  },
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
   floatingFilter:true,
 
 },
   { headerName:"Doctor Name",field: "DoctorName", filter: "agTextColumnFilter",
-  filterParams: {
-    buttons: ["reset", "apply"],
-  },
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
   floatingFilter:true,
 
 },
 
   
   { field: "NoOfSets", filter: "agNumberColumnFilter",
-  filterParams: {
-    buttons: ["reset", "apply"],
-  },
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
   floatingFilter:true,
 
   //  cellRenderer: "agGroupCellRenderer"
@@ -170,9 +173,9 @@ const [columnDefs, setColumnDefs] = useState([
     'cell-green' : param=>param.value==="Received"
   }
   ,filter: "agTextColumnFilter",
-  filterParams: {
-    buttons: ["reset", "apply"],
-  },
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
   floatingFilter:true,
   
 
@@ -323,7 +326,7 @@ const [columnDefs, setColumnDefs] = useState([
     },
     browserDatePicker: true,
     minValidYear: 2000,
-    maxValidYear: 2021,
+    maxValidYear: 2080,
     inRangeFloatingFilterDateFormat: 'Do MMM YYYY',
   };
 
@@ -331,27 +334,29 @@ const [columnDefs, setColumnDefs] = useState([
 
 
   const [cols, setCols] = useState([
-    { headerName:"Total Dispatched Sets",field: "NoOfSets", filter: "agNumberColumnFilter",
-    filterParams: {
-      buttons: ["reset", "apply"],
-    },
-    floatingFilter:true, },
+    { headerName:"Dispatched Sets",field: "NoOfSets", filter: "agNumberColumnFilter",
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
+    floatingFilter:true, 
+  
+  },
     { headerName:"Upper Sets",field: "TotalNoOfUpperSets", filter: "agNumberColumnFilter",
-    filterParams: {
-      buttons: ["reset", "apply"],
-    },
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
     floatingFilter:true, },
     { headerName:"Lower Sets",field: "TotalNoOfLowerSets", filter: "agNumberColumnFilter",
-    filterParams: {
-      buttons: ["reset", "apply"],
-    },
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
     floatingFilter:true, },
     { headerName:"Delivery Date",field: "ReceivedDate", filter: 'agDateColumnFilter',
-    filterParams: filterParams, floatingFilter:true},
+    filterParams: filterParams, floatingFilter:true, format:"YYYY-MM-DD"},
     { headerName:"Delivery Status",field: "ReceiveStatusSets", filter: "agTextColumnFilter",
-    filterParams: {
-      buttons: ["reset", "apply"],
-    },
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
     floatingFilter:true, },
 
 
@@ -369,7 +374,7 @@ const [columnDefs, setColumnDefs] = useState([
 
 
   const defColsDef = useMemo(() => ({
-    editable: true,
+    // editable: true,
     enableRowGroup: true,
     enablePivot: true,
     enableValue: true,
@@ -809,7 +814,7 @@ const [columnDefs, setColumnDefs] = useState([
 
             <Row className="mt-5">
               <Col className="mt-5">
-                <p className="fs-3">Total Sets Allocated Details</p>
+                <p className="fs-3">Details of Total Sets Allocated to <u>{pname}</u>.</p>
               </Col>
             </Row>
 <Row className="mt-2">

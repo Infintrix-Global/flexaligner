@@ -1,27 +1,7 @@
-import React,{useState,useEffect} from "react";
-import "../Styles/ReportOfSets.css";
-import {
-    Container,
-    Row,
-    Col,
-    Nav,
-    Button,
-    Navbar,
-    Dropdown,
-    Card,
-    Badge,
-  } from "react-bootstrap";
-import user from "../../Assets/user.png";
-import logo from "../../Assets/Logoremovebg.png";
-import { FaBars } from "react-icons/fa";
-  import { FiMessageSquare, FiPower } from "react-icons/fi";
-  import {LinkContainer} from 'react-router-bootstrap';
-  import {useNavigate,useParams} from "react-router-dom";
-  import DataTable from "react-data-table-component";
+import React from "react";
 
 
-
-function ReportOfSets(){
+function SetsReport(){
     const tglContent = () => {
         let Menu = document.querySelector(".menuTab");
     
@@ -35,13 +15,15 @@ function ReportOfSets(){
       const navigate=useNavigate();
 
 let AdminName=sessionStorage.getItem("DocName")
+let doctorId=sessionStorage.getItem("DocUserId")
+
 const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
 
 
   const [reports, setReports] = useState([])
 
-  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetAllPatientSetReport/0/0/0";
+  const url=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetAllPatientSetReport/0/0/${doctorId}`;
 
 
   useEffect(()=>{
@@ -112,10 +94,9 @@ const columns = [
     });
     setFilteredNames(result);
   }, [search]);
-
     return(
         <>
-        <Navbar collapseOnSelect expand="lg" className="navb">
+           <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="" width={120} />
@@ -246,7 +227,7 @@ const columns = [
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
+                <LinkContainer to={`/doctor-dashboard/${doctorId}`}>
 
                   <Nav.Link className="doc-tab active">
                   Dashboard
@@ -297,4 +278,4 @@ const columns = [
 }
 
 
-export default ReportOfSets;
+export default SetsReport;

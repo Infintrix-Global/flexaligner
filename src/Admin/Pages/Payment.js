@@ -124,6 +124,19 @@ const DocID=sessionStorage.getItem("DocID");
     setpayDetails(newdata);
     console.log(newdata);
 
+    let etlbl=document.querySelector("#etbtn");
+
+    // if(etlbl.checked){
+    //   let lbl1get=etlbl.getAttribute('lbl');
+
+    //   console.log(lbl1get);
+    //   setpayDetails((pre)=>{
+    //     return{...pre,
+    //     PaymentMode:lbl1get
+    //     }
+    //   })
+    // }
+
     // var mode_select = document.querySelector("#selMode");
     // var mode_id = mode_select.options[mode_select.selectedIndex].getAttribute('code');
 
@@ -187,7 +200,7 @@ const DocID=sessionStorage.getItem("DocID");
     PatientId:0,
     DocotrId:DocID,
     PaymentDate:"",
-    PaymentMode:0,
+    PaymentMode:"",
     ElectronicTransfersId:"",
     TransactionNo:0,
     NameOfBank:"",
@@ -232,6 +245,22 @@ const DocID=sessionStorage.getItem("DocID");
     
     setChequeDetails(newdata);
     console.log(newdata);
+
+
+    let etlbl2=document.querySelector("#chqbtn");
+
+    if(etlbl2.checked){
+      let lbl2get=etlbl2.getAttribute('lbl');
+
+      console.log(lbl2get);
+      setChequeDetails((pre)=>{
+        return{...pre,
+        PaymentMode:lbl2get
+        }
+      })
+    }
+    
+    
   }
 
   const chequeSubmit=(e)=>{
@@ -275,7 +304,7 @@ const DocID=sessionStorage.getItem("DocID");
     PatientId:0,
     DocotrId:DocID,
     PaymentDate:"",
-    PaymentMode:0,
+    PaymentMode:"",
     ElectronicTransfersId:"",
     TransactionNo:0,
     NameOfBank:0,
@@ -317,6 +346,20 @@ const DocID=sessionStorage.getItem("DocID");
     
     setCashDetails(newdata);
     console.log(newdata);
+
+
+    let etlbl3=document.querySelector("#cashbtn");
+
+    if(etlbl3.checked){
+      let lbl3get=etlbl3.getAttribute('lbl');
+
+      console.log(lbl3get);
+      setCashDetails((pre)=>{
+        return{...pre,
+        PaymentMode:lbl3get
+        }
+      })
+    }
   }
 
 
