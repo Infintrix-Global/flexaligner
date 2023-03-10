@@ -88,6 +88,22 @@ const ID=urlParams.DoctorUserId;
       selector: (row) => row.Mi,
       sortable: true,
     },
+
+    RoleId==="1"?
+    {
+      
+      name: "Status",
+      selector: (row) => row.Isconfirmed==="True"?"Approved":"",
+      conditionalCellStyles: [
+              {
+                  when: row => row.Isconfirmed==="True",
+                  classNames: ['green-text'],
+              },
+              
+             
+          ],
+      sortable: true,
+    }:"",
     
     {
       name: "Action",

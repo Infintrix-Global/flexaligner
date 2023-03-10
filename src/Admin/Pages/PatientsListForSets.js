@@ -604,7 +604,7 @@ const [columnDefs, setColumnDefs] = useState([
 
   let DoctorName = sessionStorage.getItem("DocName");
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false); 
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -872,7 +872,7 @@ const [columnDefs, setColumnDefs] = useState([
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Upper Sets</Form.Label>
+                    <Form.Label>Upper Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfUpperSets"
@@ -885,7 +885,7 @@ const [columnDefs, setColumnDefs] = useState([
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Lower Sets</Form.Label>
+                    <Form.Label>Lower Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfLowerSets"

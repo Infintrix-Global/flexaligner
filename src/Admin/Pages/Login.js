@@ -200,7 +200,7 @@ console.log(DoctorUser);
           <Button variant="link" className="ms-auto acc-btn action-i">
             Don't have an account?
           </Button>
-          <Button variant="" className="sup-btn" onClick={()=>navigate("/add-doctor")}>
+          <Button variant="" className="sup-btn" onClick={()=>navigate("/verify-dr")}>
             Sign up
           </Button>
         </Stack>

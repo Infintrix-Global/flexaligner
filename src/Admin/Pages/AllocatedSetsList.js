@@ -133,6 +133,35 @@ function AlloactedSetsList() {
       console.log(newdata);
     }
 
+
+
+
+
+
+
+
+    const [requestSets, setRequestSets] = useState({
+      PatientSetsId:"",
+        PatientId:"",
+        DoctorId:"",
+        RequestedUpperSets:"",
+        RequestedLowerSets:"",
+        RequestDate:"",
+        PatientTotalSetsId:""
+    })
+    
+      const onChangeRequest=(e)=>{
+        const newdata={...requestSets}
+        newdata[e.target.name]=e.target.value;
+        
+        setRequestSets(newdata);
+        console.log(newdata);
+      }
+
+
+
+
+
   const columns = [
     {
       name: "Case Paper No.",
@@ -195,24 +224,24 @@ function AlloactedSetsList() {
       ),
     },
 
-    {
-      id:"center",
-      name:"Request for Aligners",
-      cell: (row) => (
-        <Button variant="" className="edit-patient-btn" onClick={()=>{
-          handleShowRequest();
-          // setSendSets((pre)=>{
-          //   return{...pre,PatientSetsId:row.PatientSetsId,
-          //   PatientId:row.PatientId,
-          //   DoctorId:DoctorUId,
-          //   PatientTotalSetsId:row.PatientTotalSetsId
-          //   }
-          // })
-        }}>
-          Request
-        </Button>
-      ),
-    }
+    // {
+    //   id:"center",
+    //   name:"Request for Aligners",
+    //   cell: (row) => (
+    //     <Button variant="" className="edit-patient-btn" onClick={()=>{
+    //       handleShowRequest();
+    //       // setSendSets((pre)=>{
+    //       //   return{...pre,PatientSetsId:row.PatientSetsId,
+    //       //   PatientId:row.PatientId,
+    //       //   DoctorId:DoctorUId,
+    //       //   PatientTotalSetsId:row.PatientTotalSetsId
+    //       //   }
+    //       // })
+    //     }}>
+    //       Request
+    //     </Button>
+    //   ),
+    // }
 
     // {
     //   name: "Action",
@@ -428,7 +457,7 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Upper Sets</Form.Label>
+                    <Form.Label>Upper Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfUpperSets"
@@ -442,7 +471,7 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Lower Sets</Form.Label>
+                    <Form.Label>Lower Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfLowerSets"
@@ -504,7 +533,7 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Recieved Upper Sets</Form.Label>
+                    <Form.Label>Recieved Upper Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfUpperSets"
@@ -518,7 +547,7 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Recieved Lower Sets</Form.Label>
+                    <Form.Label>Recieved Lower Aligners</Form.Label>
                     <Form.Control
                       type="text"
                       name="TotalNoOfLowerSets"
@@ -600,12 +629,12 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Request Upper Sets</Form.Label>
+                    <Form.Label>Request Upper Aligners</Form.Label>
                     <Form.Control
                       type="text"
-                      name="TotalNoOfUpperSets"
-                      // onChange={(e) => onChangeReceived(e)}
-                      // value={received.TotalNoOfUpperSets}
+                      name="RequestedUpperSets"
+                      onChange={(e) => onChangeRequest(e)}
+                      value={requestSets.RequestedUpperSets}
                       required
                     />
                   </Form.Group>
@@ -614,12 +643,13 @@ function AlloactedSetsList() {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Request Lower Sets</Form.Label>
+                    <Form.Label>Request Lower Aligners</Form.Label>
                     <Form.Control
                       type="text"
-                      name="TotalNoOfLowerSets"
-                      // onChange={(e) => onChangeReceived(e)}
-                      // value={received.TotalNoOfLowerSets}
+                      name="RequestedLowerSets"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.RequestedLowerSets}
                       required
                     />
                   </Form.Group>
@@ -630,10 +660,11 @@ function AlloactedSetsList() {
                     <Form.Label>Date</Form.Label>
                     <Form.Control
                       type="date"
-                      name="DateOn"
+                      name="RequestDate"
                       id="pass"
-                      // onChange={(e) => onChangeReceived(e)}
-                      // value={received.DateOn}
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.RequestDate}
                       required
                     />
                   </Form.Group>
