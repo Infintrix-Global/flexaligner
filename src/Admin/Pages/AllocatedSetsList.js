@@ -144,9 +144,10 @@ function AlloactedSetsList() {
       PatientSetsId:"",
         PatientId:"",
         DoctorId:"",
-        RequestedUpperSets:"",
-        RequestedLowerSets:"",
-        RequestDate:"",
+        NoOfSets:0,
+        TotalNoOfUpperSets:"",
+        TotalNoOfLowerSets:"",
+        DateOn:"",
         PatientTotalSetsId:""
     })
     
@@ -230,13 +231,13 @@ function AlloactedSetsList() {
     //   cell: (row) => (
     //     <Button variant="" className="edit-patient-btn" onClick={()=>{
     //       handleShowRequest();
-    //       // setSendSets((pre)=>{
-    //       //   return{...pre,PatientSetsId:row.PatientSetsId,
-    //       //   PatientId:row.PatientId,
-    //       //   DoctorId:DoctorUId,
-    //       //   PatientTotalSetsId:row.PatientTotalSetsId
-    //       //   }
-    //       // })
+    //       setRequestSets((pre)=>{
+    //         return{...pre,PatientSetsId:row.PatientSetsId,
+    //         PatientId:row.PatientId,
+    //         DoctorId:DoctorUId,
+    //         PatientTotalSetsId:row.PatientTotalSetsId
+    //         }
+    //       })
     //     }}>
     //       Request
     //     </Button>
@@ -357,9 +358,9 @@ function AlloactedSetsList() {
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
+                    <Dropdown.Item href="#/action-2" onClick={() => navigate("/")}>
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => navigate("/")}>
+                      <span className="px-3" >
                         Logout
                       </span>
                     </Dropdown.Item>
@@ -395,7 +396,7 @@ function AlloactedSetsList() {
         <Row className="justify-content-center">
           <Col md={10}>
             <Row
-              className="mt-5 mb-5 p-5 pt-5"
+              className="mt-5 mb-5 p-1 p-md-5 pt-5 m-1 m-md-0"
               style={{
                 backgroundColor: "white",
                 boxShadow: "0px 0px 15px  #C49358",
@@ -632,9 +633,9 @@ function AlloactedSetsList() {
                     <Form.Label>Request Upper Aligners</Form.Label>
                     <Form.Control
                       type="text"
-                      name="RequestedUpperSets"
+                      name="TotalNoOfUpperSets"
                       onChange={(e) => onChangeRequest(e)}
-                      value={requestSets.RequestedUpperSets}
+                      value={requestSets.TotalNoOfUpperSets}
                       required
                     />
                   </Form.Group>
@@ -646,10 +647,10 @@ function AlloactedSetsList() {
                     <Form.Label>Request Lower Aligners</Form.Label>
                     <Form.Control
                       type="text"
-                      name="RequestedLowerSets"
+                      name="TotalNoOfLowerSets"
                       onChange={(e) => onChangeRequest(e)}
 
-                      value={requestSets.RequestedLowerSets}
+                      value={requestSets.TotalNoOfLowerSets}
                       required
                     />
                   </Form.Group>
@@ -660,11 +661,11 @@ function AlloactedSetsList() {
                     <Form.Label>Date</Form.Label>
                     <Form.Control
                       type="date"
-                      name="RequestDate"
+                      name="DateOn"
                       id="pass"
                       onChange={(e) => onChangeRequest(e)}
 
-                      value={requestSets.RequestDate}
+                      value={requestSets.DateOn}
                       required
                     />
                   </Form.Group>
@@ -677,31 +678,35 @@ function AlloactedSetsList() {
                       backgroundColor: "#C49358",
                       color: "white",
                     }}
-          //           onClick={(e)=>{
-          //             const receiveUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsDoctorReceived";
+                    onClick={(e)=>{
+                      const reqUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddSetsDoctorToAdmin";
 
-          // fetch(receiveUrl,{
-          //   method: "POST",
-          //   headers: {
-          //     Accept: "application/json",
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify(received),
-          //  })
-          //  .then((res)=>res.json())
-          //  .then((receive)=>{
-          //   console.log(receive);
-          //   console.log(received);
-          //   if(receive.status===true){
-          //     Swal.fire({
-          //       title:"Submitted Successfully!",
-          //       icon:"success"
-          //     })
-          //   }
-          //   // window.location.reload();
+          fetch(reqUrl,{
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestSets),
+           })
+           .then((res)=>res.json())
+           .then((request)=>{
+            // console.log(request);
+            console.log(request);
+            if(request.status===true){
+              Swal.fire({
+                title:"Submitted Successfully!",
+                icon:"success"
+              })
+            }
+
+            setTimeout(() => {
+              
+               window.location.reload();
+            }, 2000);
        
-          //  })
-          //           }}
+           })
+                    }}
                   >
                     Submit
                   </Button>

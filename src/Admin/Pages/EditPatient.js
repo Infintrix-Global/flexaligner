@@ -1433,12 +1433,12 @@ let Role=sessionStorage.getItem("Role")
     })
     console.log(values);
 
-    if(values?.DateofBirth===""){
+    if(values?.DateofBirth==""){
       alert("Please fill Date of Birth Field!");
     }
-    else{
+    
     setCurrentTab((prev) => prev + 1);
-    }
+    
   };
 
   // const handleUpload3=(e)=>{
@@ -2130,7 +2130,7 @@ useEffect(() => {
       setPatient(details.Data);
       console.log(details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]);
       let arryr=details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]
-      let arr=[details.Data[0]?.DateofBirth.split('-')[0],details.Data[0]?.DateofBirth.split('-')[1],arryr].join('/')
+      let arr=[details.Data[0]?.DateofBirth.split('-')[1],details.Data[0]?.DateofBirth.split('-')[0],arryr].join('/')
       console.log(arr);
 
       // console.log(details.Data[0]?.ClinicalConditions.split(',').includes("Crowding")?"true":"false");
@@ -2398,10 +2398,10 @@ function formatDate(date) {
                                             <TbUser fontSize={28}></TbUser>
                                           </InputGroup.Text>
                                           <Form.Control
-                                            type="text"
-                                            placeholder="MI"
+                                            type="tel"
+                                            placeholder="Mobile No."
                                             value={values.Mi}
-                                            name="Mi"
+                                            name="Mobile No."
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -2463,7 +2463,7 @@ function formatDate(date) {
                                             placeholder=" "
                                             name="DateofBirth"
                                             // defaultValue={patient[0]?.DateofBirth}
-                                            value={moment((values.DateofBirth)).format("YYYY-MM-DD")}
+                                            value={moment((values?.DateofBirth))?.format("YYYY-MM-DD")}
                                             // value={`${formatDate(new Date(values.DateofBirth.split(' ')[0]))}`}
                                             // pattern="\d{1,2}-\d{1,2}-\d{4}"
                                             // defaultValue={values.DateofBirth.split(' ')[0]}

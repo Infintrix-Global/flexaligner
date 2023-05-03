@@ -26,7 +26,7 @@ import {
   import {LinkContainer} from 'react-router-bootstrap';
   import patientimg from "../../Assets/mock1.jpg";
   import {useNavigate,useParams} from "react-router-dom";
-  
+  import handover from "../../Assets/hanover.png"
 
 
 function AdminDashboard(){
@@ -188,13 +188,23 @@ useEffect(()=>{
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{
+                     <Dropdown.Item href="" className="p-0 px-1">
+                    
+                    <img src={handover} alt="" srcset="" width={50}/>
+                      <span className="" onClick={()=>{
+                        navigate("/handover");
+                        // sessionStorage.removeItem("Role");
+                      }
+                    }>Handover</span>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-2" onClick={()=>{
                         navigate("/");
                         sessionStorage.removeItem("Role");
+                        sessionStorage.removeItem("selDocId");
                       }
-                    }>Logout</span>
+                    }>
+                      <FiPower fontSize={25} />
+                      <span className="px-3" >Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -292,6 +302,19 @@ useEffect(()=>{
                   >
                     <p className="mt-4">
                      Aligner's Sets Report 
+                     {/* <span style={{ float: "right" }}> {Admin[0]?.Collection}</span> */}
+                    </p>
+                    {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}
+                  </Col>
+                <Col
+                    md={{ span: 5, offset: 1 }}
+                    xs={{ span: 10, offset: 1 }}
+                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
+                    className="mb-1 p-4 pt-0"
+                    onClick={()=>navigate("/request-list")}
+                  >
+                    <p className="mt-4">
+                     Request List 
                      {/* <span style={{ float: "right" }}> {Admin[0]?.Collection}</span> */}
                     </p>
                     {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}

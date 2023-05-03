@@ -126,16 +126,49 @@ const tglContent = () => {
     ConfirmNotes:""
   })
 
+  const [cNotes, setcNotes] = useState("");
+
+
+
+  // let cnotes=sessionStorage.getItem("ConfirmNotes");
+
+//   useEffect(()=>{
+// console.log("cnotes below");
+// console.log(cnotes);
+//   },[cnotes])
+
+let obj1={
+  VideoConfirmRejected:[]
+}
+  pVids?.map((rejVid)=>{
+    let a={
+      PatientVideoId:rejVid?.PatientVideoId,
+      DoctorId:DoctorUserID,
+      ConfirmNotes:cNotes
+    }
+
+    obj1.VideoConfirmRejected.push(a);
+  })
+  // console.log(obj1);
+
+
   const handleVidChange=(e)=>{
-    setVidChange((pre)=>{
-      return{
-        ...pre,
-        ConfirmNotes:e.target.value
-      }
-    });
+    // setVidChange((pre)=>{
+    //   return{
+    //     ...pre,
+    //     ConfirmNotes:e.target.value
+    //   }
+    // });
+
+    let a=e.target.value;
+    // sessionStorage.setItem("ConfirmNotes",a);
+    setcNotes(a);
 
     
-    console.log(vidChange);
+    
+
+    
+    console.log(obj1);
   }
   
 
@@ -152,6 +185,9 @@ const tglContent = () => {
   // if(pVids.length<1){
   //   document.getElementById("vid-rId").style.height="100px"
   // }
+
+
+  
 
     return(
         <>
@@ -643,12 +679,19 @@ const tglContent = () => {
                      
                       <Col>
                         {
+
+                          pVids.find(i=>i.PatientVideoId===0)? <Row className="d-flex vh-100 justify-content-center align-items-center">
+                          <Col>
+                          <p className="text-center fs-3">Videos are not available/uploaded.</p>
+                          </Col>
+                        </Row>:
+                        
                           pVids?.map((item,index)=>{
                             
                             return(
                               <>
                               
-                              {item?.PathVideo===""?<p>Currently there are no videos!</p>:<video width="320" height="240" controls className="vid-items">
+                              {<video width="320" height="240" controls className="vid-items">
                           <source src={item?.PathVideo} type="video/mp4"/> 
                           {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
                           
@@ -659,15 +702,59 @@ const tglContent = () => {
 
                           {item?.IsConfirm==="No"?<p className="mx-5 px-5 vid-status2">Video Rejected!</p>:""}
                           
-                        <Row>
+                      
+                        {/* {item?.IsConfirm==="YES"?"":<Form>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                  <Form.Label className="vid-reason">Changes Needed</Form.Label>
+                                  <Form.Control as="textarea" name="changes" row={4} onChange={handleVidChange} placeholder="mention here...." />
+                                </Form.Group>
+                                <Button variant="" className="sub-reason">Submit</Button>
+                                
+                        </Form>} */}
+
+                              </>
+                            )
+                          })
+                          
+                          
+
+                          
+
+
+
+
+                         
+
+
+
+                        }
+
+                        {
+
+                           pVids.find(i=>i.IsConfirm==="") && pVids.find(a=>a.PatientVideoId!=0)?
+
+                        
+
+
+<Row>
                           <Col md={2}>
-                            {item?.IsConfirm===""?<Button variant="" className="btn approval-btn mx-0 mt-3 mb-3" onClick={()=>{
+                            <Button variant="" className="btn approval-btn mx-0 mt-3 mb-3" onClick={()=>{
                               const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
                             
                               let obj={
-                                PatientVideoId:item?.PatientVideoId,
-                                DoctorId:DoctorUserID
+                                VideoConfirmByDoctorList:[]
                               }
+
+
+
+                              pVids?.map((confVid)=>{
+                                let a={
+                                  PatientVideoId:confVid?.PatientVideoId,
+                                  DoctorId:DoctorUserID
+                                }
+
+                                obj.VideoConfirmByDoctorList.push(a);
+                              })
                               console.log(obj);
                               fetch(confUrl,{
                                 method: "POST",
@@ -684,29 +771,43 @@ const tglContent = () => {
                                 if(conf.status===true){
                                   Swal.fire({
                                     title:"Aprroved!",
-                                    icon:"success"
+                                    icon:"success",
+                                    timer:2000,
+                                    showConfirmButton:false
                                   })
+
+
+                                  setTimeout(() => {
+                                    
+                                    window.location.reload();
+                                  }, 2000);
                                 }
                               })
-                              window.location.reload();
-                            }}>Approve</Button>:""
+                            }}>Approve</Button>
                             
-                            }
+                            
                           </Col>
                           <Col md={2}>
-                         {item?.IsConfirm===""?<Button variant="" className="mx-0 mt-3 mb-3 rej-btn px-4" onClick={()=>{
+
+
+
+                         <Button variant="" className="mx-0 mt-3 mb-3 rej-btn px-4" onClick={()=>{
                             handleShow();
-
-                            setVidChange((pre)=>{
-                              return{...pre,PatientVideoId:item?.PatientVideoId,
-                              DoctorId:DoctorUserID
-                              }
-                            })
-
-                            console.log(vidChange);
                            
 
-                          }}>Reject</Button>:""}
+
+
+                           
+                            // setVidChange((pre)=>{
+                            //   return{...pre,PatientVideoId:item?.PatientVideoId,
+                            //   DoctorId:DoctorUserID
+                            //   }
+                            // })
+
+                            // console.log(vidChange);
+                           
+
+                          }}>Reject</Button>
 
 
 <Modal show={show} onHide={handleClose} centered>
@@ -725,7 +826,7 @@ const tglContent = () => {
                       placeholder="mention here...."
                       name="ConfirmNotes"
                       onChange={(e) => handleVidChange(e)}
-                      value={vidChange.ConfirmNotes}
+                      // value={vidChange.ConfirmNotes}
                       required
                     />
                   </Form.Group>
@@ -744,13 +845,14 @@ const tglContent = () => {
                       e.preventDefault();
                       const rejUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmRejectedByDoctor";
 
+                     
                       fetch(rejUrl,{
                         method: "POST",
                     headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(vidChange),
+                    body: JSON.stringify(obj1),
                       })
                       .then((res)=>res.json())
                       .then((rej)=>{
@@ -759,12 +861,19 @@ const tglContent = () => {
                         if(rej.status===true){
                           Swal.fire({
                             title:"Video Rejected!",
-                            icon:"success"
+                            icon:"success",
+                            timer:2000,
+                            showConfirmButton:false
                           })
+
+                          setTimeout(() => {
+                            window.location.reload();
+                            
+                          }, 2000);
                         }
                       })
+                      console.log(obj1);
                       
-                      // window.location.reload();
                     }}
                   >
                     Submit
@@ -772,20 +881,10 @@ const tglContent = () => {
                 </Modal.Footer>
               </Modal>
                           </Col>
-                        </Row>
-                        {/* {item?.IsConfirm==="YES"?"":<Form>
-                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                  <Form.Label className="vid-reason">Changes Needed</Form.Label>
-                                  <Form.Control as="textarea" name="changes" row={4} onChange={handleVidChange} placeholder="mention here...." />
-                                </Form.Group>
-                                <Button variant="" className="sub-reason">Submit</Button>
-                                
-                        </Form>} */}
-
-                              </>
-                            )
-                          })
+                        </Row>:""
+                          
                         }
+
                       </Col>
                       
                     </Row>
@@ -801,8 +900,15 @@ const tglContent = () => {
       <Accordion.Item eventKey="0">
         <Accordion.Header>View IPR</Accordion.Header>
         <Accordion.Body>
-                      <object data={reports[0]?.PathDocuments} className="obj-size"></object>
-         
+          {
+            reports[0]?.PathDocuments?
+            <object data={reports[0]?.PathDocuments} className="obj-size"></object>:
+            <Row className="d-flex vh-100 justify-content-center align-items-center">
+              <Col>
+              <p className="text-center fs-3">No IPR chart available/uploaded.</p>
+              </Col>
+            </Row>
+          }
         </Accordion.Body>
       </Accordion.Item>
       </Accordion>
@@ -821,7 +927,15 @@ const tglContent = () => {
       <Accordion.Item eventKey="0">
         <Accordion.Header>View Report</Accordion.Header>
         <Accordion.Body>
-                      <object data={reports[1]?.PathDocuments} className="obj-size"></object>
+          {
+            reports[1]?.PathDocuments?
+            <object data={reports[1]?.PathDocuments} className="obj-size"></object>:
+            <Row className="d-flex vh-100 justify-content-center align-items-center">
+            <Col>
+            <p className="text-center fs-3">No Report available/uploaded.</p>
+            </Col>
+          </Row>
+          }
          
         </Accordion.Body>
       </Accordion.Item>

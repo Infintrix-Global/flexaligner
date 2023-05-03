@@ -71,6 +71,14 @@ const handleSubmit = (event) => {
       sessionStorage.setItem("DocUserId",result.Data[0]?.UserId)
       sessionStorage.setItem("DocAddress",result.Data[0]?.Address)
       sessionStorage.setItem("DocLicense",result.Data[0]?.License)
+
+      // let a=0;
+      setInterval(() => {
+        navigate("/");
+        sessionStorage.clear();
+        // console.log(a++);
+        window.location.reload();
+      }, 2700000);
       }
       if(result.UserId===0 && result.message==="Login Not Created"){
         alert("Password Expired!")

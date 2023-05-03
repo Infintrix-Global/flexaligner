@@ -1,5 +1,23 @@
-import React from "react";
-
+import React,{useState,useEffect} from "react";
+import {useNavigate,useParams} from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Nav,
+  Button,
+  Navbar,
+  Dropdown,
+  Card,
+  Badge,
+} from "react-bootstrap";
+import user from "../../Assets/user.png";
+import logo from "../../Assets/Logoremovebg.png";
+import { FaBars } from "react-icons/fa";
+import { FiMessageSquare, FiPower } from "react-icons/fi";
+import {LinkContainer} from 'react-router-bootstrap';
+// import {useNavigate,useParams} from "react-router-dom";
+import DataTable from "react-data-table-component";
 
 function SetsReport(){
     const tglContent = () => {
@@ -75,7 +93,7 @@ const columns = [
         name: "Pending Sets",
         selector: (row) => row.PendingSets,
   
-      },
+    },
    
     // {
     //   // name: `${RoleId==="1"?"Action":""}`,
@@ -207,13 +225,13 @@ const columns = [
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{
+                    <Dropdown.Item href="#/action-2" onClick={()=>{
                         navigate("/");
                         sessionStorage.removeItem("Role");
                       }
-                    }>Logout</span>
+                    }>
+                      <FiPower fontSize={25} />
+                      <span className="px-3" >Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -243,11 +261,11 @@ const columns = [
       </Container>
 
       <Container>
-          <Row className="mt-5 mb-5" style={{ backgroundColor: "white" }}>
+          <Row className="m-1 m-md-0 mt-5 mt-md-5" style={{ backgroundColor: "white" }}>
             <Col>
-              <Row>
+              <Row className="">
                 <Col
-                  className="m-5"
+                  className=""
                   style={{ border: "solid 0.1em lightgray" }}
                 >
                   <DataTable

@@ -234,6 +234,8 @@ useEffect(()=>{
         }
       )
       .then((res) => {
+
+        console.log("below is arr");
         console.log(res.data.data);
         // let [extData]=Object.values(res.data.data).map(s=>s.imageu)
         // res.data.data.map(x => x.imageurl).join(",")

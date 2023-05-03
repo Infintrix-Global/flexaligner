@@ -30,6 +30,10 @@ import SetsAllocationReport from "./Admin/Pages/SetsAllocationReport";
 import InTreatment from "./Doctor/Pages/InTreatment";
 import Handover from "./Doctor/Pages/Handover";
 import VerifySignup from "./Admin/Pages/VerifySignup";
+import RequestList from "./Admin/Pages/RequestList";
+import RequestAligners from "./Doctor/Pages/RequestAligners";
+import Maintenance from "./Admin/Pages/Maintenance";
+import SetsReport from "./Doctor/Pages/SetsReport";
 function App() {
   return (
     <div>
@@ -62,9 +66,12 @@ function App() {
           <Route path="/gridAg" element={<Grid/>} />
           <Route path="/alloc-report/:PatientId" element={<SetsAllocationReport/>} />
           <Route path="/in-treatment" element={<InTreatment/>} />
-          <Route path="/aligners-report-doc" element={<InTreatment/>} />
+          <Route path="/aligners-report-doc" element={<SetsReport/>} />
           <Route path="/handover" element={<Handover/>} />
           <Route path="/verify-dr" element={<VerifySignup/>} />
+          <Route path="/request-list" element={<RequestList/>} />
+          <Route path="/request-aligners" element={<RequestAligners/>} />
+          <Route path="/maintenance" element={<Maintenance/>} />
 
 
 

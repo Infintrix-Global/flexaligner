@@ -2139,11 +2139,11 @@ console.log(values.DoctorId);
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => {navigate("/")
+                    <Dropdown.Item href="#/action-2" onClick={() => {navigate("/")
                     // sessionStorage.clear();
                     }}>
+                      <FiPower fontSize={25} />
+                      <span className="px-3" >
                         Logout
                       </span>
                     </Dropdown.Item>
@@ -2276,8 +2276,8 @@ console.log(values.DoctorId);
                                             <TbUser fontSize={28}></TbUser>
                                           </InputGroup.Text>
                                           <Form.Control
-                                            type="text"
-                                            placeholder="MI"
+                                            type="tel"
+                                            placeholder="Mobile Number"
                                             name="Mi"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
@@ -3001,12 +3001,13 @@ console.log(values.DoctorId);
                                             </Form.Label>
                                             <Col sm="5 p-0">
                                               <Form.Control
-                                                type="number"
+                                                type="text"
                                                 name="Overjet"
                                                 onChange={handleChange}
                                               />
+                                              {/* <Form.Text>do not use special characters such as -,.,*,etc.</Form.Text> */}
                                             </Col>
-                                            <Col sm="1 px-2">MM</Col>
+                                            <Col sm="1" className="px-2">MM</Col>
                                           </Form.Group>
                                         </Col>
                                       </Row>

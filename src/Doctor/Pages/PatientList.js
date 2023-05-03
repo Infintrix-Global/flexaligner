@@ -182,11 +182,11 @@ let DoctorName=sessionStorage.getItem("DocName");
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{navigate("/")
+                    <Dropdown.Item href="#/action-2" onClick={()=>{navigate("/")
                     // sessionStorage.clear();
-                    }}>Logout</span>
+                    }}>
+                      <FiPower fontSize={25} />
+                      <span className="px-3" >Logout</span>
 
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -227,7 +227,7 @@ let DoctorName=sessionStorage.getItem("DocName");
         </Row>
 }
         <Container fluid>
-          <Row className="justify-content-center mt-5 mb-5 m-5"  style={{
+          <Row className="justify-content-center mt-5 mb-5 m-1 m-md-5"  style={{
                 backgroundColor: "white",
                 boxShadow: "0px 0px 15px  #C49358",
                 borderRadius: "8px",

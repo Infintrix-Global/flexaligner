@@ -1,45 +1,273 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/Handover.css";
 import {
-    Container,
-    Row,
-    Col,
-    Nav,
-    Button,
-    Navbar,
-    Dropdown,
-    Card,
-    Badge,
-    Form,
-  } from "react-bootstrap";
+  Container,
+  Row,
+  Col,
+  Nav,
+  Button,
+  Navbar,
+  Dropdown,
+  Card,
+  Badge,
+  Form,
+  Spinner,
+} from "react-bootstrap";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
-import { FaBars } from "react-icons/fa";
-  import { FiMessageSquare, FiPower } from "react-icons/fi";
-  import {LinkContainer} from 'react-router-bootstrap';
-  import {useNavigate,useParams} from "react-router-dom";
+import { FaBars, FaEraser } from "react-icons/fa";
+import { FiMessageSquare, FiPower } from "react-icons/fi";
+import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import DataTable from "react-data-table-component";
+
+import axios from "axios";
+
+function Handover() {
+  const tglContent = () => {
+    let Menu = document.querySelector(".menuTab");
+
+    if (Menu.classList.contains("collapsed")) {
+      Menu.classList.remove("collapsed");
+    } else {
+      Menu.classList.add("collapsed");
+    }
+  };
+const [loading, setLoading] = useState(false)
 
 
-function Handover(){
-    const tglContent = () => {
-        let Menu = document.querySelector(".menuTab");
-    
-        if (Menu.classList.contains("collapsed")) {
-          Menu.classList.remove("collapsed");
-        } else {
-          Menu.classList.add("collapsed");
-        }
+  const navigate = useNavigate();
+
+  let AdminName = sessionStorage.getItem("DocName");
+  let doctorId = sessionStorage.getItem("DocUserId");
+  let doctorEmail = sessionStorage.getItem("DocEmail");
+  const [search, setSearch] = useState("");
+  const [filteredNames, setFilteredNames] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const url =
+    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((list) => {
+        console.log(list.Data);
+        setDoctors(list.Data);
+        // setInactive({Doctorid:list.DoctorID})
+        // let status=document.getElementById("stat").innerText
+        // console.log(status);
+      });
+    }, []);
+    const ID = sessionStorage.getItem("selDocId");
+    // const [docId, setDocId] = useState("")
+    const [patients, setPatient] = useState([]);
+
+    const [data, setData] = useState({
+      SendDoctorId: "",
+      ReceivedDoctorId:"",
+      
+     
+    });
+
+ 
+
+  
+
+
+
+  
+
+  const searchPatient = () => {
+
+    setLoading(true)
+
+    console.log(ID);
+    const purl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/${ID}`
+    fetch(purl)
+    .then((res)=>res.json())
+    .then((patients)=>{
+      setLoading(false)
+
+      console.log(patients.Data);
+      setPatient(patients.Data);
+      setFilteredNames(patients.Data);
+    })
+  };
+
+
+
+
+
+
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+
+  const handleOnHover = (result) => {
+    // the item hovered
+    console.log(result)
+  }
+
+  const handleOnSelect = (item) => {
+    // the item selected
+    setData((pre) => {
+      return {
+        ...pre,
+        SendDoctorId: item.DoctorID,
       };
+    });
+    console.log(item)
+    sessionStorage.setItem("selDocId",item.DoctorID)
+  }
 
-      const navigate=useNavigate();
+  const handleOnFocus = () => {
+    console.log('Focused')
+  }
 
-let AdminName=sessionStorage.getItem("DocName")
-let doctorId=sessionStorage.getItem("DocUserId")
+  const formatResult = (item) => {
+    return (
+
+      <>
+        {/* <span style={{ display: 'block', textAlign: 'left' }}>id: {item.DoctorID}</span> */}
+        <span style={{ display: 'block', textAlign: 'left' ,padding:"5px"}}> {item.PracticeEmail}</span>
+      </>
+    )
+  }
 
 
-    return(
-        <>
-         <Navbar collapseOnSelect expand="lg" className="navb">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleOnSearch1 = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+
+  const handleOnHover1 = (result) => {
+    // the item hovered
+    console.log(result)
+  }
+
+  const handleOnSelect1 = (item) => {
+    // the item selected
+    setData((pre) => {
+      return {
+        ...pre,
+        ReceivedDoctorId: item.DoctorID,
+      };
+    });
+    console.log(item)
+    // sessionStorage.setItem("selDocId",item.DoctorID)
+  }
+
+  const handleOnFocus1 = () => {
+    console.log('Focused')
+  }
+
+  const formatResult1 = (item) => {
+    return (
+
+      <>
+        {/* <span style={{ display: 'block', textAlign: 'left' }}>id: {item.DoctorID}</span> */}
+        <span style={{ display: 'block', textAlign: 'left' ,padding:"5px"}}> {item.PracticeEmail}</span>
+      </>
+    )
+  }
+
+
+
+  const columns = [
+    {
+      name: "Patient Code",
+      
+      selector: (row) => row.PatientId,
+      sortable: true,
+    },
+    {
+      name: "CaseNo",
+      selector: (row) => row.CaseNo,
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.Name,
+    },
+    {
+      name: "D.O.B",
+      selector: (row) => row.DateofBirth,
+      sortable: true,
+    },
+  ]
+
+
+  useEffect(() => {
+    const result = patients.filter((patientname) => {
+      return patientname.Name.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredNames(result);
+  }, [search]);
+
+
+
+
+  useEffect(()=>{
+console.log(data);
+  },[data])
+
+
+
+
+
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+
+   const handoverUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddHandoverPatient";
+
+   fetch(handoverUrl,{
+    method:"POST",
+    headers:{
+      Accept: "application/json",
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+   })
+   .then((res)=>res.json())
+   .then((response)=>{
+    console.log(response);
+   })
+
+  }
+  return (
+    <>
+      {/* <ul>
+    {
+      patients.map((u)=>(
+          <li>{u.Name}</li>
+          ))
+        }
+        </ul> */}
+      <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="hover:scale-110" width={120} />
@@ -53,7 +281,7 @@ let doctorId=sessionStorage.getItem("DocUserId")
             </Nav>
             <Nav>
               <Nav.Link href="">
-      {/* <Dropdown>
+                {/* <Dropdown>
       <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
@@ -121,16 +349,8 @@ let doctorId=sessionStorage.getItem("DocUserId")
 
                   </Dropdown.Menu>
       </Dropdown> */}
-                
-
               </Nav.Link>
-              {/* <Nav.Link eventKey={2} href="#memes">
-                <FiMessageSquare
-                  fontSize={30}
-                  color="#C49358"
-                  className="me-2 notification"
-                />
-              </Nav.Link> */}
+
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
@@ -141,7 +361,7 @@ let doctorId=sessionStorage.getItem("DocUserId")
                     id="dropdown-basic"
                     className="user"
                   >
-                   {AdminName}
+                    {AdminName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -150,13 +370,17 @@ let doctorId=sessionStorage.getItem("DocUserId")
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
+                    <Dropdown.Item href="#/action-2"  onClick={() => {
+                          navigate("/");
+                          sessionStorage.removeItem("Role");
+                        }}>
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{
-                        navigate("/");
-                        sessionStorage.removeItem("Role");
-                      }
-                    }>Logout</span>
+                      <span
+                        className="px-3"
+                       
+                      >
+                        Logout
+                      </span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -170,11 +394,8 @@ let doctorId=sessionStorage.getItem("DocUserId")
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/doctor-dashboard/${doctorId}`}>
-
-                  <Nav.Link className="doc-tab active">
-                  Dashboard
-                  </Nav.Link>
+                <LinkContainer to={`/admin-dashboard`}>
+                  <Nav.Link className="doc-tab active">Dashboard</Nav.Link>
                 </LinkContainer>
                 {/* <Nav.Link href="#deets" className="prof-tab">
                   Profile
@@ -185,51 +406,151 @@ let doctorId=sessionStorage.getItem("DocUserId")
         </Row>
       </Container>
 
-
-
       <Container>
-        <Row style={{ backgroundColor: "white" }} className="mt-5 mb-5 pb-5 hO-crd">
+        <Row
+          style={{ backgroundColor: "white" }}
+          className="mt-5 mb-5 pb-5 hO-crd"
+        >
           <Col md={{ span: 12 }} xs={{ span: 12 }}>
             <Row className="m-2">
               <Col>
-                    <p className="hO-t mt-2">Clinic Handover</p>
-                    <hr />
-                    <Form>
-                        <Row className="mt-2">
-                            <Col>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>From</Form.Label>
-        <Form.Control type="email" placeholder="" />
-       
-      </Form.Group>
+                <p className="hO-t mt-2">Clinic Handover</p>
+                <hr />
+                <Form>
+                  <Row className="mt-2">
+                    <Col md={4}>
+                      {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Handover Clinic</Form.Label> */}
+                        {/* <Form.Control type="email" placeholder={doctorEmail} name="From" value={data.From} onChange={onChange} disabled/> */}
+                        {/* <Form.Select
+                          aria-label="Default select example"
+                          name="handoverClinic"
+                          value={data?.handoverClinic}
+                          onChange={(e) => onChange(e)}
+                        >
+                          <option></option>
+                          {doctors.map((doctor, index) => {
+                            return (
+                              <option value={doctor?.PracticeEmail} id="cliOp" key={index} >
+                                {doctor?.PracticeEmail} 
+                              <span id="setdid" onChange={(e) => onChange(e)}>{doctor?.DoctorID}</span>
+                              </option>
+                            );
 
-                            </Col>
-                            <Col>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>To</Form.Label>
-        <Form.Control type="email" placeholder="" />
-       
-      </Form.Group>
+                            
+                          })
+                          
+                          }
+                          \
+                        </Form.Select>
+                      </Form.Group> */}
 
-                            </Col>
-                        </Row>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Handover Clinic</Form.Label>
 
-                        <Row className="text-center mt-4">
-                            <Col>
-                            <Button variant="" className="hO-sub">Submit</Button>
-                            </Col>
-                        </Row>
-                    </Form>
+ <ReactSearchAutocomplete
+            items={doctors}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            // autoFocus
+            fuseOptions={{ keys: ["DoctorID","PracticeEmail"] }}
+            // necessary, otherwise the results will be blank
+            resultStringKeyName="PracticeEmail"
+            formatResult={formatResult}
             
-               </Col>
-               </Row>
-           
+            />
+            </Form.Group>
+
+                    </Col>
+                    <Col className="pt-3">
+                      {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>To</Form.Label>
+        <Form.Control type="email" placeholder="" name="To" value={data.To} onChange={onChange}/>
+       
+      </Form.Group> */}
+
+                      <Button
+                        variant=""
+                        onClick={() => searchPatient()}
+                        className="hSrch-btn mt-4"
+                      >
+                        Search
+                      </Button>
+                    </Col>
+                  </Row>
+                  <span>{loading && <Spinner animation="border" role="status"/>}</span>
+{
+  filteredNames && (
+<Row className="mt-5">
+                    <Col>
+                    <DataTable
+                    columns={columns}
+                    data={filteredNames}
+                    // expandableRows
+                    // expandOnRowClicked
+                    pagination
+                    fixedHeader
+                    className="mt-5"
+                    highlightOnHover
+                    subHeader
+                    subHeaderComponent={
+                      <input
+                        type="text"
+                        className="w-25 form-control mt-4 mb-4"
+                        placeholder="Search by Name"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      ></input>
+                    }
+                  />
+                    </Col>
+                  </Row>
+  )
+}
+
+{
+  patients.length>0?<Row>
+  <Col md={4}>
+  <Form.Group>
+    <Form.Label>Receiving Clinic</Form.Label>
+    <ReactSearchAutocomplete
+            items={doctors}
+            onSearch={handleOnSearch1}
+            onHover={handleOnHover1}
+            onSelect={handleOnSelect1}
+            onFocus={handleOnFocus1}
+            // autoFocus
+            fuseOptions={{ keys: ["DoctorID","PracticeEmail"] }}
+            // necessary, otherwise the results will be blank
+            resultStringKeyName="PracticeEmail"
+            formatResult={formatResult1}
+            
+            />
+  </Form.Group>
+  </Col>
+</Row>:""
+}
+
+
+                  
+
+                  <Row className="text-center mt-4">
+                    <Col>
+                      <Button variant="" className="hO-sub" onClick={handleSubmit}>
+                        Submit
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
-        </>
-    );
+    </>
+  );
 }
-
 
 export default Handover;

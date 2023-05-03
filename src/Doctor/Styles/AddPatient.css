@@ -232,6 +232,9 @@ body{
     font-weight: 500;
 }
 
+.nav-justified .nav-item{
+    flex-basis: content !important;
+}
 @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 991px) {

@@ -13,6 +13,7 @@ import {
 import "../../Doctor/Styles/Dashboard.css";
 import user from "../../Assets/user.png";
 import logo from "../../Assets/Logoremovebg.png";
+import handover from "../../Assets/hanover.png";
 import { IoMdNotifications } from "react-icons/io";
 import { FiMessageSquare, FiPower } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
@@ -199,14 +200,16 @@ useEffect(()=>{
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{
+                   
+                    <Dropdown.Item href="#/action-2" onClick={()=>{
                         navigate("/");
                         sessionStorage.removeItem("Role");
                       }
-                    }>Logout</span>
+                    }>
+                      <FiPower fontSize={25} />
+                      <span className="px-3" >Logout</span>
                     </Dropdown.Item>
+
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Link>
@@ -255,10 +258,13 @@ useEffect(()=>{
                     xs={{ span: 10, offset: 1 }}
                     style={{ backgroundColor: "#C49358", color: "white" }}
                     className="mb-1"
+                    onClick={()=>{
+                      navigate("/request-aligners")
+                    }}
                   >
                     <p className="mt-4">
-                      In Action Required{" "}
-                      <span style={{ float: "right" }}>0</span>
+                      Request Aligners{" "}
+                      <span style={{ float: "right" }}>{DocDetails[0]?.DoctorTotalRequest}</span>
                     </p>
                     <ProgressBar now={0} className="mt-5 mb-4" />
                   </Col>

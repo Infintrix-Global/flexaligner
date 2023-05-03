@@ -226,13 +226,13 @@ const columns = [
                       <span className="px-3">Profile</span>
                     </Dropdown.Item>
                     <hr /> */}
-                    <Dropdown.Item href="#/action-2">
-                      <FiPower fontSize={25} />
-                      <span className="px-3" onClick={()=>{
+                    <Dropdown.Item href="#/action-2"  onClick={()=>{
                         navigate("/");
                         sessionStorage.removeItem("Role");
                       }
-                    }>Logout</span>
+                    }>
+                      <FiPower fontSize={25} />
+                      <span className="px-3">Logout</span>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -264,7 +264,7 @@ const columns = [
 
 
       <Container>
-        <Row style={{ backgroundColor: "white" }} className="mt-5 mb-5 pb-5">
+        <Row style={{ backgroundColor: "white" }} className="mt-5 mb-5 pb-5 m-0 m-xs-1">
           <Col md={{ span: 12 }} xs={{ span: 12 }}>
             <Row>
               <Col>
@@ -280,7 +280,7 @@ const columns = [
                       <input
                         type="text"
                         className="w-25 form-control mt-4 mb-4"
-                        placeholder="Search by Doctor"
+                        placeholder="Search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>

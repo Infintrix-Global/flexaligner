@@ -14,3 +14,20 @@
     border:1px solid #c49358;
     color: #c49358;
 }
+
+.hSrch-btn{
+    background-color: #c49358;
+    color: white;
+}
+
+.jrYYEB > .wrapper{
+    position: absolute !important;
+    border-radius: 8px !important;
+    z-index: 2 !important;
+}
+
+
+
+.eZgdJc{
+    display: none !important;
+}
