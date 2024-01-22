@@ -50,7 +50,7 @@ const [filteredNames, setFilteredNames] = useState([]);
 
 
 // ------------------------------------------------ET-----------------------------------------------------
-const getReasonUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideoRejected/0";
+const getReasonUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientVideoRejected/0";
 
 
 useEffect(()=>{
@@ -150,7 +150,7 @@ useEffect(() => {
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""

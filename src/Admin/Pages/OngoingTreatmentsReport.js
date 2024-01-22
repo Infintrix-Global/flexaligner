@@ -42,7 +42,7 @@ const [search, setSearch] = useState("");
 
   const [reports, setReports] = useState([])
 
-  const url="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientOngoingTreatmentReport/0/0/0";
+  const url="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientOngoingTreatmentReport/0/0/0";
 
 
   useEffect(()=>{
@@ -76,23 +76,23 @@ const columns = [
       sortable: true,
     },
     {
-      name: "Total No. of Sets",
+      name: "Total No. of Aligners",
       selector: (row) => row.TotalSets,
       sortable: true,
     },
     {
-      name: "Dispatched Sets",
+      name: "Dispatched Aligners",
       selector: (row) => row.DispatchedSets,
       sortable: true,
     },
     
     {
-      name: "Delivered Sets",
+      name: "Delivered Aligners",
       selector: (row) => row.DeliveredSets,
 
     },
     {
-        name: "Pending Sets",
+        name: "Pending Aligners",
         selector: (row) => row.PendingSets,
   
       },
@@ -108,10 +108,14 @@ const columns = [
 
     useEffect(() => {
     const result = reports.filter((patientname) => {
-      return patientname.DoctorName.toLowerCase().match(search.toLowerCase());
+      return patientname.PatientName.toLowerCase().match(search.toLowerCase());
     });
     setFilteredNames(result);
   }, [search]);
+  
+
+  const RoleId = sessionStorage.getItem("Role");
+  
     return(
         <>
          <Navbar collapseOnSelect expand="lg" className="navb">
@@ -164,7 +168,7 @@ const columns = [
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
-                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                            const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
 
                             let notifId={
                               NotificationId:noti.NotificationId
@@ -209,7 +213,7 @@ const columns = [
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mt-1">
+              <Nav.Link href="" className="p-0 mt-1">
                 <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""
@@ -245,7 +249,7 @@ const columns = [
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
+                <LinkContainer to={RoleId==="1"?`/admin-dashboard`:`/prodn-dash`}>
 
                   <Nav.Link className="doc-tab active">
                   Dashboard
@@ -274,12 +278,31 @@ const columns = [
                     pagination
                     fixedHeader
                     highlightOnHover
+                    expandableRows
+                    expandableRowsComponent={({data})=>{
+
+                      let lower=data.LowerSetsData.map(i=>i.NoOfLowerSets);
+                      let upper=data.UpperSetsData.map(i=>i.NoOfUpperSets);
+                      console.log(lower.toString());
+                      return (
+                        <>
+                        {/* <p>{data.PatientId}</p> */}
+  <Row>
+    <Col>
+    
+                        <p>Ordered Upper Aligners: <span>{upper.toString()}</span></p>
+                        <p>Ordered Lower Aligners: <span>{lower.toString()}</span></p>
+    </Col>
+  </Row>
+                        </>
+                      )
+                    }}
                     subHeader
                     subHeaderComponent={
                       <input
                         type="text"
                         className="w-25 form-control mt-4 mb-4"
-                        placeholder="Search by Doctor"
+                        placeholder="Search patient"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>

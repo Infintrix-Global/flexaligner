@@ -14,7 +14,8 @@
     /* background-size: cover !important; */
     /* height: max-content; */
     height: 100vh;
-    width: -webkit-fill-available;
+    /* width: -webkit-fill-available; */
+width: fit-content;
 }
 
 

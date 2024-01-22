@@ -181,7 +181,7 @@ function Test() {
   // Example load data from sever
   useEffect(() => {
     fetch(
-      "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientTotalsetDetails/0/0/0"
+      "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientTotalsetDetails/0/0/0"
     )
       .then((result) => result.json())
       .then((rowData) => {
@@ -327,7 +327,7 @@ let id2=sessionStorage.getItem("PSID");
 
   useEffect(() => {
     fetch(
-      `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientTotalsetView/${id1}/${id2}`
+      `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientTotalsetView/${id1}/${id2}`
     )
       .then((result) => result.json())
       .then((subrow) => {

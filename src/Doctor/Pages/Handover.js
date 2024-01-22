@@ -46,7 +46,7 @@ const [loading, setLoading] = useState(false)
   const [filteredNames, setFilteredNames] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const url =
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorList/0/0";
 
   useEffect(() => {
     fetch(url)
@@ -83,7 +83,7 @@ const [loading, setLoading] = useState(false)
     setLoading(true)
 
     console.log(ID);
-    const purl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/${ID}`
+    const purl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientDetailsList/0/0/${ID}`
     fetch(purl)
     .then((res)=>res.json())
     .then((patients)=>{
@@ -242,7 +242,7 @@ console.log(data);
   const handleSubmit=(e)=>{
     e.preventDefault();
 
-   const handoverUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddHandoverPatient";
+   const handoverUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddHandoverPatient";
 
    fetch(handoverUrl,{
     method:"POST",
@@ -317,7 +317,7 @@ console.log(data);
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
-                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                            const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
 
                             let notifId={
                               NotificationId:noti.NotificationId
@@ -354,7 +354,7 @@ console.log(data);
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mt-1">
+              <Nav.Link href="" className="p-0 mt-1">
                 <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""

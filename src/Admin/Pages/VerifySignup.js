@@ -25,13 +25,17 @@ function VerifySignup(){
         e.preventDefault();
 
 
-        let url=`https://orthosquare.infintrixindia.com/Service1.svc/GetCheckDoctorMobileNo/${data.MobileNo}`
+        let url=`https://www.orthosquareportal.com/OrthosquareAPI/OrthoService.svc/CheckDoctorMobileNumber/${data.MobileNo}`
+
+
+        let url2=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetCheckDoctorMobileNo/${data.MobileNo}`
 
 
         fetch(url)
         .then((res)=>res.json())
         .then((respData)=>{
             console.log(respData);
+            
 
             if(respData.status==="1"){
                 Swal.fire({
@@ -43,13 +47,31 @@ function VerifySignup(){
                 })
             }
             else{
-                Swal.fire({
-                    title:"Thank You!",
-                    icon:"success",
-                    // text:"Thank",
-                    confirmButtonText:"Ok" 
+
+                fetch(url2)
+                .then((res)=>res.json())
+                .then((respData)=>{
+                    console.log(respData);
+
+                    if(respData.status==="1"){
+                        Swal.fire({
+                            title:"Alert",
+                            icon:"warning",
+                            text:"Please contact to your Admin in order to access the Flexismile Portal!",
+                            confirmButtonText:"Ok"
+                        })
+                    }
+                    else{
+                        Swal.fire({
+                            title:"Thank you !",
+                            icon:"success",
+                            // text:"Please contact to your Admin in order to access the Flexismile Portal!",
+                            // confirmButtonText:"Ok"
+                        })
+                        navigate("/add-doctor")
+                    }
                 })
-                navigate("/add-doctor")
+               
             }
 
             

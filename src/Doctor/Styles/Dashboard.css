@@ -118,10 +118,23 @@ display: none;
     height: 22em;
     overflow-x: hidden;
     overflow-y: scroll;
+    transform: translateX(-26em);
 }
 
+.notificCard{
+    max-height: 19em;
+    overflow-y: scroll;
+    border-color: #C49358;
+}
 
-
+.notificCard::-webkit-scrollbar{
+    width: 1px !important;
+}
+.notifyTitle{
+    font-size: 18px;
+    font-weight: 500;
+    color: #664d03;
+}
 .form-label{
     font-weight: 500;
 }

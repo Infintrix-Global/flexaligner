@@ -63,7 +63,7 @@ function ShowPaymentDetails() {
 
 
   // ------------------------------------------------ET-----------------------------------------------------
-  const getEtUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/1";
+  const getEtUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientPayment/1";
 
 
   useEffect(()=>{
@@ -87,7 +87,7 @@ function ShowPaymentDetails() {
 
   // ------------------------------------------------Cheque-----------------------------------------------------
 
-  const getChequeUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/2";
+  const getChequeUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientPayment/2";
 
   useEffect(()=>{
     fetch(getChequeUrl)
@@ -110,7 +110,7 @@ function ShowPaymentDetails() {
 
 
   // ------------------------------------------------Cash-----------------------------------------------------
-  const getCashUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPayment/3";
+  const getCashUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientPayment/3";
 
 
 
@@ -262,7 +262,7 @@ const [searchMon, setSearchMon] = useState("");
   
   const [filteredNamesMon, setFilteredNamesMon] = useState([]);
 
-const monthUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPaymentMonthReport";
+const monthUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientPaymentMonthReport";
 
 
 useEffect(()=>{
@@ -343,10 +343,11 @@ const [searchMonDoc, setSearchMonDoc] = useState("");
 
  let yrNo=sessionStorage.getItem("yearNo");
  let mNo=sessionStorage.getItem("monthNo");
-  const monthDocUrl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientPaymentDoctorReport/${yrNo}/${mNo}/0`;
+  const monthDocUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientPaymentDoctorReport/${yrNo}/${mNo}/0`;
 
 
-  useEffect(()=>{
+
+  const monthlyData=()=>{
     fetch(monthDocUrl)
     .then((res)=>res.json())
     .then((monthDocP)=>{
@@ -354,7 +355,11 @@ const [searchMonDoc, setSearchMonDoc] = useState("");
       setMonthPayDocWise(monthDocP.Data);
       setFilteredNamesMonDoc(monthDocP.Data)
     })
-  },)
+  }
+
+  useEffect(()=>{
+    monthlyData();
+  },[])
 
   const columnsMonthDoctor=[
     {
@@ -436,7 +441,7 @@ const [searchMonDoc, setSearchMonDoc] = useState("");
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -700,15 +705,20 @@ const [searchMonDoc, setSearchMonDoc] = useState("");
                       fixedHeader
                       highlightOnHover
                     expandableRows
-                    expandOnRowClicked
+                    // expandOnRowClicked
+                    
                     onRowClicked={(rw)=>{
                       console.log(rw.MonthNo);
 
-                      sessionStorage.setItem("yearNo",rw.YearNo);
-                      sessionStorage.setItem("monthNo",rw.MonthNo);
+                     
                     }}
-                    expandableRowsComponent={()=>{
+                    expandableRowsComponent={(rw)=>{
+                      // console.log(rw);
+                      sessionStorage.setItem("yearNo",rw.data.YearNo);
+                      sessionStorage.setItem("monthNo",rw.data.MonthNo);
 
+                      monthlyData();
+                      // stop()
                       return(
                         <>
                         <Row className="justify-content-center">

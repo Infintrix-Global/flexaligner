@@ -29,7 +29,7 @@ import {
   import handover from "../../Assets/hanover.png"
 
 
-function AdminDashboard(){
+function ProdDashboard() {
     const tglContent = () => {
         let Menu = document.querySelector(".menuTab");
     
@@ -65,7 +65,7 @@ let AdminName=sessionStorage.getItem("DocName")
 
 const [notifyData, setNotifyData] = useState([]);
 
-const notifyUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetNotification/1/1";
+const notifyUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetNotification/1/3";
 useEffect(()=>{
   fetch(notifyUrl).then((res)=>res.json())
   .then((notData)=>{
@@ -74,32 +74,9 @@ useEffect(()=>{
 // console.log(notifyData);
   })
 },[])
-
-
-
-let apiurl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientSetDoctorRequestlist/0/0/0`;
-
-const [patientwisePayment, setpatientwisePayment] = useState([]);
-
-
-useEffect(()=>{
-fetch(apiurl)
-.then((res)=>res.json())
-.then((result)=>{
-  console.log(result.Data);
-  setpatientwisePayment(result.Data)
-})
-},[])
-
-
-
-
-
-
-    
-    return(
-      <>
-      <Navbar collapseOnSelect expand="lg" className="navb">
+  return (
+    <>
+     <Navbar collapseOnSelect expand="lg" className="navb">
         <Container>
           <Navbar.Brand href="#home">
             <img src={logo} alt="" className="" width={120} />
@@ -237,7 +214,7 @@ fetch(apiurl)
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
+                <LinkContainer to={`/prodn-dash`}>
 
                   <Nav.Link className="doc-tab active">
                   Dashboard
@@ -256,7 +233,7 @@ fetch(apiurl)
           <Col md={{ span: 12 }} xs={{ span: 12 }}>
             <Row>
               <Col md={ 6 }>
-                <Row className="mt-5">
+                {/* <Row className="mt-5">
                   <Col
                     md={{ span: 5, offset: 1 }}
                     xs={{ span: 10, offset: 1 }}
@@ -282,7 +259,7 @@ fetch(apiurl)
                     </p>
                     <ProgressBar now={Admin[0]?.TotalPatients} className="mt-5 mb-4" />
                   </Col>
-                </Row>
+                </Row> */}
                 <Row className="mt-5">
                   <Col
                     md={{ span: 5, offset: 1 }}
@@ -302,12 +279,14 @@ fetch(apiurl)
                     xs={{ span: 10, offset: 1 }}
                     style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
                     className="mb-1"
-                    onClick={()=>navigate("/payment-details")}
+                    // onClick={()=>navigate("/payment-details")}
+                    onClick={()=>navigate(`/patient-list-for-sets/${0}`)}
                   >
                     <p className="mt-4">
-                     Collection <span style={{ float: "right" }}><BiRupee className="mb-1" fontSize={20}/> {Admin[0]?.Collection}</span>
+                    Aligner's set Allocation
+                     {/* <span style={{ float: "right" }}><BiRupee className="mb-1" fontSize={20}/> {Admin[0]?.Collection}</span> */}
                     </p>
-                    <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" />
+                    {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}
                   </Col>
                 </Row>
 
@@ -339,32 +318,16 @@ fetch(apiurl)
                     {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}
                   </Col>
                 </Row>
-
-                {/* <Row className="mt-5">
-                <Col
-                    md={{ span: 5, offset: 1 }}
-                    xs={{ span: 10, offset: 1 }}
-                    style={{ backgroundColor: "#C49358", color: "white", cursor:"pointer"  }}
-                    className="mb-1 p-5 pt-0"
-                    onClick={()=>navigate("/pnt-pay")}
-                  >
-                    <p className="mt-4">
-                     Patient-Wise payment 
-                    </p>
-                  </Col>
-                </Row> */}
-                     {/* <span style={{ float: "right" }}> {Admin[0]?.Collection}</span> */}
-                    {/* <ProgressBar now={Admin[0]?.Collection} className="mt-5 mb-4" /> */}
               </Col>
-              <Col md={5} className="mt-5 mx-0 mx-md-5">
+              <Col md={5} className=" mx-0 mx-md-5">
                 {/* <img src={advertisement} className="w-100 mb-3"></img> */}
-                <Button
+                {/* <Button
                   className="w-100"
                   style={{ backgroundColor: "#C49358" }}
                   onClick={()=>navigate("/add-doctor")}
                 >
                   Add Doctors
-                </Button>
+                </Button> */}
 
                 {/* <Button
                   className="mt-5 w-100"
@@ -376,12 +339,12 @@ fetch(apiurl)
                   View Doctors
                 </Button> */}
 
-                <Button variant="" className="mt-5 w-100"
+                {/* <Button variant="" className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358",color:"white" }}
-                  onClick={()=>navigate(`/patient-list-for-sets/${0}`)}>Allocate Aligners</Button>
+                  onClick={()=>navigate(`/patient-list-for-sets/${0}`)}>Aligner's set Allocation</Button> */}
 
 
-<p className="mt-4 notifyTitle pt-3 m-0">Notifications<span className="mx-2">({notifyData?.TotalNotification})</span></p>
+<p className="notifyTitle pt-3 m-0">Notifications<span className="mx-2">({notifyData?.TotalNotification})</span></p>
                   <Card className="notificCard p-2">
                     {
                       notifyData? notifyData.Data?.map((notify,i)=>{
@@ -446,10 +409,8 @@ fetch(apiurl)
           </Col>
         </Row>
       </Container>
-
-      </>  
-    );
+    </>
+  )
 }
 
-
-export default AdminDashboard;
+export default ProdDashboard

@@ -45,21 +45,29 @@ const [search, setSearch] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [show1, setShow1] = useState(false);
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
 
 
-
+  const [totalUpper, setTotalUpper] = useState([]);
+  const [totalLower, setTotalLower] = useState([]);
 
 
   const [sets, setSets] = useState({
     PatientId:"",
+    TextForUpperAligners:[],
+    TextForLowerAligners:[],
     TotalNoOfUpperSets:"",
     TotalNoOfLowerSets:"",
+
 
     PatientSetsId:"",
    
     DoctorId:0,
    
-    DateOn:0
+    DateOn:""
   });
 
   const onChangeSets=(e)=>{
@@ -78,7 +86,7 @@ const [search, setSearch] = useState("");
 
   const handleSets=(e)=>{
     e.preventDefault();
-    const SetsUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
+    const SetsUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
     
 
     // setSets(pre=>{
@@ -116,7 +124,7 @@ const [search, setSearch] = useState("");
       }, 2000);
   }
 
-  const url = "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientSetsDoctorToAdminlist/0/0";
+  const url = "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientSetsDoctorToAdminlist/0/0";
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
@@ -150,12 +158,32 @@ const [search, setSearch] = useState("");
         // },
         {
           name: "Upper Aligners",
-          selector: (row) => row.TotalNoOfUpperSets,
+          selector: (row) => row.TotalNoOfUpperAligners,
           sortable: true,
         },
         {
           name: "Lower Aligners",
-          selector: (row) => row.TotalNoOfLowerSets,
+          selector: (row) => row.TotalNoOfLowerAligners,
+          sortable: true,
+        },
+        {
+          name: "Total Aligners",
+          selector: (row) => row.TotalAligners,
+          sortable: true,
+        },
+        {
+          name: "Pending Aligners",
+          selector: (row) => row.PendingAligners,
+          sortable: true,
+        },
+        {
+          name: "Request Date",
+          selector: (row) => row.RequestDate.split(" ")[0],
+          sortable: true,
+        },
+        {
+          name: "Clinic Name",
+          selector: (row) => row.ClinicName,
           sortable: true,
         },
         {
@@ -163,13 +191,27 @@ const [search, setSearch] = useState("");
             name:"Send to doctor",
             cell: (row) => (
               <Button variant="" className="edit-patient-btn" onClick={()=>{
-                handleShow()
+                handleShow1()
                 setSets((pre)=>{
                   return{...pre,
                   PatientId:row.PatientId,
-                  PatientSetsId:row.PatientSetsId
+                  PatientSetsId:row.PatientSetsId,
+                  DoctorId:row.DoctorId
                   }
                 })
+
+
+                console.log(row.UpperAligners.split(","));
+
+                let upperarray=row.UpperAligners.split(",")
+
+                let lowerarray=row.LowerAligners.split(",")
+
+                setTotalUpper(upperarray);
+                setTotalLower(lowerarray);
+
+                console.log(totalLower);
+                console.log(totalUpper);
               }}
               >
                 Send
@@ -195,6 +237,210 @@ const [search, setSearch] = useState("");
         // }}>Payment</button>:""
         // }
       ];
+
+
+
+      const [UpperChecked, setUpperChecked] = useState([]);
+      const [LowerChecked, setLowerChecked] = useState([]);
+
+      const a = 20;
+  const checkboxes = Array.from({ length: totalUpper }, (_, index) => index + 1);
+  const checkboxes1 = Array.from({ length: totalLower }, (_, index) => index + 1);
+
+
+  let UpperSetsReqBody={
+    Uppersets:[],
+    
+  }
+  let UpperSetsReqBody1={
+    Uppersets:[],
+    PatientSetsId:sets.PatientSetsId
+  }
+
+
+
+
+  const onChangeRequest=(e)=>{
+    const newdata={...sets}
+    newdata[e.target.name]=e.target.value;
+    
+    setSets(newdata);
+    console.log(newdata);
+  
+    
+    let lengthOfUpper=sets.TextForUpperAligners.length;
+    let lengthOfLower=sets.TextForLowerAligners.length;
+
+    // let noOfSets=lengthOfUpper+lengthOfLower;
+  // console.log(lengthOfUpper);
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TotalNoOfUpperSets:lengthOfUpper,
+        TotalNoOfLowerSets:lengthOfLower
+      }
+    })
+
+    console.log(sets);
+    
+  }
+  
+  const handleCheckboxChange = (checkbox) => {
+
+    
+    if (UpperChecked.includes(checkbox)) {
+      
+      setUpperChecked(UpperChecked.filter((item) => item !== checkbox));
+      // setUpperSetsReqBody((pre)=>{
+      //   return{
+      //     ...pre,
+      //     Uppersets:UpperChecked.filter((item) => item !== checkbox),
+      //     PatientSetsId:requestSets.PatientSetsId
+      //   }
+      // })
+      UpperSetsReqBody1={
+        Uppersets:UpperChecked.filter((item) => item !== checkbox),
+          PatientSetsId:sets.PatientSetsId
+      }
+      UpperSetsReqBody={
+        Uppersets:UpperChecked.filter((item) => item !== checkbox),
+
+      }
+
+      setSets((pre)=>{
+        return{
+          ...pre,
+          TextForUpperAligners:UpperSetsReqBody.Uppersets
+        }
+      })
+
+      
+    } else {
+      setUpperChecked([...UpperChecked, checkbox]);
+      // setUpperSetsReqBody({
+    
+
+      //     Uppersets:[...UpperChecked, checkbox],
+      //     PatientSetsId:requestSets.PatientSetsId
+        
+      // })
+
+      UpperSetsReqBody1={
+        Uppersets:checkbox,
+          PatientSetsId:sets.PatientSetsId
+      }
+      UpperSetsReqBody={
+        Uppersets:[...UpperChecked, checkbox],
+
+      }
+
+      setSets((pre)=>{
+        return{
+          ...pre,
+          TextForUpperAligners:UpperSetsReqBody.Uppersets
+        }
+      })
+    
+    }
+
+    let lengthOfUpper=sets.TextForUpperAligners.length;
+  
+    // let noOfSets=lengthOfUpper+lengthOfLower;
+  console.log(lengthOfUpper);
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TotalNoOfUpperSets:lengthOfUpper,
+       
+      }
+    })
+
+    console.log(sets);
+
+    console.log(UpperSetsReqBody1);
+    console.log(sets);
+    // console.log(modalCheckboxValue);
+  };
+
+
+
+  let LowerSetsReqBody={
+    Lowersets:[],
+    // PatientSetsId:requestSets.PatientSetsId
+  }
+  let LowerSetsReqBody1={
+    Lowersets:[],
+    PatientSetsId:sets.PatientSetsId
+  }
+
+
+  const handleCheckboxChange1 = (checkbox) => {
+    if (LowerChecked.includes(checkbox)) {
+      setLowerChecked(LowerChecked.filter((item) => item !== checkbox));
+
+      LowerSetsReqBody1={
+        Lowersets:LowerChecked.filter((item) => item !== checkbox),
+          PatientSetsId:sets.PatientSetsId
+      }
+      LowerSetsReqBody={
+        Lowersets:LowerChecked.filter((item) => item !== checkbox),
+        
+      }
+      setSets((pre)=>{
+        return{
+          ...pre,
+          TextForLowerAligners:LowerSetsReqBody.Lowersets
+        }
+      })
+    } else {
+      setLowerChecked([...LowerChecked, checkbox]);
+      // setModalCheckboxValue1(checkbox);
+
+      LowerSetsReqBody1={
+        Lowersets:checkbox,
+          PatientSetsId:sets.PatientSetsId
+      }
+      LowerSetsReqBody={
+        Lowersets:[...LowerChecked, checkbox],
+      
+      }
+      setSets((pre)=>{
+        return{
+          ...pre,
+          TextForLowerAligners:LowerSetsReqBody.Lowersets
+        }
+      })
+      // lowercheckFunc();
+    }
+    let lengthOfLower=sets.TextForLowerAligners.length;
+    // let noOfSets=lengthOfUpper+lengthOfLower;
+  console.log(lengthOfLower);
+    setSets((pre)=>{
+      return{
+        ...pre,
+    
+        TotalNoOfLowerSets:lengthOfLower,
+      }
+    })
+
+    console.log(sets);
+    console.log(LowerSetsReqBody1);
+    console.log(sets);
+  };
+
+
+
+  useEffect(() => {
+    const result = requests.filter((patientname) => {
+      return patientname.ClinicName.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredNames(result);
+  }, [search]);
+
+
+
+  const RoleId = sessionStorage.getItem("Role");
+
     return(
         <>
          <Navbar collapseOnSelect expand="lg" className="navb">
@@ -247,7 +493,7 @@ const [search, setSearch] = useState("");
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
-                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                            const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
 
                             let notifId={
                               NotificationId:noti.NotificationId
@@ -292,7 +538,7 @@ const [search, setSearch] = useState("");
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mt-1">
+              <Nav.Link href="" className="p-0 mt-1">
                 <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""
@@ -328,7 +574,7 @@ const [search, setSearch] = useState("");
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <LinkContainer to={`/admin-dashboard`}>
+                <LinkContainer to={RoleId==="1"?`/admin-dashboard`:`/prodn-dash`}>
 
                   <Nav.Link className="doc-tab active">
                   Dashboard
@@ -348,7 +594,7 @@ const [search, setSearch] = useState("");
             <Col>
               <Row>
                 <Col
-                  className="m-5"
+                  className=""
                   style={{ border: "solid 0.1em lightgray" }}
                 >
                   <DataTable
@@ -358,11 +604,30 @@ const [search, setSearch] = useState("");
                     fixedHeader
                     highlightOnHover
                     subHeader
+                    expandableRows
+                  expandableRowsComponent={({data})=>{
+                    return (
+                      <>
+                      {/* <p>{data.PatientId}</p> */}
+                      <Row>
+                        <Col>
+                      <p>Requested Upper Aligners: <span>{data.UpperAligners}</span></p>
+                      <p>Requested Lower Aligners: <span>{data.LowerAligners}</span></p>
+                        
+                        </Col>
+                      </Row>
+                      </>
+                    )
+                  }}
+                 onRowClicked={(e)=>{
+                  console.log(e);
+                 }}
+
                     subHeaderComponent={
                       <input
                         type="text"
                         className="w-25 form-control mt-4 mb-4"
-                        placeholder="Search by Name"
+                        placeholder="Search by clinic"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       ></input>
@@ -426,6 +691,217 @@ const [search, setSearch] = useState("");
                       color: "white",
                     }}
                     onClick={(e)=>handleSets(e)}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <Modal show={show1} onHide={handleClose1} centered size="lg"  style={{ display: 'flex' }}>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Upper Aligners set no.</Form.Label>
+                    {/* <Form.Control
+                      type="text"
+                      name="TextForUpperAligners"
+                      onChange={(e) => onChangeRequest(e)}
+                      value={requestSets.TextForUpperAligners}
+                      required
+                    /> */}
+{/* {generateCheckboxes()} */}
+<div> <span style={{fontWeight:500}}>T</span>
+      {totalUpper?.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox"              
+          //  checked={requests?.UpperAligners?.includes(i+1)}
+ onChange={() => handleCheckboxChange(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+   <span style={{fontWeight:500}}>R</span> </div>
+{/* {JSON.stringify(selected)} */}
+                    {/* <TagsInput
+        value={selected}
+        onChange={setSelected}
+        name="TextForUpperAligners"
+        placeHolder=""
+      /> */}
+                  </Form.Group>
+
+                  {/* <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Which Upper Aligners you want?</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TextForUpperAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForUpperAligners}
+                      required
+                    />
+                  </Form.Group> */}
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Lower Aligners set no.</Form.Label>
+                    {/* <Form.Control
+                      type="text"
+                      name="TextForLowerAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForLowerAligners}
+                      required
+                    /> */}
+
+<div> <span style={{fontWeight:500}}>T</span>
+      {totalLower?.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox" 
+          // checked={sets.TextForLowerAligners.includes(i+1)} 
+          onChange={() => handleCheckboxChange1(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+   <span style={{fontWeight:500}}>R</span> </div>
+
+{/* <TagsInput
+        value={selected1}
+        onChange={setSelected1}
+        name="TextForLowerAligners"
+        placeHolder=""
+      /> */}
+                  </Form.Group>
+
+
+                  {/* <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Which Lower Aligners you want?</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TextForLowerAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForLowerAligners}
+                      required
+                    />
+                  </Form.Group> */}
+
+
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Date <span style={{color:"red",float:"right"}}>*</span></Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="DateOn"
+                      id="pass"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={sets.DateOn}
+                      required
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+                    onClick={(e)=>{
+                      const reqUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
+
+
+                      let n={
+                        ...sets,
+                        TextForUpperAligners:sets.TextForUpperAligners.toString(),
+                        TextForLowerAligners:sets.TextForLowerAligners.toString()
+                      }
+
+                      console.log(n);
+
+                      if(sets.DateOn===""){
+                        Swal.fire({
+                          icon:"warning",
+                          title:"Date is required!"
+                        })
+                      }
+                      
+                      else{
+          fetch(reqUrl,{
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(n),
+           })
+           .then((res)=>res.json())
+           .then((request)=>{
+            // console.log(request);
+            console.log(request);
+            if(request.status===true){
+              Swal.fire({
+                title:"Submitted Successfully!",
+                icon:"success"
+              })
+
+               setTimeout(() => {
+              
+               window.location.reload();
+            }, 2000);
+            console.log(n);
+            }
+            else{
+              Swal.fire({
+                title:"Something went wrong!",
+                icon:"error"
+              })
+            }
+
+           
+       
+           })}
+                    }}
+                    
                   >
                     Submit
                   </Button>

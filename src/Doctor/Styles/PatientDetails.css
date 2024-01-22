@@ -8,3 +8,10 @@
 .pd-ipr{
     font-size: 1.3em;
 }
+@media screen and (max-width:768px) {
+    
+    .vid-items{
+        width: 250px;
+        height: 200px;
+    }
+}

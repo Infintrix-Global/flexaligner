@@ -30,8 +30,7 @@ import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg"
-import ReactPlayer from 'react-player'
+import {createFFmpeg,fetchFile} from "@ffmpeg/ffmpeg";
 
 import avi from "../../Assets/aviVid.avi";
 
@@ -50,6 +49,8 @@ function PatientList() {
 
   const navigate = useNavigate();
   const [patient, setPatient] = useState([]);
+  const [extra, setextra] = useState([])
+
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
 
@@ -60,6 +61,10 @@ function PatientList() {
   // const MAX_COUNT=5;
 
   const [state, setState] = useState();
+
+  const [DoctorUploadingVideo, setDoctorUploadingVideo] = useState("");
+
+  const [RequiredIPR, setRequiredIPR] = useState("")
 
   // const [fileLimit, setFileLimit] = useState(false)
 
@@ -122,7 +127,7 @@ useEffect(()=>{
     
     await axios
       .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo",
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddUploadMultipleVideo",
         newarr,
         {
           onUploadProgress: (ProgressEvent) => {
@@ -218,7 +223,7 @@ useEffect(()=>{
 
     await axios
       .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultipleVideo",
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultipleVideo",
         fd,
         {
           onUploadProgress: (ProgressEvent) => {
@@ -243,7 +248,7 @@ useEffect(()=>{
         let arr = res.data.data;
         let newarr = arr.map(({ imageurl }) => imageurl);
         console.log(newarr);
-        let n = { PatientId: ID, CreateId: Role, VideoPath: newarr };
+        let n = { PatientId: ID, CreateId: Role, VideoPath: newarr,DoctorUploadingVideo:DoctorUploadingVideo };
         addUpload(n); //call after first api call
 
         // setVideos((pre) => {             it was being called synchronously
@@ -259,7 +264,7 @@ useEffect(()=>{
       });
 
     //     const url =
-    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddUploadMultipleVideo";
+    //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddUploadMultipleVideo";
 
     //     await fetch(url, {
     //       method: "POST",
@@ -287,14 +292,19 @@ useEffect(()=>{
 
   const uploadHandlerIpr = (e) => {
     e.preventDefault();
+
+    if(RequiredIPR==="Yes"){
+
+    
     const fd = new FormData();
-    fd.append("PatientId",ID);
-    fd.append("Name", IPR.name);
-    fd.append("fileContent", IPR);
+    ID?fd.append("PatientId",ID):fd.append("PatientId","null")
+    IPR?fd.append("Name", IPR.name):fd.append("Name", "null")
+    IPR?fd.append("fileContent", IPR):fd.append("fileContent", 0)
+    fd.append("RequiredIPR",RequiredIPR);
     // fd.append("PatientId",patient.PatientId);
     axios
       .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadDocuments",
         fd,
         {
           onUploadProgress: (ProgressEvent) => {
@@ -310,19 +320,57 @@ useEffect(()=>{
         console.log(res.data);
         if (res.data.status === "1") {
           Swal.fire({
-            title: "Uploaded Successfully!",
+            title: "Submitted successfully!",
             // text: 'Do you want to continue',
             icon: "success",
             // confirmButtonText: 'Cool'
           });
         }
-      });
+      })
+    }
+    else{
+      const urlNo=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadDocumentsNo`;
+
+
+      let n={
+        PatientId:ID,
+        RequiredIPR:RequiredIPR
+      }
+
+      fetch(urlNo,{
+        method:"POST",
+      headers:{
+        Accept: "application/json",
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(n)
+      })
+      .then((res)=>res.json())
+      .then((result)=>{
+        console.log(result);
+        if(result.status==='1'){
+          Swal.fire({
+            icon:"success",
+            title:"Submitted successfully!"
+          })
+
+          window.location.reload();
+        }
+        else{
+          Swal.fire({
+            icon:"error",
+            title:"Something went wrong!"
+          })
+        }
+      })
+
+    }
   };
 
   //   const getPatient = async () => {
   //     try {
   //       const response = await axios.get(
-  //         "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0"
+  //         "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientDetailsList/0/0"
   //       );
   //       setPatient(response.data.Data);
   //       setFilteredNames(response.data.Data);
@@ -331,8 +379,11 @@ useEffect(()=>{
   //       console.log(error);
   //     }
   //   };
+
+  const [videoData, setvideoData] = useState([])
+
   const url =
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/" +
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientAllList/" +
     ID;
 
   useEffect(() => {
@@ -344,6 +395,10 @@ useEffect(()=>{
         console.log(details.Data);
         
         setPatient(details.Data);
+
+      setvideoData(details?.PatientVideoList)
+
+        setextra(details)
         
         // console.log(patient);
       });
@@ -410,7 +465,7 @@ useEffect(()=>{
     // fd.append("PatientId",patient.PatientId);
     axios
       .post(
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadDocuments",
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadDocuments",
         fd,
         {
           onUploadProgress: (ProgressEvent) => {
@@ -439,8 +494,8 @@ useEffect(()=>{
 
   const [sets, setSets] = useState({
     PatientId:"",
-    TotalNoOfUpperSets:"",
-    TotalNoOfLowerSets:""
+    TotalNoOfUpperSets:"0",
+    TotalNoOfLowerSets:"0"
   });
 
   const onChangeSets=(e)=>{
@@ -458,7 +513,7 @@ useEffect(()=>{
 
   const handleSets=(e)=>{
     e.preventDefault();
-    const SetsUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSets";
+    const SetsUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientTotalSets";
     
 
     // setSets(pre=>{
@@ -495,7 +550,7 @@ useEffect(()=>{
 
   const [pVids, setpVids] = useState([])
 
-const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideo/"+ID
+const url2="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientVideo/"+ID
 
 
 useEffect(() => {
@@ -564,7 +619,7 @@ useEffect(() => {
                                 }
                                }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
                                 // console.log(noti.NotificationId);
-                                const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                                const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
                                 let notifId={
                                   NotificationId:noti.NotificationId
                                 };
@@ -603,7 +658,7 @@ useEffect(() => {
                   <span className="address mx-3 m-0">
                     <img src={user} alt="" width={35} className="mt-2" />
                   </span>
-                  <Nav.Link href="#deets" className="p-0 mt-1">
+                  <Nav.Link href="" className="p-0 mt-1">
                     <Dropdown className="out-dd mt-2">
                       <Dropdown.Toggle
                         variant=""
@@ -869,6 +924,7 @@ useEffect(() => {
                     <Row className="mt-3">
                     <Col>
                       <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Clinic Address : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.ClinicAddress}</span></p>
+                      <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Registration Date : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.RegDate}</span></p>
                       </Col>
                     </Row>
                   </Col>
@@ -1084,6 +1140,32 @@ useEffect(() => {
                     
                     
                   {/* </Stack> */}
+
+                  {
+extra?.ExtraOralMoreImagesList && (
+  <Row className="mt-4">
+    {
+      extra?.ExtraOralMoreImagesList.map((e,i)=>{
+        return(
+          <>
+    <Col md={2}>
+          <img
+                            src={e.ImagePath}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+    </Col>
+          </>
+        )
+      })
+    }
+  </Row>
+)
+                    }
                 </Col>
               </Row>
               <Row className="mt-4 mb-5">
@@ -1150,6 +1232,32 @@ useEffect(() => {
                       </Col>
                     </Row>
                   {/* </Stack> */}
+
+                  {
+extra?.IntraOralMoreImagesList && (
+  <Row className="mt-4">
+    {
+      extra?.IntraOralMoreImagesList.map((e,i)=>{
+        return(
+          <>
+    <Col md={2}>
+          <img
+                            src={e.ImagePath}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+    </Col>
+          </>
+        )
+      })
+    }
+  </Row>
+)
+                    }
                 </Col>
               </Row>
               <Row className="mt-4 mb-5">
@@ -1182,7 +1290,7 @@ useEffect(() => {
               <Row className="mb-5">
                   <Col>
                   <p className="fs-4">
-                      <b>Videos</b>
+                      <b>Videos</b>{videoData[0]?.CreateDate && videoData[0]?.DoctorUploadingVideo?<span style={{fontSize:"18px"}} className="mx-2">- <u>Uploaded by {videoData[0]?.DoctorUploadingVideo} on {videoData[0]?.CreateDate.split(" ")[0]}</u>.</span>:""}
                     </p>
                     <Stack direction="horizontal" gap={5} className="vid-row">
                       {/* <img
@@ -1199,7 +1307,7 @@ useEffect(() => {
                           return(
                             <>
                             
-                            <video width="320" height="240" controls>
+                            <video width="320" height="240" controls preload="auto">
   <source src={item?.PathVideo} type="video/mp4"/>
   {/* <source src={item?.PathVideo} type="video/ogg"></source> */}
   
@@ -1208,8 +1316,36 @@ useEffect(() => {
                           )
                         })
                       }
-                      
+                        {/* <video width="320" height="240" controls>
+  <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4"/>
+
+                      </video> */}
                     </Stack>
+                  </Col>
+                </Row>
+                
+
+                <Row>
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="pd-vid">Who is uploading videos? (Name of Dr.)</Form.Label>
+                    <Form.Control type="text" name="DoctorUploadingVideo" onChange={(e)=>{
+                      setDoctorUploadingVideo(e.target.value)
+                    }}/>
+         
+                  </Form.Group>
+                  </Col>
+                  <Col>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label className="pd-vid">Does this patient requires IPR?</Form.Label>
+                    <Form.Select name="RequiredIPR" onChange={(e)=>{
+                      setRequiredIPR(e.target.value)
+                    }}>
+                      <option value=""></option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </Form.Select>
+                  </Form.Group>
                   </Col>
                 </Row>
               <Row>
@@ -1236,6 +1372,9 @@ useEffect(() => {
                   </Button>
                 </Col>
                 <Col>
+                {
+                  RequiredIPR==="Yes"?
+                  <div>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label className="pd-ipr">Upload IPR File</Form.Label>
                     <Form.Control
@@ -1249,12 +1388,15 @@ useEffect(() => {
                       Generate IPR
                     </Button>
                   </span>
-                  <Button
+                
+                  </div>:""
+                }
+                    <Button
                     variant=""
                     className="btn btn-outline-dark"
                     onClick={uploadHandlerIpr}
                   >
-                    Upload
+                    Submit
                   </Button>
                 </Col>
               </Row>
@@ -1281,7 +1423,7 @@ useEffect(() => {
                <Row>
                   <Col>
                   <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label className="pd-ipr">Total no. of Upper Sets</Form.Label>
+                      <Form.Label className="pd-ipr">Total no. of Upper Aligners</Form.Label>
                       <Form.Control
                         type="text"
                         value={sets.TotalNoOfUpperSets}
@@ -1302,7 +1444,7 @@ useEffect(() => {
 
                   <Col>
                   <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label className="pd-ipr">Total no. of Lower Sets</Form.Label>
+                      <Form.Label className="pd-ipr">Total no. of Lower Aligners</Form.Label>
                       <Form.Control
                         type="text"
                         value={sets.TotalNoOfLowerSets}

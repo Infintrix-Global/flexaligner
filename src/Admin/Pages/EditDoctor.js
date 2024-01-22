@@ -82,7 +82,7 @@ const ID=urlParams.DoctorId;
 
   const [ddet, setDDet] = useState([]);
       const url2 =
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorSelect/"+ID;
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorSelect/"+ID;
     
       useEffect(() => {
         fetch(url2)
@@ -195,7 +195,7 @@ const ID=urlParams.DoctorId;
   }
 
   const getStates = async (countryId, cORp) => {
-    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetStatelist/${countryId}`;
+    let url = `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetStatelist/${countryId}`;
     let state = await (await fetch(url)).json();
     console.log(state.Data);
     if (cORp === "current") {
@@ -207,7 +207,7 @@ const ID=urlParams.DoctorId;
   };
 
   const getCities = async (stateId, cORp) => {
-    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCitylist/${stateId}`;
+    let url = `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetCitylist/${stateId}`;
     let city = await (await fetch(url)).json();
     console.log(city.Data);
     if (cORp === "current") {
@@ -219,7 +219,7 @@ const ID=urlParams.DoctorId;
   };
 
   const getCountries = async () => {
-    let url = "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCoutryList";
+    let url = "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetCoutryList";
     let country = await (await fetch(url)).json();
     console.log(country.Data.slice(0, 2));
     setCountries({
@@ -246,7 +246,7 @@ const ID=urlParams.DoctorId;
   // };
 
   const url =
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddDoctorRegistration";
 
   const [validated, setValidated] = useState(false);
 
@@ -341,7 +341,7 @@ let Role=sessionStorage.getItem("Role");
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown className="out-dd">
                   <Dropdown.Toggle
                     variant=""

@@ -29,7 +29,7 @@ const uploadHandler=()=>{
      const fd=new FormData();
      fd.append("fileContent",state.fileContent);
      fd.append("Name",state.fileContent.name);
-    axios.post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotos",fd,{
+    axios.post("http://infintrix.in/FlexAlignApi/FlexAlign.svc/UploadPhotosNew",fd,{
         onUploadProgress:ProgressEvent=>{
             console.log("Upload Progress:"+ Math.round(ProgressEvent.loaded/ProgressEvent.total*100)+"%");
         }

@@ -134,7 +134,7 @@ let AdminName=sessionStorage.getItem("DocName")
   }
 
   const getStates = async (countryId, cORp) => {
-    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetStatelist/${countryId}`;
+    let url = `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetStatelist/${countryId}`;
     let state = await (await fetch(url)).json();
     console.log(state.Data);
     if (cORp === "current") {
@@ -146,7 +146,7 @@ let AdminName=sessionStorage.getItem("DocName")
   };
 
   const getCities = async (stateId, cORp) => {
-    let url = `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCitylist/${stateId}`;
+    let url = `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetCitylist/${stateId}`;
     let city = await (await fetch(url)).json();
     console.log(city.Data);
     if (cORp === "current") {
@@ -158,7 +158,7 @@ let AdminName=sessionStorage.getItem("DocName")
   };
 
   const getCountries = async () => {
-    let url = "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetCoutryList";
+    let url = "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetCoutryList";
     let country = await (await fetch(url)).json();
     console.log(country.Data.slice(0, 2));
     setCountries({
@@ -185,7 +185,7 @@ let AdminName=sessionStorage.getItem("DocName")
   // };
 
   const url =
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorRegistration";
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddDoctorRegistration";
 
   const [validated, setValidated] = useState(false);
 
@@ -302,7 +302,7 @@ let Role=sessionStorage.getItem("Role");
                                 }
                                }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
                                 // console.log(noti.NotificationId);
-                                const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                                const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
                                 let notifId={
                                   NotificationId:noti.NotificationId
                                 };
@@ -341,7 +341,7 @@ let Role=sessionStorage.getItem("Role");
                   <span className="address mx-3 m-0">
                     <img src={user} alt="" width={35} className="mt-2" />
                   </span>
-                  <Nav.Link href="#deets" className="p-0 mt-1">
+                  <Nav.Link href="" className="p-0 mt-1">
                     <Dropdown className="out-dd mt-2">
                       <Dropdown.Toggle
                         variant=""
@@ -408,7 +408,7 @@ let Role=sessionStorage.getItem("Role");
                       Dashboard
                       </Nav.Link>
                     </LinkContainer>
-                    {/* <Nav.Link href="#deets" className="prof-tab">
+                    {/* <Nav.Link href="" className="prof-tab">
                       Profile
                     </Nav.Link> */}
                   </Nav>

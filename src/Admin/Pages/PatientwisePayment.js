@@ -1,31 +1,29 @@
 import {
-  Container,
-  Row,
-  Col,
-  Nav,
-  Button,
-  Navbar,
-  Dropdown,
-  Card,
-} from "react-bootstrap";
-import "../../Doctor/Styles/PatientList.css";
-import user from "../../Assets/user.png";
-import logo from "../../Assets/Logoremovebg.png";
-import { IoMdNotifications } from "react-icons/io";
-import { FiMessageSquare, FiPower } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import Male from "../../Assets/Male.png";
-import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
-import { useParams } from "react-router-dom";
+    Container,
+    Row,
+    Col,
+    Nav,
+    Button,
+    Navbar,
+    Dropdown,
+    Card,
+  } from "react-bootstrap";
+  import "../../Doctor/Styles/PatientList.css";
+  import user from "../../Assets/user.png";
+  import logo from "../../Assets/Logoremovebg.png";
+  import { IoMdNotifications } from "react-icons/io";
+  import { FiMessageSquare, FiPower } from "react-icons/fi";
+  import { FaBars } from "react-icons/fa";
+  import { CgProfile } from "react-icons/cg";
+  import Male from "../../Assets/Male.png";
+  import React, { useEffect, useState } from "react";
+  import DataTable from "react-data-table-component";
+  import axios from "axios";
+  import {useNavigate} from "react-router-dom";
+  import { useParams } from "react-router-dom";
 
-
-function PatientList() {
-  
-  const navigate=useNavigate();
+function PatientwisePayment() {
+    const navigate=useNavigate();
   const [patient, setPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
@@ -37,7 +35,7 @@ const ID=urlParams.DoctorUserId;
     console.log(urlParams);
     try {
       const response = await axios.get(
-        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorWisePatientList/0/0/"+ID 
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientSetDoctorRequestlist/0/0/0" 
       );
       setPatient(response.data.Data);
       setFilteredNames(response.data.Data);
@@ -68,48 +66,50 @@ const ID=urlParams.DoctorUserId;
       name: "Name",
       selector: (row) => row.Name,
     },
-    {
-      name: "Reg. Date",
-      selector: (row) => row.RegDate,
-      sortable: true,
-    },
+    // {
+    //   name: "Reg. Date",
+    //   selector: (row) => row.RegDate,
+    //   sortable: true,
+    // },
     {
       name: "Dr. Name",
       selector: (row) => row.DoctorName,
       sortable: true,
     },
     {
-      name: "Gender",
-      selector: (row) => row.Gender,
+      name: "Total Amount",
+      selector: (row) => row.Quotation,
       sortable: true,
     },
     {
-      name: "MI",
-      selector: (row) => row.Mi,
+      name: "Pending Amount",
+      selector: (row) => row.Quotation-row.AmountPaid,
       sortable: true,
     },
 
-    RoleId==="1"?
-    {
+    // RoleId==="1"?
+    // {
       
-      name: "Status",
-      selector: (row) => row.Isconfirmed==="True"?"Approved":"",
-      conditionalCellStyles: [
-              {
-                  when: row => row.Isconfirmed==="True",
-                  classNames: ['green-text'],
-              },
+    //   name: "Status",
+    //   selector: (row) => row.Isconfirmed==="True"?"Approved":"",
+    //   conditionalCellStyles: [
+    //           {
+    //               when: row => row.Isconfirmed==="True",
+    //               classNames: ['green-text'],
+    //           },
               
              
-          ],
-      sortable: true,
-    }:"",
+    //       ],
+    //   sortable: true,
+    // }:"",
     
     {
       name: "Action",
-      cell: row => <button className="edit-patient-btn"  onClick={() =>{ RoleId==="1"? navigate(`/patient-details/${row?.PatientId}`):navigate(`/patient-details-doc/${row?.PatientId}`);
-    console.log(patient);
-    }}>Edit</button>
+      cell: row => <button className="edit-patient-btn"  onClick={() =>{
+        sessionStorage.setItem("pntPayId",row.PatientId)
+        navigate(`/payment/${row.PatientId}`)
+    
+    }}>Payment</button>
     },
 
     // {
@@ -141,7 +141,6 @@ const ID=urlParams.DoctorUserId;
   };
 
 let DoctorName=sessionStorage.getItem("DocPracName");
-
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -215,7 +214,7 @@ let DoctorName=sessionStorage.getItem("DocPracName");
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
+                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/prodn-dash`)}>
                   Dashboard
                 </Nav.Link>
                 {/* <Nav.Link href="#deets" className="prof-tab">
@@ -265,6 +264,7 @@ let DoctorName=sessionStorage.getItem("DocPracName");
         </Container>
       </Container>
     </>
-  );
+  )
 }
-export default PatientList;
+
+export default PatientwisePayment

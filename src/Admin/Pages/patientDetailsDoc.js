@@ -33,11 +33,15 @@ import Swal from "sweetalert2";
 
 function PatientDetailsDoc(){
   const [patient, setPatient] = useState([]);
+  const [extra, setextra] = useState([])
   const navigate = useNavigate();
   const urlParams = useParams()
+
+
+  const [videoData, setvideoData] = useState([])
 console.log(urlParams);
 const ID=urlParams.PatientId;
-  const url ="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/"+ID;
+  const url ="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientAllList/"+ID;
 
 useEffect(() => {
   console.log(urlParams);
@@ -46,14 +50,17 @@ useEffect(() => {
     .then((det) => {
       console.log(det.Data);
       setPatient(det.Data);
-      // console.log(patient);
+      setvideoData(det?.PatientVideoList)
+      setextra(det)
+      console.log(patient);
     });
 }, []);
 
 
+
 const [pVids, setpVids] = useState([])
 
-const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientVideo/"+ID
+const url2="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientVideo/"+ID
 
 
 useEffect(() => {
@@ -100,13 +107,13 @@ const tglContent = () => {
 
 
 
-  let DoctorName=sessionStorage.getItem("DocName");
+  let DoctorName=sessionStorage.getItem("DocPracName");
   let DoctorUserID=sessionStorage.getItem("DocUserId")
 
 
   const [reports, setReports] = useState([]);
 
-  const repurl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDocuments/"+ID;
+  const repurl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientDocuments/"+ID;
 
   useEffect(() => {
     console.log(urlParams);
@@ -221,14 +228,14 @@ let obj1={
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
                     className="user"
                   >
-                    {DoctorName}
+                    {DoctorName?DoctorName:"Admin"}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -257,7 +264,7 @@ let obj1={
           <Col>
             <Card body className="border-0">
               <Nav className="justify-content-center">
-                <Nav.Link href="#deets" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
+                <Nav.Link href="" className="doc-tab active" onClick={()=>navigate(`/doctor-dashboard/${DoctorUserID}`)}>
                 Dashboard
                 </Nav.Link>
                 {/* <Nav.Link href="#deets" className="prof-tab">
@@ -357,6 +364,8 @@ let obj1={
                     <Row className="mt-3">
                     <Col>
                       <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Clinic Address : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.ClinicAddress}</span></p>
+                      <p className="" style={{fontSize:"1.1rem",fontWeight:"bold"}}>Registration Date : <span style={{fontSize:"1.05rem",fontWeight:"normal"}}>{patient[0]?.RegDate}</span></p>
+                    
                       </Col>
                     </Row>
                     </Col>
@@ -574,6 +583,32 @@ let obj1={
                         </Col>
                     </Row>
                     {/* </Stack> */}
+
+                    {
+extra?.ExtraOralMoreImagesList && (
+  <Row className="mt-4">
+    {
+      extra?.ExtraOralMoreImagesList.map((e,i)=>{
+        return(
+          <>
+    <Col md={2}>
+          <img
+                            src={e.ImagePath}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+    </Col>
+          </>
+        )
+      })
+    }
+  </Row>
+)
+                    }
                   </Col>
                 </Row>
                 <Row className="mt-4 mb-5">
@@ -640,6 +675,32 @@ let obj1={
                         </Col>
                     </Row>
                     {/* </Stack> */}
+
+                    {
+extra?.IntraOralMoreImagesList && (
+  <Row className="mt-4">
+    {
+      extra?.IntraOralMoreImagesList.map((e,i)=>{
+        return(
+          <>
+    <Col md={2}>
+          <img
+                            src={e.ImagePath}
+                            className="rounded m-2"
+                            style={{
+                              boxShadow: "0px 5px 5px 5px #E8E8E8",
+                              height: "100px",
+                              width: "100px",
+                            }}
+                          ></img>
+    </Col>
+          </>
+        )
+      })
+    }
+  </Row>
+)
+                    }
                   </Col>
                 </Row>
                 <Row className="mt-4 mb-5">
@@ -673,7 +734,7 @@ let obj1={
                 <Row>
                   <Col>
                   <p className="fs-4">
-                      <b>Videos</b>
+                      <b>Videos</b>{videoData[0]?.CreateDate && videoData[0]?.DoctorUploadingVideo?<span style={{fontSize:"18px"}} className="mx-2">- <u>Uploaded by {videoData[0]?.DoctorUploadingVideo} on {videoData[0]?.CreateDate.split(" ")[0]}</u>.</span>:""}
                     </p>
                     <Row className="vid-row2" id="vid-rId">
                      
@@ -739,7 +800,7 @@ let obj1={
 <Row>
                           <Col md={2}>
                             <Button variant="" className="btn approval-btn mx-0 mt-3 mb-3" onClick={()=>{
-                              const confUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
+                              const confUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/PatientVideoConfirmByDoctor";
                             
                               let obj={
                                 VideoConfirmByDoctorList:[]
@@ -770,7 +831,7 @@ let obj1={
                                 console.log(conf);
                                 if(conf.status===true){
                                   Swal.fire({
-                                    title:"Aprroved!",
+                                    title:"Approved!",
                                     icon:"success",
                                     timer:2000,
                                     showConfirmButton:false
@@ -843,7 +904,7 @@ let obj1={
                     onClick={(e)=>{
                       
                       e.preventDefault();
-                      const rejUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/PatientVideoConfirmRejectedByDoctor";
+                      const rejUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/PatientVideoConfirmRejectedByDoctor";
 
                      
                       fetch(rejUrl,{
@@ -896,13 +957,19 @@ let obj1={
                       <b>IPR</b>
                     </p>
                     {/* <Stack direction="horizontal" gap={5}> */}
+                    {
+                      patient[0]?.RequiredIPR==="Yes" || patient[0]?.RequiredIPR===""?
                       <Accordion>
       <Accordion.Item eventKey="0">
         <Accordion.Header>View IPR</Accordion.Header>
         <Accordion.Body>
           {
-            reports[0]?.PathDocuments?
-            <object data={reports[0]?.PathDocuments} className="obj-size"></object>:
+            reports[0]?.PathDocuments || reports[1]?.PathDocuments?
+            <object data={reports[0]?.PathDocuments || reports[1]?.PathDocuments} className="obj-size">
+               <p>Your web browser doesn't have a PDF plugin.
+  Instead you can <a href={reports[0]?.PathDocuments}>click here to
+  download the PDF file.</a></p>
+            </object>:
             <Row className="d-flex vh-100 justify-content-center align-items-center">
               <Col>
               <p className="text-center fs-3">No IPR chart available/uploaded.</p>
@@ -912,6 +979,10 @@ let obj1={
         </Accordion.Body>
       </Accordion.Item>
       </Accordion>
+      :
+      <p className="fs-4">IPR is not required for this patient.</p>
+                    }
+                      
                       
                     {/* </Stack> */}
                   </Col>
@@ -929,7 +1000,11 @@ let obj1={
         <Accordion.Body>
           {
             reports[1]?.PathDocuments?
-            <object data={reports[1]?.PathDocuments} className="obj-size"></object>:
+            <object data={reports[1]?.PathDocuments} className="obj-size">
+              <p>Your web browser doesn't have a PDF plugin.
+  Instead you can <a href={reports[0]?.PathDocuments}>click here to
+  download the PDF file.</a></p>
+            </object>:
             <Row className="d-flex vh-100 justify-content-center align-items-center">
             <Col>
             <p className="text-center fs-3">No Report available/uploaded.</p>
@@ -952,5 +1027,5 @@ let obj1={
     );
 }
 
-
+         
 export default PatientDetailsDoc;

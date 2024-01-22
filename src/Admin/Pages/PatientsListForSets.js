@@ -41,9 +41,9 @@ function PatientsListForSets() {
   //   console.log(urlParams);
   //   try {
   //     const response = await axios.get(
-  //       // "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientDetailsList/0/0/" +
+  //       // "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientDetailsList/0/0/" +
   //       //   ID
-  //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientSetDetails/0/0/" +
+  //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientSetDetails/0/0/" +
   //       ID
   //     );
   //     setPatient(response.data.Data);
@@ -73,8 +73,24 @@ const [sets, setSets] = useState({
   DoctorId:"",
   TotalNoOfUpperSets:"",
   TotalNoOfLowerSets:"",
+  TextForUpperAligners:"",
+  TextForLowerAligners:"",
   DateOn:""
 })
+
+
+let id1;
+let id2;
+let id3=sessionStorage.getItem("SDID");
+let pname=sessionStorage.getItem("PNAME");
+
+const [ID1, setID1] = useState("");
+const [ID2, setID2] = useState("");
+
+
+
+
+
 
 
 const cellClickedListener = useCallback((event) => {
@@ -83,19 +99,26 @@ const cellClickedListener = useCallback((event) => {
   sessionStorage.setItem("PSID",event.data.PatientSetsId);
   sessionStorage.setItem("SDID",event.data.DoctorId);
   sessionStorage.setItem("PNAME",event.data.Name);
-
+  
+id1=event.data.PatientId;
+id2=event.data.PatientSetsId;
   console.log(event.data.PatientId);
   console.log(event.data.PatientSetsId);
  
+
+  getTotalSetsView();
   //  navigate("")
 }, []);
 
 
 
-let id1=sessionStorage.getItem("pID");
-let id2=sessionStorage.getItem("PSID");
-let id3=sessionStorage.getItem("SDID");
-let pname=sessionStorage.getItem("PNAME");
+
+
+
+
+
+const [totalUpper, setTotalUpper] = useState(0);
+const [totalLower, setTotalLower] = useState(0);
 
 
 const [columnDefs, setColumnDefs] = useState([
@@ -115,7 +138,7 @@ const [columnDefs, setColumnDefs] = useState([
   floatingFilter:true,
 
 },
-  { field: "PatientId", filter: "agNumberColumnFilter",
+  { headerName:"Clinic Name",field: "ClinicName", filter: "agTextColumnFilter",
   // filterParams: {
   //   buttons: ["reset", "apply"],
   // },
@@ -129,9 +152,23 @@ const [columnDefs, setColumnDefs] = useState([
   floatingFilter:true,
 
 },
+  { headerName:"Upper Aligners",field: "TotalNoOfUpperSets", filter: "agTextColumnFilter",
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
+  floatingFilter:true,
+
+},
+  { headerName:"Lower Aligners",field: "TotalNoOfLowerSets", filter: "agTextColumnFilter",
+  // filterParams: {
+  //   buttons: ["reset", "apply"],
+  // },
+  floatingFilter:true,
+
+},
 
   
-  { field: "NoOfSets", filter: "agNumberColumnFilter",
+  { headerName:"Total Of Aligners",field: "NoOfSets", filter: "agNumberColumnFilter",
   // filterParams: {
   //   buttons: ["reset", "apply"],
   // },
@@ -141,16 +178,22 @@ const [columnDefs, setColumnDefs] = useState([
    },
   {
     field: "Dispatch Aligners",
-    cellRenderer: () => {
+    cellRenderer: (row) => {
       const buttonClicked = () => {
-        handleShow();
+        // handleShow();
+        handleShowRequest();
             setSets((pre)=>{
               return{...pre,
-                PatientId:id1,
-                PatientSetsId:id2,
-              DoctorId:id3
+                PatientId:row.data.PatientId,
+                PatientSetsId:row.data.PatientSetsId,
+              DoctorId:row.data.DoctorId
               }
             })
+
+            setTotalUpper(row.data.TotalNoOfUpperSets);
+            setTotalLower(row.data.TotalNoOfLowerSets);
+
+            console.log(row.data.TotalNoOfUpperSets);
       };
       return (
         <>
@@ -212,6 +255,161 @@ const [columnDefs, setColumnDefs] = useState([
 ]);
 
 
+
+
+
+const [UpperChecked, setUpperChecked] = useState([]);
+const [LowerChecked, setLowerChecked] = useState([]);
+
+
+
+
+
+const checkboxes = Array.from({ length: totalUpper }, (_, index) => index + 1);
+const checkboxes1 = Array.from({ length: totalLower }, (_, index) => index + 1);
+
+
+
+
+
+const [modalCheckboxValue, setModalCheckboxValue] = useState(null);
+const [modalCheckboxValue1, setModalCheckboxValue1] = useState(null);
+
+
+
+let UpperSetsReqBody={
+  Uppersets:[],
+  
+}
+let UpperSetsReqBody1={
+  Uppersets:[],
+  PatientSetsId:sets.PatientSetsId
+}
+
+
+const handleCheckboxChange = (checkbox) => {
+
+    
+  if (UpperChecked.includes(checkbox)) {
+    
+    setUpperChecked(UpperChecked.filter((item) => item !== checkbox));
+    // setUpperSetsReqBody((pre)=>{
+    //   return{
+    //     ...pre,
+    //     Uppersets:UpperChecked.filter((item) => item !== checkbox),
+    //     PatientSetsId:requestSets.PatientSetsId
+    //   }
+    // })
+    UpperSetsReqBody1={
+      Uppersets:UpperChecked.filter((item) => item !== checkbox),
+        PatientSetsId:sets.PatientSetsId
+    }
+    UpperSetsReqBody={
+      Uppersets:UpperChecked.filter((item) => item !== checkbox),
+
+    }
+
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TextForUpperAligners:UpperSetsReqBody.Uppersets
+      }
+    })
+  } else {
+    setUpperChecked([...UpperChecked, checkbox]);
+    // setUpperSetsReqBody({
+      setModalCheckboxValue(checkbox);
+
+    //     Uppersets:[...UpperChecked, checkbox],
+    //     PatientSetsId:requestSets.PatientSetsId
+      
+    // })
+
+    UpperSetsReqBody1={
+      Uppersets:checkbox,
+        PatientSetsId:sets.PatientSetsId
+    }
+    UpperSetsReqBody={
+      Uppersets:[...UpperChecked, checkbox],
+
+    }
+
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TextForUpperAligners:UpperSetsReqBody.Uppersets
+      }
+    })
+    // uppercheckFunc();
+  }
+
+
+  console.log(UpperSetsReqBody1);
+  // console.log(modalCheckboxValue);
+};
+
+
+
+let LowerSetsReqBody={
+  Lowersets:[],
+  // PatientSetsId:requestSets.PatientSetsId
+}
+let LowerSetsReqBody1={
+  Lowersets:[],
+  PatientSetsId:sets.PatientSetsId
+}
+
+
+
+
+const handleCheckboxChange1 = (checkbox) => {
+  if (LowerChecked.includes(checkbox)) {
+    setLowerChecked(LowerChecked.filter((item) => item !== checkbox));
+
+    LowerSetsReqBody1={
+      Lowersets:LowerChecked.filter((item) => item !== checkbox),
+        PatientSetsId:sets.PatientSetsId
+    }
+    LowerSetsReqBody={
+      Lowersets:LowerChecked.filter((item) => item !== checkbox),
+      
+    }
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TextForLowerAligners:LowerSetsReqBody.Lowersets
+      }
+    })
+  } else {
+    setLowerChecked([...LowerChecked, checkbox]);
+    setModalCheckboxValue1(checkbox);
+
+    LowerSetsReqBody1={
+      Lowersets:checkbox,
+        PatientSetsId:sets.PatientSetsId
+    }
+    LowerSetsReqBody={
+      Lowersets:[...LowerChecked, checkbox],
+    
+    }
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TextForLowerAligners:LowerSetsReqBody.Lowersets
+      }
+    })
+    // lowercheckFunc();
+  }
+
+  console.log(LowerSetsReqBody1);
+};
+
+
+
+
+
+
+
   // DefaultColDef sets props common to all Columns
   const defaultColDef = useMemo(() => ({
     // editable: true,
@@ -236,7 +434,7 @@ const [columnDefs, setColumnDefs] = useState([
     // Example load data from sever
   useEffect(() => {
     fetch(
-      "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientTotalsetDetails/0/0/0"
+      "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientTotalsetDetails/0/0/0"
     )
       .then((result) => result.json())
       .then((rowData) => {
@@ -293,6 +491,14 @@ const [columnDefs, setColumnDefs] = useState([
 
 
 
+
+
+
+
+
+
+
+
   
 
   const subGridRef = useRef(); // Optional - for accessing Grid's API
@@ -334,20 +540,27 @@ const [columnDefs, setColumnDefs] = useState([
 
 
   const [cols, setCols] = useState([
-    { headerName:"Dispatched Sets",field: "NoOfSets", filter: "agNumberColumnFilter",
+    { headerName:"Dispatched Aligners",field: "NoOfSets", filter: "agNumberColumnFilter",
     // filterParams: {
     //   buttons: ["reset", "apply"],
     // },
     floatingFilter:true, 
   
   },
-    { headerName:"Upper Sets",field: "TotalNoOfUpperSets", filter: "agNumberColumnFilter",
+    { headerName:"Dispatch Date",field: "DispatchDate", filter: "agNumberColumnFilter",
+    // filterParams: {
+    //   buttons: ["reset", "apply"],
+    // },
+    floatingFilter:true, 
+  
+  },
+    { headerName:"Upper Aligners",field: "TextForUpperAligners", filter: "agNumberColumnFilter",
     // filterParams: {
     //   buttons: ["reset", "apply"],
     // },
     floatingFilter:true, },
-    { headerName:"Lower Sets",field: "TotalNoOfLowerSets", filter: "agNumberColumnFilter",
-    // filterParams: {
+    { headerName:"Lower Aligners",field: "TextForLowerAligners", filter: "agNumberColumnFilter",
+    // filterParams: {n 
     //   buttons: ["reset", "apply"],
     // },
     floatingFilter:true, },
@@ -387,9 +600,11 @@ const [columnDefs, setColumnDefs] = useState([
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
+
+  const getTotalSetsView=()=>{
     fetch(
-      `https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientTotalsetView/${id1}/${id2}`
+      `https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientTotalsetView/${id1}/${id2}`
     )
       .then((result) => result.json())
       .then((subrow) => {
@@ -397,7 +612,9 @@ const [columnDefs, setColumnDefs] = useState([
         setRd(subrow.Data);
       });
     console.log(rd);
-  }, [rd]);
+  }
+    
+  // }, [rd]);
 
 
 
@@ -555,9 +772,15 @@ const [columnDefs, setColumnDefs] = useState([
   const submitSets=(e)=>{
     e.preventDefault();
 
-   const setsallocUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
+   const setsallocUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientTotalSetsAdmintToDoctor";
     
    
+
+   let n={
+    ...sets,
+    TextForUpperAligners:sets.TextForUpperAligners.toString(),
+    TextForLowerAligners:sets.TextForLowerAligners.toString()
+   }
 
    fetch(setsallocUrl,{
     method: "POST",
@@ -565,7 +788,7 @@ const [columnDefs, setColumnDefs] = useState([
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(sets),
+    body: JSON.stringify(n),
    })
    .then((res)=>res.json())
    .then((result)=>{
@@ -576,8 +799,12 @@ const [columnDefs, setColumnDefs] = useState([
         title:"Submitted Successfully!",
         icon:"success"
       })
+
+      setTimeout(() => {
+        
+        window.location.reload();
+      }, 1000);
     }
-    window.location.reload();
    })
 
   }
@@ -609,7 +836,78 @@ const [columnDefs, setColumnDefs] = useState([
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
+
+
+  const [showRequest, setShowRequest] = useState(false);
+
+  const handleCloseRequest = () => setShowRequest(false);
+  const handleShowRequest = () => setShowRequest(true);
   
+
+
+  const onChangeRequest=(e)=>{
+    const newdata={...sets}
+    newdata[e.target.name]=e.target.value;
+    
+    setSets(newdata);
+    console.log(newdata);
+  
+    let lengthOfUpper=newdata.TextForUpperAligners.length;
+    let lengthOfLower=newdata.TextForLowerAligners.length;
+    let noOfSets=lengthOfUpper+lengthOfLower;
+  
+    setSets((pre)=>{
+      return{
+        ...pre,
+        TotalNoOfUpperSets:lengthOfUpper,
+        TotalNoOfLowerSets:lengthOfLower
+      }
+    })
+  
+    console.log(sets);
+  
+  // let UpperNo=newdata.TextForUpperAligners;
+  // let LowerNo=newdata.TextForLowerAligners;
+  //   setCheckSets((pre)=>{
+  //     return{
+  //       ...pre,
+  //       Uppersets:UpperNo,
+  //       Lowersets:LowerNo
+  //     }
+  //   })
+  
+  // console.log("Checking Sets");
+  // console.log(checkSets);
+  
+  
+    // const checkUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/CheckSets`;
+  
+  
+  
+    // let n={
+    //   ...checkSets,
+    //   Uppersets:UpperNo,
+    //   Lowersets:LowerNo
+    // }
+    // fetch(checkUrl,{
+    //   method:"POST",
+    //     headers:{
+    //       Accept: "application/json",
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(n)
+    // })
+    // .then((res)=>res.json())
+    // .then((checked)=>{
+    //   console.log(checked);
+    //   if(checked.IsCheck===1){
+    //     handleShowOrder1();
+    //     handleCloseRequest();
+    //   }
+    // })
+  }
+
 
   return (
     <>
@@ -639,7 +937,7 @@ const [columnDefs, setColumnDefs] = useState([
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -686,7 +984,7 @@ const [columnDefs, setColumnDefs] = useState([
                     href=""
                     className="doc-tab active"
                     onClick={() =>
-                      navigate("/admin-dashboard")
+                     RoleId==="3"? navigate("/prodn-dash"):navigate("/admin-dashboard")
                     }
                   >
                     Dashboard
@@ -918,6 +1216,144 @@ const [columnDefs, setColumnDefs] = useState([
                       color: "white",
                     }}
                     onClick={(e)=>submitSets(e)}
+                  >
+                    Submit
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+
+
+
+              <Modal show={showRequest} onHide={handleCloseRequest} centered size="lg"  style={{ display: 'flex' }}>
+                <Modal.Header closeButton>
+                  <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Send Upper Aligners set no.</Form.Label>
+                    {/* <Form.Control
+                      type="text"
+                      name="TextForUpperAligners"
+                      onChange={(e) => onChangeRequest(e)}
+                      value={requestSets.TextForUpperAligners}
+                      required
+                    /> */}
+{/* {generateCheckboxes()} */}
+<div>
+      {checkboxes.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox"               checked={sets.TextForUpperAligners.includes(i+1)}
+ onChange={() => handleCheckboxChange(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+    </div>
+{/* {JSON.stringify(selected)} */}
+                    {/* <TagsInput
+        value={selected}
+        onChange={setSelected}
+        name="TextForUpperAligners"
+        placeHolder=""
+      /> */}
+                  </Form.Group>
+
+                  {/* <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Which Upper Aligners you want?</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TextForUpperAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForUpperAligners}
+                      required
+                    />
+                  </Form.Group> */}
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Send Lower Aligners set no.</Form.Label>
+                    {/* <Form.Control
+                      type="text"
+                      name="TextForLowerAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForLowerAligners}
+                      required
+                    /> */}
+
+<div>
+      {checkboxes1.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox" checked={sets.TextForLowerAligners.includes(i+1)} onChange={() => handleCheckboxChange1(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+    </div>
+
+{/* <TagsInput
+        value={selected1}
+        onChange={setSelected1}
+        name="TextForLowerAligners"
+        placeHolder=""
+      /> */}
+                  </Form.Group>
+
+
+                  {/* <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label>Which Lower Aligners you want?</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="TextForLowerAligners"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={requestSets.TextForLowerAligners}
+                      required
+                    />
+                  </Form.Group> */}
+
+
+
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput1"
+                  >
+                    <Form.Label className="modal-lbl">Date <span style={{color:"red",float:"right"}}>*</span></Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="DateOn"
+                      id="pass"
+                      onChange={(e) => onChangeRequest(e)}
+
+                      value={sets.DateOn}
+                      required
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    type="submit"
+                    variant=""
+                    style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }}
+                   onClick={(e)=>submitSets(e)}
+                    
                   >
                     Submit
                   </Button>

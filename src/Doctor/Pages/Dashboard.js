@@ -8,7 +8,10 @@ import {
   Navbar,
   Dropdown,
   Card,
-  Badge
+  Badge,
+  Tooltip,
+  Toast,
+  ToastContainer
 } from "react-bootstrap";
 import "../../Doctor/Styles/Dashboard.css";
 import user from "../../Assets/user.png";
@@ -25,6 +28,7 @@ import advertisement from "../../Assets/advertisement.png";
 import {LinkContainer} from 'react-router-bootstrap';
 import patientimg from "../../Assets/mock1.jpg";
 import {useNavigate,useParams} from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Dashboard() {
   const tglContent = () => {
@@ -42,7 +46,7 @@ const [DocDetails, setDocDetails] = useState([]);
   const urlParams = useParams()
   console.log(urlParams);
   const ID=urlParams.DoctorUserId;
-    const url ="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorDashboard/"+ID;
+    const url ="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorDashboard/"+ID;
   
   useEffect(() => {
     console.log(urlParams);
@@ -57,7 +61,7 @@ const [DocDetails, setDocDetails] = useState([]);
 
   // const [data, setData] = useState([]);
   // const url =
-  //   "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+  //   "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorList/0/0";
 
   // useEffect(() => {
   //   fetch(url)
@@ -81,7 +85,7 @@ let DoctorLicense=sessionStorage.getItem("DocLicense");
 
 const [notifyData, setNotifyData] = useState([]);
 
-const notifyUrl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetNotification/${DoctorUser}/2`;
+const notifyUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetNotification/${DoctorUser}/2`;
 useEffect(()=>{
   fetch(notifyUrl).then((res)=>res.json())
   .then((notData)=>{
@@ -89,9 +93,25 @@ useEffect(()=>{
     setNotifyData(notData);
 // console.log(notifyData);
   })
-},[notifyData])
+},[])
+
+const [show, setShow] = useState(false);
 
 
+
+useEffect(()=>{
+  if(DoctorUser){
+   console.log("logged in");
+  }
+  else{
+    // alert("Please Login First");
+    Swal.fire({
+      icon:"error",
+      title:"Please Login to continue!"
+    })
+    navigate("/")
+  }
+},[])
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="navb">
@@ -107,7 +127,7 @@ useEffect(()=>{
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              <Nav.Link href="">
       <Dropdown>
       <Dropdown.Toggle
                     variant=""
@@ -139,7 +159,7 @@ useEffect(()=>{
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
-                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                            const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
 
                             let notifId={
                               NotificationId:noti.NotificationId
@@ -184,14 +204,14 @@ useEffect(()=>{
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mt-1">
+              <Nav.Link href="" className="p-0 mt-1">
                 <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""
                     id="dropdown-basic"
                     className="user"
                   >
-                   {DoctorName}
+                   {DocDetails[0]?.PracticeName}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -235,6 +255,12 @@ useEffect(()=>{
           </Col>
         </Row>
       </Container>
+      <ToastContainer position="middle-center">
+        
+      <Toast bg="warning" color="" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+                        <Toast.Body>Under Maintenance</Toast.Body>
+                      </Toast>
+      </ToastContainer>
       <Container>
         <Row style={{ backgroundColor: "white" }} className="mt-5 mb-5">
           <Col md={{ span: 12 }} xs={{ span: 12 }}>
@@ -249,9 +275,9 @@ useEffect(()=>{
                     onClick={()=>navigate("/in-treatment")}
                   >
                     <p className="mt-4">
-                      In Treatment <span style={{ float: "right" }}>0</span>
+                      In Treatment <span style={{ float: "right" }}>{DocDetails[0]?.CountNoOfInTreatment}</span>
                     </p>
-                    <ProgressBar now={0} className="mt-5 mb-4" />
+                    <ProgressBar now={DocDetails[0]?.CountNoOfInTreatment} className="mt-5 mb-4" />
                   </Col>
                   <Col
                     md={{ span: 5, offset: 1 }}
@@ -260,13 +286,16 @@ useEffect(()=>{
                     className="mb-1"
                     onClick={()=>{
                       navigate("/request-aligners")
+                      // setShow(true)
+                     
                     }}
                   >
+                    
                     <p className="mt-4">
                       Request Aligners{" "}
                       <span style={{ float: "right" }}>{DocDetails[0]?.DoctorTotalRequest}</span>
                     </p>
-                    <ProgressBar now={0} className="mt-5 mb-4" />
+                    <ProgressBar now={DocDetails[0]?.DoctorTotalRequest} className="mt-5 mb-4" />
                   </Col>
                 </Row>
                 <Row className="mt-5">
@@ -291,9 +320,9 @@ useEffect(()=>{
                     onClick={()=>navigate(`/aligners-report-doc`)}
                   >
                     <p className="mt-4">
-                      Aligner's Sets Report <span style={{ float: "right" }}>0</span>
+                      Aligner's Sets Report <span style={{ float: "right" }}>{DocDetails[0]?.PatientSetReport}</span>
                     </p>
-                    <ProgressBar now={0} className="mt-5 mb-4" />
+                    <ProgressBar now={DocDetails[0]?.PatientSetReport} className="mt-5 mb-4" />
                   </Col>
                 </Row>
               </Col>
@@ -302,7 +331,19 @@ useEffect(()=>{
                 <Button
                   className="mt-5 w-100"
                   style={{ backgroundColor: "#C49358" }}
-                  onClick={()=>navigate("/add-patient")}
+                  onClick={()=>{
+                    if(DoctorUser){
+                      navigate("/add-patient")
+                    }
+                    else{
+                      // alert("Please Login First");
+                      Swal.fire({
+                        icon:"error",
+                        title:"Please Login to continue!"
+                      })
+                      navigate("/")
+                    }
+                }}
                 >
                   Add Patient
                 </Button>
@@ -335,7 +376,7 @@ useEffect(()=>{
                     ></img>
                     <p className="text-center">
                       <span style={{ fontWeight: "bold", color: "#077396" }}>
-                      {DocDetails[0]?.Name}
+                      {DocDetails[0]?.PracticeName}
                       </span>
                       <br />
                       <span style={{ fontWeight: "bold" }}>Orthodontist</span>

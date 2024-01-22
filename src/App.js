@@ -34,6 +34,10 @@ import RequestList from "./Admin/Pages/RequestList";
 import RequestAligners from "./Doctor/Pages/RequestAligners";
 import Maintenance from "./Admin/Pages/Maintenance";
 import SetsReport from "./Doctor/Pages/SetsReport";
+import ProdDashboard from "./Production/Pages/ProdDashboard";
+import AddPayment from "./Accountant/Pages/AddPayment";
+import ProductionManager from "./Admin/Pages/ProductionManager";
+import PatientwisePayment from "./Admin/Pages/PatientwisePayment";
 function App() {
   return (
     <div>
@@ -43,9 +47,7 @@ function App() {
           <Route path="/add-doctor" element={<AddDoctor />} />
           <Route path="/view-doctors" element={<DoctorsList />} />
           <Route path="/add-patient" element={<AddPatient />} />
-          {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
           <Route path="/upload" element={<Upload />} />
-          {/* <Route path="/file" element={<File/>}/> */}
           <Route path="/doctor-dashboard/:DoctorUserId" element={<Dashboard/>}/>
           <Route path="/patient-list/:DoctorUserId" element={<PatientList />} />
           <Route path="/patient-details/:PatientId" element={<PatientDetails/>}/>
@@ -72,7 +74,13 @@ function App() {
           <Route path="/request-list" element={<RequestList/>} />
           <Route path="/request-aligners" element={<RequestAligners/>} />
           <Route path="/maintenance" element={<Maintenance/>} />
+          <Route path="/prodn-dash" element={<ProdDashboard/>} />
+          <Route path="/add-payment" element={<AddPayment/>} />
+          <Route path="/p-manage" element={<ProductionManager/>} />
+          <Route path="/pnt-pay" element={<PatientwisePayment/>} />
 
+          {/* <Route path="/patient-login" element={<PatientLogin/>}/> */}
+          {/* <Route path="/file" element={<File/>}/> */}
 
 
 

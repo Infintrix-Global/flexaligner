@@ -22,7 +22,8 @@ import {
     Stack,
     Form,
     ProgressBar,
-    Tabs
+    Tabs,
+    Spinner
   } from "react-bootstrap";
 import { useNavigate,useParams } from "react-router-dom";
 import {LinkContainer} from 'react-router-bootstrap';
@@ -105,6 +106,23 @@ function EditPatient(){
       });
 
 
+
+      
+  const [progressE1, setProgressE1] = useState(null);
+  const [progressE2, setProgressE2] = useState(null);
+  const [progressE3, setProgressE3] = useState(null);
+  const [progressE4, setProgressE4] = useState(null);
+
+
+  const [progressI1, setProgressI1] = useState(null);
+  const [progressI2, setProgressI2] = useState(null);
+  const [progressI3, setProgressI3] = useState(null);
+  const [progressI4, setProgressI4] = useState(null);
+  const [progressI5, setProgressI5] = useState(null);
+
+
+
+
       const navigate = useNavigate();
 
   const [validated, setValidated] = useState(false);
@@ -150,10 +168,13 @@ const IndividualUpload1=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressE1(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -180,6 +201,7 @@ const IndividualUpload1=async ()=>{
       // confirmButtonText: 'Cool'
     })
   conf1.style.display="none"
+  setProgressE1(null);
   }
   });
 
@@ -206,10 +228,13 @@ const IndividualUpload2=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressE2(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -234,6 +259,8 @@ let conf2=document.getElementById("extim2")
       // confirmButtonText: 'Cool'
     })
   conf2.style.display="none"
+  setProgressE2(null);
+
   }
   });
 
@@ -260,10 +287,13 @@ const IndividualUpload3=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressE3(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -290,6 +320,8 @@ const IndividualUpload3=async ()=>{
       // confirmButtonText: 'Cool'
     })
   conf3.style.display="none"
+  setProgressE3(null);
+
   }
   });
 
@@ -322,10 +354,13 @@ const IndividualUpload4=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressE4(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -352,6 +387,8 @@ const IndividualUpload4=async ()=>{
       // confirmButtonText: 'Cool'
     })
   conf4.style.display="none"
+  setProgressE4(null);
+
   }
   });
 
@@ -389,10 +426,13 @@ const IntraUpload1=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressI1(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -419,6 +459,8 @@ const IntraUpload1=async ()=>{
       // confirmButtonText: 'Cool'
     })
   confint1.style.display="none"
+  setProgressI1(null);
+
   }
   });
 
@@ -446,10 +488,13 @@ const IntraUpload2=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressI2(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -476,6 +521,8 @@ const IntraUpload2=async ()=>{
       // confirmButtonText: 'Cool'
     })
   confint2.style.display="none"
+  setProgressI2(null);
+
   }
   });
 
@@ -502,10 +549,13 @@ const IntraUpload3=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressI3(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -530,6 +580,8 @@ let confint3=document.getElementById("intim3")
             // confirmButtonText: 'Cool'
           })
         confint3.style.display="none"
+        setProgressI3(null);
+
         }
   });
 
@@ -556,10 +608,13 @@ const IntraUpload4=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressI4(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -586,6 +641,8 @@ const IntraUpload4=async ()=>{
       // confirmButtonText: 'Cool'
     })
   confint4.style.display="none"
+setProgressI4(null);
+
   }
   });
 
@@ -613,10 +670,13 @@ const IntraUpload5=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
+        setProgressI5(
+          Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100)
+        );
         console.log(
           "Upload Progress:" +
             Math.round(
@@ -643,6 +703,8 @@ const IntraUpload5=async ()=>{
       // confirmButtonText: 'Cool'
     })
   confint5.style.display="none"
+  setProgressI5(null);
+
   }
   });
 
@@ -671,7 +733,7 @@ const RadioUpload1=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
@@ -729,7 +791,7 @@ const RadioUpload2=async ()=>{
   }
   await axios
   .post(
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     fd,
     {
       onUploadProgress: (ProgressEvent) => {
@@ -799,7 +861,7 @@ let Role=sessionStorage.getItem("Role")
 
     //   await axios
     //     .post(
-    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     //       fd,
     //       {
     //         onUploadProgress: (ProgressEvent) => {
@@ -823,7 +885,7 @@ let Role=sessionStorage.getItem("Role")
     // console.log(vid);
 
     const url =
-      "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientRegistration";
+      "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientRegistration";
 
    
     setValues((pre)=>{
@@ -842,6 +904,8 @@ let Role=sessionStorage.getItem("Role")
       IWillExtractTheseTeethBeforeTreatment:
         values.IWillExtractTheseTeethBeforeTreatment.toString(),
       LeaveTheseSpacesOpen: values.LeaveTheseSpacesOpen.toString(),
+      // ExtraOralMoreImages:values.ExtraOralMoreImages.toString(),
+      // IntraOralMoreImages:values.IntraOralMoreImages.toString(),
       
     };
 
@@ -955,7 +1019,7 @@ let Role=sessionStorage.getItem("Role")
 
    await axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1127,7 +1191,7 @@ let Role=sessionStorage.getItem("Role")
       // })
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1163,7 +1227,7 @@ let Role=sessionStorage.getItem("Role")
         }
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1199,7 +1263,7 @@ let Role=sessionStorage.getItem("Role")
         }
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1255,7 +1319,7 @@ let Role=sessionStorage.getItem("Role")
 
     //   axios
     //     .post(
-    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     //       fd,
     //       {
     //         onUploadProgress: (ProgressEvent) => {
@@ -1287,7 +1351,7 @@ let Role=sessionStorage.getItem("Role")
 
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1302,12 +1366,16 @@ let Role=sessionStorage.getItem("Role")
           }
         )
         .then((res) => {
-          var arr = res.data;
-          console.log(arr);
+          let arr =[];
+          arr= res.data.data;
+          // console.log(arr);
           // var EphotoPath = arr.data;
           // sessionStorage.setItem("ExtraOralMoreImages", JSON.stringify(EphotoPath));
+          let a=arr.map(f=>f.imageurl);
+          // a.map(img=>img.)
+          console.log(a);
           setValues(pre=>{
-            return{...pre,PathOfDoc:res.data}
+            return{...pre,ExtraOralMoreImages:a}
           })
         });
    }
@@ -1335,7 +1403,7 @@ let Role=sessionStorage.getItem("Role")
 
     //   axios
     //     .post(
-    //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+    //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
     //       fd,
     //       {
     //         onUploadProgress: (ProgressEvent) => {
@@ -1371,7 +1439,7 @@ let Role=sessionStorage.getItem("Role")
       console.log(add);
       axios
         .post(
-          "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadMultiplePhotos",
+          "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadMultiplePhotos",
           fd,
           {
             onUploadProgress: (ProgressEvent) => {
@@ -1386,13 +1454,21 @@ let Role=sessionStorage.getItem("Role")
           }
         )
         .then((res) => {
-          var arr = res.data;
-          console.log(arr);
+          let arr =[];
+          arr= res.data.data;
+          // console.log(arr);
           // var IphotoPath = arr.data;
           // sessionStorage.setItem("IntraOralMoreImages", JSON.stringify(IphotoPath));
+          let b=arr.map(f=>f.imageurl);
+          // b.map((imageUrl, index) => {
+          // })
+          console.log(b);
           setValues(pre=>{
-            return{...pre,IntraOralMoreImages:res.data}
+            return{...pre,IntraOralMoreImages:b}
           })
+          // setValues(pre=>{
+          //   return{...pre,IntraOralMoreImages:b}
+          // })
         });
    }
 
@@ -1407,7 +1483,7 @@ let Role=sessionStorage.getItem("Role")
 
   //   axios
   //     .post(
-  //       "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/UploadPhotos",
+  //       "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/UploadPhotosNew",
   //       fd,
   //       {
   //         onUploadProgress: (ProgressEvent) => {
@@ -1435,9 +1511,11 @@ let Role=sessionStorage.getItem("Role")
 
     if(values?.DateofBirth==""){
       alert("Please fill Date of Birth Field!");
+    }else{
+
+      setCurrentTab((prev) => prev + 1);
     }
     
-    setCurrentTab((prev) => prev + 1);
     
   };
 
@@ -2116,7 +2194,7 @@ const urlParams = useParams();
   const ID = urlParams.PatientId;
 
   const urlToData =
-  "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientAllList/" +
+  "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientAllList/" +
   ID;
 
 useEffect(() => {
@@ -2128,14 +2206,16 @@ useEffect(() => {
       console.log(details.Data);
       // console.log(details.Data[0]?.DoctorID);
       setPatient(details.Data);
-      console.log(details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]);
-      let arryr=details.Data[0]?.DateofBirth.split('-')[2].split(' ')[0]
-      let arr=[details.Data[0]?.DateofBirth.split('-')[1],details.Data[0]?.DateofBirth.split('-')[0],arryr].join('/')
-      console.log(arr);
+      let bDate=details.Data[0]?.DateofBirth.split(" ")[0];
+      console.log(bDate.split("/")[2]);
+      // let arryr=bDate.split("/")[2]
+      // let arr=[bDate.split('/')[0],bDate.split('/')[1],arryr].join('/')
+      // console.log(arr);
 
       // console.log(details.Data[0]?.ClinicalConditions.split(',').includes("Crowding")?"true":"false");
       let cliCon=details.Data[0]?.ClinicalConditions.split(',')
-      // console.log(cliCon);
+      console.log("clinical con");
+      console.log(cliCon);
       // console.log(patient);
       let doNot=details.Data[0]?.DoNotMoveTheseTeeth.split(',')
       // console.log(doNot);
@@ -2152,7 +2232,7 @@ useEffect(() => {
         LastName:details.Data[0]?.Name.split(' ')[1],
         Mi:details.Data[0]?.Mi,
         Gender:details.Data[0]?.Gender,
-        DateofBirth:arr,
+        DateofBirth:details.Data[0]?.DateofBirth,
         DoctorName:details.Data[0]?.DoctorName,
         ClinicAddress:details.Data[0]?.ClinicAddress,
         CaseNo:details.Data[0]?.CaseNo,
@@ -2263,7 +2343,7 @@ function formatDate(date) {
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -2401,7 +2481,7 @@ function formatDate(date) {
                                             type="tel"
                                             placeholder="Mobile No."
                                             value={values.Mi}
-                                            name="Mobile No."
+                                            name="Mi"
                                             onChange={handleChange}
                                             aria-describedby="inputGroupPrepend"
                                           />
@@ -6490,6 +6570,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload1}>Confirm</Button>{previewUrlTab61?<span id="extim1">Confirm to upload!</span>:""}</span>
+                                              {progressE1 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -6535,7 +6619,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload2}>Confirm</Button>{previewUrl2?<span id="extim2">Confirm to upload!</span>:""}</span>
-
+                                              {progressE2 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                           </Row>
                                           <Row className="mt-4 justify-content-center">
@@ -6612,7 +6699,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload3}>Confirm</Button>{previewUrl5?<span id="extim3">Confirm to upload!</span>:""}</span>
-
+                                              {progressE3 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -6654,7 +6744,10 @@ function formatDate(date) {
                                               />}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IndividualUpload4}>Confirm</Button>{previewUrl7?<span id="extim4">Confirm to upload!</span>:""}</span>
-
+                                              {progressE4 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                           </Row>
                                           {/* {previewUrl ? (
@@ -6885,7 +6978,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload1}>Confirm</Button>{previewUrl62?<span id="intim1">Confirm to upload!</span>:""}</span>
-
+                                              {progressI1 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -6945,7 +7041,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload2}>Confirm</Button>{previewUrl21?<span id="intim2">Confirm to upload!</span>:""}</span>
-
+                                              {progressI2 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                           </Row>
                                           <Row className="mt-3 justify-content-center">
@@ -7016,7 +7115,10 @@ function formatDate(date) {
                                                 )}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload3}>Confirm</Button>{previewUrl22?<span id="intim3">Confirm to upload!</span>:""}</span>
-
+                                              {progressI3 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                           </Row>
                                           <Row className="mt-3">
@@ -7054,7 +7156,10 @@ function formatDate(date) {
                                                 ):<p className="text-center mt-5">Upper Occulosal</p>} */}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload4}>Confirm</Button>{previewUrl23?<span id="intim4">Confirm to upload!</span>:""}</span>
-
+                                              {progressI4 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                             {/* <Col md={4}>
                                               <Card
@@ -7108,7 +7213,10 @@ function formatDate(date) {
                                                 ):<p className="text-center mt-5">Lower Occulosal</p>} */}
                                               </Card>
                                               <span className="m-auto"><Button variant="" className="btn-outline-dark mt-1" onClick={IntraUpload5}>Confirm</Button>{[previewUrl24]?<span id="intim5">Confirm to upload!</span>:""}</span>
-
+                                              {progressI5 &&
+                      // <ProgressBar variant="success" className="m-2 mx-0" now={Progress} label={`${Progress}%`} min={0} max={100} style={{width:`${Progress}%`}}/>
+                      <Spinner animation="border"/>
+                      }
                                             </Col>
                                           </Row>
                                           {/* {previewUrl ? (

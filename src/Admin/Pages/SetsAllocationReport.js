@@ -10,7 +10,7 @@ function SetsAllocationReport(){
     let patientSetId = sessionStorage.getItem("PSID");
 
 
-    let url=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientTotalsetView/${patientId}/${patientSetId}`
+    let url=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientTotalsetView/${patientId}/${patientSetId}`
 
     useEffect(()=>{
         fetch(url)

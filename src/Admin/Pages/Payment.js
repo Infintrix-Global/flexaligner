@@ -29,11 +29,16 @@ import {LinkContainer} from 'react-router-bootstrap';
 function Payment(){
 
 
+  let Role=sessionStorage.getItem("Role");
 
   
 
 
   const navigate = useNavigate();
+
+
+
+  let payDocID=sessionStorage.getItem("payDocID");
 
   // const PId=sessionStorage.getItem("Pid")
 const DocID=sessionStorage.getItem("DocID");
@@ -61,7 +66,7 @@ const DocID=sessionStorage.getItem("DocID");
 
 
   const [Pmode, setPmode] = useState([])
-  const modeUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetElectronicTransfersModeList";
+  const modeUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetElectronicTransfersModeList";
 
   useEffect(()=>{
     fetch(modeUrl).then((res)=>res.json())
@@ -79,7 +84,7 @@ const DocID=sessionStorage.getItem("DocID");
 
   const [payDetails, setpayDetails] = useState({
     PatientId:0,
-    DocotrId:DocID,
+    DocotrId:payDocID,
     PaymentDate:"",
     PaymentMode:"",
     ElectronicTransfersId:"",
@@ -158,7 +163,7 @@ const DocID=sessionStorage.getItem("DocID");
   const ETSubmit=(e)=>{
     e.preventDefault();
 
-   const subUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+   const subUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientPayment";
    
   //  setpayDetails((pre)=>{
   //   return{...pre,PatientId:PId}
@@ -187,6 +192,10 @@ const DocID=sessionStorage.getItem("DocID");
         title:"Payment Added Successfully!",
         icon:"success"
       })
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
      }
   })
 
@@ -198,7 +207,7 @@ const DocID=sessionStorage.getItem("DocID");
   
   const [chequeDetails, setChequeDetails] = useState({
     PatientId:0,
-    DocotrId:DocID,
+    DocotrId:payDocID,
     PaymentDate:"",
     PaymentMode:"",
     ElectronicTransfersId:"",
@@ -266,7 +275,7 @@ const DocID=sessionStorage.getItem("DocID");
   const chequeSubmit=(e)=>{
     e.preventDefault();
 
-    const subCUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+    const subCUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientPayment";
 
 
 
@@ -290,6 +299,10 @@ const DocID=sessionStorage.getItem("DocID");
         title:"Payment Added Successfully!",
         icon:"success"
       })
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
      }
    })
   }
@@ -302,7 +315,7 @@ const DocID=sessionStorage.getItem("DocID");
 
   const [cashDetails, setCashDetails] = useState({
     PatientId:0,
-    DocotrId:DocID,
+    DocotrId:payDocID,
     PaymentDate:"",
     PaymentMode:"",
     ElectronicTransfersId:"",
@@ -366,7 +379,7 @@ const DocID=sessionStorage.getItem("DocID");
   const submitCash=(e)=>{
     e.preventDefault();
 
-    const cashUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddPatientPayment";
+    const cashUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddPatientPayment";
 
 
 
@@ -389,12 +402,32 @@ const DocID=sessionStorage.getItem("DocID");
         title:"Payment Added Successfully!",
         icon:"success"
       })
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
      }
    })
   }
   }
 
+  const RoleId = sessionStorage.getItem("Role");
 
+ let payPntID=sessionStorage.getItem("pntPayId");
+
+  const [AmountData, setAmountData] = useState([])
+
+
+const amountUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorPayment/${RoleId==="1"?payPntID:payDocID}`;
+
+  useEffect(()=>{
+    fetch(amountUrl)
+    .then((res)=>res.json())
+    .then((result)=>{
+      console.log(result.Data[0]);
+      setAmountData(result.Data[0])
+    })
+  },[])
  
     return(
         <>
@@ -429,7 +462,7 @@ const DocID=sessionStorage.getItem("DocID");
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -440,11 +473,8 @@ const DocID=sessionStorage.getItem("DocID");
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">
-                      <CgProfile fontSize={25} />
-                      <span className="px-3">Profile</span>
-                    </Dropdown.Item>
-                    <hr />
+                 
+                
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
                       <span className="px-3" onClick={() => navigate("/")}>
@@ -458,7 +488,7 @@ const DocID=sessionStorage.getItem("DocID");
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container fluid>
+      {Role==="4"?"":<Container fluid>
         <Row className="menuTab">
           <Col>
             <Card body className="border-0">
@@ -476,17 +506,18 @@ const DocID=sessionStorage.getItem("DocID");
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container>}
 
       <Container fluid>
+        <p className="text-center" style={{fontWeight:"500"}}>Dr. Name: <span>{AmountData?.DoctorName}</span></p>
         <Row className="justify-content-center">
           <Col md={10}>
             <Row  className="text-center">
                 <Col>
-                <p className="pt-3" style={{fontWeight:"500"}}>Total Amount: </p>
+                <p className="pt-3" style={{fontWeight:"500"}}>Total Amount: {AmountData?.Quotation}</p>
                 </Col>
                 <Col>
-                <p className="pt-3" style={{fontWeight:"500"}}>Balance: </p>
+                <p className="pt-3" style={{fontWeight:"500"}}>Balance: {AmountData?.Quotation-AmountData?.PaidAmount}.00</p>
                 </Col>
             </Row>
             <Row

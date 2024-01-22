@@ -105,6 +105,12 @@ console.log(DoctorUser);
        if(result.Data[0].RoleId==="2"){
         navigate(`/doctor-dashboard/${DoctorUser}`)
       }
+      if(result.Data[0].RoleId==="4"){
+        navigate(`/add-payment`)
+      }
+      if(result.Data[0].RoleId==="3"){
+        navigate(`/prodn-dash`)
+      }
     })
 
 
@@ -127,7 +133,7 @@ console.log(DoctorUser);
     console.log(newcred);
   }
 
-  const urlDoc="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddDoctorLogin";
+  const urlDoc="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddDoctorLogin";
 
   
   const addDocLogin=(e)=>{

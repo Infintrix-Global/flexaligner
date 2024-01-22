@@ -32,7 +32,7 @@ function SetsReport(){
 
       const navigate=useNavigate();
 
-let AdminName=sessionStorage.getItem("DocName")
+let AdminName=sessionStorage.getItem("DocPracName")
 let doctorId=sessionStorage.getItem("DocUserId")
 
 const [search, setSearch] = useState("");
@@ -41,7 +41,7 @@ const [search, setSearch] = useState("");
 
   const [reports, setReports] = useState([])
 
-  const url=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetAllPatientSetReport/0/0/${doctorId}`;
+  const url=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetAllPatientSetReport/0/0/${doctorId}`;
 
 
   useEffect(()=>{
@@ -74,23 +74,23 @@ const columns = [
     //   sortable: true,
     // },
     {
-      name: "Total No. of Sets",
+      name: "Total No. of Aligners",
       selector: (row) => row.TotalSets,
       sortable: true,
     },
     {
-      name: "Dispatched Sets",
+      name: "Dispatched Aligners",
       selector: (row) => row.DispatchedSets,
       sortable: true,
     },
     
     {
-      name: "Delivered Sets",
+      name: "Delivered Aligners",
       selector: (row) => row.DeliveredSets,
 
     },
     {
-        name: "Pending Sets",
+        name: "Pending Aligners",
         selector: (row) => row.PendingSets,
   
     },
@@ -164,7 +164,7 @@ const columns = [
                            }}>{noti?.Notification}</span><span><Button variant="" style={{transform:"translateY(-0.2em)"}} onClick={()=>{
 
                             // console.log(noti.NotificationId);
-                            const notifUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/ReadNotification"
+                            const notifUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/ReadNotification"
 
                             let notifId={
                               NotificationId:noti.NotificationId
@@ -209,7 +209,7 @@ const columns = [
               <span className="address mx-3 m-0">
                 <img src={user} alt="" width={35} className="mt-2" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mt-1">
+              <Nav.Link href="" className="p-0 mt-1">
                 <Dropdown className="out-dd mt-2">
                   <Dropdown.Toggle
                     variant=""

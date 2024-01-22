@@ -70,7 +70,7 @@ function DoctorsList() {
 
   const [data, setData] = useState([]);
   const url =
-    "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorList/0/0";
+    "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorList/0/0";
 
   useEffect(() => {
     fetch(url)
@@ -112,7 +112,7 @@ function DoctorsList() {
   //   Doctorid:""
   // })
 
-  // const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+  // const url2="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/DoctorInActive"
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -188,7 +188,7 @@ let DoctorName=sessionStorage.getItem("DocName");
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -206,7 +206,10 @@ let DoctorName=sessionStorage.getItem("DocName");
                     <hr /> */}
                     <Dropdown.Item href="#/action-2">
                       <FiPower fontSize={25} />
-                      <span className="px-3" onClick={() => navigate("/")}>
+                      <span className="px-3" onClick={() => {navigate("/")
+                     sessionStorage.removeItem("Role");
+                  }
+                    }>
                         Logout
                       </span>
                     </Dropdown.Item>
@@ -365,7 +368,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                                               className=""
                                               onClick={(e)=>{
                                                 e.preventDefault();
-                                                const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+                                                const url2="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/DoctorInActive"
 
                                                 const n={
                                                   Doctorid:docList.DoctorID
@@ -431,7 +434,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                                             </Button>
                                           </span>
                                           {/* <span><Button variant="" className="action-i add"><FaPlus color="black"/></Button></span> */}
-                                          <span>
+                                          {/* <span>
                                             <Button
                                               variant=""
                                               className=""
@@ -441,7 +444,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                                             >
                                               <HiCurrencyRupee fontSize={20}/>
                                             </Button>
-                                          </span>
+                                          </span> */}
                                           <span>
                                             <Button
                                               variant=""
@@ -449,7 +452,7 @@ let DoctorName=sessionStorage.getItem("DocName");
                                               onClick={(e)=>{
                                                
                                                 e.preventDefault();
-                                                const url2="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/DoctorInActive"
+                                                const url2="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/DoctorInActive"
 
                                                const n={
                                                 Doctorid:docList.DoctorID

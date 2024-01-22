@@ -27,7 +27,7 @@ import {
   import { CgProfile } from "react-icons/cg";
   import Swal from "sweetalert2";
   import {LinkContainer} from 'react-router-bootstrap';
-  
+  import { TagsInput } from "react-tag-input-component";
 
 function RequestAligners(){
     const [showRequest, setShowRequest] = useState(false);
@@ -39,6 +39,28 @@ function RequestAligners(){
     const [search, setSearch] = useState("");
   
     const [filteredNames, setFilteredNames] = useState([]);
+
+
+    const [selected, setSelected] = useState([]);
+    const [selected1, setSelected1] = useState([]);
+
+
+
+
+    const [showOrder, setShowOrder] = useState(false);
+
+    const handleCloseOrder = () => setShowOrder(false);
+    const handleShowOrder = () => setShowOrder(true);
+
+    const [showOrder1, setShowOrder1] = useState(false);
+
+    const handleCloseOrder1 = () => setShowOrder1(false);
+    const handleShowOrder1 = () => setShowOrder1(true);
+
+
+
+
+
   
     const tglContent = () => {
       let Menu = document.querySelector(".menuTab");
@@ -49,12 +71,12 @@ function RequestAligners(){
         Menu.classList.add("collapsed");
       }
     };
-    let DoctorName = sessionStorage.getItem("DocName");
+    let DoctorName = sessionStorage.getItem("DocPracName");
   
     let DoctorUId = sessionStorage.getItem("DocUserId");
 
 
-let apiurl=`https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetPatientSetDoctorRequestlist/0/0/${DoctorUId}`
+let apiurl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetPatientSetDoctorRequestlist/0/0/${DoctorUId}`
 
 
 const [data, setData] = useState([])
@@ -63,15 +85,26 @@ const [requestSets, setRequestSets] = useState({
   PatientSetsId:"",
   PatientId:"",
   DoctorId:"",
-  NoOfSets:0,
+  NoOfSets:"",
   TotalNoOfUpperSets:"",
   TotalNoOfLowerSets:"",
   DateOn:"",
   PatientTotalSetsId:"",
-  TextForUpperAligners:"",
-  TextForLowerAligners:""
+  TextForUpperAligners:[],
+  TextForLowerAligners:[],
 
 })
+
+
+const [checkSets, setCheckSets] = useState({
+  Uppersets:"",
+  Lowersets:"",
+  PatientId:""
+})
+
+
+
+
 
 const onChangeRequest=(e)=>{
   const newdata={...requestSets}
@@ -79,7 +112,61 @@ const onChangeRequest=(e)=>{
   
   setRequestSets(newdata);
   console.log(newdata);
+
+  let lengthOfUpper=newdata.TextForUpperAligners.split(",").length;
+  let lengthOfLower=newdata.TextForLowerAligners.split(",").length;
+  let noOfSets=lengthOfUpper+lengthOfLower;
+
+  setRequestSets((pre)=>{
+    return{
+      ...pre,
+      NoOfSets:noOfSets
+    }
+  })
+
+  console.log(noOfSets);
+
+// let UpperNo=newdata.TextForUpperAligners;
+// let LowerNo=newdata.TextForLowerAligners;
+//   setCheckSets((pre)=>{
+//     return{
+//       ...pre,
+//       Uppersets:UpperNo,
+//       Lowersets:LowerNo
+//     }
+//   })
+
+// console.log("Checking Sets");
+// console.log(checkSets);
+
+
+  // const checkUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/CheckSets`;
+
+
+
+  // let n={
+  //   ...checkSets,
+  //   Uppersets:UpperNo,
+  //   Lowersets:LowerNo
+  // }
+  // fetch(checkUrl,{
+  //   method:"POST",
+  //     headers:{
+  //       Accept: "application/json",
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(n)
+  // })
+  // .then((res)=>res.json())
+  // .then((checked)=>{
+  //   console.log(checked);
+  //   if(checked.IsCheck===1){
+  //     handleShowOrder1();
+  //     handleCloseRequest();
+  //   }
+  // })
 }
+
 
 useEffect(()=>{
 fetch(apiurl)
@@ -90,6 +177,10 @@ fetch(apiurl)
   setFilteredNames(reqlist.Data)
 })
 },[])
+
+
+const [totalUpper, setTotalUpper] = useState(0);
+const [totalLower, setTotalLower] = useState(0);
 
 
     const columns = [
@@ -107,16 +198,32 @@ fetch(apiurl)
         },
         {
           id:"center",
-          name: "Total No. of Sets",
+          name: "Total Upper Aligners",
+          selector: (row) => row.TotalNoOfUpperSets,
+        },
+        {
+          id:"center",
+          name: "Total Lower Aligners",
+          selector: (row) => row.TotalNoOfLowerSets,
+        },
+        {
+          id:"center",
+          name: "Total No. of Aligners",
           selector: (row) => row.NoOfSets,
         },
     
-        // {
-        //   id:"center",
-        //   name: "Total Sets Allocated",
-        //   selector: (row) => row.TotalNoOfSets,
-        //   sortable: true,
-        // },
+        {
+          id:"center",
+          name: "Total Amount",
+          selector: (row) => row.Quotation,
+          sortable: true,
+        },
+        {
+          id:"center",
+          name: "Pending Amount",
+          selector: (row) => row.Quotation-row.AmountPaid,
+          sortable: true,
+        },
        
         
         {
@@ -128,10 +235,23 @@ fetch(apiurl)
               setRequestSets((pre)=>{
                 return{...pre,PatientSetsId:row.PatientSetsId,
                 PatientId:row.PatientId,
+                // NoOfSets:row.NoOfSets,
                 DoctorId:DoctorUId,
                 PatientTotalSetsId:row.PatientTotalSetsId
                 }
               })
+
+              setCheckSets((pre)=>{
+                return{
+                  ...pre,
+                  PatientId:row.PatientId
+                }
+              })
+
+
+              setTotalUpper(row.TotalNoOfUpperSets);
+              setTotalLower(row.TotalNoOfLowerSets);
+             
             }}>
               Request
             </Button>
@@ -175,6 +295,250 @@ fetch(apiurl)
         });
         setFilteredNames(result);
       }, [search]);
+
+
+      // const [checkboxes, setCheckboxes] = useState([]);
+
+      
+          // const handleCheckboxChange = (index) => {
+          //   const updatedCheckboxes = [...checkboxes];
+          //   updatedCheckboxes[index] = !updatedCheckboxes[index];
+          //   setUpperChecked(updatedCheckboxes);
+        
+          //   console.log(UpperChecked);
+          // };
+    
+      // const generateCheckboxes = () => {
+      //   const checkboxesArray = [];
+      //   for (let i = 0; i < totalUpper; i++) {
+      //     checkboxesArray.push(
+      //       <div key={i} style={{display:"flex",flexDirection:"row",columns:"30px 12"}}>
+      //         <Row>
+      //           <Col>
+                
+      //         <input
+      //           type="checkbox"
+      //           id={`checkbox-${i}`}
+      //           checked={checkboxes[i] || false}
+      //           onChange={() => handleCheckboxChange(i)}
+      //         />
+      //         <label htmlFor={`checkbox-${i}`}>{`Checkbox ${i + 1}`}</label>
+      //           </Col>
+      //         </Row>
+      //       </div>
+      //     );
+      //   }
+      //   return checkboxesArray;
+      // };
+    
+      // const a = 20; 
+
+      const [UpperChecked, setUpperChecked] = useState([]);
+      const [LowerChecked, setLowerChecked] = useState([]);
+
+      const a = 20;
+  const checkboxes = Array.from({ length: totalUpper }, (_, index) => index + 1);
+  const checkboxes1 = Array.from({ length: totalLower }, (_, index) => index + 1);
+
+
+
+  // const [UpperSetsReqBody, setUpperSetsReqBody] = useState({
+  //   Uppersets:[],
+  //   PatientSetsId:requestSets.PatientSetsId
+  // })
+
+  const [modalCheckboxValue, setModalCheckboxValue] = useState(null);
+  const [modalCheckboxValue1, setModalCheckboxValue1] = useState(null);
+
+
+  let UpperSetsReqBody={
+    Uppersets:[],
+    
+  }
+  let UpperSetsReqBody1={
+    Uppersets:[],
+    PatientSetsId:requestSets.PatientSetsId
+  }
+
+  const upperUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/CheckUppersets`;
+
+  const uppercheckFunc=()=>{
+
+    
+
+    let n={
+      Uppersets:UpperSetsReqBody1.Uppersets.toString(),
+      PatientSetsId:requestSets.PatientSetsId
+
+    }
+    fetch(upperUrl,{
+      method:"POST",
+        headers:{
+          Accept: "application/json",
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(n)
+    })
+    .then((res)=>res.json())
+    .then((checked)=>{
+      console.log(checked);
+      if(checked.status===true){
+        handleShowOrder1();
+        // handleCloseRequest();
+      }
+    })
+
+    console.log(n);
+  }
+
+  const handleCheckboxChange = (checkbox) => {
+
+    
+    if (UpperChecked.includes(checkbox)) {
+      
+      setUpperChecked(UpperChecked.filter((item) => item !== checkbox));
+      // setUpperSetsReqBody((pre)=>{
+      //   return{
+      //     ...pre,
+      //     Uppersets:UpperChecked.filter((item) => item !== checkbox),
+      //     PatientSetsId:requestSets.PatientSetsId
+      //   }
+      // })
+      UpperSetsReqBody1={
+        Uppersets:UpperChecked.filter((item) => item !== checkbox),
+          PatientSetsId:requestSets.PatientSetsId
+      }
+      UpperSetsReqBody={
+        Uppersets:UpperChecked.filter((item) => item !== checkbox),
+
+      }
+
+      setRequestSets((pre)=>{
+        return{
+          ...pre,
+          TextForUpperAligners:UpperSetsReqBody.Uppersets
+        }
+      })
+    } else {
+      setUpperChecked([...UpperChecked, checkbox]);
+      // setUpperSetsReqBody({
+        setModalCheckboxValue(checkbox);
+
+      //     Uppersets:[...UpperChecked, checkbox],
+      //     PatientSetsId:requestSets.PatientSetsId
+        
+      // })
+
+      UpperSetsReqBody1={
+        Uppersets:checkbox,
+          PatientSetsId:requestSets.PatientSetsId
+      }
+      UpperSetsReqBody={
+        Uppersets:[...UpperChecked, checkbox],
+
+      }
+
+      setRequestSets((pre)=>{
+        return{
+          ...pre,
+          TextForUpperAligners:UpperSetsReqBody.Uppersets
+        }
+      })
+      uppercheckFunc();
+    }
+
+
+    console.log(UpperSetsReqBody1);
+    // console.log(modalCheckboxValue);
+  };
+
+
+
+  let LowerSetsReqBody={
+    Lowersets:[],
+    // PatientSetsId:requestSets.PatientSetsId
+  }
+  let LowerSetsReqBody1={
+    Lowersets:[],
+    PatientSetsId:requestSets.PatientSetsId
+  }
+
+
+  const lowerUrl=`https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/CheckLowersets`;
+
+
+  const lowercheckFunc=()=>{
+
+    
+
+    let n={
+      Lowersets:LowerSetsReqBody1.Lowersets.toString(),
+      PatientSetsId:requestSets.PatientSetsId
+
+    }
+    fetch(lowerUrl,{
+      method:"POST",
+        headers:{
+          Accept: "application/json",
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(n)
+    })
+    .then((res)=>res.json())
+    .then((checked)=>{
+      console.log(checked);
+      if(checked.IsCheck===1){
+        handleShowOrder();
+        // handleCloseRequest();
+      }
+    })
+
+    console.log(n);
+  }
+
+
+
+  const handleCheckboxChange1 = (checkbox) => {
+    if (LowerChecked.includes(checkbox)) {
+      setLowerChecked(LowerChecked.filter((item) => item !== checkbox));
+
+      LowerSetsReqBody1={
+        Lowersets:LowerChecked.filter((item) => item !== checkbox),
+          PatientSetsId:requestSets.PatientSetsId
+      }
+      LowerSetsReqBody={
+        Lowersets:LowerChecked.filter((item) => item !== checkbox),
+        
+      }
+      setRequestSets((pre)=>{
+        return{
+          ...pre,
+          TextForLowerAligners:LowerSetsReqBody.Lowersets
+        }
+      })
+    } else {
+      setLowerChecked([...LowerChecked, checkbox]);
+      setModalCheckboxValue1(checkbox);
+
+      LowerSetsReqBody1={
+        Lowersets:checkbox,
+          PatientSetsId:requestSets.PatientSetsId
+      }
+      LowerSetsReqBody={
+        Lowersets:[...LowerChecked, checkbox],
+      
+      }
+      setRequestSets((pre)=>{
+        return{
+          ...pre,
+          TextForLowerAligners:LowerSetsReqBody.Lowersets
+        }
+      })
+      lowercheckFunc();
+    }
+
+    console.log(LowerSetsReqBody1);
+  };
     return(
 
         <>
@@ -209,7 +573,7 @@ fetch(apiurl)
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown>
                   <Dropdown.Toggle
                     variant=""
@@ -303,6 +667,30 @@ fetch(apiurl)
                   pagination
                   fixedHeader
                   highlightOnHover
+                  expandableRows
+                  expandableRowsComponent={({data})=>{
+
+                    let lower=data.LowerSetsData.map(i=>i.NoOfLowerSets);
+                    let upper=data.UpperSetsData.map(i=>i.NoOfUpperSets);
+                    console.log(lower.toString());
+                    return (
+                      <>
+                      {/* <p>{data.PatientId}</p> */}
+<Row>
+  <Col>
+  
+                      <p>Ordered Upper Aligners: <span>{upper.toString()}</span></p>
+                      <p>Ordered Lower Aligners: <span>{lower.toString()}</span></p>
+  </Col>
+</Row>
+                      </>
+                    )
+                  }}
+                //  onRowClicked={(e)=>{
+                //   console.log(e);
+                //  }}
+
+                 
                   subHeader
                   subHeaderComponent={
                     <input
@@ -328,26 +716,45 @@ fetch(apiurl)
 
 
 
-              <Modal show={showRequest} onHide={handleCloseRequest} centered>
+              <Modal show={showRequest} onHide={handleCloseRequest} centered size="lg"  style={{ display: 'flex' }}>
                 <Modal.Header closeButton>
                   <Modal.Title></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                  
                   <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label className="modal-lbl">Request Upper Aligners</Form.Label>
-                    <Form.Control
+                    <Form.Label className="modal-lbl">Request Upper Aligners set no.</Form.Label>
+                    {/* <Form.Control
                       type="text"
-                      name="TotalNoOfUpperSets"
+                      name="TextForUpperAligners"
                       onChange={(e) => onChangeRequest(e)}
-                      value={requestSets.TotalNoOfUpperSets}
+                      value={requestSets.TextForUpperAligners}
                       required
-                    />
+                    /> */}
+{/* {generateCheckboxes()} */}
+<div className="mt-3"><span className="" style={{fontWeight:500}}>T</span>
+      {checkboxes.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox"               checked={requestSets.TextForUpperAligners.includes(i+1)}
+ onChange={() => handleCheckboxChange(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+    <span style={{fontWeight:500}}>R</span></div>
+{/* {JSON.stringify(selected)} */}
+                    {/* <TagsInput
+        value={selected}
+        onChange={setSelected}
+        name="TextForUpperAligners"
+        placeHolder=""
+      /> */}
                   </Form.Group>
 
-                  <Form.Group
+                  {/* <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
@@ -360,25 +767,42 @@ fetch(apiurl)
                       value={requestSets.TextForUpperAligners}
                       required
                     />
-                  </Form.Group>
+                  </Form.Group> */}
 
                   <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label className="modal-lbl">Request Lower Aligners</Form.Label>
-                    <Form.Control
+                    <Form.Label className="modal-lbl">Request Lower Aligners set no.</Form.Label>
+                    {/* <Form.Control
                       type="text"
-                      name="TotalNoOfLowerSets"
+                      name="TextForLowerAligners"
                       onChange={(e) => onChangeRequest(e)}
 
-                      value={requestSets.TotalNoOfLowerSets}
+                      value={requestSets.TextForLowerAligners}
                       required
-                    />
+                    /> */}
+
+<div><span style={{fontWeight:500}}>T</span>
+      {checkboxes1.map((checkbox,i) => (
+        <label key={checkbox} className="m-3">
+          <input type="checkbox" checked={requestSets.TextForLowerAligners.includes(i+1)} onChange={() => handleCheckboxChange1(checkbox)}/> <br />
+          {/* Checkbox */}
+           <span className="">{checkbox}</span>
+        </label>
+      ))}
+   <span style={{fontWeight:500}}>R</span> </div>
+
+{/* <TagsInput
+        value={selected1}
+        onChange={setSelected1}
+        name="TextForLowerAligners"
+        placeHolder=""
+      /> */}
                   </Form.Group>
 
 
-                  <Form.Group
+                  {/* <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
@@ -391,7 +815,7 @@ fetch(apiurl)
                       value={requestSets.TextForLowerAligners}
                       required
                     />
-                  </Form.Group>
+                  </Form.Group> */}
 
 
 
@@ -399,7 +823,7 @@ fetch(apiurl)
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label className="modal-lbl">Date</Form.Label>
+                    <Form.Label className="modal-lbl">Date <span style={{color:"red",float:"right"}}>*</span></Form.Label>
                     <Form.Control
                       type="date"
                       name="DateOn"
@@ -420,15 +844,30 @@ fetch(apiurl)
                       color: "white",
                     }}
                     onClick={(e)=>{
-                      const reqUrl="https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/AddSetsDoctorToAdmin";
+                      const reqUrl="https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/AddSetsDoctorToAdmin";
 
+
+                      let n={
+                        ...requestSets,
+                        TextForUpperAligners:requestSets.TextForUpperAligners.toString(),
+                        TextForLowerAligners:requestSets.TextForLowerAligners.toString()
+                      }
+
+                      console.log(n);
+
+                      if(requestSets.DateOn===""){
+                        Swal.fire({
+                          icon:"warning",
+                          title:"Date is required!"
+                        })
+                      }else{
           fetch(reqUrl,{
             method: "POST",
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(requestSets),
+            body: JSON.stringify(n),
            })
            .then((res)=>res.json())
            .then((request)=>{
@@ -439,20 +878,162 @@ fetch(apiurl)
                 title:"Submitted Successfully!",
                 icon:"success"
               })
-            }
 
-            setTimeout(() => {
+               setTimeout(() => {
               
                window.location.reload();
             }, 2000);
+            console.log(n);
+            }
+            else{
+              Swal.fire({
+                title:"Something went wrong!",
+                icon:"error"
+              })
+            }
+
+           
        
-           })
+           })}
                     }}
+                    
                   >
                     Submit
                   </Button>
                 </Modal.Footer>
               </Modal>
+
+
+
+
+
+
+
+
+
+
+
+              <Modal show={showOrder} onHide={handleCloseOrder} centered backdrop="static" keyboard="false">
+              <Modal.Header closeButton>
+          <Modal.Title>Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sets already ordered, want to reorder sets?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="" onClick={()=>{
+            // UpperSetsReqBody={
+            //   Uppersets:UpperChecked.filter((item) => item !== modalCheckboxValue),
+      
+            // }
+
+            let smthg=requestSets.TextForLowerAligners.indexOf(modalCheckboxValue);
+
+            requestSets.TextForLowerAligners.splice(smthg,1)
+            LowerChecked.splice(smthg,1)
+      
+            // setRequestSets((pre)=>{
+            //   return{
+            //     ...pre,
+            //     TextForUpperAligners:requestSets.TextForUpperAligners.filter((item) => item !== modalCheckboxValue)
+            //   }
+            // })
+
+            // if(requestSets.TextForUpperAligners.includes(modalCheckboxValue)){
+            //   alert(modalCheckboxValue)
+            // }
+
+            console.log(LowerSetsReqBody);
+            console.log(requestSets);
+
+            handleCloseOrder();
+
+          }}>
+            No
+          </Button>
+          <Button variant=""  style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }} onClick={()=>{
+            // handleShowOrder();
+            LowerSetsReqBody={
+              Lowersets:[...LowerChecked, modalCheckboxValue],
+      
+            }
+
+            setRequestSets((pre)=>{
+              return{
+                ...pre,
+                TextForLowerAligners:LowerSetsReqBody.Lowersets
+              }
+            })
+            handleCloseOrder();
+          }}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
+
+
+              <Modal show={showOrder1} onHide={handleCloseOrder1} centered backdrop="static" keyboard="false">
+        <Modal.Header closeButton>
+          <Modal.Title>Warning</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Sets already ordered, want to reorder sets?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="" onClick={()=>{
+            // UpperSetsReqBody={
+            //   Uppersets:UpperChecked.filter((item) => item !== modalCheckboxValue),
+      
+            // }
+
+            let smthg=requestSets.TextForUpperAligners.indexOf(modalCheckboxValue);
+
+            requestSets.TextForUpperAligners.splice(smthg,1)
+            UpperChecked.splice(smthg,1)
+      
+            // setRequestSets((pre)=>{
+            //   return{
+            //     ...pre,
+            //     TextForUpperAligners:requestSets.TextForUpperAligners.filter((item) => item !== modalCheckboxValue)
+            //   }
+            // })
+
+            // if(requestSets.TextForUpperAligners.includes(modalCheckboxValue)){
+            //   alert(modalCheckboxValue)
+            // }
+
+            console.log(UpperSetsReqBody);
+            console.log(requestSets);
+
+            handleCloseOrder1();
+
+          }}>
+            No
+          </Button>
+          <Button variant=""  style={{
+                      backgroundColor: "#C49358",
+                      color: "white",
+                    }} onClick={()=>{
+            // handleShowOrder();
+            UpperSetsReqBody={
+              Uppersets:[...UpperChecked, modalCheckboxValue],
+      
+            }
+
+            setRequestSets((pre)=>{
+              return{
+                ...pre,
+                TextForUpperAligners:UpperSetsReqBody.Uppersets
+              }
+            })
+            handleCloseOrder1();
+          }}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
           </Col>
         </Row>
       </Container>

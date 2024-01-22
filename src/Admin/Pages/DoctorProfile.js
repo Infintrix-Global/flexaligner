@@ -30,7 +30,7 @@ function DoctorProfile(){
     
       const [data, setData] = useState([]);
       const url =
-        "https://orthosquare.infintrixindia.com/FlexAlignApi/FlexAlign.svc/GetDoctorSelect/"+ID;
+        "https://www.orthosquareportal.com/FlexismileApi/FlexAlign.svc/GetDoctorSelect/"+ID;
     
       useEffect(() => {
         fetch(url)
@@ -58,7 +58,7 @@ function DoctorProfile(){
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets">
+              <Nav.Link href="">
                 <IoMdNotifications
                   fontSize={30}
                   color="#C49358"
@@ -75,7 +75,7 @@ function DoctorProfile(){
               <span className="address">
                 <img src={user} alt="" width={35} className="mt-1" />
               </span>
-              <Nav.Link href="#deets" className="p-0 mx-2 mt-1">
+              <Nav.Link href="" className="p-0 mx-2 mt-1">
                 <Dropdown className="out-dd">
                   <Dropdown.Toggle
                     variant=""
